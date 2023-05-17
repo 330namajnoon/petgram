@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
   providedIn: 'root'
 })
 export class AppService {
-  URL:string = 'http://localhost:4000';
-  socket = io(this.URL);
+  // URL:string = 'http://localhost:4000';
+  // socket = io(this.URL);
   constructor() { }
 }

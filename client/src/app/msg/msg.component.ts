@@ -11,20 +11,20 @@ interface IMsg {
   styleUrls: ['./msg.component.scss']
 })
 export class MsgComponent {
-  msgs:IMsg[] = [];
-  name:any;
-  @ViewChild("msg")msg!:ElementRef;
-  constructor(private appService:AppService) {
-    this.name = prompt("name");
+  // msgs:IMsg[] = [];
+  // name:any;
+  // @ViewChild("msg")msg!:ElementRef;
+  // constructor(private appService:AppService) {
+  //   this.name = prompt("name");
 
-    appService.socket.on("msg",(msg)=> {
-      this.msgs.push(msg);
-    })
-  }
+  //   appService.socket.on("msg",(msg)=> {
+  //     this.msgs.push(msg);
+  //   })
+  // }
 
-  enviar():void {
-    let msg = this.msg.nativeElement.value;
-    this.appService.socket.emit("msg",{name:this.name,msg});
-    this.msg.nativeElement.value = "";
-  }
+  // enviar():void {
+  //   let msg = this.msg.nativeElement.value;
+  //   this.appService.socket.emit("msg",{name:this.name,msg});
+  //   this.msg.nativeElement.value = "";
+  // }
 }
