@@ -1,5 +1,5 @@
-<div class="container">
-  <span class="material-symbols-rounded">
+<div [ngClass]="menuService.select == name ? 'container1' : 'container2'">
+  <span (click)="menuService.setPage(name,url)" class="material-symbols-rounded">
     {{name}}
   </span>
 </div>
