@@ -1,5 +1,7 @@
-<div [ngClass]="menuService.select == name ? 'container1' : 'container2'">
-  <span (click)="menuService.setPage(name,url)" class="material-symbols-rounded">
-    {{name}}
-  </span>
-</div>
+<a routerLink="{{url}}">
+  <div [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
+    <span (click)="setPage(name,url)" class="material-symbols-rounded">
+      {{name}}
+    </span>
+  </div>
+</a>

@@ -9,4 +9,10 @@ export class MenuOptionComponent {
   @Input()name!:string;
   @Input()url!:string;
   constructor(public menuService:MenuService){}
+  getSelectVal():string {
+    return this.menuService.select;
+  }
+  setPage(name:string,url:string):void {
+    this.menuService.setPage(name,url);
+  }
 }
