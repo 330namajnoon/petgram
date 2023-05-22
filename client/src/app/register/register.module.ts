@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { RegisterRoutes } from './register.routing';
+import { DataUserComponent } from './data-user/data-user.component';
+import { DataPetComponent } from './data-pet/data-pet.component';
 
 
 
@@ -10,10 +13,13 @@ import { SignupComponent } from './signup/signup.component';
   declarations: [
     FirstPageComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    DataUserComponent,
+    DataPetComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RegisterRoutes,
   ],
   exports: [
     FirstPageComponent,
