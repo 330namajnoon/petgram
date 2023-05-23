@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
           container.scrollTop += frame;
           if(container.scrollTop >= p2){
             container.scrollTop = p2;
+            this.homeService.get(`story${id+1}`).downloadStory();
             return false;
           }
           return true
@@ -37,13 +38,15 @@ export class HomeComponent implements OnInit {
           container.scrollTop -= frame;
           if(container.scrollTop <= p2){
             container.scrollTop = p2;
+            this.homeService.get(`story${id-1}`).downloadStory();
             return false;
           }
           return true
         })
       }
     }else {
-
+      let p2:number = (container.scrollHeight / this.homeService.getStorysData().length)*(id);
+      container.scrollTop = p2;
     }
 
   }
