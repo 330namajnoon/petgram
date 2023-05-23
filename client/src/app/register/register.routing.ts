@@ -8,11 +8,14 @@ import { DataPetComponent } from './data-pet/data-pet.component';
 const routes: Routes = [
   { path: '', component: FirstPageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', children: [
-    { path: '', component: SignupComponent },
-    { path: 'data-user', component: DataUserComponent },
-    { path: 'data-pet', component: DataPetComponent },
-  ] },
+  {
+    path: 'signup',
+    children: [
+      { path: '', component: SignupComponent },
+      { path: 'data-user', component: DataUserComponent },
+      { path: 'data-pet', component: DataPetComponent },
+    ],
+  },
 ];
 
 export const RegisterRoutes = RouterModule.forChild(routes);
