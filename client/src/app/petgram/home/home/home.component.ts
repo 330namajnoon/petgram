@@ -15,27 +15,36 @@ export class HomeComponent implements OnInit {
     homeService.set("setScroll",this.setScroll.bind(this));
   }
   device:string = this.appService.getDevice();
-  storysStyle = {'height':`${window.innerHeight-100}px`};
+  storysStyle = {'height':`${window.innerHeight-80}px`};
   setScroll(id:number,distancia:number):void {
     let container:any = document.getElementById("home_storys");
-    if(distancia < 0 && document.getElementById("story"+(id+1))) {
-      let story:any = document.getElementById("story"+(id+1));
-      let storyP:any = story.getBoundingClientRect()
+    let frame = 40;
+    if(Math.abs(distancia) > 100) {
+      if(distancia < 0 && document.getElementById("story"+(id+1))) {
+        let p2:number = (container.scrollHeight / this.homeService.getStorysData().length)*(id+1);
+        animation((f)=> {
+          container.scrollTop += frame;
+          if(container.scrollTop >= p2){
+            container.scrollTop = p2;
+            return false;
+          }
+          return true
+        })
+      }
+      if(distancia > 0 && document.getElementById("story"+(id-1))) {
+        let p2:number = (container.scrollHeight / this.homeService.getStorysData().length)*(id-1);
+        animation((f)=> {
+          container.scrollTop -= frame;
+          if(container.scrollTop <= p2){
+            container.scrollTop = p2;
+            return false;
+          }
+          return true
+        })
+      }
+    }else {
 
-      let frame:number = (storyP.top - (container.scrollTop-Math.abs(distancia/3)))/10;
-
-      animation(10,(f)=> {
-        container.scrollTop += frame;
-      })
     }
-    if(distancia > 0 && document.getElementById("story"+(id-1))) {
-      let story:any = document.getElementById("story"+(id-1));
-      let storyP:any = story.getBoundingClientRect()
-      container.scrollTop -= storyP.top;
-
-    }
-
-
 
   }
   async ngOnInit() {
