@@ -1,5 +1,5 @@
 import {IHttpData} from "src/app/interfaces/IHttpData";
-export function httpClient(method:string,url:string,data:IHttpData[],loading:(loaded:any,total:any)=>void|undefined):Promise<string> {
+export function httpClient(method:string,url:string,data:IHttpData[],loading:(data:any,loaded:any)=>void|undefined):Promise<string> {
   return new Promise((resolve)=> {
     const http = new XMLHttpRequest();
     const formData = new FormData();
@@ -13,7 +13,7 @@ export function httpClient(method:string,url:string,data:IHttpData[],loading:(lo
       }
     }
     http.addEventListener("load",({loaded,total})=> {
-      if(loading)loading(loaded,total);
+      if(loading)loading(http.responseText,loaded/total*100);
     })
     http.send(formData);
   })

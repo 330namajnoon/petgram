@@ -5,7 +5,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const multer = require("multer");
 const port = process.env.PORT || 4000;
-const pdp = path.join(__dirname, "./client");
+const pdp = path.join(__dirname, "./database");
 const app = express();
 const fs = require("fs");
 app.use(express.static(pdp));
@@ -39,5 +39,25 @@ app.post("/downloadStorys",multer().none(),(req,res)=> {
   } catch (error) {
     res.send(error);
   }
-
 })
+app.post("/downloadStory",multer().none(),(req,res)=> {
+  try {
+    fs.readFile(`./database/${req.body.user}/storys/${req.body.storyId}.json`,(err,data)=> {
+      if(err) throw err;
+      res.send(data.toString());
+    })
+  } catch (error) {
+    res.send(error);
+  }
+})
+app.post("/downloadComments",multer().none(),(req,res)=> {
+  try {
+    fs.readFile(`./database/${req.body.user}/comments/${req.body.storyId}.json`,(err,data)=> {
+      if(err) throw err;
+      res.send(data.toString());
+    })
+  } catch (error) {
+    res.send(error);
+  }
+})
+

@@ -1,11 +1,11 @@
 {
-    "id":"st123",
+    "id":"st124",
     "userName":"SinaMajnoon",
     "user":"sina.majnoonhjk",
     "profileImage":"SinaMajnoon.png",
-    "url":"st123.jpg",
+    "url":"st124.jpg",
     "description":"...........",
     "type":"jpg",
-    "likes":[],
+    "likes":["sina.majnoonhjk"],
     "view":["sina.majnoonhjk"]
 }
