@@ -8,6 +8,7 @@ const port = process.env.PORT || 4000;
 const pdp = path.join(__dirname, "./database");
 const app = express();
 const fs = require("fs");
+const { send } = require("process");
 app.use(express.static(pdp));
 app.use(cors());
 const server = http.createServer(app);
@@ -19,15 +20,51 @@ server.listen(port, () => {
 io.on("connect", (client) => {
   console.log("new connect");
 
-  client.on("msg", (msg) => {
-    io.emit("msg", msg);
+  client.on("commend", (story,commend) => {
+    fs.readFile(`./database/${story.user}/comments/${story.id}.json`,(err,data)=> {
+      if(err) throw err;
+      let commends = JSON.parse(data.toString());
+      commends.push(commend);
+      fs.writeFile(`./database/${story.user}/comments/${story.id}.json`,JSON.stringify(commends),(err)=> {
+        if(err) throw err;
+        io.emit("commend"+story.id,commend);
+      })
+
+    })
   });
 
   client.on("disconnect", () => {
     console.log("new disconnect");
   });
 });
+app.post("/login",multer().none(),(req,res)=> {
+  let user = JSON.parse(req.body.user);
+  fs.readFile(`./database/usersData.json`,(err,data)=> {
+    if(err) throw err;
+    let users = JSON.parse(data.toString()).users;
+    let search = users.find(u => u == user.user);
+    if(search) {
+      fs.readFile(`./database/${user.user}/userData.json`,(err,data)=> {
+        if(err) throw err;
+        let userData = JSON.parse(data.toString());
+        if(user.user == userData.user && user.password == userData.password) {
+          let {user,userName,email} = userData;
+          let newuserData = {
+            user,
+            userName,
+            email
+          }
+          res.send(JSON.stringify(newuserData));
+        }else {
+          res.send(JSON.stringify(false));
+        }
+      })
+    }else {
+      res.send(JSON.stringify(false));
+    }
+  });
 
+})
 app.post("/downloadStorys",multer().none(),(req,res)=> {
   console.log("hola")
   try {

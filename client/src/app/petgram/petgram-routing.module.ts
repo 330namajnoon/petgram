@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
 import { StorysComponent } from './storys/storys/storys.component';
+
 StorysComponent
 const routes: Routes = [
   {path:"",component:MenuComponent,outlet:"menu"},
-  // {path:"home/comments/:id",component:CommentsComponent,outlet:"comments"},
   {path:"",loadChildren:()=> import("./home/home.module").then(m => m.HomeModule)},
   {path:"home",loadChildren:()=> import("./home/home.module").then(m => m.HomeModule)},
   {path:"storys",loadChildren:()=> import("./storys/storys.module").then(m => m.StorysModule)},
@@ -17,4 +17,6 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PetgramRoutingModule { }
+export class PetgramRoutingModule {
+
+}

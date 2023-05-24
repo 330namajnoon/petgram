@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     await httpClient(
       'POST',
-      this.appService.URL + '/downloadStorys',
+      this.appService.getURL() + '/downloadStorys',
       [],
       (data, loaded) => {
         this.homeService.setStorysData(JSON.parse(data));

@@ -5,13 +5,15 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
 import { StoryComponent } from './story/story.component';
 import { CommentsComponent } from './comments/comments.component';
+import { MsgComponent } from './comments/msg/msg.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     StoryComponent,
-    CommentsComponent
+    CommentsComponent,
+    MsgComponent
   ],
   imports: [
     CommonModule,

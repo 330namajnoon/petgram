@@ -1,8 +1,8 @@
-import { Component,Input,ViewChild,ElementRef,AfterViewInit } from '@angular/core';
+import { Component,Input,ViewChild,ElementRef,AfterViewInit,OnInit } from '@angular/core';
 import { IStoryData } from 'src/app/interfaces/IStoryData';
 import { IHttpData } from 'src/app/interfaces/IHttpData';
 import { IStory } from 'src/app/interfaces/IStory';
-import { IComments } from 'src/app/interfaces/IComments';
+import { IComments } from 'src/app/interfaces/ICommends';
 import { AppService } from 'src/app/app.service';
 import { HomeService } from '../home.service';
 import { httpClient } from 'src/app/httpClient';
@@ -11,7 +11,7 @@ import { httpClient } from 'src/app/httpClient';
   templateUrl: './story.component.html',
   styleUrls: ['./story.component.scss']
 })
-export class StoryComponent implements AfterViewInit {
+export class StoryComponent implements AfterViewInit,OnInit {
   @ViewChild("container")container!:ElementRef;
   constructor(private appService:AppService,private homeService:HomeService) {}
   device:string = this.appService.getDevice();
@@ -20,7 +20,9 @@ export class StoryComponent implements AfterViewInit {
   comments:IComments[] = [];
   @Input()data!:IStoryData;
   @Input()id!:number;
+  ngOnInit(): void {
 
+  }
   ngAfterViewInit(): void {
     this.homeService.set(`story${this.id}`,this);
     let container:HTMLElement = this.container.nativeElement;
@@ -47,17 +49,20 @@ export class StoryComponent implements AfterViewInit {
   downloadStory():void {
     let _this = this;
     if(!this.story) {
-      httpClient("POST",this.appService.URL+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
+      httpClient("POST",this.appService.getURL()+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
         let _data:IStory = JSON.parse(data);
-        _data.url = `${this.appService.URL}/${_this.data.user}/DCIM/${_data.url}`;
-        _data.profileImage = `${this.appService.URL}/${_this.data.user}/DCIM/${_data.profileImage}`;
+        _data.url = `${this.appService.getURL()}/${_this.data.user}/DCIM/${_data.url}`;
+        _data.profileImage = `${this.appService.getURL()}/${_this.data.user}/DCIM/${_data.profileImage}`;
         let m = _data.type == "png" || _data.type == "jpg" ? new Image() : document.createElement("video");
         m.src = _data.url;
         m.addEventListener("load",()=> {
-          httpClient("POST",this.appService.URL+"/downloadComments",[{name:"storyId",value:_this.data.id},{name:"user",value:_this.data.user}],(data,loaded)=> {
+          httpClient("POST",this.appService.getURL()+"/downloadComments",[{name:"storyId",value:_this.data.id},{name:"user",value:_this.data.user}],(data,loaded)=> {
             let comments:IComments[] = JSON.parse(data);
             _this.comments = comments;
             _this.story = _data;
+            this.appService.socket.on("commend"+_this.story?.id,(commend)=> {
+              _this.comments.push(commend);
+            })
           })
         })
       })
@@ -70,7 +75,7 @@ export class StoryComponent implements AfterViewInit {
   getStory() {
     return this.story;
   }
-  getComments() {
+  getCommends() {
     return this.comments;
   }
   getDevice(): string {

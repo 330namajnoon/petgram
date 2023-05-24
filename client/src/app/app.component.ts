@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { AppService } from './app.service';
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,13 +8,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private appService:AppService,private router:Router) {
+  constructor(private appService:AppService) {
 
   }
 
   ngOnInit(): void {
-    this.router.navigateByUrl("petgram")
   }
-
 
 }

@@ -2,13 +2,13 @@
   <div class="head">
     <span routerLink="/petgram/home"  class="material-symbols-rounded">arrow_circle_left</span>
   </div>
-  <div class="comments">
-
+  <div #commendsContainer class="comments">
+    <app-msg  *ngFor="let commends of commendsData.commends" [commendData]="commends" />
   </div>
   <div class="chatbox">
     <div>
-      <input type="text" placeholder="Escribe un comentario:">
-      <span   class="material-symbols-rounded">send</span>
+      <input #chatBox type="text" placeholder="Escribe un comentario:">
+      <span  (click)="sendCommend()" class="material-symbols-rounded">send</span>
     </div>
   </div>
 </div>
