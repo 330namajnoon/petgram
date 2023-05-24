@@ -7,17 +7,21 @@ import {httpClient} from "src/app/httpClient";
 export class AppService {
   URL:string = 'http://localhost:4000';
   // socket = io(this.URL);
-  device!:string;
+
   constructor() {
-    if(innerWidth > innerHeight) {
-      this.device = "pc";
-    }else {
-      this.device = "mobile";
-    }
+
   }
 
+
+
   getDevice():string {
-    return this.device;
+    let clas:string = "";
+    if(innerWidth > innerHeight) {
+      clas = "container_pc";
+    }else {
+      clas = "container_mobile";
+    }
+    return clas;
   }
   async downloadStorys() {
 

@@ -63,4 +63,17 @@ export class StoryComponent implements AfterViewInit {
       })
     }
   }
+  getScrollTop():number {
+    let c:any = document.getElementById('home_storys');
+    return c.scrollTop;
+  }
+  getStory() {
+    return this.story;
+  }
+  getComments() {
+    return this.comments;
+  }
+  getDevice(): string {
+      return this.appService.getDevice();
+  }
 }

@@ -1,1 +1,14 @@
-<p>comments works!</p>
+<div [ngClass]="getDevice()">
+  <div class="head">
+    <span routerLink="/petgram/home"  class="material-symbols-rounded">arrow_circle_left</span>
+  </div>
+  <div class="comments">
+
+  </div>
+  <div class="chatbox">
+    <div>
+      <input type="text" placeholder="Escribe un comentario:">
+      <span   class="material-symbols-rounded">send</span>
+    </div>
+  </div>
+</div>

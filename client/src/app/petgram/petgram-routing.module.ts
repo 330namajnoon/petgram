@@ -5,6 +5,8 @@ import { StorysComponent } from './storys/storys/storys.component';
 StorysComponent
 const routes: Routes = [
   {path:"",component:MenuComponent,outlet:"menu"},
+  // {path:"home/comments/:id",component:CommentsComponent,outlet:"comments"},
+  {path:"",loadChildren:()=> import("./home/home.module").then(m => m.HomeModule)},
   {path:"home",loadChildren:()=> import("./home/home.module").then(m => m.HomeModule)},
   {path:"storys",loadChildren:()=> import("./storys/storys.module").then(m => m.StorysModule)},
   {path:"settings",loadChildren:()=> import("./settings/settings.module").then(m => m.SettingsModule)},

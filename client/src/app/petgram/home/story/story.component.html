@@ -1,4 +1,4 @@
-<div #container id="story{{id}}" [style]="storysStyle" [ngClass]="device == 'mobile' ? 'container_mobile' : 'container_pc'">
+<div #container id="story{{id}}" [style]="storysStyle" [ngClass]="getDevice()">
   <img class="loading" *ngIf="!story" src="../../../../assets/loading.gif" alt="">
   <div *ngIf="story" class="story_container">
     <img *ngIf="story.type == 'png' || story.type == 'jpg'" [src]="story.url" alt="">
@@ -25,4 +25,6 @@
       </div>
     </div>
   </div>
+
 </div>
+
