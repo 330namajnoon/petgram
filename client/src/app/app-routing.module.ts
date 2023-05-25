@@ -17,6 +17,7 @@ const routes: Routes = [
 export class AppRoutingModule {
 
   constructor(private router:Router,private appService:AppService) {
+
     if(localStorage.getItem("user")) {
       httpClient("POST",this.appService.getURL()+"/login",[{name:"user",value:localStorage.getItem("user")||""}],(data,loaded)=> {
         if(JSON.parse(data)) {
