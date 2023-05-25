@@ -6,4 +6,5 @@ export interface IUserData {
   following:string[];
   storys:string[];
   pets:string[];
+
 }
