@@ -6,6 +6,7 @@ import { IComments } from 'src/app/interfaces/ICommends';
 import { AppService } from 'src/app/app.service';
 import { HomeService } from '../home.service';
 import { httpClient } from 'src/app/httpClient';
+
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
@@ -27,8 +28,10 @@ export class StoryComponent implements AfterViewInit,OnInit {
     this.homeService.set(`story${this.id}`,this);
     let container:HTMLElement = this.container.nativeElement;
     container.addEventListener("touchstart",(e:TouchEvent)=> {
+
       let y1 = e.touches[0].pageY;
       container.addEventListener("touchend",(ee:TouchEvent)=> {
+
         let y2 = ee.changedTouches[0].pageY;
         let distancia = y2-y1;
 
@@ -38,13 +41,16 @@ export class StoryComponent implements AfterViewInit,OnInit {
     if(this.id == 0) this.downloadStory();
   }
   searchLikes():boolean {
-    let like = this.story?.likes.find(l => l == this.data.user);
+    let like = this.story?.likes.find(l => l == this.appService.getUser().user);
 
     if(like) {
       return true;
     }else {
       return false;
     }
+  }
+  like():void {
+    this.appService.socket.emit("like",this.story,this.appService.getUser().user);
   }
   downloadStory():void {
     let _this = this;
@@ -63,6 +69,16 @@ export class StoryComponent implements AfterViewInit,OnInit {
             this.appService.socket.on("commend"+_this.story?.id,(commend)=> {
               _this.comments.push(commend);
             })
+            this.appService.socket.emit("view",this.story,this.appService.getUser().user);
+            this.appService.socket.on("view"+this.story?.id,(user)=> {
+              this.story?.view.push(user);
+            })
+            this.appService.socket.on("like"+this.story?.id,(user)=> {
+              this.story?.likes.push(user);
+            })
+
+            ////////////////////
+
           })
         })
       })

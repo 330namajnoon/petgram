@@ -5,6 +5,8 @@ import { IComments } from 'src/app/interfaces/ICommends';
 import { IStory } from 'src/app/interfaces/IStory';
 import { HomeService } from '../home.service';
 import { ICommendsData } from 'src/app/interfaces/ICommensData';
+import { FormGroup,FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-comments',

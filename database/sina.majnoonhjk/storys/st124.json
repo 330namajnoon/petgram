@@ -1,11 +1,1 @@
-{
-    "id":"st124",
-    "userName":"SinaMajnoon",
-    "user":"sina.majnoonhjk",
-    "profileImage":"SinaMajnoon.png",
-    "url":"st124.jpg",
-    "description":"...........",
-    "type":"jpg",
-    "likes":["sina.majnoonhjk"],
-    "view":["sina.majnoonhjk"]
-}
+{"id":"st124","userName":"SinaMajnoon","user":"sina.majnoonhjk","profileImage":"SinaMajnoon.png","url":"st124.jpg","description":"...........","type":"jpg","likes":["sina.majnoonhjk","mani.mani"],"view":["sina.majnoonhjk","mani.mani"]}

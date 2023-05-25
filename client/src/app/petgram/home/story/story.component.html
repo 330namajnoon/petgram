@@ -5,13 +5,13 @@
     <video *ngIf="story.type == 'mp4'" src="story.url"></video>
     <div class="details">
       <div class="profile">
-        <img [src]="story.profileImage" alt="">
+        <img routerLink="profile_view/{{id}}" [src]="story.profileImage" alt="">
         <h6>
           <span routerLink="comments/story{{id}}" class="material-symbols-rounded">chat</span>
           {{comments.length}}
         </h6>
         <h6>
-          <span [ngClass]="searchLikes() ? 'like' : 'dislike'"  class="material-symbols-rounded">favorite</span>
+          <span (click)="like()" [ngClass]="searchLikes() ? 'like' : 'dislike'"  class="material-symbols-rounded">favorite</span>
           {{story.likes.length}}
         </h6>
         <h6>

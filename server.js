@@ -5,7 +5,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const multer = require("multer");
 const port = process.env.PORT || 4000;
-const pdp = path.join(__dirname, "./");
+const pdp = path.join(__dirname, "./database");
 const app = express();
 const fs = require("fs");
 const { send } = require("process");
@@ -32,6 +32,36 @@ io.on("connect", (client) => {
 
     })
   });
+
+  client.on("like",(story,user)=> {
+    fs.readFile(`./database/${story.user}/storys/${story.id}.json`,(err,data)=> {
+      if(err) throw err;
+      let story_ = JSON.parse(data.toString());
+      let search = story_.likes.find(u => u == user);
+      if(!search) {
+        story_.likes.push(user);
+        fs.writeFile(`./database/${story.user}/storys/${story.id}.json`,JSON.stringify(story_),(err)=> {
+          if(err) throw err;
+          io.emit("like"+story.id,user);
+        })
+      }
+    })
+  })
+
+  client.on("view",(story,user)=> {
+    fs.readFile(`./database/${story.user}/storys/${story.id}.json`,(err,data)=> {
+      if(err) throw err;
+      let story_ = JSON.parse(data.toString());
+      let search = story_.view.find(u => u == user);
+      if(!search) {
+        story_.view.push(user);
+        fs.writeFile(`./database/${story.user}/storys/${story.id}.json`,JSON.stringify(story_),(err)=> {
+          if(err) throw err;
+          io.emit("view"+story.id,user);
+        })
+      }
+    })
+  })
 
   client.on("disconnect", () => {
     console.log("new disconnect");
@@ -96,5 +126,12 @@ app.post("/downloadComments",multer().none(),(req,res)=> {
   } catch (error) {
     res.send(error);
   }
+})
+app.post("/getUser",multer().none(),(req,res)=> {
+  let user = req.body.user;
+  fs.readFile(`./database/${user}.json`,(err,data)=> {
+    if(err) throw err;
+    let {user,userName,profileImage,storys,followers,following} = JSON.parse(data.toString());
+  })
 })
 
