@@ -1,6 +1,15 @@
-.container_mobile {
-  width: 100vw;
-  height: 100vh;
-  background-color: aqua;
-  overflow-x: auto;
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.next {
+  text-align: center;
+  color: #f4f4f4;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 50px;
 }
