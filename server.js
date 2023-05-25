@@ -21,11 +21,11 @@ io.on("connect", (client) => {
   console.log("new connect");
 
   client.on("commend", (story,commend) => {
-    fs.readFile(`./database/${story.user}/comments/${story.id}.json`,(err,data)=> {
+    fs.readFile(`./database/${story.user}/commends/${story.id}.json`,(err,data)=> {
       if(err) throw err;
       let commends = JSON.parse(data.toString());
       commends.push(commend);
-      fs.writeFile(`./database/${story.user}/comments/${story.id}.json`,JSON.stringify(commends),(err)=> {
+      fs.writeFile(`./database/${story.user}/commends/${story.id}.json`,JSON.stringify(commends),(err)=> {
         if(err) throw err;
         io.emit("commend"+story.id,commend);
       })
@@ -96,7 +96,7 @@ app.post("/login",multer().none(),(req,res)=> {
 
 })
 app.post("/downloadStorys",multer().none(),(req,res)=> {
-  console.log("hola")
+
   try {
     fs.readFile("./database/usersData.json",(err,data)=> {
       if(err) throw err;
@@ -111,7 +111,12 @@ app.post("/downloadStory",multer().none(),(req,res)=> {
   try {
     fs.readFile(`./database/${req.body.user}/storys/${req.body.storyId}.json`,(err,data)=> {
       if(err) throw err;
-      res.send(data.toString());
+      fs.readFile(`./database/${req.body.user}/commends/${req.body.storyId}.json`,(err,_data)=> {
+        if(err) throw err;
+        let story = JSON.parse(data.toString());
+        let commends = JSON.parse(_data.toString());
+        res.send(JSON.stringify({story,commends}));
+      })
     })
   } catch (error) {
     res.send(error);
@@ -119,7 +124,7 @@ app.post("/downloadStory",multer().none(),(req,res)=> {
 })
 app.post("/downloadComments",multer().none(),(req,res)=> {
   try {
-    fs.readFile(`./database/${req.body.user}/comments/${req.body.storyId}.json`,(err,data)=> {
+    fs.readFile(`./database/${req.body.user}/commends/${req.body.storyId}.json`,(err,data)=> {
       if(err) throw err;
       res.send(data.toString());
     })
@@ -127,11 +132,12 @@ app.post("/downloadComments",multer().none(),(req,res)=> {
     res.send(error);
   }
 })
-app.post("/getUser",multer().none(),(req,res)=> {
+app.post("/profileData",multer().none(),(req,res)=> {
   let user = req.body.user;
-  fs.readFile(`./database/${user}.json`,(err,data)=> {
+  fs.readFile(`./database/${user}/userData.json`,(err,data)=> {
     if(err) throw err;
-    let {user,userName,profileImage,storys,followers,following} = JSON.parse(data.toString());
+    let {user,userName,profileImage,storys,followers,following,pets} = JSON.parse(data.toString());
+    res.send(JSON.stringify({user,userName,profileImage,storys,followers,following,pets}));
   })
 })
 

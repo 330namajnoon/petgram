@@ -8,7 +8,7 @@
         <img routerLink="profile_view/{{id}}" [src]="story.profileImage" alt="">
         <h6>
           <span routerLink="comments/story{{id}}" class="material-symbols-rounded">chat</span>
-          {{comments.length}}
+          {{commends.length}}
         </h6>
         <h6>
           <span (click)="like()" [ngClass]="searchLikes() ? 'like' : 'dislike'"  class="material-symbols-rounded">favorite</span>

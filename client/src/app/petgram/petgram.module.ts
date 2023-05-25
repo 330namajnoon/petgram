@@ -6,10 +6,11 @@ import { MenuOptionComponent } from './menu/menu-option/menu-option.component';
 
 
 
+
 @NgModule({
   declarations: [
     MenuComponent,
-    MenuOptionComponent,
+    MenuOptionComponent
   ],
   imports: [
     CommonModule,

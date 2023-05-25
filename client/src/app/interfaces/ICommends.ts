@@ -1,4 +1,4 @@
-export interface IComments {
+export interface ICommends {
   user:string;
   userName:string;
   commend:string;

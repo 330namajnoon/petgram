@@ -2,7 +2,7 @@ import { Component,Input,ViewChild,ElementRef,AfterViewInit,OnInit } from '@angu
 import { IStoryData } from 'src/app/interfaces/IStoryData';
 import { IHttpData } from 'src/app/interfaces/IHttpData';
 import { IStory } from 'src/app/interfaces/IStory';
-import { IComments } from 'src/app/interfaces/ICommends';
+import { ICommends } from 'src/app/interfaces/ICommends';
 import { AppService } from 'src/app/app.service';
 import { HomeService } from '../home.service';
 import { httpClient } from 'src/app/httpClient';
@@ -18,7 +18,7 @@ export class StoryComponent implements AfterViewInit,OnInit {
   device:string = this.appService.getDevice();
   storysStyle = {'height':`${window.innerHeight-80}px`};
   story:IStory|undefined;
-  comments:IComments[] = [];
+  commends:ICommends[] = [];
   @Input()data!:IStoryData;
   @Input()id!:number;
   ngOnInit(): void {
@@ -56,29 +56,24 @@ export class StoryComponent implements AfterViewInit,OnInit {
     let _this = this;
     if(!this.story) {
       httpClient("POST",this.appService.getURL()+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
-        let _data:IStory = JSON.parse(data);
-        _data.url = `${this.appService.getURL()}/${_this.data.user}/DCIM/${_data.url}`;
-        _data.profileImage = `${this.appService.getURL()}/${_this.data.user}/DCIM/${_data.profileImage}`;
-        let m = _data.type == "png" || _data.type == "jpg" ? new Image() : document.createElement("video");
-        m.src = _data.url;
+        let story:IStory = JSON.parse(data).story;
+        let commends:ICommends[] = JSON.parse(data).commends;
+        story.url = `${this.appService.getURL()}/${_this.data.user}/DCIM/${story.url}`;
+        story.profileImage = `${this.appService.getURL()}/${_this.data.user}/DCIM/${story.profileImage}`;
+        let m = story.type == "png" || story.type == "jpg" ? new Image() : document.createElement("video");
+        m.src = story.url;
         m.addEventListener("load",()=> {
-          httpClient("POST",this.appService.getURL()+"/downloadComments",[{name:"storyId",value:_this.data.id},{name:"user",value:_this.data.user}],(data,loaded)=> {
-            let comments:IComments[] = JSON.parse(data);
-            _this.comments = comments;
-            _this.story = _data;
-            this.appService.socket.on("commend"+_this.story?.id,(commend)=> {
-              _this.comments.push(commend);
-            })
-            this.appService.socket.emit("view",this.story,this.appService.getUser().user);
-            this.appService.socket.on("view"+this.story?.id,(user)=> {
-              this.story?.view.push(user);
-            })
-            this.appService.socket.on("like"+this.story?.id,(user)=> {
-              this.story?.likes.push(user);
-            })
-
-            ////////////////////
-
+          _this.story = story;
+          _this.commends = commends;
+          this.appService.socket.on("commend"+_this.story?.id,(commend)=> {
+            _this.commends.push(commend);
+          })
+          this.appService.socket.emit("view",this.story,this.appService.getUser().user);
+          this.appService.socket.on("view"+this.story?.id,(user)=> {
+            this.story?.view.push(user);
+          })
+          this.appService.socket.on("like"+this.story?.id,(user)=> {
+            this.story?.likes.push(user);
           })
         })
       })
@@ -92,7 +87,7 @@ export class StoryComponent implements AfterViewInit,OnInit {
     return this.story;
   }
   getCommends() {
-    return this.comments;
+    return this.commends;
   }
   getDevice(): string {
       return this.appService.getDevice();

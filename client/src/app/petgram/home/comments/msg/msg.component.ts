@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-import { IComments } from 'src/app/interfaces/ICommends';
+import { ICommends } from 'src/app/interfaces/ICommends';
 import { HomeService } from '../../home.service';
 import { AppService } from 'src/app/app.service';
 @Component({
@@ -8,7 +8,7 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./msg.component.scss']
 })
 export class MsgComponent {
-  @Input()commendData!:IComments;
+  @Input()commendData!:ICommends;
   constructor(private homeService:HomeService,private appService:AppService) {
 
   }

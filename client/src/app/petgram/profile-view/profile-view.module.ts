@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { ProfileViewRoutingModule } from './profile-view-routing.module';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
-
+import { LoadingComponent } from '../loading/loading.component';
 
 @NgModule({
   declarations: [
-    ProfileViewComponent
+    ProfileViewComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,

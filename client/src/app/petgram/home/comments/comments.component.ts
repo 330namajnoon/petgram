@@ -1,7 +1,7 @@
 import { AppService } from './../../../app.service';
 import { Component,Input,OnInit,AfterViewInit,ViewChild,ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IComments } from 'src/app/interfaces/ICommends';
+import { ICommends } from 'src/app/interfaces/ICommends';
 import { IStory } from 'src/app/interfaces/IStory';
 import { HomeService } from '../home.service';
 import { ICommendsData } from 'src/app/interfaces/ICommensData';
@@ -41,7 +41,7 @@ export class CommentsComponent implements OnInit,AfterViewInit {
       let date:Date = new Date();
       let _date:string = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear();
       let time:string = date.getHours()+":"+date.getMinutes();
-      let commend:IComments = {
+      let commend:ICommends = {
         commend:this.chatBox.nativeElement.value,
         user:this.appService.getUser().user,
         userName:this.appService.getUser().userName,

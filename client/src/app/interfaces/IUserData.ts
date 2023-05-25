@@ -1,4 +1,4 @@
-export interface IProfileView {
+export interface IUserData {
   user:string;
   userName:string;
   profileImage:string;
