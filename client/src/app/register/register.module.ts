@@ -6,7 +6,7 @@ import { SignupComponent } from './signup/signup.component';
 import { RegisterRoutes } from './register.routing';
 import { DataUserComponent } from './data-user/data-user.component';
 import { DataPetComponent } from './data-pet/data-pet.component';
-
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { DataPetComponent } from './data-pet/data-pet.component';
   imports: [
     CommonModule,
     RegisterRoutes,
+    ReactiveFormsModule
   ],
   exports: [
     FirstPageComponent,
