@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes,Router } from '@angular/router';
+import { AppService } from './app.service';
+import { httpClient } from './httpClient';
 
 
 const routes: Routes = [
@@ -12,4 +14,22 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+  constructor(private router:Router,private appService:AppService) {
+
+    if(localStorage.getItem("user")) {
+      httpClient("POST",this.appService.getURL()+"/login",[{name:"user",value:localStorage.getItem("user")||""}],(data,loaded)=> {
+        if(JSON.parse(data)) {
+          this.appService.setUser(JSON.parse(data))
+          this.router.navigateByUrl("petgram");
+        }else {
+          this.router.navigateByUrl("login");
+        }
+      })
+    }else {
+      this.router.navigateByUrl("")
+    }
+  }
+
+}

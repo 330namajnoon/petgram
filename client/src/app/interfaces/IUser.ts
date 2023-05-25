@@ -2,7 +2,7 @@ import { IUserPet } from './IUserPet';
 
 export interface IUser {
   user: string;
-  username: string;
+  userName: string;
   email: string;
   password: string;
   pet: IUserPet[];

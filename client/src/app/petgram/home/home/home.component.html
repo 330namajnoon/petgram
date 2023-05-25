@@ -1,4 +1,4 @@
-<div [ngClass]="device == 'mobile' ? 'container_mobile' : 'container_pc'">
+<div [ngClass]="getDevice()">
   <div class="head">
     <img src="assets/images/icon.png" alt="">
     <h1>INICIO</h1>
@@ -7,3 +7,5 @@
     <app-story *ngFor="let story of getStorysData()" [data]="story" [id]="getStorysData().indexOf(story)" />
   </div>
 </div>
+<router-outlet />
+

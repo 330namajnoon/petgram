@@ -1,17 +1,18 @@
-import { Component,Input,ViewChild,ElementRef,AfterViewInit } from '@angular/core';
+import { Component,Input,ViewChild,ElementRef,AfterViewInit,OnInit } from '@angular/core';
 import { IStoryData } from 'src/app/interfaces/IStoryData';
 import { IHttpData } from 'src/app/interfaces/IHttpData';
 import { IStory } from 'src/app/interfaces/IStory';
-import { IComments } from 'src/app/interfaces/IComments';
+import { IComments } from 'src/app/interfaces/ICommends';
 import { AppService } from 'src/app/app.service';
 import { HomeService } from '../home.service';
 import { httpClient } from 'src/app/httpClient';
+
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
   styleUrls: ['./story.component.scss']
 })
-export class StoryComponent implements AfterViewInit {
+export class StoryComponent implements AfterViewInit,OnInit {
   @ViewChild("container")container!:ElementRef;
   constructor(private appService:AppService,private homeService:HomeService) {}
   device:string = this.appService.getDevice();
@@ -20,13 +21,17 @@ export class StoryComponent implements AfterViewInit {
   comments:IComments[] = [];
   @Input()data!:IStoryData;
   @Input()id!:number;
+  ngOnInit(): void {
 
+  }
   ngAfterViewInit(): void {
     this.homeService.set(`story${this.id}`,this);
     let container:HTMLElement = this.container.nativeElement;
     container.addEventListener("touchstart",(e:TouchEvent)=> {
+
       let y1 = e.touches[0].pageY;
       container.addEventListener("touchend",(ee:TouchEvent)=> {
+
         let y2 = ee.changedTouches[0].pageY;
         let distancia = y2-y1;
 
@@ -36,7 +41,7 @@ export class StoryComponent implements AfterViewInit {
     if(this.id == 0) this.downloadStory();
   }
   searchLikes():boolean {
-    let like = this.story?.likes.find(l => l == this.data.user);
+    let like = this.story?.likes.find(l => l == this.appService.getUser().user);
 
     if(like) {
       return true;
@@ -44,23 +49,52 @@ export class StoryComponent implements AfterViewInit {
       return false;
     }
   }
+  like():void {
+    this.appService.socket.emit("like",this.story,this.appService.getUser().user);
+  }
   downloadStory():void {
     let _this = this;
     if(!this.story) {
-      httpClient("POST",this.appService.URL+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
+      httpClient("POST",this.appService.getURL()+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
         let _data:IStory = JSON.parse(data);
-        _data.url = `${this.appService.URL}/${_this.data.user}/DCIM/${_data.url}`;
-        _data.profileImage = `${this.appService.URL}/${_this.data.user}/DCIM/${_data.profileImage}`;
+        _data.url = `${this.appService.getURL()}/${_this.data.user}/DCIM/${_data.url}`;
+        _data.profileImage = `${this.appService.getURL()}/${_this.data.user}/DCIM/${_data.profileImage}`;
         let m = _data.type == "png" || _data.type == "jpg" ? new Image() : document.createElement("video");
         m.src = _data.url;
         m.addEventListener("load",()=> {
-          httpClient("POST",this.appService.URL+"/downloadComments",[{name:"storyId",value:_this.data.id},{name:"user",value:_this.data.user}],(data,loaded)=> {
+          httpClient("POST",this.appService.getURL()+"/downloadComments",[{name:"storyId",value:_this.data.id},{name:"user",value:_this.data.user}],(data,loaded)=> {
             let comments:IComments[] = JSON.parse(data);
             _this.comments = comments;
             _this.story = _data;
+            this.appService.socket.on("commend"+_this.story?.id,(commend)=> {
+              _this.comments.push(commend);
+            })
+            this.appService.socket.emit("view",this.story,this.appService.getUser().user);
+            this.appService.socket.on("view"+this.story?.id,(user)=> {
+              this.story?.view.push(user);
+            })
+            this.appService.socket.on("like"+this.story?.id,(user)=> {
+              this.story?.likes.push(user);
+            })
+
+            ////////////////////
+
           })
         })
       })
     }
+  }
+  getScrollTop():number {
+    let c:any = document.getElementById('home_storys');
+    return c.scrollTop;
+  }
+  getStory() {
+    return this.story;
+  }
+  getCommends() {
+    return this.comments;
+  }
+  getDevice(): string {
+      return this.appService.getDevice();
   }
 }

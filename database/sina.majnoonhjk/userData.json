@@ -1,6 +1,8 @@
 {
+    "user":"sina.majnoonhjk",
     "userName":"SinaMajnoon",
     "email":"sina.majnoonhjk@gmail.com",
     "password":"1234",
-    "storys":["st123","st124","st125"]
+    "storys":["st123","st124","st125"],
+    "pets":["bella"]
 }

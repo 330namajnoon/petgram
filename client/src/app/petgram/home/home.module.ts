@@ -5,17 +5,21 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
 import { StoryComponent } from './story/story.component';
 import { CommentsComponent } from './comments/comments.component';
+import { MsgComponent } from './comments/msg/msg.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     StoryComponent,
-    CommentsComponent
+    CommentsComponent,
+    MsgComponent,
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }

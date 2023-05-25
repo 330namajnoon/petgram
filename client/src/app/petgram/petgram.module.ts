@@ -4,10 +4,12 @@ import { PetgramRoutingModule } from './petgram-routing.module';
 import { MenuComponent } from './menu/menu.component';
 import { MenuOptionComponent } from './menu/menu-option/menu-option.component';
 
+
+
 @NgModule({
   declarations: [
     MenuComponent,
-    MenuOptionComponent
+    MenuOptionComponent,
   ],
   imports: [
     CommonModule,
