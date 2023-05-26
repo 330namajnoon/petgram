@@ -5,7 +5,15 @@
     "password":"1234",
     "profileImage":"SinaMajnoon.png",
     "storys":["st123","st124","st125"],
-    "followers":[],
+    "followers":[
+        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
+        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
+        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
+        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
+        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
+        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
+        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"}
+    ],
     "following":[],
     "pendingFollowers":[],
     "pets":["bella"]

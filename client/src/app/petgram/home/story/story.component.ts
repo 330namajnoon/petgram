@@ -65,6 +65,7 @@ export class StoryComponent implements AfterViewInit,OnInit {
         m.addEventListener("load",()=> {
           _this.story = story;
           _this.commends = commends;
+
           this.appService.socket.on("commend"+_this.story?.id,(commend)=> {
             _this.commends.push(commend);
           })
@@ -75,6 +76,7 @@ export class StoryComponent implements AfterViewInit,OnInit {
           this.appService.socket.on("like"+this.story?.id,(user)=> {
             this.story?.likes.push(user);
           })
+
         })
       })
     }

@@ -1,10 +1,19 @@
 <app-loading [display]="getProfileData()" />
 <div *ngIf="getProfileData()" [ngClass]="getdevice()">
-  <div class="head">
-    <img [src]="getProfileData().profileImage" alt="">
-    <h1>{{getProfileData().userName}}</h1>
+  <div class="head_friends">
+    <div class="head">
+      <img [src]="getProfileData().profileImage" alt="">
+      <h1>{{getProfileData().userName}}</h1>
+      <input  class="follow" type="button" value="Seguir">
+      <!-- <input class="unFollow" type="button" value="Dejar de seguir"> -->
+    </div>
+    <h3 class="title">Contactos</h3>
+    <div class="followers">
+      <app-follower *ngFor="let follower of getProfileData().followers" [device]="getdevice()" [Image]="follower.image" [user]="follower.user" [userName]="follower.userName"  />
+    </div>
   </div>
   <div>
+
 
   </div>
   <div>
