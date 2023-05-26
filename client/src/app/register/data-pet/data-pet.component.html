@@ -1,1 +1,59 @@
+<<<<<<< HEAD
 <button routerLink="/petgram">Página principall</button>
+=======
+<div class="container">
+  <h3 class="title">Datos de mascota</h3>
+  <label class="label-input" for="text">Nombre</label>
+  <input class="input" type="text" />
+
+  <br />
+  <div>
+    <label class="label-input" for="Date">Fecha de nacimiento</label>
+    <input class="input" type="date" />
+  </div>
+  <div>
+    <label class="label-input" for="pwd">Tipo</label>
+    <select name="cars" id="cars">
+      <option value="">Selecciona</option>
+      <option *ngFor="let item of races" [value]="item.key">
+        {{ item.label | titlecase }}
+      </option>
+    </select>
+  </div>
+  <div>
+    <label class="label-input" for="text">Género</label>
+    <select name="cars" id="cars">
+      <option value="">Selecciona</option>
+      <option value="H">Hembra</option>
+      <option value="M">Macho</option>
+    </select>
+  </div>
+  <div>
+    <label class="label-input" for="text">Descripción</label>
+    <textarea
+      class="textarea"
+      type="text"
+      name=""
+      id=""
+      cols="30"
+      rows="10"
+    ></textarea>
+  </div>
+  <div>
+    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+    <label class="check" for="vehicle1">
+      Privacidad y configuración de notificaciones</label
+    >
+  </div>
+
+  <div>
+    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+    <label class="check" for="vehicle1"
+      >Aceptación de términos y condiciones
+    </label>
+  </div>
+  <div>
+    <button class="start" routerLink="/petgram">Empezar</button>
+  </div>
+</div>
+>>>>>>> alba
