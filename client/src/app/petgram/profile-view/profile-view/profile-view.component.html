@@ -1,8 +1,8 @@
-<div [ngClass]="getdevice()">
-  <app-loading [display]="getProfileData()" />
+<app-loading [display]="getProfileData()" />
+<div *ngIf="getProfileData()" [ngClass]="getdevice()">
   <div class="head">
-    <img src="" alt="">
-    <h1></h1>
+    <img [src]="getProfileData().profileImage" alt="">
+    <h1>{{getProfileData().userName}}</h1>
   </div>
   <div>
 

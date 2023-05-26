@@ -18,6 +18,7 @@ export class ProfileViewService {
     httpClient("POST",this.appService.getURL()+"/profileData",[{name:"user",value:user}],(data,loaded)=> {
       if(loaded == 100) {
         let profileData = JSON.parse(data);
+        console.log(profileData.profileImage)
         profileData.profileImage = `${this.appService.getURL()}/${profileData.user}/DCIM/${profileData.profileImage}`;
 
         this.profileData = profileData;

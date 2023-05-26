@@ -4,6 +4,7 @@ export interface IUserData {
   profileImage:string;
   followers:string[];
   following:string[];
+  pendingFollowers:string[];
   storys:string[];
   pets:string[];
 
