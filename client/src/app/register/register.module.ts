@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FirstPageComponent } from './first-page/first-page.component';
@@ -20,6 +21,7 @@ import { DataPetComponent } from './data-pet/data-pet.component';
   imports: [
     CommonModule,
     RegisterRoutes,
+    ReactiveFormsModule
   ],
   exports: [
     FirstPageComponent,
