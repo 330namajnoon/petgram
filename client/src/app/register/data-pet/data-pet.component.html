@@ -1,16 +1,16 @@
-<div class="container">
+<div  [formGroup]="formGroup" class="container">
   <h3 class="title">Datos de mascota</h3>
   <label class="label-input" for="text">Nombre</label>
-  <input class="input" type="text" />
+  <input class="input" formControlName="name" type="text" />
 
   <br />
   <div>
-    <label class="label-input" for="Date">Fecha de nacimiento</label>
-    <input class="input" type="date" />
+    <label class="label-input" for="date">Fecha de nacimiento</label>
+    <input class="input" formControlName="birthday" type="date" />
   </div>
   <div>
     <label class="label-input" for="pwd">Tipo</label>
-    <select name="cars" id="cars">
+    <select name="cars" id="cars" formControlName="type">
       <option value="">Selecciona</option>
       <option *ngFor="let item of races" [value]="item.key">
         {{ item.label | titlecase }}
@@ -19,15 +19,15 @@
   </div>
   <div>
     <label class="label-input" for="text">Género</label>
-    <select name="cars" id="cars">
+    <select name="cars" id="cars" formControlName="gender">
       <option value="">Selecciona</option>
       <option value="H">Hembra</option>
       <option value="M">Macho</option>
     </select>
   </div>
   <div>
-    <label class="label-input" for="text">Descripción</label>
-    <textarea
+    <label class="label-input"  for="text">Descripción</label>
+    <textarea formControlName="description"
       class="textarea"
       type="text"
       name=""
@@ -37,14 +37,14 @@
     ></textarea>
   </div>
   <div>
-    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+    <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="privacyPolicy" />
     <label class="check" for="vehicle1">
       Privacidad y configuración de notificaciones</label
     >
   </div>
 
   <div>
-    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+    <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="termsAndConditions" />
     <label class="check" for="vehicle1"
       >Aceptación de términos y condiciones
     </label>

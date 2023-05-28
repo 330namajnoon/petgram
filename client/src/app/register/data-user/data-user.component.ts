@@ -1,5 +1,7 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-data-user',
@@ -7,9 +9,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./data-user.component.scss'],
 })
 export class DataUserComponent {
-  dataUser = new FormGroup({});
+  formGroup: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+    confirmpassword: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
 
-  save(): void {
+    description: new FormControl('', Validators.required),
+  });
 
+  constructor(private router: Router) {}
+
+  goNext() {
+    this.formGroup.markAllAsTouched();
+    let password = this.formGroup.get('password')?.value;
+    let confirmpassword = this.formGroup.get('confirmpassword')?.value;
+    if (password === confirmpassword) {
+      if (this.formGroup.valid) {
+        this.router.navigateByUrl('/signup/data-pet');
+      }
+    } else {
+      alert("La contraseña no coinciden")
+    }
   }
 }
