@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-first-page',
@@ -6,6 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./first-page.component.scss']
 })
 export class FirstPageComponent {
-  
+  constructor(private router: Router) {}
+
+  redirectToLogin(){
+    this.router.navigate(['/login'])
+  }
+
 
 }
