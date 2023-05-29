@@ -12,8 +12,9 @@
       <app-follower *ngFor="let follower of getProfileData().followers" [device]="getdevice()" [Image]="follower.image" [user]="follower.user" [userName]="follower.userName"  />
     </div>
   </div>
-  <div>
-
+  <div class="gallerys">
+    <app-media-gallery name="Todos Publicaciones" [user]="getProfileData().user" [storys]="getProfileData().storys" />
+    <app-media-gallery *ngFor="let pet of getProfileData().pets" [name]="pet" [user]="getProfileData().user" [storys]="storysFilter(pet)"  />
 
   </div>
   <div>

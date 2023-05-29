@@ -1,4 +1,5 @@
 import { IFollower } from "./IFollower";
+import { IStoryAdress } from "./IStoryAdress";
 export interface IUserData {
   user:string;
   userName:string;
@@ -6,7 +7,7 @@ export interface IUserData {
   followers:IFollower[];
   following:string[];
   pendingFollowers:string[];
-  storys:string[];
+  storys:IStoryAdress[];
   pets:string[];
 
 }
