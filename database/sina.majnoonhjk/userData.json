@@ -4,7 +4,10 @@
     "email":"sina.majnoonhjk@gmail.com",
     "password":"1234",
     "profileImage":"SinaMajnoon.png",
-    "storys":["st123","st124","st125"],
+    "storys":[
+        {"story":"st123","pet":"bella"},
+        {"story":"st124","pet":"bella"},
+        {"story":"st125","pet":"bella"}],
     "followers":[
         {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
         {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},

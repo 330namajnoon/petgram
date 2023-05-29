@@ -10,6 +10,7 @@ import { httpClient } from 'src/app/httpClient';
 })
 export class ProfileViewService {
   private profileData!:IUserData;
+  private galleryMenuSelected:string = "Todos Publicaciones";
   constructor(private appService:AppService,private homeService:HomeService) {
 
 
@@ -33,8 +34,16 @@ export class ProfileViewService {
     })
   }
 
+  setGalleryMenuSelected(name:string):void {
+    this.galleryMenuSelected = name;
+  }
+
   getProfileData():IUserData {
     return this.profileData;
+  }
+
+  getGalleryMenuSelected():string {
+    return this.galleryMenuSelected;
   }
 
 }

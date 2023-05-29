@@ -76,4 +76,12 @@
     display: flex;
     overflow-x: auto;
   }
+
+  .gallerys {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: start;
+    margin-top: 10px;
+  }
 }
