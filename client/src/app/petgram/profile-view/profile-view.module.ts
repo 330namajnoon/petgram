@@ -6,13 +6,15 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { FollowerComponent } from './follower/follower.component';
 import { MediaGalleryComponent } from './media-gallery/media-gallery.component';
+import { StoryComponent } from './media-gallery/story/story.component';
 
 @NgModule({
   declarations: [
     ProfileViewComponent,
     LoadingComponent,
     FollowerComponent,
-    MediaGalleryComponent
+    MediaGalleryComponent,
+    StoryComponent
   ],
   imports: [
     CommonModule,

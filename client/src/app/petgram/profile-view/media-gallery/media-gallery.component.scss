@@ -23,17 +23,20 @@
   .gallery_selected {
     left: 0;
     width: 100%;
-    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     position: absolute;
-    background-color: aliceblue;
+
     visibility: visible;
   }
   .gallery_onSelected {
     left: 0;
     width: 100%;
-    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
     position: absolute;
-    background-color: aliceblue;
+
     visibility: hidden;
   }
 }

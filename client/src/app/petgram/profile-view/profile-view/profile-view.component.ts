@@ -20,7 +20,7 @@ export class ProfileViewComponent {
   }
 
   getProfileData():IUserData {
-    console.log(this.storysFilter("bella"))
+
     return this.profileService.getProfileData();
   }
   getdevice():string {
@@ -28,11 +28,10 @@ export class ProfileViewComponent {
   }
 
   storysFilter(pet:string):IStoryAdress[] {
-    let storys:IStoryAdress[]|any = this.getProfileData().storys.find(s => s.pet == pet);
-    if(storys) {
-      return storys;
-    }else {
-      return [];
-    }
+    let storys:IStoryAdress[] = [];
+    this.getProfileData().storys.forEach(s => {
+      if(s.pet == pet) storys.push(s);
+    })
+    return storys
   }
 }

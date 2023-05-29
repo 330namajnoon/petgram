@@ -7,7 +7,11 @@
     "storys":[
         {"story":"st123","pet":"bella"},
         {"story":"st124","pet":"bella"},
-        {"story":"st125","pet":"bella"}],
+        {"story":"st125","pet":"bella"},
+        {"story":"st125","pet":"bella"},
+        {"story":"st125","pet":"bella"},
+        {"story":"st125","pet":"bella"}
+    ],
     "followers":[
         {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
         {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},

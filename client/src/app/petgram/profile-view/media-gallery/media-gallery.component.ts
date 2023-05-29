@@ -11,10 +11,10 @@ import { IStoryAdress } from 'src/app/interfaces/IStoryAdress';
 export class MediaGalleryComponent {
   @Input()name!:string;
   @Input()user!:string;
-  @Input()storys!:IStoryAdress;
+  @Input()storys!:IStoryAdress[];
 
   constructor(private appService:AppService,private profileS:ProfileViewService){
-    console.log(this.storys)
+
   }
   getDevice():string {
     return this.appService.getDevice();
