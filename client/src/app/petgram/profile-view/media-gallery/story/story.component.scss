@@ -1,4 +1,5 @@
 .container_mobile {
+  position: relative;
   width: 33vw;
   height: 33vw;
   background-color: rgb(88, 88, 88);
@@ -12,5 +13,10 @@
     width: 50%;
     height: 505;
 
+  }
+  .mediya {
+    width: 33vw;
+    height: 33vw;
+    object-fit: cover;
   }
 }

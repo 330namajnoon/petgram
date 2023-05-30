@@ -26,4 +26,8 @@ export class StoryComponent {
   getStorysView():void {
     this.router.navigate(["/petgram","profile_view",this.user,"storys_view"],{state:{data:[1,2,3]}})
   }
+
+  getStory():IStory|undefined {
+    return this.profileS.getStoryById(this.id);
+  }
 }

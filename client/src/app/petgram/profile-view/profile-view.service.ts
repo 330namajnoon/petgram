@@ -6,6 +6,7 @@ import { HomeService } from '../home/home.service';
 import { httpClient } from 'src/app/httpClient';
 import { IStory } from 'src/app/interfaces/IStory';
 import { ICommends } from 'src/app/interfaces/ICommends';
+import { IStoryAdress } from 'src/app/interfaces/IStoryAdress';
 @Injectable({
   providedIn: 'root'
 })
@@ -33,9 +34,37 @@ export class ProfileViewService {
         })
         this.profileData = profileData;
         console.log(this.storys);
-
+        this.storys = new Array(this.profileData.storys.length);
+        this.downloadStorys(this.profileData.user,this.profileData.storys)
       }
     })
+  }
+
+  async downloadStorys(user:string,storysAdres:IStoryAdress[]) {
+    const _this = this;
+    const url:string = this.appService.getURL();
+    async function download(index:number) {
+      let data = await httpClient("POST",`${url}/downloadStory`,[{name:"user",value:user},{name:"storyId",value:storysAdres[index].story}],(data,loaded)=> {});
+      const story:IStory = JSON.parse(data).story;
+      story.url = `${url}/${user}/DCIM/${story.url}`;
+      story.commends =  JSON.parse(data).commends;
+      _this.storys[index] = story;
+    }
+    for (let index = 0; index < storysAdres.length; index++) {
+      download(index);
+    }
+  }
+
+  getStoryById(id:string):IStory|undefined {
+    let story:IStory|undefined;
+    this.storys.forEach(s => {
+      if(s.id == id) story = s;
+    })
+    return story;
+  }
+
+  getStorys():IStory[] {
+    return this.storys;
   }
 
   setGalleryMenuSelected(name:string):void {

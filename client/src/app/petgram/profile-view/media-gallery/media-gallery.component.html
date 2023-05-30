@@ -2,6 +2,6 @@
 <div [ngClass]="getDevice()">
   <input (click)="setDisplayStyile()" [ngClass]="'button_'+getDisplayStyile()" type="button" [value]="name">
   <div [ngClass]="'gallery_'+getDisplayStyile()">
-    <app-story *ngFor="let story of storys" [user]="user" [index]="storys.indexOf(story)" />
+    <app-story *ngFor="let story of storys" [user]="user" [index]="storys.indexOf(story)" [id]="story.story" />
   </div>
 </div>

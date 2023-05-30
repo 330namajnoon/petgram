@@ -1,6 +1,7 @@
 <app-loading [display]="getProfileData()" />
 <div *ngIf="getProfileData()" [ngClass]="getdevice()">
   <div class="head_friends">
+    <span routerLink="/petgram/home"  class="material-symbols-rounded">arrow_circle_left</span>
     <div class="head">
       <img [src]="getProfileData().profileImage" alt="">
       <h1>{{getProfileData().userName}}</h1>
