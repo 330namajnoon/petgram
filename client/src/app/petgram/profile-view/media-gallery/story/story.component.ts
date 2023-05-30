@@ -23,6 +23,6 @@ export class StoryComponent {
   }
 
   getStorysView():void {
-    this.router.navigate(["/storys_view"],{state:{data:[1,2,3]}})
+    this.router.navigate(["/petgram","profile_view","storys_view"],{state:{data:[1,2,3]}})
   }
 }

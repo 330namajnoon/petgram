@@ -6,6 +6,7 @@ import { ICommends } from 'src/app/interfaces/ICommends';
 import { AppService } from 'src/app/app.service';
 import { HomeService } from '../home.service';
 import { httpClient } from 'src/app/httpClient';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-story',
@@ -14,7 +15,7 @@ import { httpClient } from 'src/app/httpClient';
 })
 export class StoryComponent implements AfterViewInit,OnInit {
   @ViewChild("container")container!:ElementRef;
-  constructor(private appService:AppService,private homeService:HomeService) {}
+  constructor(private appService:AppService,private homeService:HomeService,private router:Router) {}
   device:string = this.appService.getDevice();
   storysStyle = {'height':`${window.innerHeight-80}px`};
   story:IStory|undefined;
@@ -28,14 +29,11 @@ export class StoryComponent implements AfterViewInit,OnInit {
     this.homeService.set(`story${this.id}`,this);
     let container:HTMLElement = this.container.nativeElement;
     container.addEventListener("touchstart",(e:TouchEvent)=> {
-
       let y1 = e.touches[0].pageY;
       container.addEventListener("touchend",(ee:TouchEvent)=> {
-
         let y2 = ee.changedTouches[0].pageY;
-        let distancia = y2-y1;
-
-        this.homeService.get("setScroll")(this.id,distancia);
+        let next = y2-y1 < 0 ? this.id + 1 : this.id - 1 ;
+        if(y2-y1 !== 0)this.homeService.get(`story${next}`).downloadStory();
       })
     })
     if(this.id == 0) this.downloadStory();
@@ -93,5 +91,11 @@ export class StoryComponent implements AfterViewInit,OnInit {
   }
   getDevice(): string {
       return this.appService.getDevice();
+  }
+  getUser():any {
+    return this.story?.user
+  }
+  getProfileView():void {
+    this.router.navigate(["/petgram","profile_view"],{state:{user:this.getUser()}});
   }
 }

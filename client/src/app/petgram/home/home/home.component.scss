@@ -28,5 +28,6 @@
   .storys {
     background-color: #ffdda6;
     overflow-y: auto;
+    scroll-snap-type: y mandatory;
   }
 }
