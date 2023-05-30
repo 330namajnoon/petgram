@@ -16,7 +16,7 @@ export class DataUserComponent {
       Validators.required,
       Validators.minLength(8),
     ]),
-    confirmpassword: new FormControl('', [
+    confirmPassword: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
     ]),
@@ -35,7 +35,7 @@ export class DataUserComponent {
         this.router.navigateByUrl('/signup/data-pet');
       }
     } else {
-      alert("La contraseña no coinciden")
+      alert("Las contraseñas no coinciden")
     }
   }
 }

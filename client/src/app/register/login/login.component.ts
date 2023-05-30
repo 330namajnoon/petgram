@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RegisterService } from '../register.service';
+import { httpClient } from 'src/app/httpClient';
+import { AppService } from 'src/app/app.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +17,9 @@ export class LoginComponent {
     ]),
   });
 
-  constructor(private registerService: RegisterService) {}
+  constructor(private appservice:AppService,private registerService: RegisterService) {
+
+  }
 
   sendData(): void {
     this.formGroup.markAllAsTouched();
@@ -25,5 +29,8 @@ export class LoginComponent {
 
       console.log(this.registerService.login(email, password));
     }
+    httpClient("POST",this.appservice.getURL()+"/login",[{value:"sina",name:"user"},{name:"password",value:"1234"}],(data,loaded)=> {
+      console.log(loaded,JSON.parse(data))
+    })
   }
 }
