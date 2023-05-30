@@ -1,7 +1,7 @@
 .container_mobile {
   width: 100vw;
-  height: 100vh;
-
+  min-height: 100vh;
+  overflow-y: auto;
   position: absolute;
   background: #343434;
   top: 0;
