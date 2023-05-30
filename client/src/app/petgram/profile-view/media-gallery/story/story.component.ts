@@ -22,7 +22,8 @@ export class StoryComponent {
     return this.appS.getDevice();
   }
 
+
   getStorysView():void {
-    this.router.navigate(["/petgram","profile_view","storys_view"],{state:{data:[1,2,3]}})
+    this.router.navigate(["/petgram","profile_view",this.user,"storys_view"],{state:{data:[1,2,3]}})
   }
 }

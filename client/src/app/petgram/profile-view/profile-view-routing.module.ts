@@ -4,10 +4,7 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
 
 const routes: Routes = [
   {path:"",component:ProfileViewComponent},
-  {path:"profile_view/:id",component:ProfileViewComponent,children:[
-    {path:"storys_view",loadChildren:()=> import('./profile-view.module').then(m => m.ProfileViewModule)}
-  ]},
-
+  {path:"profile_view/:id",component:ProfileViewComponent},
 ];
 
 @NgModule({

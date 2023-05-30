@@ -27,7 +27,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     position: absolute;
-
+    overflow-y: scroll;
     visibility: visible;
   }
   .gallery_onSelected {

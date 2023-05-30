@@ -1,6 +1,12 @@
 .container_mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  background-color: aliceblue;
   width: 100vw;
   height: 100vh;
   overflow-y: auto;
+  scroll-snap-type: y mandatory;
 
 }

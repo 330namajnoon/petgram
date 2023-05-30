@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { IStory } from 'src/app/interfaces/IStory';
 
@@ -8,12 +8,16 @@ import { IStory } from 'src/app/interfaces/IStory';
   templateUrl: './storys-view.component.html',
   styleUrls: ['./storys-view.component.scss']
 })
-export class StorysViewComponent implements OnInit {
+export class StorysViewComponent {
   storys!:IStory[];
-  constructor(private appS:AppService,private router:ActivatedRoute) {}
-  ngOnInit(): void {
-    // console.log(this.router.snapshot.data)
+  constructor(private appS:AppService,private router:Router) {
+    let state = this.router.getCurrentNavigation()?.extras.state;
+    if(state) {
+      let data = state as {data:number[]};
+      console.log(data);
+    }
   }
+
   getDevice():string {
     return this.appS.getDevice();
   }
