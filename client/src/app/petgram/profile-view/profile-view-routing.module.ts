@@ -6,7 +6,6 @@ const routes: Routes = [
   {path:"",component:ProfileViewComponent},
   {path:"profile_view/:id",component:ProfileViewComponent,children:[
     {path:"storys_view",loadChildren:()=> import('./profile-view.module').then(m => m.ProfileViewModule)}
-
   ]},
 
 ];
