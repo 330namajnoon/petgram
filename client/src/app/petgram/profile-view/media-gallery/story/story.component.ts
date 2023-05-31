@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./story.component.scss']
 })
 export class StoryComponent {
+  @Input()galleryName!:string;
   @Input()index!:number;
   @Input()user!:string;
   @Input()id!:string;
   @Input()pet!:string;
-  @Input()petData!:IPet;
   @Input()storyData!:IStory;
   constructor(private appS:AppService,private profileS:ProfileViewService,private router:Router) {}
 
@@ -23,8 +23,15 @@ export class StoryComponent {
   }
 
 
+
   getStorysView():void {
-    this.router.navigate(["/petgram","profile_view",this.user,"storys_view"],{state:{data:[1,2,3]}})
+    let storys:IStory[] = [];
+    if(this.pet !== "Todos Publicaciones") {
+      storys = this.profileS.getStorysByPetName(this.pet);
+    }else {
+      storys = this.profileS.getStorys();
+    }
+    this.router.navigate(["/petgram","profile_view",this.user,"storys_view"],{state:{storys,index:this.index}});
   }
 
   getStory():IStory|undefined {

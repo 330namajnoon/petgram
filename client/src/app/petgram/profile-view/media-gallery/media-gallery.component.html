@@ -2,6 +2,11 @@
 <div [ngClass]="getDevice()">
   <input (click)="setDisplayStyile()" [ngClass]="'button_'+getDisplayStyile()" type="button" [value]="name">
   <div [ngClass]="'gallery_'+getDisplayStyile()">
-    <app-story *ngFor="let story of storys" [user]="user" [index]="storys.indexOf(story)" [id]="story.story" />
+    <div *ngIf="getPetData()" class="petData">
+      <app-pet-data [petData]="getPetData()"/>
+    </div>
+    <div class="storys">
+      <app-story *ngFor="let story of storys" [pet]="name"  [user]="user" [index]="storys.indexOf(story)" [id]="story.story" />
+    </div>
   </div>
 </div>

@@ -10,4 +10,5 @@ export interface IStory {
   commends:ICommends[]
   likes: string[];
   view: string[];
+  pet:string;
 }

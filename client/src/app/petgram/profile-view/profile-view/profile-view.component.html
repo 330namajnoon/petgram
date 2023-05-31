@@ -15,7 +15,7 @@
   </div>
   <div class="gallerys">
     <app-media-gallery name="Todos Publicaciones" [user]="getProfileData().user" [storys]="getProfileData().storys" />
-    <app-media-gallery *ngFor="let pet of getProfileData().pets" [name]="pet" [user]="getProfileData().user" [storys]="storysFilter(pet)"  />
+    <app-media-gallery *ngFor="let pet of getProfileData().pets" [name]="pet.name" [user]="getProfileData().user" [storys]="storysFilter(pet.name)" [petData]="pet"  />
 
   </div>
   <div>

@@ -7,6 +7,8 @@ import { LoadingComponent } from '../loading/loading.component';
 import { FollowerComponent } from './follower/follower.component';
 import { MediaGalleryComponent } from './media-gallery/media-gallery.component';
 import { StoryComponent } from './media-gallery/story/story.component';
+import { PetDataComponent } from './media-gallery/pet-data/pet-data.component';
+
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { StoryComponent } from './media-gallery/story/story.component';
     LoadingComponent,
     FollowerComponent,
     MediaGalleryComponent,
-    StoryComponent
+    StoryComponent,
+    PetDataComponent,
+
   ],
   imports: [
     CommonModule,

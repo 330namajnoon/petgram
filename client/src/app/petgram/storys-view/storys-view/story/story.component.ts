@@ -18,25 +18,25 @@ export class StoryComponent implements AfterViewInit,OnInit {
   constructor(private appService:AppService,private homeService:HomeService,private router:Router) {}
   device:string = this.appService.getDevice();
   storysStyle = {'height':`${window.innerHeight}px`};
-  story:IStory|undefined;
   commends:ICommends[] = [];
+  @Input()story!:IStory;
   @Input()data!:IStoryData;
   @Input()id!:number;
   ngOnInit(): void {
 
   }
   ngAfterViewInit(): void {
-    this.homeService.set(`story${this.id}`,this);
-    let container:HTMLElement = this.container.nativeElement;
-    container.addEventListener("touchstart",(e:TouchEvent)=> {
-      let y1 = e.touches[0].pageY;
-      container.addEventListener("touchend",(ee:TouchEvent)=> {
-        let y2 = ee.changedTouches[0].pageY;
-        let next = y2-y1 < 0 ? this.id + 1 : this.id - 1 ;
-        if(y2-y1 !== 0)this.homeService.get(`story${next}`).downloadStory();
-      })
-    })
-    if(this.id == 0) this.downloadStory();
+    // this.homeService.set(`story${this.id}`,this);
+    // let container:HTMLElement = this.container.nativeElement;
+    // container.addEventListener("touchstart",(e:TouchEvent)=> {
+    //   let y1 = e.touches[0].pageY;
+    //   container.addEventListener("touchend",(ee:TouchEvent)=> {
+    //     let y2 = ee.changedTouches[0].pageY;
+    //     let next = y2-y1 < 0 ? this.id + 1 : this.id - 1 ;
+    //     if(y2-y1 !== 0)this.homeService.get(`story${next}`).downloadStory();
+    //   })
+    // })
+    // if(this.id == 0) this.downloadStory();
   }
   searchLikes():boolean {
     let like = this.story?.likes.find(l => l == this.appService.getUser().user);
@@ -78,6 +78,9 @@ export class StoryComponent implements AfterViewInit,OnInit {
         })
       })
     }
+  }
+  openCommends():void {
+    this.router.navigate(["/petgram","profile_view",this.story.user,"storys_view","commends"],{state:{story:this.story}});
   }
   getScrollTop():number {
     let c:any = document.getElementById('home_storys');

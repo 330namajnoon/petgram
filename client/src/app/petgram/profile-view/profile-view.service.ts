@@ -25,7 +25,6 @@ export class ProfileViewService {
     httpClient("POST",this.appService.getURL()+"/profileData",[{name:"user",value:user}],(data,loaded)=> {
       if(loaded == 100) {
         let profileData = JSON.parse(data);
-        console.log(profileData.profileImage)
         profileData.profileImage = `${this.appService.getURL()}/${profileData.user}/DCIM/${profileData.profileImage}`;
         profileData.followers = profileData.followers.map((f:IFollower) => {
           let _f:IFollower = f;
@@ -33,7 +32,6 @@ export class ProfileViewService {
           return _f;
         })
         this.profileData = profileData;
-        console.log(this.storys);
         this.storys = new Array(this.profileData.storys.length);
         this.downloadStorys(this.profileData.user,this.profileData.storys)
       }
@@ -47,6 +45,7 @@ export class ProfileViewService {
       let data = await httpClient("POST",`${url}/downloadStory`,[{name:"user",value:user},{name:"storyId",value:storysAdres[index].story}],(data,loaded)=> {});
       const story:IStory = JSON.parse(data).story;
       story.url = `${url}/${user}/DCIM/${story.url}`;
+      story.profileImage = `${url}/${user}/DCIM/${story.profileImage}`;
       story.commends =  JSON.parse(data).commends;
       _this.storys[index] = story;
     }
@@ -62,7 +61,13 @@ export class ProfileViewService {
     })
     return story;
   }
-
+  getStorysByPetName(name:string):IStory[] {
+    let storys:IStory[] = [];
+    this.storys.forEach(s => {
+      if(s.pet == name) storys.push(s);
+    })
+    return storys;
+  }
   getStorys():IStory[] {
     return this.storys;
   }

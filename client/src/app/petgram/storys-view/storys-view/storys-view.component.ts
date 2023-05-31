@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { IStory } from 'src/app/interfaces/IStory';
@@ -8,13 +8,24 @@ import { IStory } from 'src/app/interfaces/IStory';
   templateUrl: './storys-view.component.html',
   styleUrls: ['./storys-view.component.scss']
 })
-export class StorysViewComponent {
+export class StorysViewComponent implements AfterViewInit {
+  index:number = 0;
   storys!:IStory[];
   constructor(private appS:AppService,private router:Router) {
     let state = this.router.getCurrentNavigation()?.extras.state;
     if(state) {
-      let data = state as {data:number[]};
-      console.log(data);
+      let data = state as {storys:IStory[],index:number};
+      this.storys = data.storys;
+      this.index = data.index;
+    }
+  }
+
+  ngAfterViewInit(): void {
+    let container:HTMLElement|null = document.getElementById("storys_view_container");
+    if(container) {
+      let scrollHeight = container.scrollHeight;
+      let storyScroll:number = this.index*(scrollHeight / this.storys.length);
+      container.scrollTop = storyScroll;
     }
   }
 

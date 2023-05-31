@@ -136,8 +136,18 @@ app.post("/profileData",multer().none(),(req,res)=> {
   let user = req.body.user;
   fs.readFile(`./database/${user}/userData.json`,(err,data)=> {
     if(err) throw err;
+    
     let {user,userName,profileImage,storys,followers,following,pets} = JSON.parse(data.toString());
-    res.send(JSON.stringify({user,userName,profileImage,storys,followers,following,pets}));
+    let pets_ = [];
+    pets.forEach(p => {
+      fs.readFile(`./database/${user}/pets/${p}.json`,(err,data)=> {
+        if(err) throw err;
+        pets_.push(JSON.parse(data.toString()));
+        if(pets_.length == pets.length) {
+          res.send(JSON.stringify({user,userName,profileImage,storys,followers,following,pets:pets_}));
+        }
+      })  
+    });
   })
 })
 
