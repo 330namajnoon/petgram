@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { httpClient } from '../httpClient';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
+import { IUser } from '../interfaces/IUser';
+import { IUserData } from '../interfaces/IUserData';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,10 +42,10 @@ export class RegisterService {
       if (password !== "") {
         if (email.includes("@")) {
           let user: string = email.split("@")[0];
-          httpClient("POST", this.appService.getURL() + "/login", [{ name: "user", value: JSON.stringify({ user, password }) }], (data, loaded) => {
-            if (JSON.parse(data) && loaded == 100) {
+          httpClient<IUserData>("POST", this.appService.getURL() + "/login", [{ name: "user", value: JSON.stringify({ user, password }) }], (data, loaded) => {
+            if (data && loaded == 100) {
               localStorage.setItem("user", JSON.stringify({ user, password }));
-              this.appService.setUser(JSON.parse(data))
+              this.appService.setUser(data)
               this.router.navigateByUrl("/petgram");
             }
 

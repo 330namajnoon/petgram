@@ -19,7 +19,7 @@ export class LoginComponent {
       let email = this.formGroup.get("email")?.value;
       let password = this.formGroup.get("password")?.value;
 
-      console.log(this.registerService.login(email,password));
+
     }
   }
 }

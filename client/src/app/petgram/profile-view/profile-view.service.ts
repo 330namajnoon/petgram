@@ -7,28 +7,27 @@ import { httpClient } from 'src/app/httpClient';
 import { IStory } from 'src/app/interfaces/IStory';
 import { ICommends } from 'src/app/interfaces/ICommends';
 import { IStoryAdress } from 'src/app/interfaces/IStoryAdress';
+import { AppServiceEx } from 'src/app/extends/AppServiceEx';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileViewService {
+export class ProfileViewService extends AppServiceEx {
   private profileData!:IUserData;
   private galleryMenuSelected:string = "Todos Publicaciones";
   private storys:IStory[] = [];
-  constructor(private appService:AppService,private homeService:HomeService) {
-
-
-
+  constructor(appService:AppService,private homeService:HomeService) {
+    super(appService);
   }
 
   downloadProfileData(user:string):void {
     const _this = this;
-    httpClient("POST",this.appService.getURL()+"/profileData",[{name:"user",value:user}],(data,loaded)=> {
+    httpClient<IUserData>("POST",this.getURL()+"/profileData",[{name:"user",value:user}],(data,loaded)=> {
       if(loaded == 100) {
-        let profileData = JSON.parse(data);
-        profileData.profileImage = `${this.appService.getURL()}/${profileData.user}/DCIM/${profileData.profileImage}`;
+        let profileData = data;
+        profileData.profileImage = `${this.getURL()}/${profileData.user}/DCIM/${profileData.profileImage}`;
         profileData.followers = profileData.followers.map((f:IFollower) => {
           let _f:IFollower = f;
-          _f.image = `${this.appService.getURL()}/${f.user}/DCIM/${f.image}`
+          _f.image = `${this.getURL()}/${f.user}/DCIM/${f.image}`
           return _f;
         })
         this.profileData = profileData;
@@ -40,13 +39,23 @@ export class ProfileViewService {
 
   async downloadStorys(user:string,storysAdres:IStoryAdress[]) {
     const _this = this;
-    const url:string = this.appService.getURL();
+    const url:string = this.getURL();
     async function download(index:number) {
       let data = await httpClient("POST",`${url}/downloadStory`,[{name:"user",value:user},{name:"storyId",value:storysAdres[index].story}],(data,loaded)=> {});
       const story:IStory = JSON.parse(data).story;
       story.url = `${url}/${user}/DCIM/${story.url}`;
       story.profileImage = `${url}/${user}/DCIM/${story.profileImage}`;
       story.commends =  JSON.parse(data).commends;
+      _this.socket.on("commend"+story.id,(commend)=> {
+        story.commends.push(commend);
+      })
+      _this.socket.emit("view",story,_this.getUser().user);
+      _this.socket.on("view"+story?.id,(user)=> {
+        story?.view.push(user);
+      })
+      _this.socket.on("like"+story?.id,(user)=> {
+        story?.likes.push(user);
+      })
       _this.storys[index] = story;
     }
     for (let index = 0; index < storysAdres.length; index++) {
@@ -83,5 +92,7 @@ export class ProfileViewService {
   getGalleryMenuSelected():string {
     return this.galleryMenuSelected;
   }
+
+
 
 }

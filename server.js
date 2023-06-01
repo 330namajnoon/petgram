@@ -78,12 +78,8 @@ app.post("/login",multer().none(),(req,res)=> {
         if(err) throw err;
         let userData = JSON.parse(data.toString());
         if(user.user == userData.user && user.password == userData.password) {
-          let {user,userName,email} = userData;
-          let newuserData = {
-            user,
-            userName,
-            email
-          }
+          let {user,userName,profileImage,storys,pendingFollowers,followers,following,pets} =  userData;
+          let newuserData = {user,userName,profileImage,storys,pendingFollowers,followers,following,pets};
           res.send(JSON.stringify(newuserData));
         }else {
           res.send(JSON.stringify(false));
@@ -137,14 +133,14 @@ app.post("/profileData",multer().none(),(req,res)=> {
   fs.readFile(`./database/${user}/userData.json`,(err,data)=> {
     if(err) throw err;
     
-    let {user,userName,profileImage,storys,followers,following,pets} = JSON.parse(data.toString());
+    let {user,userName,profileImage,storys,pendingFollowers,followers,following,pets} = JSON.parse(data.toString());
     let pets_ = [];
     pets.forEach(p => {
       fs.readFile(`./database/${user}/pets/${p}.json`,(err,data)=> {
         if(err) throw err;
         pets_.push(JSON.parse(data.toString()));
         if(pets_.length == pets.length) {
-          res.send(JSON.stringify({user,userName,profileImage,storys,followers,following,pets:pets_}));
+          res.send(JSON.stringify({user,userName,profileImage,storys,pendingFollowers,followers,following,pets:pets_}));
         }
       })  
     });

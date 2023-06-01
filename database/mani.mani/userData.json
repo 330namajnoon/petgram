@@ -4,17 +4,15 @@
     "email":"mani.mani@gmail.com",
     "password":"1234",
     "profileImage":"Mani.jpg",
-    "storys":["st123","st124","st125"],
+    "storys":[
+        {"story":"st123","pet":"Luci"},
+        {"story":"st124","pet":"Luci"},
+        {"story":"st125","pet":"Luci"}
+    ],
     "followers":[
-        {"user":"sina.majnoonhjk","userName":"SinaMajnoon","image":"SinaMajnoon.png"},
-        {"user":"sina.majnoonhjk","userName":"SinaMajnoon","image":"SinaMajnoon.png"},
-        {"user":"sina.majnoonhjk","userName":"SinaMajnoon","image":"SinaMajnoon.png"},
-        {"user":"sina.majnoonhjk","userName":"SinaMajnoon","image":"SinaMajnoon.png"},
-        {"user":"sina.majnoonhjk","userName":"SinaMajnoon","image":"SinaMajnoon.png"},
-        {"user":"sina.majnoonhjk","userName":"SinaMajnoon","image":"SinaMajnoon.png"},
-        {"user":"sina.majnoonhjk","userName":"SinaMajnoon","image":"SinaMajnoon.png"}
+      
     ],
     "following":[],
     "pendingFollowers":[],
-    "pets":["bella"]
+    "pets":["Luci"]
 }

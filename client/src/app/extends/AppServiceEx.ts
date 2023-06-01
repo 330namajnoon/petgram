@@ -5,4 +5,6 @@ export class AppServiceEx {
   getDevice = this.appService.getDevice.bind(this.appService);
   socket = this.appService.socket;
   getUser = this.appService.getUser.bind(this.appService);
+  getURL = this.appService.getURL.bind(this.appService);
+
 }

@@ -4,23 +4,24 @@ import { AppService } from 'src/app/app.service';
 import { IPet } from 'src/app/interfaces/IPet';
 import { IStory } from 'src/app/interfaces/IStory';
 import { Router } from '@angular/router';
+import { AppServiceEx } from 'src/app/extends/AppServiceEx';
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
   styleUrls: ['./story.component.scss']
 })
-export class StoryComponent {
+export class StoryComponent extends AppServiceEx {
   @Input()galleryName!:string;
   @Input()index!:number;
   @Input()user!:string;
   @Input()id!:string;
   @Input()pet!:string;
   @Input()storyData!:IStory;
-  constructor(private appS:AppService,private profileS:ProfileViewService,private router:Router) {}
-
-  getDevice():string {
-    return this.appS.getDevice();
+  constructor( appS:AppService,private profileS:ProfileViewService,private router:Router) {
+    super(appS);
   }
+
+
 
 
 

@@ -7,7 +7,7 @@ export interface IUserData {
   profileImage:string;
   followers:IFollower[];
   following:string[];
-  pendingFollowers:string[];
+  pendingFollowers:IFollower[];
   storys:IStoryAdress[];
   pets:IPet[];
 

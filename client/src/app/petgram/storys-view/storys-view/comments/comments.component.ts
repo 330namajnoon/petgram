@@ -25,7 +25,6 @@ export class CommentsComponent extends AppServiceEx implements OnInit,AfterViewI
     if(state) {
       let data = state as {story:IStory};
       this.story = data.story;
-      console.log(this.story)
     }
 
   }

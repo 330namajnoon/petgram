@@ -53,9 +53,9 @@ export class StoryComponent implements AfterViewInit,OnInit {
   downloadStory():void {
     let _this = this;
     if(!this.story) {
-      httpClient("POST",this.appService.getURL()+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
-        let story:IStory = JSON.parse(data).story;
-        let commends:ICommends[] = JSON.parse(data).commends;
+      httpClient<{story:IStory,commends:ICommends[]}>("POST",this.appService.getURL()+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
+        let story:IStory = data.story;
+        let commends:ICommends[] = data.commends;
         story.url = `${this.appService.getURL()}/${_this.data.user}/DCIM/${story.url}`;
         story.profileImage = `${this.appService.getURL()}/${_this.data.user}/DCIM/${story.profileImage}`;
         let m = story.type == "png" || story.type == "jpg" ? new Image() : document.createElement("video");

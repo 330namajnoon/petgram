@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import {httpClient} from "src/app/httpClient";
 import { IUser } from './interfaces/IUser';
+import { IUserData } from './interfaces/IUserData';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  private user!:IUser;
+  private user!:IUserData;
   private URL:string = 'http://localhost:4000';
   socket = io(this.URL);
 
@@ -14,10 +15,10 @@ export class AppService {
 
   }
 
-  setUser(user:IUser):void {
+  setUser(user:IUserData):void {
     this.user = user;
   }
-  getUser():IUser {
+  getUser():IUserData {
     return this.user;
   }
 

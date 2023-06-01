@@ -11,13 +11,7 @@
         
     ],
     "followers":[
-        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
-        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
-        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
-        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
-        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
-        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"},
-        {"user":"mani.mani","userName":"Mani","image":"Mani.jpg"}
+      
     ],
     "following":[],
     "pendingFollowers":[],

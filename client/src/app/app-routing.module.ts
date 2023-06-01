@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes,Router } from '@angular/router';
 import { AppService } from './app.service';
 import { httpClient } from './httpClient';
+import { IUser } from './interfaces/IUser';
+import { IUserData } from './interfaces/IUserData';
 
 
 const routes: Routes = [
@@ -19,9 +21,9 @@ export class AppRoutingModule {
   constructor(private router:Router,private appService:AppService) {
 
     if(localStorage.getItem("user")) {
-      httpClient("POST",this.appService.getURL()+"/login",[{name:"user",value:localStorage.getItem("user")||""}],(data,loaded)=> {
-        if(JSON.parse(data)) {
-          this.appService.setUser(JSON.parse(data))
+      httpClient<IUserData>("POST",this.appService.getURL()+"/login",[{name:"user",value:localStorage.getItem("user")||""}],(data,loaded)=> {
+        if(data) {
+          this.appService.setUser(data)
           this.router.navigateByUrl("petgram");
         }else {
           this.router.navigateByUrl("login");
