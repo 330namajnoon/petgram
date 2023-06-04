@@ -6,7 +6,9 @@ import { SignupComponent } from './signup/signup.component';
 import { RegisterRoutes } from './register.routing';
 import { DataUserComponent } from './data-user/data-user.component';
 import { DataPetComponent } from './data-pet/data-pet.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
+import { ValidatorComponent } from './components/validator/validator.component';
+import { PasswordValidatorComponent } from './components/password-validator/password-validator.component';
 
 
 @NgModule({
@@ -15,12 +17,14 @@ import {ReactiveFormsModule} from "@angular/forms";
     LoginComponent,
     SignupComponent,
     DataUserComponent,
-    DataPetComponent
+    DataPetComponent,
+    ValidatorComponent,
+    PasswordValidatorComponent
   ],
   imports: [
     CommonModule,
     RegisterRoutes,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     FirstPageComponent,

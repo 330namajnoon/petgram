@@ -1,17 +1,10 @@
-<div class="container">
+<div  class="container">
+  <h3 class="title">Foto de perfil</h3>
 
-  <h3 class="title">Foto de perfil </h3>
-
-
-  <img
-    class="icon"
-    src="assets/images/profile.png"
-    alt="Girl in a jacket"
-    width="250"
-    height="250"
-  />
+  <img (click)="image.click()" class="icon" width="250" height="250" [src]="imageSrc" />
+  <input #image hidden type="file" accept="image/png,image/jpeg" (change)="onFileChange($event) ">
 </div>
 
-<div>
-  <a class="next" routerLink="data-user">Siguiente</a>
+<div >
+  <a (click)="goNext()" class="next">Siguiente</a>
 </div>
