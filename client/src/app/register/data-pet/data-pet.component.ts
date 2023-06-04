@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./data-pet.component.scss'],
 })
 export class DataPetComponent {
-  formGroup: FormGroup = new FormGroup({
+  form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     birthday: new FormControl('', Validators.required),
     gender: new FormControl('', Validators.required),

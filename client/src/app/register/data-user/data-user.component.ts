@@ -9,17 +9,11 @@ import { __values } from 'tslib';
   styleUrls: ['./data-user.component.scss'],
 })
 export class DataUserComponent {
-  formGroup: FormGroup = new FormGroup({
+  form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
-    confirmPassword: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]),
+    password: new FormControl('',  [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
+    confirmPassword: new FormControl('',  [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
 
     description: new FormControl('', Validators.required),
   });
@@ -27,11 +21,11 @@ export class DataUserComponent {
   constructor(private router: Router) {}
 
   goNext() {
-    this.formGroup.markAllAsTouched();
-    let password = this.formGroup.get('password')?.value;
-    let confirmpassword = this.formGroup.get('confirmpassword')?.value;
+    this.form.markAllAsTouched();
+    let password = this.form.get('password')?.value;
+    let confirmpassword = this.form.get('confirmpassword')?.value;
     if (password === confirmpassword) {
-      if (this.formGroup.valid) {
+      if (this.form.valid) {
         this.router.navigateByUrl('/signup/data-pet');
       }
     } else {
