@@ -5,25 +5,28 @@
   height: 50px;
   font-size: 20px;
   color: #f4f4f4;
-
 }
+
 .container {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
 * {
   font-weight: 700;
 }
+
 label {
   width: 100%;
   display: block;
   font-size: 14px;
   color: #ffffff;
   font-size: 14px;
-  margin-bottom:5px;
+  margin-bottom: 5px;
 }
+
 input {
   box-sizing: border-box;
   width: 300px;
@@ -35,10 +38,12 @@ input {
   color: #f4f4f4;
   padding: 14px;
 }
+
 a {
   font-size: 20px;
   color: #f4f4f4;
 }
+
 .register {
   text-align: center;
 }
