@@ -12,6 +12,14 @@ export function httpClient<DataType>(method:string,url:string,data:IHttpData[],l
         resolve(http.responseText);
       }
     }
+    http.addEventListener("progress",({loaded,total})=> {
+      let _loaded:any = ((100/total)*loaded).toFixed(0)
+      if(_loaded == 100) {
+        loading(JSON.parse(http.responseText) as DataType,_loaded);
+      }else{
+        loading(JSON.parse('[]'),_loaded)
+      }
+    })
     http.addEventListener("load",({loaded,total})=> {
       if(loading)loading(JSON.parse(http.responseText) as DataType,loaded/total*100);
     })

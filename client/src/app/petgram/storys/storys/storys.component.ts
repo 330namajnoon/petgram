@@ -31,7 +31,17 @@ export class StorysComponent extends AppServiceEx {
     if(this.formGroup.get("file")) {
       if(event.target) {
         let file = event.target as HTMLInputElement;
-        console.log(file.files?.item)
+        let medya = file.files?.item(0);
+        let type = medya?.type.split("/")[1];
+        console.log(type);
+        if(type == "jpeg" || type == "png" || type == "mp4") {
+          let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+          url[0] = "/"+url[0];
+          url.push("new");
+          this.router.navigate(url,{state:{file:medya}});
+        }else {
+          console.log("file type");
+        }
       }
     }
   }
