@@ -24,7 +24,7 @@ export class AppRoutingModule {
       httpClient<IUserData>("POST",this.appService.getURL()+"/login",[{name:"user",value:localStorage.getItem("user")||""}],(data,loaded)=> {
         if(data) {
           this.appService.setUser(data)
-          this.router.navigateByUrl("petgram");
+          // this.router.navigateByUrl("petgram");
         }else {
           this.router.navigateByUrl("login");
         }

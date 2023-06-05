@@ -78,8 +78,8 @@ app.post("/login",multer().none(),(req,res)=> {
         if(err) throw err;
         let userData = JSON.parse(data.toString());
         if(user.user == userData.user && user.password == userData.password) {
-          let {user,userName,profileImage,storys,pendingFollowers,followers,following,pets} =  userData;
-          let newuserData = {user,userName,profileImage,storys,pendingFollowers,followers,following,pets};
+          let {user,userName,profileImage,storys,pendingFollowers,followers,following,pets,language} =  userData;
+          let newuserData = {user,userName,profileImage,storys,pendingFollowers,followers,following,pets,language};
           res.send(JSON.stringify(newuserData));
         }else {
           res.send(JSON.stringify(false));

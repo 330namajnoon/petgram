@@ -27,12 +27,15 @@ export class StoryComponent extends AppServiceEx {
 
   getStorysView():void {
     let storys:IStory[] = [];
-    if(this.pet !== "Todos Publicaciones") {
+    if(this.pet !== this.language.getWord('all_storys')) {
       storys = this.profileS.getStorysByPetName(this.pet);
     }else {
       storys = this.profileS.getStorys();
     }
-    this.router.navigate(["/petgram","profile_view",this.user,"storys_view"],{state:{storys,index:this.index}});
+    let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+    url[0] = "/"+url[0];
+    url.push("storys_view");
+    this.router.navigate(url,{state:{storys,index:this.index}});
   }
 
   getStory():IStory|undefined {

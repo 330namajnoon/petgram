@@ -1,1 +1,7 @@
-<p>storys works!</p>
+<span (click)="clickFile()" class="material-symbols-rounded">
+  add_a_photo
+</span>
+<form [formGroup]="formGroup">
+  <input #file  (change)="uploadFile($event)" formControlName="file" type="file">
+</form>
+<router-outlet/>

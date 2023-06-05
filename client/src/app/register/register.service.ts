@@ -47,6 +47,7 @@ export class RegisterService {
               localStorage.setItem("user", JSON.stringify({ user, password }));
               this.appService.setUser(data)
               this.router.navigateByUrl("/petgram");
+              this.appService.language.setLanguage(data.language);
             }
 
           })

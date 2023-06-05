@@ -10,5 +10,5 @@ export interface IUserData {
   pendingFollowers:IFollower[];
   storys:IStoryAdress[];
   pets:IPet[];
-
+  language:string
 }

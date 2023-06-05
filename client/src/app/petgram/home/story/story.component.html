@@ -5,7 +5,7 @@
     <video *ngIf="story.type == 'mp4'" src="story.url"></video>
     <div class="details">
       <div class="profile">
-        <img #image routerLink="profile_view/{{data.user}}" [src]="story.profileImage" alt="">
+        <img #image (click)="getProfileView()" [src]="story.profileImage" alt="">
         <h6>
           <span routerLink="comments/story{{id}}" class="material-symbols-rounded">chat</span>
           {{commends.length}}

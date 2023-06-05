@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { HomeService } from '../../home/home.service';
 import { AppService } from 'src/app/app.service';
 import { IUserData } from 'src/app/interfaces/IUserData';
@@ -12,16 +12,33 @@ import { IFollower } from 'src/app/interfaces/IFollower';
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss']
 })
-export class ProfileViewComponent extends AppServiceEx {
-
-  constructor(private profileService:ProfileViewService,private acRoute:ActivatedRoute,private homeService:HomeService,appService:AppService) {
+export class ProfileViewComponent extends AppServiceEx implements OnInit {
+  constructor(private profileService:ProfileViewService,private acRoute:ActivatedRoute,private router:Router,private homeService:HomeService,appService:AppService) {
     super(appService)
-    this.acRoute.params.subscribe(pr => {
-      let user:string = pr["id"];
-      this.profileService.downloadProfileData(user);
+    router.events.subscribe(event => {
+      if(event instanceof NavigationEnd) {
+
+        let state = router.getCurrentNavigation()?.extras.state;
+        if(state) {
+          let data = state as {user:string};
+          this.profileService.downloadProfileData(data.user);
+
+        }
+      }
     })
   }
 
+  ngOnInit(): void {
+
+  }
+
+  getMyProfile():boolean {
+    if(this.getProfileData().user == this.getUser().user) {
+      return false;
+    }else {
+      return true;
+    }
+  }
   getProfileData():IUserData {
 
     return this.profileService.getProfileData();

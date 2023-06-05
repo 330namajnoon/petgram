@@ -15,5 +15,6 @@
     ],
     "following":[],
     "pendingFollowers":[],
-    "pets":["bella","Emma","Tami"]
+    "pets":["bella","Emma","Tami"],
+    "language":"english"
 }

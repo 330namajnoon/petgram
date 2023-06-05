@@ -13,7 +13,7 @@ import { AppServiceEx } from 'src/app/extends/AppServiceEx';
 })
 export class ProfileViewService extends AppServiceEx {
   private profileData!:IUserData;
-  private galleryMenuSelected:string = "Todos Publicaciones";
+  private galleryMenuSelected:string = this.language.getWord('all_storys');
   private storys:IStory[] = [];
   constructor(appService:AppService,private homeService:HomeService) {
     super(appService);
@@ -21,20 +21,22 @@ export class ProfileViewService extends AppServiceEx {
 
   downloadProfileData(user:string):void {
     const _this = this;
-    httpClient<IUserData>("POST",this.getURL()+"/profileData",[{name:"user",value:user}],(data,loaded)=> {
-      if(loaded == 100) {
-        let profileData = data;
-        profileData.profileImage = `${this.getURL()}/${profileData.user}/DCIM/${profileData.profileImage}`;
-        profileData.followers = profileData.followers.map((f:IFollower) => {
-          let _f:IFollower = f;
-          _f.image = `${this.getURL()}/${f.user}/DCIM/${f.image}`
-          return _f;
-        })
-        this.profileData = profileData;
-        this.storys = new Array(this.profileData.storys.length);
-        this.downloadStorys(this.profileData.user,this.profileData.storys)
-      }
-    })
+    if(user) {
+      httpClient<IUserData>("POST",this.getURL()+"/profileData",[{name:"user",value:user}],(data,loaded)=> {
+        if(loaded == 100) {
+          let profileData = data;
+          profileData.profileImage = `${this.getURL()}/${profileData.user}/DCIM/${profileData.profileImage}`;
+          profileData.followers = profileData.followers.map((f:IFollower) => {
+            let _f:IFollower = f;
+            _f.image = `${this.getURL()}/${f.user}/DCIM/${f.image}`
+            return _f;
+          })
+          this.profileData = profileData;
+          this.storys = new Array(this.profileData.storys.length);
+          this.downloadStorys(this.profileData.user,this.profileData.storys)
+        }
+      })
+    }
   }
 
   async downloadStorys(user:string,storysAdres:IStoryAdress[]) {

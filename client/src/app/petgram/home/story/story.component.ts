@@ -7,16 +7,18 @@ import { AppService } from 'src/app/app.service';
 import { HomeService } from '../home.service';
 import { httpClient } from 'src/app/httpClient';
 import { Router } from '@angular/router';
+import { AppServiceEx } from 'src/app/extends/AppServiceEx';
 
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
   styleUrls: ['./story.component.scss']
 })
-export class StoryComponent implements AfterViewInit,OnInit {
+export class StoryComponent extends AppServiceEx implements AfterViewInit,OnInit {
   @ViewChild("container")container!:ElementRef;
-  constructor(private appService:AppService,private homeService:HomeService,private router:Router) {}
-  device:string = this.appService.getDevice();
+  constructor(appService:AppService,private homeService:HomeService,private router:Router) {
+    super(appService)
+  }
   storysStyle = {'height':`${window.innerHeight-80}px`};
   story:IStory|undefined;
   commends:ICommends[] = [];
@@ -39,7 +41,7 @@ export class StoryComponent implements AfterViewInit,OnInit {
     if(this.id == 0) this.downloadStory();
   }
   searchLikes():boolean {
-    let like = this.story?.likes.find(l => l == this.appService.getUser().user);
+    let like = this.story?.likes.find(l => l == this.getUser().user);
 
     if(like) {
       return true;
@@ -48,30 +50,30 @@ export class StoryComponent implements AfterViewInit,OnInit {
     }
   }
   like():void {
-    this.appService.socket.emit("like",this.story,this.appService.getUser().user);
+    this.socket.emit("like",this.story,this.getUser().user);
   }
   downloadStory():void {
     let _this = this;
     if(!this.story) {
-      httpClient<{story:IStory,commends:ICommends[]}>("POST",this.appService.getURL()+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
+      httpClient<{story:IStory,commends:ICommends[]}>("POST",this.getURL()+"/downloadStory",[{name:"storyId",value:this.data.id},{name:"user",value:this.data.user}],(data,loaded)=> {
         let story:IStory = data.story;
         let commends:ICommends[] = data.commends;
-        story.url = `${this.appService.getURL()}/${_this.data.user}/DCIM/${story.url}`;
-        story.profileImage = `${this.appService.getURL()}/${_this.data.user}/DCIM/${story.profileImage}`;
+        story.url = `${this.getURL()}/${_this.data.user}/DCIM/${story.url}`;
+        story.profileImage = `${this.getURL()}/${_this.data.user}/DCIM/${story.profileImage}`;
         let m = story.type == "png" || story.type == "jpg" ? new Image() : document.createElement("video");
         m.src = story.url;
         m.addEventListener("load",()=> {
           _this.story = story;
           _this.commends = commends;
 
-          this.appService.socket.on("commend"+_this.story?.id,(commend)=> {
+          this.socket.on("commend"+_this.story?.id,(commend)=> {
             _this.commends.push(commend);
           })
-          this.appService.socket.emit("view",this.story,this.appService.getUser().user);
-          this.appService.socket.on("view"+this.story?.id,(user)=> {
+          this.socket.emit("view",this.story,this.getUser().user);
+          this.socket.on("view"+this.story?.id,(user)=> {
             this.story?.view.push(user);
           })
-          this.appService.socket.on("like"+this.story?.id,(user)=> {
+          this.socket.on("like"+this.story?.id,(user)=> {
             this.story?.likes.push(user);
           })
 
@@ -89,13 +91,13 @@ export class StoryComponent implements AfterViewInit,OnInit {
   getCommends() {
     return this.commends;
   }
-  getDevice(): string {
-      return this.appService.getDevice();
-  }
-  getUser():any {
-    return this.story?.user
-  }
+
+
   getProfileView():void {
-    this.router.navigate(["/petgram","profile_view"],{state:{user:this.getUser()}});
+    let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+    url[0] = "/"+url[0];
+    url.push("profile_view");
+    this.router.navigate(url,{state:{user:this.story?.user}});
+
   }
 }

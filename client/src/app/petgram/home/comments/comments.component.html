@@ -7,7 +7,7 @@
   </div>
   <div class="chatbox">
     <div>
-      <input form #chatBox type="text" placeholder="Escribe un comentario:">
+      <input form #chatBox type="text" placeholder="{{language.getWord('write_a_comment')}}:">
       <span  (click)="sendCommend()" class="material-symbols-rounded">send</span>
     </div>
   </div>

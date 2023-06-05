@@ -5,25 +5,28 @@ import { IStoryData } from 'src/app/interfaces/IStoryData';
 import { httpClient } from 'src/app/httpClient';
 import { HomeService } from '../home.service';
 import { ActivatedRoute } from '@angular/router';
+import { AppServiceEx } from 'src/app/extends/AppServiceEx';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends AppServiceEx implements OnInit {
   constructor(
-    private appService: AppService,
+    appService: AppService,
     private homeService: HomeService,
     private actRouter:ActivatedRoute
   ) {
+    super(appService)
     this.homeService.set('setScroll', this.setScroll.bind(this));
   }
-  device: string = this.appService.getDevice();
+  device: string = this.getDevice();
   storysStyle = { height: `${window.innerHeight - 80}px` };
   setScroll(id: number, distancia: number): void {
     let container: any = document.getElementById('home_storys');
     let frame = 40;
     if (Math.abs(distancia) > 100) {
+
       if (distancia < 0 && document.getElementById('story' + (id + 1))) {
         let p2: number =
           (container.scrollHeight / this.homeService.getStorysData().length) *
@@ -67,7 +70,5 @@ export class HomeComponent implements OnInit {
   getStorysData(): IStoryData[] {
     return this.homeService.getStorysData();
   }
-  getDevice(): string {
-    return this.appService.getDevice();
-  }
+
 }
