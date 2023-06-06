@@ -38,4 +38,19 @@ export class AppService {
   async downloadStorys() {
 
   }
+
+  createNewID(ids:any[],length:number):string {
+    let l:string = "absdefghijklnmopqrstuvwxyzABCDEFGHEJKLNMOPQRSTUVWXYZ0123456789";
+    let t:boolean = true;
+    let newId:string = "";
+    while(t) {
+      newId = "id";
+      for (let index = 0; index < length; index++) {
+        newId += l.charAt(Math.floor(Math.random()*l.length));
+      }
+      let idSearch:any = ids.find(d => d.id == newId);
+      if(!idSearch) t = false;
+    }
+    return newId;
+  }
 }

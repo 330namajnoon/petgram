@@ -7,4 +7,5 @@ export class AppServiceEx {
   getUser = this.appService.getUser.bind(this.appService);
   getURL = this.appService.getURL.bind(this.appService);
   language = this.appService.language;
+  createNewID = this.appService.createNewID.bind(this.appService);
 }

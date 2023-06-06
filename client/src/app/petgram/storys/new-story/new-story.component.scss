@@ -1,3 +1,35 @@
+.loading_container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  background-color: rgb(64, 64, 64);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    width: 250px;
+    height: 20px;
+    border-radius: 5px;
+    border: solid .5px gray;
+
+    div {
+
+      color: gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      width: 20%;
+      height: 100%;
+      background-color: goldenrod;
+    }
+  }
+}
 .container_mobile {
   width: 100vw;
   height: 100vh;
@@ -5,6 +37,50 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  .discription {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 22;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.393);
+    select {
+      width: 200px;
+      height: 40px;
+      border: solid .3px gray;
+      background-color: goldenrod;
+      color: rgb(86, 86, 86);
+      border-radius: 3px;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+    textarea {
+      width: 200px;
+      height: 200px;
+      border: solid .3px rgb(208, 208, 208);
+      background-color: rgb(74, 74, 74);
+      color: rgb(206, 206, 206);
+      border-radius: 3px;
+      margin: 30px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    input {
+      width: 200px;
+      height: 40px;
+      border: solid .3px gray;
+      background-color: goldenrod;
+      color: rgb(86, 86, 86);
+      border-radius: 3px;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+  }
   .medya {
     width: 100%;
     height: 100%;

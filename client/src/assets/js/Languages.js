@@ -21,6 +21,12 @@ export function Languages() {
     },
     pending_follower: {
       english:"Pending Follower",
+    },
+    description:{
+      english:"Description"
+    },
+    save:{
+      english:"Save"
     }
 
   }

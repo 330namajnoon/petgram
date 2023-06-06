@@ -1,6 +1,19 @@
+<div *ngIf="loadingDisplay" class="loading_container">
+  <div>
+    <div [style]="{'width': getLoaded()+'%'}">{{getLoaded()}}%</div>
+  </div>
+</div>
 <div [ngClass]="getDevice()">
+  <div *ngIf="!loadingDisplay" class="discription">
+    <select #select>
+      <option *ngFor="let pet of getUser().pets" selected [value]="pet">{{pet}}</option>
+    </select>
+    <textarea  #textArea [placeholder]="language.getWord('description')" id="" cols="30" rows="10"></textarea>
+    <input (click)="setStory()" type="button" [value]="language.getWord('save')">
+  </div>
+
   <div *ngIf="getFileURL()" class="medya">
     <img *ngIf="getFileType() == 'jpeg' || getFileType() == 'png' " [src]="getFileURL()" alt="">
-    <video (click)="videoPlay_pause()"  #video *ngIf="getFileType() == 'mp4'" [src]="getFileURL()" preload="auto"></video>
+    <video (click)="videoPlay_pause()" id="newVideo"  #video *ngIf="getFileType() == 'mp4'" [src]="getFileURL()" preload="auto"></video>
   </div>
 </div>
