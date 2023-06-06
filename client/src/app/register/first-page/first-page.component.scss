@@ -1,3 +1,24 @@
+// DESKTOP
+.container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: url(/assets/images/pets.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// MOBILE/TABLET
+@media only screen and (max-width: 768px) {
+  .container {
+    background: url(/assets/images/firstPages.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
 button {
   width: 210px;
   height: 40px;
