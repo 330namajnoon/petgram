@@ -183,7 +183,8 @@ app.post("/post",uploadMedya.single('file'),(req,res)=> {
               userData.storys.unshift(newStory);
               fs.writeFile(`./database/${story.user}/userData.json`,JSON.stringify(userData),(err)=> {
                 if(err) throw err;
-                res(req.body.story);
+               
+                res.send(req.body.story);
               })
             })
           })

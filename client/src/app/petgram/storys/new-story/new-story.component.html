@@ -1,4 +1,4 @@
-<div *ngIf="loadingDisplay" class="loading_container">
+<div *ngIf="loadingDisplay || uploading" class="loading_container">
   <div>
     <div [style]="{'width': getLoaded()+'%'}">{{getLoaded()}}%</div>
   </div>

@@ -95,9 +95,10 @@ export class NewStoryComponent extends AppServiceEx {
 
   async post() {
     let res = await httpClient<IStory>("POST",`${this.getURL()}/post`,[{name:"file",value:this.file},{name:"story",value:JSON.stringify(this.newStory)}],(data,loaded)=> {
-      console.log(loaded);
+      this.setLoaded(loaded);
       if(loaded == 100) {
         this.profileS.addNewStory(data);
+        // this.router.navigate(["/petgram","storys"]);
       }
     })
   }
