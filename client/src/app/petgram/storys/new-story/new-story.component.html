@@ -4,7 +4,7 @@
   </div>
 </div>
 <div [ngClass]="getDevice()">
-  <div *ngIf="!loadingDisplay" class="discription">
+  <div *ngIf="!loadingDisplay && !getStory()" class="discription">
     <select #select>
       <option *ngFor="let pet of getUser().pets" selected [value]="pet">{{pet}}</option>
     </select>
@@ -15,5 +15,22 @@
   <div *ngIf="getFileURL()" class="medya">
     <img *ngIf="getFileType() == 'jpeg' || getFileType() == 'png' " [src]="getFileURL()" alt="">
     <video (click)="videoPlay_pause()" id="newVideo"  #video *ngIf="getFileType() == 'mp4'" [src]="getFileURL()" preload="auto"></video>
+  </div>
+  <div *ngIf="getStory()" class="public">
+    <div>
+      <h1>
+        {{language.getWord('post')}}
+        <span (click)="post()" class="material-symbols-rounded">
+          send
+        </span>
+      </h1>
+    </div>
+    <div  class="description">
+      <h1>{{newStory.userName}}</h1>
+      <h3>{{newStory.description}}</h3>
+    </div>
+    <div *ngIf="uploading" class="uploading">
+      <div><div></div></div>
+    </div>
   </div>
 </div>

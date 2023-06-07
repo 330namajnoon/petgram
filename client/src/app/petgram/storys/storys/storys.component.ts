@@ -10,6 +10,7 @@ import { FormControl,FormGroup } from '@angular/forms';
 })
 export class StorysComponent extends AppServiceEx {
   @ViewChild("file")file!:ElementRef;
+  newFileButton:boolean = true;
   constructor(appService:AppService,private router:Router) {
     super(appService)
     let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
@@ -38,6 +39,7 @@ export class StorysComponent extends AppServiceEx {
           let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
           url[0] = "/"+url[0];
           url.push("new");
+          this.newFileButton = false;
           this.router.navigate(url,{state:{file:medya}});
         }else {
           console.log("file type");

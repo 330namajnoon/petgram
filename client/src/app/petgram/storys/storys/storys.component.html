@@ -1,4 +1,4 @@
-<span (click)="clickFile()" class="material-symbols-rounded">
+<span *ngIf="newFileButton" (click)="clickFile()" class="material-symbols-rounded">
   add_a_photo
 </span>
 <form [formGroup]="formGroup">

@@ -11,9 +11,24 @@ export class AppService {
   private user!:IUserData;
   private URL:string = 'http://localhost:4000';
   socket = io(this.URL);
+  imageTypes:string[] = ["jpeg","png","gif","jpg"];
+  videoTypes:string[] = ["mp4","mkv"];
   language:Languages = new Languages();
   constructor() {
 
+  }
+
+  promiseType(tagName:string = "img" || "video",type:any):boolean {
+    let p:boolean = true;
+    switch (tagName) {
+      case "img":
+          if(!this.imageTypes.find(t => t == type)) p = false;
+        break;
+        case "video":
+          if(!this.videoTypes.find(t => t == type)) p = false;
+        break;
+    }
+    return p;
   }
 
   setUser(user:IUserData):void {

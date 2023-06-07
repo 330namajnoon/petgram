@@ -27,6 +27,9 @@ export function Languages() {
     },
     save:{
       english:"Save"
+    },
+    post:{
+      english:"Post"
     }
 
   }

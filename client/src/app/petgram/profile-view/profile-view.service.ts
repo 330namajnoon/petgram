@@ -95,6 +95,8 @@ export class ProfileViewService extends AppServiceEx {
     return this.galleryMenuSelected;
   }
 
-
+  addNewStory(story:IStory):void {
+    this.storys.unshift(story);
+  }
 
 }

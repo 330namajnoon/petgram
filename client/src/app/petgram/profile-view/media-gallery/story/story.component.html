@@ -1,7 +1,7 @@
 <div (click)="getStorysView()" [ngClass]="getDevice()">
   <img *ngIf="!getStory()" src="../../../../../assets/loading.gif" alt="">
   <div *ngIf="getStory()">
-    <img class="mediya" *ngIf="getStory()?.type == 'png' || getStory()?.type == 'jpg'" [src]="getStory()?.url" alt="">
-    <video class="mediya" *ngIf="getStory()?.type == 'mp4'" [src]="getStory()?.url"></video>
+    <img class="mediya" *ngIf="promiseType('img',getStory()?.type)" [src]="getStory()?.url" alt="">
+    <video class="mediya" *ngIf="promiseType('video',getStory()?.type)" [src]="getStory()?.url"></video>
   </div>
 </div>

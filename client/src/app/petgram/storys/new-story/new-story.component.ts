@@ -6,6 +6,7 @@ import { AppServiceEx } from 'src/app/extends/AppServiceEx';
 import { FormGroup,FormControl } from '@angular/forms';
 import { IStory } from 'src/app/interfaces/IStory';
 import { ProfileViewService } from '../../profile-view/profile-view.service';
+import { httpClient } from 'src/app/httpClient';
 @Component({
   selector: 'app-new-story',
   templateUrl: './new-story.component.html',
@@ -22,6 +23,7 @@ export class NewStoryComponent extends AppServiceEx {
   loaded:number = 0;
   loadingDisplay:boolean = true;
   newStory!:IStory;
+  uploading:boolean = false;
   constructor(private profileS:ProfileViewService ,appService:AppService,private router:Router) {
 
     super(appService);
@@ -88,14 +90,20 @@ export class NewStoryComponent extends AppServiceEx {
       id:newID,
     }
     this.newStory = newStory;
-    newStory.url = this.fileUrl;
-    newStory.profileImage = `${this.getURL()}/${user}/DCIM/${newStory.profileImage}`;
     console.log(newStory);
-    let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
-    url[0] = "/"+url[0];
-    // url = url.slice(0,-1);
-    url.push("story");
-    this.router.navigate(url,{state:{storys:[newStory],index:0}});
+  }
+
+  async post() {
+    let res = await httpClient<IStory>("POST",`${this.getURL()}/post`,[{name:"file",value:this.file},{name:"story",value:JSON.stringify(this.newStory)}],(data,loaded)=> {
+      console.log(loaded);
+      if(loaded == 100) {
+        this.profileS.addNewStory(data);
+      }
+    })
+  }
+
+  getStory():IStory {
+    return this.newStory;
   }
 
   getFileURL():string {

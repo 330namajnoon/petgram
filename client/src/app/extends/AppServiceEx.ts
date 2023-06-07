@@ -8,4 +8,5 @@ export class AppServiceEx {
   getURL = this.appService.getURL.bind(this.appService);
   language = this.appService.language;
   createNewID = this.appService.createNewID.bind(this.appService);
+  promiseType = this.appService.promiseType.bind(this.appService);
 }

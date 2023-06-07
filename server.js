@@ -13,6 +13,14 @@ app.use(express.static(pdp));
 app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
+const uploadMedya = multer({storage:multer.diskStorage({
+  destination:(req,file,cd)=> {
+    cd(null,"./database")
+  },
+  filename:(ewq,file,cd)=> {
+    cd(null,file.originalname)
+  }
+})})
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
 });
@@ -144,6 +152,44 @@ app.post("/profileData",multer().none(),(req,res)=> {
         }
       })  
     });
+  })
+})
+
+app.post("/post",uploadMedya.single('file'),(req,res)=> {
+  const story = JSON.parse(req.body.story);
+  fs.rename(`./database/${req.file.originalname}`,`./database/${story.user}/DCIM/${story.url}`,(err)=> {
+    if(err) throw err;
+    fs.appendFile(`./database/${story.user}/storys/${story.id}.json`,JSON.stringify(story),(err)=> {
+      if(err) throw err;
+      fs.appendFile(`./database/${story.user}/commends/${story.id}.json`,JSON.stringify(story.commends),(err)=> {
+        if(err) throw err;
+        fs.readFile(`./database/usersData.json`,(err,data)=> {
+          if(err) throw err;
+          let usersData = JSON.parse(data.toString());
+          const date = new Date();
+          let newStory = {
+            user:story.user,
+            id:story.id,
+            date:`${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`,
+            time:`${date.getHours()}:${date.getMinutes()}`
+          }
+          usersData.storys.unshift(newStory);
+          fs.writeFile(`./database/usersData.json`,JSON.stringify(usersData),(err)=> {
+            if(err) throw err;
+            fs.readFile(`./database/${story.user}/userData.json`,(err,data)=> {
+              if(err) throw err;
+              let userData = JSON.parse(data.toString());
+              let newStory = {story:story.id,pet:story.pet};
+              userData.storys.unshift(newStory);
+              fs.writeFile(`./database/${story.user}/userData.json`,JSON.stringify(userData),(err)=> {
+                if(err) throw err;
+                res(req.body.story);
+              })
+            })
+          })
+        })
+      })
+    })
   })
 })
 
