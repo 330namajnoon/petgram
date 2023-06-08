@@ -1,7 +1,7 @@
 
 import { Component,Input,OnInit,AfterViewInit,ViewChild,ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ICommends } from 'src/interfaces/ICommends';
+import { IComment } from 'src/interfaces/IComment';
 import { IStory } from 'src/interfaces/IStory';
 import { HomeService } from 'src/services/home.service';
 import { ICommendsData } from 'src/interfaces/ICommensData';
@@ -15,14 +15,14 @@ import { AppService } from 'src/services/app.service';
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent extends AppServiceEx implements OnInit,AfterViewInit {
-  commendsData!:ICommendsData;
+  story!:IStory;
   @ViewChild("chatBox")chatBox!:ElementRef;
   @ViewChild("commendsContainer")commendsContainer!:ElementRef;
   constructor(private actRouter:ActivatedRoute,appService:AppService,private homeService:HomeService){
     super(appService);
     this.actRouter.params.subscribe(params => {
       let id = params["id"];
-      this.commendsData = {story:this.homeService.get(id).getStory(),commends:this.homeService.get(id).getCommends()};
+      this.story = this.homeService.get(id).getStory();
     })
   }
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class CommentsComponent extends AppServiceEx implements OnInit,AfterViewI
   }
   ngAfterViewInit(): void {
 
-    this.socket.on("commend"+this.commendsData.story.id,(commend)=> {
+    this.socket.on("comment"+this.story.id,(comment)=> {
       setTimeout(() => {
         this.setScroll();
       }, 100);
@@ -42,16 +42,17 @@ export class CommentsComponent extends AppServiceEx implements OnInit,AfterViewI
 
     if(this.chatBox.nativeElement.value !== "") {
       let date:Date = new Date();
-      let _date:string = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear();
+      let _date:string = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
       let time:string = date.getHours()+":"+date.getMinutes();
-      let commend:ICommends = {
-        commend:this.chatBox.nativeElement.value,
-        user:this.getUser().email,
-        userName:this.getUser().name,
+      let comment:IComment = {
+        comment:this.chatBox.nativeElement.value,
+        story_id:this.story.id,
+        user_id:this.getUser().id,
+        fullName:this.getUser().name + " " + this.getUser().lastName,
         date:_date,
-        time
+        time,
       }
-      this.socket.emit("commend",this.commendsData.story,commend)
+      this.socket.emit("comment",comment);
       this.chatBox.nativeElement.value = "";
     }
   }

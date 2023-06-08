@@ -8,4 +8,5 @@ export class AppServiceEx {
   setUser = this.appService.setUser.bind(this.appService);
   getURL = this.appService.getURL.bind(this.appService);
   language = this.appService.language;
+  typePromise = this.appService.typePromise.bind(this.appService);
 }

@@ -1,14 +1,16 @@
-import { ICommends } from "./ICommends";
+import { IComment } from "./IComment";
+import { ILike } from "./ILike";
+import { IView } from "./IView";
 export interface IStory {
-  id: string;
-  userName: string;
-  user: string;
+  id:string;
+  user_id: string;
+  fullName:string;
   profileImage: string;
   url: string;
   description: string;
   type: string;
-  commends:ICommends[]
-  likes: string[];
-  view: string[];
+  comments:IComment[]
+  likes: ILike[];
+  views: IView[];
   pet:string;
 }

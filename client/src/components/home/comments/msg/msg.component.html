@@ -1,8 +1,8 @@
-<div [ngStyle]="getUser() == commendData.user ? {'align-items': 'flex-end'} : {'align-items': 'flex-start'}" [ngClass]="getDevice()" >
-  <div [ngClass]="getUser() == commendData.user ? 'msg_c1' : 'msg_c2'">
-    <h1>{{commendData.userName}}</h1>
+<div [ngStyle]="getUser() == commendData.user_id ? {'align-items': 'flex-end'} : {'align-items': 'flex-start'}" [ngClass]="getDevice()" >
+  <div [ngClass]="getUser() == commendData.user_id ? 'msg_c1' : 'msg_c2'">
+    <h1>{{commendData.fullName}}</h1>
     <div>
-      <h2>{{commendData.commend}}</h2>
+      <h2>{{commendData.comment}}</h2>
       <h3>{{commendData.time}}</h3>
     </div>
   </div>
