@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { ImagePetComponent } from './image-pet/image-pet.component';
 import { DataPetComponent } from './data-pet/data-pet.component';
 import { DataUserComponent } from './data-user/data-user.component';
 
@@ -12,10 +12,11 @@ const routes: Routes = [
   {
     path: 'signup',
     children: [
-      { path: '', component: SignupComponent },
-      { path: 'data-user', component: DataUserComponent },
+      { path: '', component: DataUserComponent },
       { path: 'data-pet', component: DataPetComponent },
+      { path: 'image-pets', component: ImagePetComponent },
     ],
+
   },
 ];
 
