@@ -23,7 +23,7 @@ export class RegisterService extends AppServiceEx {
     }
     this.http.post<IUser[]>(this.getURL() + "/login",loginData).subscribe((user)=> {
       if (user.length > 0) {
-        localStorage.setItem("user", JSON.stringify({ user, password }));
+        localStorage.setItem("user", JSON.stringify(user[0]));
         this.setUser(user[0])
         this.router.navigateByUrl("/petgram");
       }

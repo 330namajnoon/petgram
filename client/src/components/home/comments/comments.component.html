@@ -1,9 +1,9 @@
 <div [ngClass]="getDevice()">
   <div class="head">
-    <span routerLink="/petgram/home"  class="material-symbols-rounded">arrow_circle_left</span>
+    <span [routerLink]="['/petgram']"  class="material-symbols-rounded">arrow_circle_left</span>
   </div>
   <div #commendsContainer class="comments">
-    <app-msg  *ngFor="let commends of commendsData.commends" [commendData]="commends" />
+    <app-msg  *ngFor="let commends of story.comments" [commendData]="commends" />
   </div>
   <div class="chatbox">
     <div>

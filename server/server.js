@@ -11,21 +11,20 @@ const fs = require("fs");
 const { send } = require("process");
 app.use(express.static(pdp));
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
-
 
 /////////////////// mysql connection
 
 const mysql = require("mysql");
 const connectionData = {
-  host:'localhost',
-  user:'root',
-  password:'',
-  database:'petgram'
-}
-const connection = mysql.createConnection(connectionData)
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "petgram",
+};
+const connection = mysql.createConnection(connectionData);
 
 ////////////// server listener
 
@@ -59,14 +58,12 @@ server.listen(port, () => {
   //   }
   // })
 
-
   // connection.connect((err)=> {
   //   if(err) {
   //     console.log('Error de conneccion:',err);
   //   }else {
   //     console.log('Conectado a la base de datos');
 
-     
   //     const consult = "SELECT * FROM users";
 
   //     connection.query(consult,(err,res)=> {
@@ -85,7 +82,7 @@ server.listen(port, () => {
   //   if(err) {
   //     throw err;
   //   }else {
-  //     const storys = JSON.parse('[{"email":"sina.majnoonhjk","id":"st123","date":"10-02-2023","time":"14:20"},{"email":"sina.majnoonhjk","id":"st124","date":"10-02-2023","time":"18:20"},{"email":"mani.mani","id":"st123","date":"10-02-2023","time":"18:20"},{"email":"sina.majnoonhjk","id":"st125","date":"10-02-2023","time":"18:20"},{"email":"mani.mani","id":"st124","date":"16-04-2023","time":"13:20"},{"email":"mani.mani","id":"st125","date":"10-01-2023","time":"18:20"}]') 
+  //     const storys = JSON.parse('[{"email":"sina.majnoonhjk","id":"st123","date":"10-02-2023","time":"14:20"},{"email":"sina.majnoonhjk","id":"st124","date":"10-02-2023","time":"18:20"},{"email":"mani.mani","id":"st123","date":"10-02-2023","time":"18:20"},{"email":"sina.majnoonhjk","id":"st125","date":"10-02-2023","time":"18:20"},{"email":"mani.mani","id":"st124","date":"16-04-2023","time":"13:20"},{"email":"mani.mani","id":"st125","date":"10-01-2023","time":"18:20"}]')
   //     storys.forEach(s => {
   //       const consult = "INSERT INTO storysadres SET ?";
   //       connection.query(consult,s,(err)=> {
@@ -100,7 +97,6 @@ server.listen(port, () => {
   //     connection.end();
   //   }
   // })
-  
 });
 
 /////////////////  Socket.io connection
@@ -108,157 +104,253 @@ server.listen(port, () => {
 io.on("connect", (client) => {
   console.log("new connect");
 
-  client.on("commend", (story,commend) => {
-    fs.readFile(`./database/${story.user}/commends/${story.id}.json`,(err,data)=> {
-      if(err) throw err;
-      let commends = JSON.parse(data.toString());
-      commends.push(commend);
-      fs.writeFile(`./database/${story.user}/commends/${story.id}.json`,JSON.stringify(commends),(err)=> {
-        if(err) throw err;
-        io.emit("commend"+story.id,commend);
-      })
+  client.on("comment", (comment) => {
+    const connection = mysql.createConnection(connectionData);
+    connection.connect((err)=> {
+      if(err) return;
+      const consult = `
+          INSERT
+          INTO comments
+          (user_id,story_id,fullName,comment,date,time) VALUES ('${comment.user_id}','${comment.story_id}','${comment.fullName}','${comment.comment}','${comment.date}','${comment.time}')
+        `;
 
-    })
+     
+      connection.query(consult, (err, resp) => {
+        if(err) {
+          return
+        }else {
+         
+          io.emit(`comment${comment.story_id}`,{id:resp.insertId,user_id:comment.user_id,story_id:comment.story_id,fullName:comment.fullName,comment:comment.comment,date:comment.date,time:comment.time});
+        }
+      });
+    });
+    
   });
 
-  client.on("like",(story,user)=> {
-    fs.readFile(`./database/${story.user}/storys/${story.id}.json`,(err,data)=> {
-      if(err) throw err;
-      let story_ = JSON.parse(data.toString());
-      let search = story_.likes.find(u => u == user);
-      if(!search) {
-        story_.likes.push(user);
-        fs.writeFile(`./database/${story.user}/storys/${story.id}.json`,JSON.stringify(story_),(err)=> {
-          if(err) throw err;
-          io.emit("like"+story.id,user);
-        })
-      }
-    })
-  })
+  client.on("like", (story_id, user_id) => {
+    const connection = mysql.createConnection(connectionData);
+    connection.connect((err)=> {
+      if(err) return;
+      const consult = `
+          INSERT
+          INTO likes
+          (user_id,story_id) VALUES ('${user_id}','${story_id}')
+        `;
 
-  client.on("view",(story,user)=> {
-    fs.readFile(`./database/${story.user}/storys/${story.id}.json`,(err,data)=> {
-      if(err) throw err;
-      let story_ = JSON.parse(data.toString());
-      let search = story_.view.find(u => u == user);
-      if(!search) {
-        story_.view.push(user);
-        fs.writeFile(`./database/${story.user}/storys/${story.id}.json`,JSON.stringify(story_),(err)=> {
-          if(err) throw err;
-          io.emit("view"+story.id,user);
-        })
-      }
-    })
-  })
+     
+      connection.query(consult, (err, resp) => {
+        if(err) {
+          return
+        }else {
+          io.emit(`like${story_id}`,{id:resp.insertId,user_id,story_id});
+        }
+      });
+    });
+
+  });
+
+  client.on("view", (story_id, user_id) => {
+    const connection = mysql.createConnection(connectionData);
+    connection.connect((err)=> {
+      if(err) return;
+      const consult = `
+          INSERT
+          INTO views
+          (user_id,story_id) VALUES ('${user_id}','${story_id}')
+        `;
+
+      connection.query(consult, (err, resp) => {
+        if(err) {
+          return
+        }else {
+          io.emit(`view${story_id}`,{id:resp.insertId,user_id,story_id});
+        }
+      });
+    });
+  });
 
   client.on("disconnect", () => {
     console.log("new disconnect");
   });
 });
 
-
 ////////////////  server GETS
 
-app.get("/storysAdres",(req,res)=> {
+app.get("/storysLink", (req, res) => {
   let connection = mysql.createConnection(connectionData);
-  connection.connect((err)=> {
-    if(err) {
+  connection.connect((err) => {
+    if (err) {
       res.send(err);
-    }else {
-      const consult = `SELECT email,id,date,time FROM storysadres`; 
+    } else {
+      const consult = `SELECT user_id,pet_id,id FROM storys`;
 
-      connection.query(consult,(err,resp)=> {
-        if(err) {
+      connection.query(consult, (err, resp) => {
+        if (err) {
           res.send(err);
-        }else {
-          console.log(resp)
-          res.send(resp)
+        } else {
+         
+          res.send(resp);
         }
-      })
+      });
       connection.end();
     }
-  })
-})
+  });
+});
 
 //////////////// server POSTS
 
-
-app.post("/login",(req,res)=> {
+app.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   let connection = mysql.createConnection(connectionData);
-  connection.connect((err)=> {
-    if(err) {
+  connection.connect((err) => {
+    if (err) {
       res.send(err);
-    }else {
-      const consult = `SELECT * FROM users WHERE email = '${email}' AND password = PASSWORD('${password}') `; 
+    } else {
+      const consult = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}' `;
 
-      connection.query(consult,(err,resp)=> {
-        if(err) {
+      connection.query(consult, (err, resp) => {
+        if (err) {
           res.send(err);
-        }else {
-          console.log(resp)
-          res.send(resp)
+        } else {
+          
+          res.send(resp);
         }
-      })
+      });
       connection.end();
     }
-  })
+  });
+});
+// app.post("/downloadStorys",multer().none(),(req,res)=> {
 
-})
-app.post("/downloadStorys",multer().none(),(req,res)=> {
+//   try {
+//     fs.readFile("./database/usersData.json",(err,data)=> {
+//       if(err) throw err;
+//       const usersData = JSON.parse(data.toString());
+//       res.send(JSON.stringify(usersData.storys));
+//     })
+//   } catch (error) {
+//     res.send(error);
+//   }
+// })
 
-  try {
-    fs.readFile("./database/usersData.json",(err,data)=> {
-      if(err) throw err;
-      const usersData = JSON.parse(data.toString());
-      res.send(JSON.stringify(usersData.storys));
-    })
-  } catch (error) {
-    res.send(error);
-  }
-})
-app.post("/downloadStory",multer().none(),(req,res)=> {
-  try {
-    fs.readFile(`./database/${req.body.user}/storys/${req.body.storyId}.json`,(err,data)=> {
-      if(err) throw err;
-      fs.readFile(`./database/${req.body.user}/commends/${req.body.storyId}.json`,(err,_data)=> {
-        if(err) throw err;
-        let story = JSON.parse(data.toString());
-        let commends = JSON.parse(_data.toString());
-        res.send(JSON.stringify({story,commends}));
-      })
-    })
-  } catch (error) {
-    res.send(error);
-  }
-})
-app.post("/downloadComments",multer().none(),(req,res)=> {
-  try {
-    fs.readFile(`./database/${req.body.user}/commends/${req.body.storyId}.json`,(err,data)=> {
-      if(err) throw err;
-      res.send(data.toString());
-    })
-  } catch (error) {
-    res.send(error);
-  }
-})
-app.post("/profileData",multer().none(),(req,res)=> {
-  let user = req.body.user;
-  fs.readFile(`./database/${user}/userData.json`,(err,data)=> {
-    if(err) throw err;
-    
-    let {user,userName,profileImage,storys,pendingFollowers,followers,following,pets} = JSON.parse(data.toString());
-    let pets_ = [];
-    pets.forEach(p => {
-      fs.readFile(`./database/${user}/pets/${p}.json`,(err,data)=> {
-        if(err) throw err;
-        pets_.push(JSON.parse(data.toString()));
-        if(pets_.length == pets.length) {
-          res.send(JSON.stringify({user,userName,profileImage,storys,pendingFollowers,followers,following,pets:pets_}));
+/////////////////  story download
+
+app.post("/downloadStory", (req, res) => {
+  const user_id = req.body.user_id;
+  const id = req.body.id;
+  const pet_id = req.body.pet_id;
+  let connection = mysql.createConnection(connectionData);
+  connection.connect();
+  const consult1 = `
+        SELECT s.id , 
+        s.user_id , 
+        CONCAT(u.name,' ',u.lastName) as 'fullName',
+        u.image as 'profileImage',
+        s.url,
+        s.description
+        FROM storys s
+        JOIN users u
+        ON u.id = s.user_id
+        WHERE s.id = '${id}' && s.pet_id = '${pet_id}' && s.user_id = '${user_id}'
+      `;
+  const consult2 = `
+      SELECT *
+      FROM comments
+      WHERE story_id = '${id}'
+      `;
+  const consult3 = `
+      SELECT *
+      FROM likes
+      WHERE story_id = '${id}'
+      `;
+  const consult4 = `
+      SELECT *
+      FROM views
+      WHERE story_id = '${id}'
+      `;
+  connection.query(consult1, (err, res1) => {
+    if (err) {
+      res.send(err);
+      return;
+    }
+    connection.query(consult2, (err, res2) => {
+      if (err) {
+        res.send(err);
+        return;
+      }
+
+      connection.query(consult3, (err, res3) => {
+        if (err) {
+          res.send(err);
+          return;
         }
-      })  
-    });
-  })
-})
 
+        connection.query(consult4, (err, res4) => {
+          if (err) {
+            res.send(err);
+            return;
+          }
+          const story = res1[0];
+          story.comments = res2;
+          story.likes = res3;
+          story.views = res4;
+          res.send(story);
+        });
+
+        connection.end();
+      });
+    });
+  });
+});
+app.post("/downloadComments", multer().none(), (req, res) => {
+  try {
+    fs.readFile(
+      `./database/${req.body.user}/commends/${req.body.storyId}.json`,
+      (err, data) => {
+        if (err) throw err;
+        res.send(data.toString());
+      }
+    );
+  } catch (error) {
+    res.send(error);
+  }
+});
+app.post("/profileData", multer().none(), (req, res) => {
+  let user = req.body.user;
+  fs.readFile(`./database/${user}/userData.json`, (err, data) => {
+    if (err) throw err;
+
+    let {
+      user,
+      userName,
+      profileImage,
+      storys,
+      pendingFollowers,
+      followers,
+      following,
+      pets,
+    } = JSON.parse(data.toString());
+    let pets_ = [];
+    pets.forEach((p) => {
+      fs.readFile(`./database/${user}/pets/${p}.json`, (err, data) => {
+        if (err) throw err;
+        pets_.push(JSON.parse(data.toString()));
+        if (pets_.length == pets.length) {
+          res.send(
+            JSON.stringify({
+              user,
+              userName,
+              profileImage,
+              storys,
+              pendingFollowers,
+              followers,
+              following,
+              pets: pets_,
+            })
+          );
+        }
+      });
+    });
+  });
+});

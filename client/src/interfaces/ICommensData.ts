@@ -1,7 +1,7 @@
 import { IStory } from "./IStory"
-import { ICommends } from "./ICommends"
+import { IComment } from "./IComment"
 export interface ICommendsData {
 
   story:IStory;
-  commends:ICommends[];
+  commends:IComment[];
 }
