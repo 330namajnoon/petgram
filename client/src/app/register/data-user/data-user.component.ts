@@ -23,7 +23,7 @@ export class DataUserComponent {
   goNext() {
     this.form.markAllAsTouched();
     let password = this.form.get('password')?.value;
-    let confirmpassword = this.form.get('confirmpassword')?.value;
+    let confirmpassword = this.form.get('confirmPassword')?.value;
     if (password === confirmpassword) {
       if (this.form.valid) {
         this.router.navigateByUrl('/signup/data-pet');
