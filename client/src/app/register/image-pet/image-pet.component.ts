@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  templateUrl: './image-pet.component.html',
+  styleUrls: ['./image-pet.component.scss']
 })
-export class SignupComponent {
+export class ImagePetComponent {
   imageSrc: string = "assets/images/profile.png";
   form = new FormGroup({
     fileSource: new FormControl('', [Validators.required])
