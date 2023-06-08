@@ -1,55 +1,54 @@
-<div class="container">
+<div [formGroup]="form" class="container">
   <h3 class="title">Datos de mascota</h3>
-  <label class="label-input" for="text">Nombre</label>
-  <input class="input" type="text" />
-
-  <br />
   <div>
-    <label class="label-input" for="Date">Fecha de nacimiento</label>
-    <input class="input" type="date" />
+    <label class="label-input" for="text">Nombre</label>
+    <input class="input" formControlName="name" type="text" />
+    <app-validator [control]="form.get('name')" />
+  </div>
+  <div>
+    <label class="label-input" for="date">Fecha de nacimiento</label>
+    <input class="input" formControlName="birthday" type="date" />
+    <app-validator [control]="form.get('birthday')" />
+
   </div>
   <div>
     <label class="label-input" for="pwd">Tipo</label>
-    <select name="cars" id="cars">
+    <select name="cars" id="cars" formControlName="type">
       <option value="">Selecciona</option>
       <option *ngFor="let item of races" [value]="item.key">
         {{ item.label | titlecase }}
       </option>
     </select>
+    <app-validator [control]="form.get('type')" />
+
   </div>
   <div>
     <label class="label-input" for="text">Género</label>
-    <select name="cars" id="cars">
+    <select name="cars" id="cars" formControlName="gender">
       <option value="">Selecciona</option>
       <option value="H">Hembra</option>
       <option value="M">Macho</option>
     </select>
+    <app-validator [control]="form.get('gender')" />
   </div>
   <div>
     <label class="label-input" for="text">Descripción</label>
-    <textarea
-      class="textarea"
-      type="text"
-      name=""
-      id=""
-      cols="30"
-      rows="10"
-    ></textarea>
+    <textarea formControlName="description" class="textarea" type="text" name="" id="" cols="30" rows="10"></textarea>
+    <app-validator [control]="form.get('description')" />
+
   </div>
   <div>
-    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+    <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="privacyPolicy" />
     <label class="check" for="vehicle1">
-      Privacidad y configuración de notificaciones</label
-    >
+      Privacidad y configuración de notificaciones</label>
   </div>
 
   <div>
-    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-    <label class="check" for="vehicle1"
-      >Aceptación de términos y condiciones
+    <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="termsAndConditions" />
+    <label class="check" for="vehicle1">Aceptación de términos y condiciones
     </label>
   </div>
   <div>
-    <button class="start" routerLink="/petgram">Empezar</button>
+    <button class="start" routerLink="/signup/image-pets">Empezar</button>
   </div>
 </div>

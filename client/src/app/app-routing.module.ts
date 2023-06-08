@@ -28,7 +28,7 @@ export class AppRoutingModule {
         }
       })
     }else {
-      this.router.navigateByUrl("")
+      // this.router.navigateByUrl("")
     }
   }
 
