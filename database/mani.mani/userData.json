@@ -1,7 +1,19 @@
 {
     "user":"mani.mani",
     "userName":"Mani",
-    "email":"sina.mani.com",
+    "email":"mani.mani@gmail.com",
     "password":"1234",
-    "storys":["st123","st124","st125"]
+    "profileImage":"Mani.jpg",
+    "storys":[
+        {"story":"st123","pet":"Luci"},
+        {"story":"st124","pet":"Luci"},
+        {"story":"st125","pet":"Luci"}
+    ],
+    "followers":[
+      
+    ],
+    "following":[],
+    "pendingFollowers":[],
+    "pets":["Luci"],
+    "language":"english"
 }

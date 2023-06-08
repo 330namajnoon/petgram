@@ -1,0 +1,56 @@
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+label {
+  width: 300px;
+  height: 22px;
+  display: block;
+  color: #ffffff;
+  border-radius: 5px;
+}
+input {
+  box-sizing: border-box;
+  width: 300px;
+  height: 40px;
+  background: #575757;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  font-size: 10px;
+  color: #f4f4f4;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.title {
+  text-align: center;
+  color: #fbbe5a;
+  font-size: 30px;
+  margin-bottom: 85px;
+}
+.siguiente {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 50px;
+  font-size: 20px;
+  background: none;
+  border: 0;
+  color: #FFFFFF;
+
+}
+.textarea{
+  box-sizing: border-box;
+  width: 300px;
+  background: #575757;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  font-size: 10px;
+  color: #f4f4f4;
+  padding: 10px;
+  margin-bottom: 15px;
+
+}
+

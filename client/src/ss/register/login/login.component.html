@@ -1,0 +1,39 @@
+<div class="container">
+  <img
+    class="icon"
+    src="assets/images/icon.svg"
+    alt="Girl in a jacket"
+    width="100%"
+    height="250"
+  />
+  <form [formGroup]="form" (ngSubmit)="sendData()">
+    <div>
+      <label for="email">Correo Electrónico:</label>
+      <input
+        formControlName="email"
+        placeholder="Ingrese un correo electrónico"
+        type="email"
+      />
+      <app-validator [control]="form.get('email')" />
+
+    </div>
+    <br />
+    <div>
+      <label for="pwd">Contraseña:</label>
+      <input
+        formControlName="password"
+        placeholder="Ingrese la contraseña"
+        type="password"
+      />
+      <app-password-validator [control]="form.get('password')" />
+
+    </div>
+    <br /><br /><br /><br />
+    <div class="register">
+      <input class="button-login" type="submit" value="Iniciar Sesión" />
+    </div>
+  </form>
+  <div class="register">
+    <a routerLink="/signup">Registrar</a>
+  </div>
+</div>

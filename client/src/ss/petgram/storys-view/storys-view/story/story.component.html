@@ -1,0 +1,30 @@
+<div #container id="story{{id}}" [style]="storysStyle" [ngClass]="getDevice()">
+  <img class="loading" *ngIf="!story" src="../../../../assets/loading.gif" alt="">
+  <div *ngIf="story" class="story_container">
+    <img *ngIf="story.type == 'png' || story.type == 'jpg'" [src]="story.url" alt="">
+    <video *ngIf="story.type == 'mp4'" src="story.url"></video>
+    <div class="details">
+      <div class="profile">
+        <img #image routerLink="/petgram/profile_view/{{story.user}}" [src]="story.profileImage" alt="">
+        <h6>
+          <span (click)="openCommends()" class="material-symbols-rounded">chat</span>
+          {{story.commends.length}}
+        </h6>
+        <h6>
+          <span (click)="like()" [ngClass]="searchLikes() ? 'like' : 'dislike'"  class="material-symbols-rounded">favorite</span>
+          {{story.likes.length}}
+        </h6>
+        <h6>
+          <span  class="material-symbols-rounded">visibility</span>
+          {{story.view.length}}
+        </h6>
+      </div>
+      <div class="description">
+        <h1>{{story.userName}}</h1>
+        <h3>{{story.description}}</h3>
+      </div>
+    </div>
+  </div>
+
+</div>
+

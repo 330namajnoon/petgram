@@ -3,8 +3,18 @@
     "userName":"SinaMajnoon",
     "email":"sina.majnoonhjk@gmail.com",
     "password":"1234",
-    "storys":["st123","st124","st125"],
-    "followers":[],
+    "profileImage":"SinaMajnoon.png",
+    "storys":[
+        {"story":"st123","pet":"bella"},
+        {"story":"st124","pet":"Tami"},
+        {"story":"st125","pet":"Emma"}
+        
+    ],
+    "followers":[
+      
+    ],
     "following":[],
-    "pets":["bella"]
+    "pendingFollowers":[],
+    "pets":["bella","Emma","Tami"],
+    "language":"english"
 }

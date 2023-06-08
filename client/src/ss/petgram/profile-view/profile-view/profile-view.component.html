@@ -1,0 +1,27 @@
+<app-loading [display]="getProfileData()" />
+<div *ngIf="getProfileData()" [ngClass]="getDevice()">
+  <div *ngIf="getMyProfile()" class="head_friends">
+    <span routerLink="/petgram/home"  class="material-symbols-rounded">arrow_circle_left</span>
+    <div class="head">
+      <img [src]="getProfileData().profileImage" alt="">
+      <h1>{{getProfileData().userName}}</h1>
+      <input (click)="follow()" *ngIf="!pendingFollowersSearch()" class="follow" type="button" value="{{language.getWord('follow')}}">
+      <input *ngIf="pendingFollowersSearch()" class="pendingFollower" type="button" value="{{language.getWord('pending_follower')}}">
+      <input *ngIf="followersSearch()" class="unFollow" type="button" value="{{language.getWord('unfollow')}}">
+      <!-- <input class="unFollow" type="button" value="Dejar de seguir"> -->
+    </div>
+    <h3 class="title">{{language.getWord('contacts')}}</h3>
+    <div class="followers">
+      <app-follower *ngFor="let follower of getProfileData().followers" [device]="getDevice()" [Image]="follower.image" [user]="follower.user" [userName]="follower.userName"  />
+    </div>
+  </div>
+  <div class="gallerys">
+    <app-media-gallery name="{{language.getWord('all_storys')}}" [user]="getProfileData().user" [storys]="getProfileData().storys" />
+    <app-media-gallery *ngFor="let pet of getProfileData().pets" [name]="pet.name" [user]="getProfileData().user" [storys]="storysFilter(pet.name)" [petData]="pet"  />
+
+  </div>
+  <div>
+
+  </div>
+</div>
+<router-outlet />

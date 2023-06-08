@@ -3,6 +3,9 @@
     "storys":[
         {"user":"sina.majnoonhjk","id":"st123","date":"10-02-2023","time":"14:20"},
         {"user":"sina.majnoonhjk","id":"st124","date":"10-02-2023","time":"18:20"},
-        {"user":"sina.majnoonhjk","id":"st125","date":"10-02-2023","time":"18:20"}
+        {"user":"mani.mani","id":"st123","date":"10-02-2023","time":"18:20"},
+        {"user":"sina.majnoonhjk","id":"st125","date":"10-02-2023","time":"18:20"},
+        {"user":"mani.mani","id":"st124","date":"16-04-2023","time":"13:20"},
+        {"user":"mani.mani","id":"st125","date":"10-01-2023","time":"18:20"}
     ]
 }
