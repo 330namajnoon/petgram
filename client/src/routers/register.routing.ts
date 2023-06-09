@@ -9,14 +9,13 @@ import { DataUserComponent } from '../components/data-user/data-user.component';
 const routes: Routes = [
   { path: '', component: FirstPageComponent },
   { path: 'login', component: LoginComponent },
-  {
-    path: 'signup',
-    children: [
-      { path: '', component: SignupComponent },
-      { path: 'data-user', component: DataUserComponent },
-      { path: 'data-pet', component: DataPetComponent },
-    ],
-  },
+  {path: 'signup',component:SignupComponent}
+  //   children: [
+  //     { path: '', component: SignupComponent },
+  //     { path: 'data-user', component: DataUserComponent },
+  //     { path: 'data-pet', component: DataPetComponent },
+  //   ],
+  // },
 ];
 
 export const RegisterRoutes = RouterModule.forChild(routes);

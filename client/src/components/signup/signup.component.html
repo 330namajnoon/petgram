@@ -1,10 +1,8 @@
-<div  class="container">
-  <h3 class="title">Foto de perfil</h3>
-
-  <img (click)="image.click()" class="icon" width="250" height="250" [src]="imageSrc" />
-  <input #image hidden type="file" accept="image/png,image/jpeg" (change)="onFileChange($event) ">
+<div #container class="container">
+  <app-data-user />
+  <app-data-pet />
+  <app-imagePet />
+  <button class="siguiente" (click)="goNext()">Siguiente</button>
 </div>
 
-<div >
-  <a (click)="goNext()" class="next">Siguiente</a>
-</div>
+

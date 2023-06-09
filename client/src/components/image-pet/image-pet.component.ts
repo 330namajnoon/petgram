@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'app-imagePet',
   templateUrl: './image-pet.component.html',
   styleUrls: ['./image-pet.component.scss']
 })
