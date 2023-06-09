@@ -1,3 +1,15 @@
-<div [style]="containerStyle" [ngClass]="getDevice()">
+<div *ngIf="getDevice() == 'container_mobile'; else pc" [style]="containerStyle" [ngClass]="getDevice()">
   <app-menu-option *ngFor="let option of menuService.options" [name]="option.name" [url]="option.url"/>
 </div>
+
+<ng-template #pc>
+  <div  [style]="containerStyle" [ngClass]="getDevice()">
+    <input id="menuSelected" type="checkbox">
+    <label for="menuSelected">
+      <span class="material-symbols-rounded">menu</span>
+    </label>
+    <div class="optionsContainer">
+      <app-menu-option *ngFor="let option of menuService.options" [name]="option.name" [url]="option.url"/>
+    </div>
+  </div>
+</ng-template>

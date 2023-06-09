@@ -1,7 +1,15 @@
-<a routerLink="{{url}}">
+<a [ngClass]="getDevice()" *ngIf="getDevice() == 'container_mobile'; else pc" routerLink="{{url}}">
   <div [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
     <span (click)="setPage(name,url)" class="material-symbols-rounded">
       {{name}}
     </span>
   </div>
 </a>
+
+<ng-template #pc>
+  <a [ngClass]="getDevice()" routerLink="{{url}}">
+    <div [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
+      {{url}}
+    </div>
+  </a>
+</ng-template>

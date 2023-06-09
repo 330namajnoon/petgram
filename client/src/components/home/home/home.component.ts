@@ -21,7 +21,7 @@ export class HomeComponent extends AppServiceEx implements OnInit {
     // this.homeService.set('setScroll', this.setScroll.bind(this));
   }
   device: string = this.getDevice();
-  storysStyle = { height: `${window.innerHeight - 55}px` };
+  storysStyle = { height: `${window.innerHeight - (this.getDevice() == 'container_mobile' ? 55 : 80)}px` };
   // setScroll(id: number, distancia: number): void {
   //   let container: any = document.getElementById('home_storys');
   //   let frame = 40;

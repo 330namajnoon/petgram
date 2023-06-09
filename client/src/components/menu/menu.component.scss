@@ -8,3 +8,35 @@
   justify-content: space-evenly;
   z-index: 100;
 }
+
+.container_pc {
+
+
+  span {
+    position: absolute;
+    top: 20px;
+    left: 17px;
+    font-size: 35px;
+    color: #FBB034;
+  }
+  input {
+    visibility: hidden;
+  }
+
+  .optionsContainer {
+    position: absolute;
+    left: -30px;
+    top: 80px;
+    width: 0px;
+    height: 100vh;
+    background-color: #FBB034;
+    margin-left: 30px;
+    transition: all 0.5s;
+    overflow: auto;
+  }
+
+  input[type = 'checkbox']:checked ~ .optionsContainer {
+    width: 250px;
+  }
+
+}
