@@ -8,7 +8,7 @@
 
 <ng-template #pc>
   <a [ngClass]="getDevice()" routerLink="{{url}}">
-    <div [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
+    <div (click)="setPage(name,url)" [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
       {{url}}
     </div>
   </a>

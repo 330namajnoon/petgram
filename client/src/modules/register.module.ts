@@ -9,7 +9,7 @@ import { DataPetComponent } from '../components/data-pet/data-pet.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { ValidatorComponent } from '../components/validator/validator.component';
 import { PasswordValidatorComponent } from '../components/password-validator/password-validator.component';
-
+import { ImagePetComponent } from 'src/components/image-pet/image-pet.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { PasswordValidatorComponent } from '../components/password-validator/pas
     DataUserComponent,
     DataPetComponent,
     ValidatorComponent,
-    PasswordValidatorComponent
+    PasswordValidatorComponent,
+    ImagePetComponent
   ],
   imports: [
     CommonModule,

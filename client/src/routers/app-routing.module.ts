@@ -23,7 +23,8 @@ export class AppRoutingModule extends AppServiceEx {
       httpClient.post<IUser[]>(`${this.getURL()}/login`,JSON.parse(localStorage.getItem("user")||'')).subscribe(user => {
         if(user.length > 0) {
           this.setUser(user[0]);
-          router.navigate(["/petgram"])
+          router.navigate(["/signup"])
+          // router.navigate(["/petgram"])
         }else {
           router.navigate(["/login"])
 

@@ -1,23 +1,11 @@
 .container {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  .siguiente {
+    position: fixed;
 
-.next {
-  text-align: center;
-  color: #f4f4f4;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 50px;
-  font-size: 20px;
-}
-
-.title{
-  text-align: center;
-  color: #FBBE5A;
-  font-size: 30px;
-
+  }
 }
