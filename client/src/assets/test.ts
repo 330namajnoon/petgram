@@ -1,0 +1,1 @@
+const sina:string = "sina";

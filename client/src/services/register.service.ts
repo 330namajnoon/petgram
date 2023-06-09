@@ -8,7 +8,7 @@ import { IUser } from 'src/interfaces/IUser';
   providedIn: 'root'
 })
 export class RegisterService extends AppServiceEx {
-
+  private scrollPromise:boolean = false;
   constructor(private http:HttpClient,private router: Router,appService:AppService) {
     super(appService)
 
@@ -28,5 +28,11 @@ export class RegisterService extends AppServiceEx {
         this.router.navigateByUrl("/petgram");
       }
     })
+  }
+  getScrollPromise():boolean {
+    return this.scrollPromise;
+  }
+  setScrollPromise(value:boolean):void {
+    this.scrollPromise = value;
   }
 }
