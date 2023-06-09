@@ -20,7 +20,7 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
   constructor(private http: HttpClient, appService: AppService, private homeService: HomeService, private router: Router) {
     super(appService)
   }
-  storysStyle = { 'height': `${window.innerHeight - 55}px` };
+  storysStyle = { 'height': `${window.innerHeight - (this.getDevice() == 'container_mobile' ? 55 : 80)}px` };
   story!: IStory;
   @Input() data!: IStoryLink;
   @Input() id!: number;
