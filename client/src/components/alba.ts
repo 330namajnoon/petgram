@@ -1,0 +1,1 @@
+const alba: string="gato"
