@@ -1,4 +1,4 @@
 export interface IStoryAdress {
-  story:string;
-  pet:string;
+  story_id:string;
+  pet_id:string;
 }

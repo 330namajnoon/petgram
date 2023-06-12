@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileViewComponent } from '../components/profile-view/profile-view/profile-view.component';
+import { ProfileViewComponent } from 'src/components/profile-view/profile-view/profile-view.component';
 
 const routes: Routes = [
   {path:"",component:ProfileViewComponent},

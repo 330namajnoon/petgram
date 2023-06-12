@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { HomeService } from 'src/services/home.service';
 import { AppService } from 'src/services/app.service';
-import { IUserData } from 'src/ss/interfaces/IUserData';
+import { IUserData } from 'src/interfaces/IUserData';
 import { ProfileViewService } from 'src/services/profile-view.service';
-import { IStoryAdress } from 'src/ss/interfaces/IStoryAdress';
+import { IStoryAdress } from 'src/interfaces/IStoryAdress';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { IFollower } from 'src/interfaces/IFollower';
-import { IUser } from 'src/interfaces/IUser';
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
@@ -40,7 +39,7 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
       return true;
     }
   }
-  getProfileData():IUser {
+  getProfileData():IUserData {
 
     return this.profileService.getProfileData();
   }
@@ -48,37 +47,35 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
   storysFilter(pet:string):IStoryAdress[] {
     let storys:IStoryAdress[] = [];
-    // this.getProfileData().storys.forEach(s => {
-    //   if(s.pet == pet) storys.push(s);
-    // })
+    this.getProfileData().storys.forEach(s => {
+      if(s.pet_id == pet) storys.push(s);
+    })
     return storys
   }
 
   pendingFollowersSearch():boolean {
-    // let follower:IFollower|undefined = this.profileService.getProfileData()..find(f => f.user == this.getUser().user);
-    // if(follower) {
-    //   return true;
-    // }else {
-    //   return false
-    // }
-    return true
+    let follower:IFollower|undefined = this.profileService.getProfileData().pendingFollowers.find(f => f.id == this.getUser().id);
+    if(follower) {
+      return true;
+    }else {
+      return false
+    }
   }
 
   followersSearch():boolean {
-    // let follower:IFollower|undefined = this.profileService.getProfileData().followers.find(f => f.user == this.getUser().user);
-    // if(follower) {
-    //   return true;
-    // }else {
-    //   return false
-    // }
-    return false
+    let follower:IFollower|undefined = this.profileService.getProfileData().followers.find(f => f.id == this.getUser().id);
+    if(follower) {
+      return true;
+    }else {
+      return false
+    }
   }
 
   follow():void {
-    // let {image,id,name,lastName} = this.getUser();
-    // let follower:IFollower = {
-    //   image,id,name,lastName
-    // }
-    // this.profileService.getProfileData().pendingFollowers.push(follower);
+    let {image,name,lastName,id} = this.getUser();
+    let follower:IFollower = {
+      image,id,name,lastName
+    }
+    this.profileService.getProfileData().pendingFollowers.push(follower);
   }
 }
