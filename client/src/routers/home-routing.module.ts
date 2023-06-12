@@ -6,7 +6,7 @@ import { CommentsComponent } from '../components/home/comments/comments.componen
 const routes: Routes = [
   {path:"",component:HomeComponent,children:[
     {path:"comments/:id",component:CommentsComponent},
-    // {path:"profile_view",loadChildren:()=> import("../profile-view/profile-view.module").then(m => m.ProfileViewModule)},
+    {path:"profile_view",loadChildren:()=> import("src/modules/profile-view.module").then(m => m.ProfileViewModule)},
     // {path:"profile_view/storys_view",loadChildren:()=> import('../storys-view/storys-view.module').then(m => m.StorysViewModule)}
   ]},
 
