@@ -21,7 +21,7 @@ const mysql = require("mysql");
 const connectionData = {
   host: "localhost",
   user: "root",
-  password: "",
+  password: "root",
   database: "petgram",
 };
 const connection = mysql.createConnection(connectionData);
@@ -30,73 +30,6 @@ const connection = mysql.createConnection(connectionData);
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
-
-  // connection.connect((err)=> {
-  //   if(err) {
-  //     console.log('Error de conneccion:',err);
-  //   }else {
-  //     console.log('Conectado a la base de datos');
-
-  //     const newUser = {
-  //       name:"sina",
-  //       lastName:"majnoon",
-  //       email:"sina.majnoon@gmail.com",
-  //       password:"1234"
-
-  //     }
-  //     const consult = `INSERT INTO users (name,lastName,email,password) VALUES ('${newUser.name}','${newUser.lastName}','${newUser.email}',PASSWORD('${newUser.password}'))`;
-
-  //     connection.query(consult,(err,res)=> {
-  //       if(err) {
-  //         console.log(err.errno);
-  //       }else {
-  //         console.log(res);
-  //       }
-  //     })
-
-  //     connection.end();
-  //   }
-  // })
-
-  // connection.connect((err)=> {
-  //   if(err) {
-  //     console.log('Error de conneccion:',err);
-  //   }else {
-  //     console.log('Conectado a la base de datos');
-
-  //     const consult = "SELECT * FROM users";
-
-  //     connection.query(consult,(err,res)=> {
-  //       if(err) {
-  //         throw err;
-  //       }else {
-  //         console.log(res);
-  //       }
-  //     })
-
-  //     connection.end();
-  //   }
-  // })
-
-  // connection.connect((err)=> {
-  //   if(err) {
-  //     throw err;
-  //   }else {
-  //     const storys = JSON.parse('[{"email":"sina.majnoonhjk","id":"st123","date":"10-02-2023","time":"14:20"},{"email":"sina.majnoonhjk","id":"st124","date":"10-02-2023","time":"18:20"},{"email":"mani.mani","id":"st123","date":"10-02-2023","time":"18:20"},{"email":"sina.majnoonhjk","id":"st125","date":"10-02-2023","time":"18:20"},{"email":"mani.mani","id":"st124","date":"16-04-2023","time":"13:20"},{"email":"mani.mani","id":"st125","date":"10-01-2023","time":"18:20"}]')
-  //     storys.forEach(s => {
-  //       const consult = "INSERT INTO storysadres SET ?";
-  //       connection.query(consult,s,(err)=> {
-  //         if(err) {
-  //           console.log(err);
-  //         }else {
-  //           console.log("se ha guardado");
-  //         }
-  //       })
-  //     })
-
-  //     connection.end();
-  //   }
-  // })
 });
 
 /////////////////  Socket.io connection
@@ -205,6 +138,7 @@ app.post("/login", (req, res) => {
   let connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (err) {
+      console.log(err)
       res.send(err);
     } else {
       const consult = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}' `;
@@ -213,7 +147,6 @@ app.post("/login", (req, res) => {
         if (err) {
           res.send(err);
         } else {
-          
           res.send(resp);
         }
       });
