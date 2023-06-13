@@ -4,7 +4,7 @@ import { ProfileViewComponent } from 'src/components/profile-view/profile-view/p
 
 const routes: Routes = [
   {path:"",component:ProfileViewComponent},
-  {path:"profile_view/:id",component:ProfileViewComponent},
+  {path:"profile_view",loadChildren:()=> import('../modules/profile-view.module').then(m => m.ProfileViewModule)},
 ];
 
 @NgModule({

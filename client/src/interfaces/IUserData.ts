@@ -3,7 +3,7 @@ import { IPet } from "./IPet";
 import { IStoryAdress } from "./IStoryAdress";
 export interface IUserData {
   id:string;
-  fulName:string;
+  fullName:string;
   image:string;
   followers:IFollower[];
   following:string[];
