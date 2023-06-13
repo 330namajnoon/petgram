@@ -1,0 +1,5 @@
+<div id="storys_view_container" [ngClass]="getDevice()">
+  <span (click)="getProfileView()"  class="material-symbols-rounded">arrow_circle_left</span>
+  <app-story *ngFor="let story of storys" [story]="story" />
+</div>
+<router-outlet/>

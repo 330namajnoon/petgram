@@ -1,11 +1,12 @@
 <div [ngClass]="getDevice()">
   <div *ngIf="getGalleryMenuSelected()" class="petData {{getDisplayClass()}}">
+
     <div class="tr">
       <h1 class="td">Nombre: <h2>{{petData.name}}</h2></h1>
       <h1 class="td">Tipo: <h2>{{petData.type}}</h2></h1>
     </div>
     <div class="tr">
-      <h1 class="td">F-de nacimiento: <h2>{{petData.birthdate}}</h2></h1>
+      <h1 class="td">F-de nacimiento: <h2>{{petData.birthDay}}</h2></h1>
       <h1 class="td">Race: <h2>{{petData.race}}</h2></h1>
     </div>
     <div class="tr">

@@ -33,13 +33,14 @@ export class ProfileViewService extends AppServiceEx {
         })
         this.profileData = profileData;
         this.storys = new Array(this.profileData.storys.length);
-
+        console.log(this.profileData);
         this.downloadStorys(this.profileData.id, this.profileData.storys)
 
       })
 
     }
   }
+
 
   async downloadStorys(user_id: string, storysAdres: IStoryAdress[]) {
     const _this = this;

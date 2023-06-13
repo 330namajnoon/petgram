@@ -20,6 +20,7 @@ const io = new Server(server, { cors: { origin: "*" } });
 const mysql = require("mysql");
 const connectionData = {
   host: "localhost",
+  // host: "https://7119-94-73-37-80.ngrok-free.app",
   user: "root",
   password: "",
   database: "petgram",
@@ -262,26 +263,26 @@ app.post("/profileData", multer().none(), (req, res) => {
       WHERE id = '${req.body.user}'
     `;
   const consult1 = `
-      SELECT f.follower_id as id,CONCAT(u.name,' ',u.lastName) as fullName,u.image
+      SELECT f.follower_id as id,u.name,u.lastName,u.image
       FROM followers f
       JOIN users u
-      ON f.user_id = u.id AND f.type = 'fs'
-      WHERE u.id = '${req.body.user}'
+      ON f.follower_id = u.id AND f.type = 'fs'
+      WHERE f.user_id = '${req.body.user}'
     `;
 
   const consult2 = `
-      SELECT f.follower_id as id,CONCAT(u.name,' ',u.lastName) as fullName,u.image
+      SELECT f.follower_id as id,u.name,u.lastName,u.image
       FROM followers f
       JOIN users u
-      ON f.user_id = u.id AND f.type = 'fg'
-      WHERE u.id = '${req.body.user}'
+      ON f.follower_id = u.id AND f.type = 'fg'
+      WHERE f.user_id = '${req.body.user}'
     `;
   const consult3 = `
-      SELECT f.follower_id as id,CONCAT(u.name,' ',u.lastName) as fullName,u.image
+      SELECT f.follower_id as id,u.name,u.lastName,u.image
       FROM followers f
       JOIN users u
-      ON f.user_id = u.id AND f.type = 'pf'
-      WHERE u.id = '${req.body.user}'
+      ON f.follower_id = u.id AND f.type = 'pf'
+      WHERE f.user_id = '${req.body.user}'
     `;
   const consult4 = `
     SELECT s.id as story_id,s.pet_id
@@ -289,8 +290,10 @@ app.post("/profileData", multer().none(), (req, res) => {
     WHERE s.user_id = '${req.body.user}'
   `;
   const consult5 = `
-    SELECT p.name
+    SELECT p.pet_id as id,u.id as user_id,p.name,p.birthDay,p.type,p.race,p.gender,p.description
     FROM pets p
+    JOIN users u
+    ON p.user_id = u.id
     WHERE p.user_id = '${req.body.user}'
   `;
   conneccion.query(consult, (err, resp1) => {

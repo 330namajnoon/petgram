@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AppService {
   private user!: IUser;
   private URL: string = 'http://localhost:4000';
+  // private URL: string = 'https://abc3-94-73-37-80.ngrok-free.app';
   socket = io(this.URL);
   language: Languages = new Languages();
   types: { img: string[], video: string[] } = {

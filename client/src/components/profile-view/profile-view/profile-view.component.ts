@@ -55,6 +55,7 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
   pendingFollowersSearch():boolean {
     let follower:IFollower|undefined = this.profileService.getProfileData().pendingFollowers.find(f => f.id == this.getUser().id);
+
     if(follower) {
       return true;
     }else {
