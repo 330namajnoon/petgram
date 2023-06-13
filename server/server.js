@@ -20,8 +20,9 @@ const io = new Server(server, { cors: { origin: "*" } });
 const mysql = require("mysql");
 const connectionData = {
   host: "localhost",
+  // host: "https://7119-94-73-37-80.ngrok-free.app",
   user: "root",
-  password: "root",
+  password: "",
   database: "petgram",
 };
 const connection = mysql.createConnection(connectionData);
