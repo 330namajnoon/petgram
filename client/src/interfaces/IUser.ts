@@ -1,4 +1,5 @@
 import { Languages } from 'src/assets/js/Languages';
+import { IPet } from './IPet';
 export interface IUser {
   id:string;
   name:string;
@@ -11,5 +12,7 @@ export interface IUser {
   image:string
   email:string;
   password:string;
-  Language:string
+  Language:string;
+  pets: IPet;
+  languages: Languages;
 }
