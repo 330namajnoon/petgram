@@ -16,28 +16,28 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
 /////////////////// mysql connection
+require("dotenv").config();
+// const mysql = require("mysql");
+const mysql = require("mysql2");
+const connectionData = 'mysql://v4rbuubil20bo9oicoed:pscale_pw_HX1zsxVd7gctjiRpqCgSd5HxK0brZ434mkzW60bVOP0@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}';
 
-const mysql = require("mysql");
-const connectionData = {
-  host: "localhost",
-  // host: "https://7119-94-73-37-80.ngrok-free.app",
-  user: "root",
-  password: "",
-  database: "petgram",
-};
-const connection = mysql.createConnection(connectionData);
+
+ 
 
 ////////////// server listener
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
+  
+  
+
 });
 
 /////////////////  Socket.io connection
 
 io.on("connect", (client) => {
   console.log("new connect");
-
+  
   client.on("comment", (comment) => {
     const connection = mysql.createConnection(connectionData);
     connection.connect((err) => {
@@ -176,7 +176,7 @@ app.post("/downloadStory", (req, res) => {
   const user_id = req.body.user_id;
   const id = req.body.id;
   const pet_id = req.body.pet_id;
- 
+
   let connection = mysql.createConnection(connectionData);
   connection.connect();
   const consult1 = `
