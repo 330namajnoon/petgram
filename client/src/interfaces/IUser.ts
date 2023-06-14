@@ -1,5 +1,6 @@
 import { Languages } from 'src/assets/js/Languages';
 import { IPet } from './IPet';
+import { IFollower } from './IFollower';
 export interface IUser {
   id:string;
   name:string;
@@ -13,6 +14,8 @@ export interface IUser {
   email:string;
   password:string;
   Language:string;
-  pets: IPet;
-  languages: Languages;
+  pets: IPet[];
+  followers:IFollower[];
+  following:string[];
+  pendingFollowers:IFollower[];
 }

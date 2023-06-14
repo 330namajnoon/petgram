@@ -20,6 +20,7 @@ export class AppRoutingModule extends AppServiceEx {
   constructor(private httpClient: HttpClient, private router: Router, appService: AppService) {
     super(appService);
     if (localStorage.getItem("user")) {
+      
       httpClient.post<IUser[]>(`${this.getURL()}/login`, JSON.parse(localStorage.getItem("user") || '')).subscribe(user => {
         if (user.length > 0) {
           this.setUser(user[0]);

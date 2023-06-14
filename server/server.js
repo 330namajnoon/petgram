@@ -21,15 +21,16 @@ const mysql = require("mysql");
 const connectionData = {
   host: "localhost",
   user: "root",
-  password: "",
+  password: "root",
   database: "petgram",
 };
-const connection = mysql.createConnection(connectionData);
 
 ////////////// server listener
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
+
+  
 });
 
 /////////////////  Socket.io connection
@@ -140,7 +141,6 @@ app.post("/login", (req, res) => {
   let connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (err) {
-      console.log(err);
       res.send(err);
     } else {
       const consult = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}' `;
