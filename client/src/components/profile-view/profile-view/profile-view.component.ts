@@ -20,8 +20,9 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
         let state = router.getCurrentNavigation()?.extras.state;
         if(state) {
-          let data = state as {user:string};
+          let data = state as {user:string;backUser:string};
           this.profileService.downloadProfileData(data.user);
+
 
         }
       }
@@ -55,6 +56,7 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
   pendingFollowersSearch():boolean {
     let follower:IFollower|undefined = this.profileService.getProfileData().pendingFollowers.find(f => f.id == this.getUser().id);
+
     if(follower) {
       return true;
     }else {
@@ -77,5 +79,20 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
       image,id,name,lastName
     }
     this.profileService.getProfileData().pendingFollowers.push(follower);
+  }
+
+  back() {
+    let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
+    url[0] = "/" + url[0];
+
+    if(this.profileService.getProfileViewUrl().length > 0) {
+      let userId:string = this.profileService.getProfileViewUrl()[this.profileService.getProfileViewUrl().length-2];
+      console.log(this.profileService.getProfileViewUrl())
+      this.profileService.setProfileViewUrl(this.profileService.getProfileViewUrl().slice(0,-1));
+      this.router.navigate(url.slice(0,-1), { state: { user:userId} });
+    }else {
+      this.router.navigate(["/petgram"]);
+
+    }
   }
 }

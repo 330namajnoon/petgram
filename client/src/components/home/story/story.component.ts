@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { ILike } from 'src/interfaces/ILike';
 import { IView } from 'src/interfaces/IView';
+import { ProfileViewService } from 'src/services/profile-view.service';
 
 @Component({
   selector: 'app-story',
@@ -17,7 +18,7 @@ import { IView } from 'src/interfaces/IView';
 })
 export class StoryComponent extends AppServiceEx implements AfterViewInit, OnInit {
   @ViewChild("container") container!: ElementRef;
-  constructor(private http: HttpClient, appService: AppService, private homeService: HomeService, private router: Router) {
+  constructor(private http: HttpClient, appService: AppService, private homeService: HomeService, private router: Router,private prS:ProfileViewService) {
     super(appService)
   }
   storysStyle = { 'height': `${window.innerHeight - (this.getDevice() == 'container_mobile' ? 55 : 80)}px` };
@@ -102,7 +103,7 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
     let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
     url[0] = "/" + url[0];
     url.push("profile_view");
+    this.prS.setProfileViewUrl([this.story?.user_id]);
     this.router.navigate(url, { state: { user: this.story?.user_id } });
-
   }
 }

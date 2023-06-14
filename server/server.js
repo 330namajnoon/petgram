@@ -16,14 +16,20 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
 /////////////////// mysql connection
+require("dotenv").config();
+// const mysql = require("mysql");
+const mysql = require("mysql2");
+const connectionData = 'mysql://v4rbuubil20bo9oicoed:pscale_pw_HX1zsxVd7gctjiRpqCgSd5HxK0brZ434mkzW60bVOP0@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}';
 
 const mysql = require("mysql");
 const connectionData = {
   host: "localhost",
   user: "root",
-  password: "root",
+  password: "",
   database: "petgram",
 };
+
+ 
 
 ////////////// server listener
 
@@ -31,13 +37,16 @@ server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
 
   
+  
+  
+
 });
 
 /////////////////  Socket.io connection
 
 io.on("connect", (client) => {
   console.log("new connect");
-
+  
   client.on("comment", (comment) => {
     const connection = mysql.createConnection(connectionData);
     connection.connect((err) => {
@@ -175,7 +184,7 @@ app.post("/downloadStory", (req, res) => {
   const user_id = req.body.user_id;
   const id = req.body.id;
   const pet_id = req.body.pet_id;
- 
+
   let connection = mysql.createConnection(connectionData);
   connection.connect();
   const consult1 = `
@@ -262,26 +271,26 @@ app.post("/profileData", multer().none(), (req, res) => {
       WHERE id = '${req.body.user}'
     `;
   const consult1 = `
-      SELECT f.follower_id as id,CONCAT(u.name,' ',u.lastName) as fullName,u.image
+      SELECT f.follower_id as id,u.name,u.lastName,u.image
       FROM followers f
       JOIN users u
-      ON f.user_id = u.id AND f.type = 'fs'
-      WHERE u.id = '${req.body.user}'
+      ON f.follower_id = u.id AND f.type = 'fs'
+      WHERE f.user_id = '${req.body.user}'
     `;
 
   const consult2 = `
-      SELECT f.follower_id as id,CONCAT(u.name,' ',u.lastName) as fullName,u.image
+      SELECT f.follower_id as id,u.name,u.lastName,u.image
       FROM followers f
       JOIN users u
-      ON f.user_id = u.id AND f.type = 'fg'
-      WHERE u.id = '${req.body.user}'
+      ON f.follower_id = u.id AND f.type = 'fg'
+      WHERE f.user_id = '${req.body.user}'
     `;
   const consult3 = `
-      SELECT f.follower_id as id,CONCAT(u.name,' ',u.lastName) as fullName,u.image
+      SELECT f.follower_id as id,u.name,u.lastName,u.image
       FROM followers f
       JOIN users u
-      ON f.user_id = u.id AND f.type = 'pf'
-      WHERE u.id = '${req.body.user}'
+      ON f.follower_id = u.id AND f.type = 'pf'
+      WHERE f.user_id = '${req.body.user}'
     `;
   const consult4 = `
     SELECT s.id as story_id,s.pet_id
@@ -289,8 +298,10 @@ app.post("/profileData", multer().none(), (req, res) => {
     WHERE s.user_id = '${req.body.user}'
   `;
   const consult5 = `
-    SELECT p.name
+    SELECT p.pet_id as id,u.id as user_id,p.name,p.birthDay,p.type,p.race,p.gender,p.description
     FROM pets p
+    JOIN users u
+    ON p.user_id = u.id
     WHERE p.user_id = '${req.body.user}'
   `;
   conneccion.query(consult, (err, resp1) => {

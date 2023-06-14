@@ -15,6 +15,7 @@ import { IStoryLink } from 'src/interfaces/IStoryLink';
   providedIn: 'root'
 })
 export class ProfileViewService extends AppServiceEx {
+  private profileViewUrl:string[] = [];
   private profileData!: IUserData;
   private galleryMenuSelected: string = this.language.getWord('all_storys');
   private storys: IStory[] = [];
@@ -33,13 +34,13 @@ export class ProfileViewService extends AppServiceEx {
         })
         this.profileData = profileData;
         this.storys = new Array(this.profileData.storys.length);
-
         this.downloadStorys(this.profileData.id, this.profileData.storys)
 
       })
 
     }
   }
+
 
   async downloadStorys(user_id: string, storysAdres: IStoryAdress[]) {
     const _this = this;
@@ -68,6 +69,13 @@ export class ProfileViewService extends AppServiceEx {
     for (let index = 0; index < storysAdres.length; index++) {
       download(index);
     }
+  }
+
+  setProfileViewUrl(values:string[]):void {
+    this.profileViewUrl = values;
+  }
+  getProfileViewUrl():string[] {
+    return this.profileViewUrl;
   }
 
   getStoryById(id: string): IStory | undefined {
