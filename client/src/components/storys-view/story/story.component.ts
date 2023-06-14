@@ -5,6 +5,7 @@ import { AppService } from 'src/services/app.service';
 import { HomeService } from 'src/services/home.service';
 import { Router } from '@angular/router';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
+import { ProfileViewService } from 'src/services/profile-view.service';
 
 @Component({
   selector: 'app-story',
@@ -13,7 +14,7 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 })
 export class StoryComponent extends AppServiceEx {
   @ViewChild("container")container!:ElementRef;
-  constructor(appService:AppService,private homeService:HomeService,private router:Router) {
+  constructor(appService:AppService,private homeService:HomeService,private router:Router,private prS:ProfileViewService) {
     super(appService)
   }
   storysStyle = {'height':`${window.innerHeight}px`};
@@ -44,6 +45,10 @@ export class StoryComponent extends AppServiceEx {
     return this.story;
   }
   getProfileView():void {
-    this.router.navigate(["/petgram","profile_view"],{state:{user:this.getUser()}});
+    let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
+    url[0] = "/" + url[0];
+    url = url.slice(0,-1);
+    let urls:string[] = this.prS.getProfileViewUrl();
+    this.router.navigate(url, { state: { user:urls[urls.length-1]} });
   }
 }

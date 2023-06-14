@@ -22,10 +22,10 @@ const connectionData = {
   host: "localhost",
   // host: "https://7119-94-73-37-80.ngrok-free.app",
   user: "root",
-  password: "",
+  password: "root",
   database: "petgram",
 };
-const connection = mysql.createConnection(connectionData);
+
 
 ////////////// server listener
 
