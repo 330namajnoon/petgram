@@ -36,8 +36,10 @@ export class AppRoutingModule extends AppServiceEx {
       }, error => {
         console.log(error)
       })
+   
     } else {
       this.router.navigateByUrl("")
+
     }
   }
 

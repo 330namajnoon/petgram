@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-pet',
@@ -23,4 +24,11 @@ export class DataPetComponent {
     { key: 3, label: 'pitbull' },
     { key: 4, label: 'podler' },
   ];
+
+  constructor(private router: Router) { }
+
+  goNext() {
+    this.form.markAllAsTouched();
+    this.router.navigateByUrl('/signup/image-pet');
+  }
 }

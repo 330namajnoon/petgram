@@ -1,11 +1,10 @@
 .container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
+
 label {
   width: 300px;
   height: 22px;
@@ -13,6 +12,7 @@ label {
   color: #ffffff;
   border-radius: 5px;
 }
+
 input {
   box-sizing: border-box;
   width: 300px;
@@ -25,12 +25,14 @@ input {
   padding: 14px;
   margin-bottom: 10px;
 }
+
 .title {
   text-align: center;
   color: #fbbe5a;
   font-size: 30px;
   margin-bottom: 85px;
 }
+
 .siguiente {
   text-align: center;
   position: fixed;
@@ -43,7 +45,8 @@ input {
   color: #FFFFFF;
 
 }
-.textarea{
+
+.textarea {
   box-sizing: border-box;
   width: 300px;
   background: #575757;
@@ -55,4 +58,3 @@ input {
   margin-bottom: 15px;
 
 }
-
