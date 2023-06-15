@@ -1,7 +1,7 @@
+import { ImagePetComponent } from './../components/image-pet/image-pet.component';
 import { Routes, RouterModule } from '@angular/router';
 import { FirstPageComponent } from '../components/first-page/first-page.component';
 import { LoginComponent } from '../components/login/login.component';
-import { SignupComponent } from '../components/signup/signup.component';
 import { DataPetComponent } from '../components/data-pet/data-pet.component';
 import { DataUserComponent } from '../components/data-user/data-user.component';
 
@@ -9,13 +9,14 @@ import { DataUserComponent } from '../components/data-user/data-user.component';
 const routes: Routes = [
   { path: '', component: FirstPageComponent },
   { path: 'login', component: LoginComponent },
-  {path: 'signup',component:SignupComponent}
-  //   children: [
-  //     { path: '', component: SignupComponent },
-  //     { path: 'data-user', component: DataUserComponent },
-  //     { path: 'data-pet', component: DataPetComponent },
-  //   ],
-  // },
+  {
+    path: 'signup',
+    children: [
+      { path: '', component: DataUserComponent },
+      { path: 'data-pet', component: DataPetComponent },
+      { path: 'image-pet', component: ImagePetComponent },
+    ],
+  },
 ];
 
 export const RegisterRoutes = RouterModule.forChild(routes);

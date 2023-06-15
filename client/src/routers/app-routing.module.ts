@@ -33,7 +33,7 @@ export class AppRoutingModule extends AppServiceEx {
         console.log(error)
       })
     }else {
-      this.router.navigateByUrl("")
+      // this.router.navigateByUrl("")
     }
   }
 

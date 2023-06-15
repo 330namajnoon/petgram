@@ -1,10 +1,8 @@
 .container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .next {
@@ -17,9 +15,8 @@
   font-size: 20px;
 }
 
-.title{
+.title {
   text-align: center;
   color: #FBBE5A;
   font-size: 30px;
-
 }
