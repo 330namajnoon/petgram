@@ -1,0 +1,16 @@
+
+<div [ngClass]="getDevice()">
+  <div class="head">
+    <span (click)="back()"  class="material-symbols-rounded">arrow_circle_left</span>
+  </div>
+  <div #commendsContainer class="comments">
+    <app-msg  *ngFor="let comments of story.comments" [commendData]="comments" />
+  </div>
+  <div class="chatbox">
+    <div>
+      <input form #chatBox type="text" placeholder="Escribe un comentario:">
+      <span  (click)="sendCommend()" class="material-symbols-rounded">send</span>
+    </div>
+  </div>
+</div>
+

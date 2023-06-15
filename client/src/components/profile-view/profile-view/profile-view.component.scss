@@ -1,0 +1,99 @@
+.container_mobile {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-y: auto;
+  position: absolute;
+  background: #343434;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .head_friends {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #3C3C3C;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    justify-content: flex-start;
+    span {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      font-size: 25px;
+      color: #ffb743c0;
+    }
+    .head {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #303030;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      padding: 20px;
+      box-sizing: border-box;
+
+      img {
+        border: solid 1px #FBB034;
+        width: 30vw;
+        height: 30vw;
+        border-radius: 15vw;
+        object-fit: cover;
+      }
+
+      h1 {
+        font-size: 20px;
+        color: white;
+      }
+
+      input {
+        width: 50%;
+        padding: 10px;
+        font-size: 10px;
+        border-radius: 5px;
+        border: 0;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+      }
+
+      .follow {
+        color: white;
+        background: #FBB034;
+      }
+      .pendingFollower {
+        color: white;
+        background: #fbaf3496;
+        display: block;
+      }
+    }
+  }
+
+  .title {
+    margin: 0;
+    padding: 7px 20px;
+    background: #303030;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 5px 5px;
+    font-size: 10px;
+    color: white;
+  }
+  .followers {
+    width: 90%;
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .gallerys {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: start;
+    margin-top: 10px;
+  }
+}

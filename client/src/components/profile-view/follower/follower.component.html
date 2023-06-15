@@ -1,0 +1,4 @@
+<div *ngIf="getUser().id !== user" (click)="getProfile()" [ngClass]="device">
+  <img [src]="Image" alt="">
+  <h1>{{fullName}}</h1>
+</div>

@@ -1,5 +1,5 @@
 export interface IFollower {
-  user:string;
-  userName:string;
+  id:string;
+  fullNAme:string;
   image:string;
 }

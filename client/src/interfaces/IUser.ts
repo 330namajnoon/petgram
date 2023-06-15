@@ -1,3 +1,4 @@
+import { Languages } from 'src/assets/js/Languages';
 export interface IUser {
   id:string;
   name:string;
@@ -10,4 +11,5 @@ export interface IUser {
   image:string
   email:string;
   password:string;
+  Language:string
 }
