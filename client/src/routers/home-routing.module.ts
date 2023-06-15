@@ -7,7 +7,7 @@ const routes: Routes = [
   {path:"",component:HomeComponent,children:[
     {path:"comments/:id",component:CommentsComponent},
     {path:"profile_view",loadChildren:()=> import("src/modules/profile-view.module").then(m => m.ProfileViewModule)},
-    // {path:"profile_view/storys_view",loadChildren:()=> import('src/modules/storys-view.module').then(m => m.StorysViewModule)}
+    {path:"profile_view/storys_view",loadChildren:()=> import('src/modules/storys-view.module').then(m => m.StorysViewModule)}
   ]},
 
 ];

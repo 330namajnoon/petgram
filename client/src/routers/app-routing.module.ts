@@ -8,7 +8,7 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 const routes: Routes = [
   { path: "", loadChildren: () => import("../modules/register.module").then(m => m.RegisterModule) },
   { path: "petgram", loadChildren: () => import("../modules/petgram.module").then(m => m.PetgramModule) },
-
+  {path:"test",loadChildren:()=> import("../app/test/test.module").then(m => m.TestModule)}
 ];
 
 @NgModule({
@@ -24,7 +24,7 @@ export class AppRoutingModule extends AppServiceEx {
         if (user.length > 0) {
           this.setUser(user[0]);
           // router.navigate(["/signup"])
-          router.navigate(["/petgram"])
+          // router.navigate(["/petgram"])
           // let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
           // url[0] = "/" + url[0];
           // url.push("profile_view");

@@ -3,6 +3,7 @@
   <div *ngIf="story" class="story_container">
     <img *ngIf="typePromise('img',story.type)" [src]="story.url" alt="">
     <video *ngIf="typePromise('video',story.type)" src="story.url"></video>
+
     <div class="details">
       <div class="profile">
         <img #image (click)="getProfileView()" [src]="story.profileImage" alt="">

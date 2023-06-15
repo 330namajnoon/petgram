@@ -70,6 +70,7 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
         let m = this.typePromise("img", story.type) ? new Image() : document.createElement("video");
         m.src = story.url;
         m.addEventListener("load", () => {
+          console.log(story.type)
           _this.story = story;
           this.socket.on("comment" + _this.story?.id, (comment) => {
             _this.story.comments.push(comment);
