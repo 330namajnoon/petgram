@@ -5,7 +5,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const multer = require("multer");
 const port = process.env.PORT || 4000;
-const pdp = path.join(__dirname, "./database");
+const pdp = path.join(__dirname, "./media");
 const app = express();
 const fs = require("fs");
 const { send } = require("process");
@@ -20,7 +20,6 @@ const io = new Server(server, { cors: { origin: "*" } });
 // const mysql = require("mysql");
 const mysql = require("mysql2");
 const connectionData = 'mysql://hyv33leu020596ake3mc:pscale_pw_PvivbRlO1wDnSEln7BbWyBmqJEG6lKIZDyf5EpQln8H@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
-
 
 ////////////// server listener
 
@@ -181,6 +180,7 @@ app.post("/downloadStory", (req, res) => {
         CONCAT(u.name,' ',u.lastName) as 'fullName',
         u.image as 'profileImage',
         s.url,
+        s.type,
         s.description
         FROM storys s
         JOIN users u
