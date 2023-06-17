@@ -3,6 +3,8 @@ export function Languages() {
   this.languages = {
     home:{
       english:"home",
+      spanish:"inicio",
+      turco:"ev"
     },
     write_a_comment: {
       english:"Write a comment",

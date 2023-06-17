@@ -18,6 +18,7 @@ export class AppService {
     video: ["mkv", "mp4"]
   }
   constructor(private router:Router) {
+    this.language.setLanguage("spanish");
     window.addEventListener("resize",()=> {
       router.navigate(["/petgram"]);
     })
