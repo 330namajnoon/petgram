@@ -15,9 +15,6 @@
     <label class="label-input" for="pwd">Tipo</label>
     <select name="cars" id="cars" formControlName="type">
       <option value="">Selecciona</option>
-      <option *ngFor="let item of races" [value]="item.key">
-        {{ item.label | titlecase }}
-      </option>
     </select>
     <app-validator [control]="form.get('type')" />
 
@@ -28,6 +25,18 @@
       <option value="">Selecciona</option>
       <option value="H">Hembra</option>
       <option value="M">Macho</option>
+    </select>
+    <app-validator [control]="form.get('gender')" />
+  </div>
+  <div>
+    <label class="label-input" for="text">Raza</label>
+    <select name="cars" id="cars" formControlName="race">
+      <option value="">Selecciona</option>
+      <option *ngFor="let item of races" [value]="item.key">
+        {{ item.label | titlecase }}
+      </option>
+      <option value="">Selecciona</option>
+
     </select>
     <app-validator [control]="form.get('gender')" />
   </div>

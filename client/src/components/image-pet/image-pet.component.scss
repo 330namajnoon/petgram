@@ -3,6 +3,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+
 }
 
 .next {
@@ -20,3 +21,17 @@
   color: #FBBE5A;
   font-size: 30px;
 }
+button {
+  width: 210px;
+  height: 40px;
+  background: #fbb034;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+}
+.position-button {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+

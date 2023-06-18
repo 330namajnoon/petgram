@@ -23,8 +23,8 @@ export class AppRoutingModule extends AppServiceEx {
       httpClient.post<IUser[]>(`${this.getURL()}/login`, JSON.parse(localStorage.getItem("user") || '')).subscribe(user => {
         if (user.length > 0) {
           this.setUser(user[0]);
-          // router.navigate(["/signup"])
-          router.navigate(["/petgram"])
+          router.navigate(["/signup"])
+          // router.navigate(["/petgram"])
           // let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
           // url[0] = "/" + url[0];
           // url.push("profile_view");
@@ -36,9 +36,9 @@ export class AppRoutingModule extends AppServiceEx {
       }, error => {
         console.log(error)
       })
-   
+
     } else {
-      this.router.navigateByUrl("")
+      this.router.navigateByUrl("signup/data-pet")
 
     }
   }
