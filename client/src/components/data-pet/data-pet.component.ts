@@ -13,7 +13,8 @@ export class DataPetComponent {
     birthday: new FormControl('', Validators.required),
     gender: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    race: new FormControl('', Validators.required),
+    description: new FormControl(''),
     privacyPolicy: new FormControl('', Validators.required),
     termsAndConditions: new FormControl('', Validators.required),
   });

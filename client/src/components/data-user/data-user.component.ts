@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class DataUserComponent {
   form: FormGroup = new FormGroup({
+    id: new FormControl('',),
     name: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     birthday: new FormControl('', Validators.required),

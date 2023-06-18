@@ -33,7 +33,7 @@ export class ImagePetComponent {
   }
   goNext() {
     if (this.form.valid) {
-      this.router.navigateByUrl('/signup/data-user');
+      this.router.navigateByUrl('/petgram');
     } else {
       alert("Debe elegir una foto de perfil")
     }
