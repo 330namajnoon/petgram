@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { RegisterController } from '../register.controller';
 
 @Component({
   selector: 'app-imagePet',
@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./image-pet.component.scss']
 })
 export class ImagePetComponent {
+  ctrl = inject(RegisterController);
+  form = this.ctrl.formImagePet;
   imageSrc: string = "assets/images/profile.png";
-  form = new FormGroup({
-    fileSource: new FormControl('', [Validators.required])
-  })
+
   constructor(private router: Router) { }
   onFileChange(event: any) {
     const reader = new FileReader();
@@ -32,6 +32,9 @@ export class ImagePetComponent {
     }
   }
   goNext() {
+    console.log(this.ctrl.formDataUser.value)
+    console.log(this.ctrl.formDataPet.value)
+    console.log(this.ctrl.formImagePet.value)
     if (this.form.valid) {
       this.router.navigateByUrl('/petgram');
     } else {

@@ -12,9 +12,12 @@
 
   </div>
   <div>
-    <label class="label-input" for="pwd">Tipo</label>
-    <select name="cars" id="cars" formControlName="type">
+    <label class="label-input">Tipo</label>
+    <select formControlName="type">
       <option value="">Selecciona</option>
+      <option value="1">Gato</option>
+      <option value="2">Perro</option>
+      <option value="3">Ave</option>
     </select>
     <app-validator [control]="form.get('type')" />
 

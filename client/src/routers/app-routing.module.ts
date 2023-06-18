@@ -38,8 +38,7 @@ export class AppRoutingModule extends AppServiceEx {
       })
 
     } else {
-      this.router.navigateByUrl("signup/data-pet")
-
+      // this.router.navigateByUrl("/signup")
     }
   }
 

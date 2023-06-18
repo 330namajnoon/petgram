@@ -1,9 +1,9 @@
-import { ImagePetComponent } from './../components/image-pet/image-pet.component';
 import { Routes, RouterModule } from '@angular/router';
 import { FirstPageComponent } from '../components/first-page/first-page.component';
 import { LoginComponent } from '../components/login/login.component';
-import { DataPetComponent } from '../components/data-pet/data-pet.component';
-import { DataUserComponent } from '../components/data-user/data-user.component';
+import { ImagePetComponent } from 'src/components/register/image-pet/image-pet.component';
+import { DataPetComponent } from 'src/components/register/data-pet/data-pet.component';
+import { DataUserComponent } from 'src/components/register/data-user/data-user.component';
 
 
 const routes: Routes = [
