@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { ProfileConfigRoutingModule } from 'src/routers/profile-config-routing.module';
+import { ProfileConfigComponent } from 'src/components/profile-config/profile-config.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ImgUploadModule } from './img-upload.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ProfileConfigComponent,
+   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ProfileConfigRoutingModule,
+    ReactiveFormsModule,
+    ImgUploadModule
   ]
 })
 export class ProfileConfigModule { }

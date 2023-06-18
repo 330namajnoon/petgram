@@ -16,30 +16,32 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
 /////////////////// mysql connection
-require("dotenv").config();
-// const mysql = require("mysql");
+
 const mysql = require("mysql2");
-const connectionData = 'mysql://v4rbuubil20bo9oicoed:pscale_pw_HX1zsxVd7gctjiRpqCgSd5HxK0brZ434mkzW60bVOP0@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}';
+const connectionData = 'mysql://adl7s86z6dpcxgoiqdy8:pscale_pw_V3Gb8QJU2hjsPQF0bFbpYtZ4z7eOdLUHoO9MD8gCkPe@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}';
 
-const mysql = require("mysql");
-const connectionData = {
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "petgram",
-};
 
- 
 
 ////////////// server listener
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
 
-  
-  
-  
+  // const connection = mysql.createConnection(connectionData);
+  // connection.connect((err)=> {
+  //   if(!err) {
+  //     console.log("connect")
+  //     connection.query("SELECT comment FROM comments",(err,res)=> {
+  //       if(!err) {
+  //         console.log(res)
+  //       }
+  //     })
+  //   }
+  // })
 
+
+  
+  
 });
 
 /////////////////  Socket.io connection
@@ -331,3 +333,21 @@ app.post("/profileData", multer().none(), (req, res) => {
     });
   });
 });
+
+app.post("/updateData",(req,res)=> {
+  res.send(req.body);
+})
+app.get("/getUsers",(req,res)=> {
+  
+  const connection = mysql.createConnection(connectionData);
+  connection.connect((err)=> {
+    if(!err) {
+      connection.query("SELECT * FROM users",(err,resp)=> {
+        if(!err) {
+          console.log(resp)
+          res.send(resp);
+        }
+      })
+    }
+  })
+})
