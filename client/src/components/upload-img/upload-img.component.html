@@ -1,7 +1,7 @@
-<span class="material-symbols-rounded" style="color: white;" [routerLink]="''"  style="margin:8px; color:white">
-  arrow_back
-</span>
-<div class="container">
+<div [ngClass]="getDevice()">
+  <span class="material-symbols-rounded" style="color: white;" [routerLink]="['/petgram','settings']"  style="margin:8px; color:white">
+    arrow_back
+  </span>
 
   <div class="img-container"  *ngIf="isImgSrc; else elseCond">
     <img *ngIf="imageSrc" src="{{imageSrc}}"  alt="" >
