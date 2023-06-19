@@ -23,10 +23,13 @@ const connectionData = 'mysql://qrgcgnri967b8al1kwgz:pscale_pw_D2dWTN6JlTgqg7O4f
 
 
 
+
 ////////////// server listener
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
+
+
 
 
 
@@ -144,7 +147,6 @@ app.post("/login", (req, res) => {
   const connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (err) {
-      console.log(err);
       res.send(err);
     } else {
       
@@ -388,3 +390,21 @@ app.post("/profileData", multer().none(), (req, res) => {
     });
   });
 });
+
+app.post("/updateData",(req,res)=> {
+  res.send(req.body);
+})
+app.get("/getUsers",(req,res)=> {
+  
+  const connection = mysql.createConnection(connectionData);
+  connection.connect((err)=> {
+    if(!err) {
+      connection.query("SELECT * FROM users",(err,resp)=> {
+        if(!err) {
+          console.log(resp)
+          res.send(resp);
+        }
+      })
+    }
+  })
+})
