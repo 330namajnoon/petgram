@@ -6,12 +6,14 @@ import { StorysViewComponent } from 'src/components/storys-view/storys-view.comp
 import { StoryComponent } from 'src/components/storys-view/story/story.component';
 import { CommentsComponent } from 'src/components/storys-view/comments/comments.component';
 import { MsgComponent } from 'src/components/storys-view/comments/msg/msg.component';
+import { VideoPlayerComponent } from 'src/components/video-player/video-player.component';
 @NgModule({
   declarations: [
     StorysViewComponent,
     StoryComponent,
     CommentsComponent,
-    MsgComponent
+    MsgComponent,
+    VideoPlayerComponent
   ],
   imports: [
     CommonModule,

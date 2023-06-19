@@ -1,0 +1,4 @@
+<div  class="container" [ngStyle]="style">
+  <video autoplay loop [src]="src" #video></video>
+  <span #span [ngStyle]="play ? {color:'transparent'} : {color:'rgba(0, 0, 0, 0.455)'}" (click)="play_pause()" class="material-symbols-rounded">play_circle</span>
+</div>
