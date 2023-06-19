@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnInit, Output, EventEmitter } from '@angular/core';
 import { IStoryLink } from 'src/interfaces/IStoryLink';
 import { IStory } from 'src/interfaces/IStory';
 import { IComment } from 'src/interfaces/IComment';
@@ -17,11 +17,12 @@ import { ProfileViewService } from 'src/services/profile-view.service';
   styleUrls: ['./story.component.scss']
 })
 export class StoryComponent extends AppServiceEx implements AfterViewInit, OnInit {
+  @Output()pause = new EventEmitter();
   @ViewChild("container") container!: ElementRef;
   constructor(private http: HttpClient, appService: AppService, private homeService: HomeService, private router: Router,private prS:ProfileViewService) {
     super(appService)
   }
-  storysStyle = { 'height': `${window.innerHeight - (this.getDevice() == 'container_mobile' ? 55 : 80)}px` };
+  storysStyle = { height: `${window.innerHeight - (this.getDevice() == 'container_mobile' ? 55 : 80)}px` };
   story!: IStory;
   @Input() data!: IStoryLink;
   @Input() id!: number;
@@ -32,6 +33,7 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
     this.homeService.set(`story${this.id}`, this);
     let container: HTMLElement = this.container.nativeElement;
     container.addEventListener("touchstart", (e: TouchEvent) => {
+
       let y1 = e.touches[0].pageY;
       container.addEventListener("touchend", (ee: TouchEvent) => {
         let y2 = ee.changedTouches[0].pageY;
@@ -69,7 +71,22 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
         let story: IStory = _story;
         let m = this.typePromise("img", story.type) ? new Image() : document.createElement("video");
         m.src = story.url;
+
+        m.addEventListener("loadedmetadata",()=> {
+          _this.story = story;
+          this.socket.on("comment" + _this.story?.id, (comment) => {
+            _this.story.comments.push(comment);
+          })
+          if(!this.searchViews())this.socket.emit("view",this.story.id,this.getUser().id);
+          this.socket.on("view" + this.story?.id, (view) => {
+            this.story?.views.push(view as IView);
+          })
+          this.socket.on("like" + this.story?.id, (like) => {
+            this.story?.likes.push(like as ILike);
+          })
+        })
         m.addEventListener("load", () => {
+
           _this.story = story;
           this.socket.on("comment" + _this.story?.id, (comment) => {
             _this.story.comments.push(comment);

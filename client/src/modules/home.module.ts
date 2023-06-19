@@ -7,7 +7,7 @@ import { StoryComponent } from '../components/home/story/story.component';
 import { CommentsComponent } from '../components/home/comments/comments.component';
 import { MsgComponent } from '../components/home/comments/msg/msg.component';
 import { ReactiveFormsModule } from "@angular/forms";
-
+import { VideoPlayerComponent } from 'src/components/home/video-player/video-player.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     StoryComponent,
     CommentsComponent,
     MsgComponent,
+    VideoPlayerComponent
   ],
   imports: [
     CommonModule,

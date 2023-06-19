@@ -17,7 +17,7 @@ export class StoryComponent extends AppServiceEx {
   constructor(appService:AppService,private homeService:HomeService,private router:Router,private prS:ProfileViewService) {
     super(appService)
   }
-  storysStyle = {'height':`${window.innerHeight}px`};
+  storysStyle = {height:`${window.innerHeight}px`};
 
   @Input()story!:IStory;
   @Input()data!:IStoryData;
