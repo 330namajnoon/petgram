@@ -4,11 +4,11 @@ import { AppService } from 'src/services/app.service';
 import { IUser } from 'src/interfaces/IUser';
 import { HttpClient } from '@angular/common/http';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
-import { UploadImgComponent } from 'src/components/upload-img/upload-img.component';
 
 const routes: Routes = [
   { path: "", loadChildren: () => import("../modules/register.module").then(m => m.RegisterModule) },
   { path: "petgram", loadChildren: () => import("../modules/petgram.module").then(m => m.PetgramModule) },
+
 ];
 
 @NgModule({

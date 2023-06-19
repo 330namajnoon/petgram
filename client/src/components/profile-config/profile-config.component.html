@@ -1,10 +1,10 @@
 
 <div *ngIf="getUser()" [ngClass]="getDevice()">
   <header>
-    
+
   <div class="img-container">
     <img [src]="getUser().image" alt="">
-    <span class="material-symbols-rounded" style="color: white;" [routerLink]="['/upload-img']">
+    <span class="material-symbols-rounded" style="color: white;" routerLink="upload-img">
       edit
     </span>
   </div>
@@ -75,6 +75,7 @@
       <p style="color: white"> {{getUser().email}} </p>
      </div>
     </section>
-  
+
   </main>
 </div>
+<router-outlet />
