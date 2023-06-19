@@ -5,7 +5,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 const multer = require("multer");
 const port = process.env.PORT || 4000;
-const pdp = path.join(__dirname, "./database");
+const pdp = path.join(__dirname, "./mediya");
 const app = express();
 const fs = require("fs");
 const { send } = require("process");
@@ -16,37 +16,30 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
 /////////////////// mysql connection
-
+require("dotenv").config();
+// const mysql = require("mysql");
 const mysql = require("mysql2");
 const connectionData = 'mysql://qrgcgnri967b8al1kwgz:pscale_pw_D2dWTN6JlTgqg7O4fpFs69ejlq0foYly1w4ya2iuT6l@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+
+
+
 
 ////////////// server listener
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
 
-  // const connection = mysql.createConnection(connectionData);
-  // connection.connect((err)=> {
-  //   if(!err) {
-  //     console.log("connect")
-  //     connection.query("SELECT comment FROM comments",(err,res)=> {
-  //       if(!err) {
-  //         console.log(res)
-  //       }
-  //     })
-  //   }
-  // })
 
 
-  
-  
+
+
 });
 
 /////////////////  Socket.io connection
 
 io.on("connect", (client) => {
   console.log("new connect");
-  
+
   client.on("comment", (comment) => {
     const connection = mysql.createConnection(connectionData);
     connection.connect((err) => {
@@ -134,7 +127,11 @@ app.get("/storysLink", (req, res) => {
         if (err) {
           res.send(err);
         } else {
-          res.send(resp);
+          let resp1 = [];
+          for (let index = resp.length - 1; index > 0; index--) {
+            resp1.push(resp[index])
+          }
+          res.send(resp1);
         }
       });
       connection.end();
@@ -147,21 +144,82 @@ app.get("/storysLink", (req, res) => {
 app.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  let connection = mysql.createConnection(connectionData);
+  const connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (err) {
       res.send(err);
     } else {
+      
       const consult = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}' `;
-
       connection.query(consult, (err, resp) => {
         if (err) {
           res.send(err);
         } else {
-          res.send(resp);
+          
+          let userData = resp[0];
+          const consult1 = `
+            SELECT f.follower_id as id,u.name,u.lastName,u.image
+            FROM followers f
+            JOIN users u
+            ON f.follower_id = u.id AND f.type = 'fs'
+            WHERE f.user_id = '${userData.id}'
+          `;
+          const consult2 = `
+            SELECT f.follower_id as id,u.name,u.lastName,u.image
+            FROM followers f
+            JOIN users u
+            ON f.follower_id = u.id AND f.type = 'fg'
+            WHERE f.user_id = '${userData.id}'
+          `;
+          const consult3 = `
+            SELECT f.follower_id as id,u.name,u.lastName,u.image
+            FROM followers f
+            JOIN users u
+            ON f.follower_id = u.id AND f.type = 'pf'
+            WHERE f.user_id = '${userData.id}'
+          `;
+          const consult4 = `
+            SELECT s.id as story_id,s.pet_id
+            FROM storys s
+            WHERE s.user_id = '${userData.id}'
+          `;
+          const consult5 = `
+            SELECT p.pet_id as id,u.id as user_id,p.name,p.birthDay,p.type,p.race,p.gender,p.description
+            FROM pets p
+            JOIN users u
+            ON p.user_id = u.id
+            WHERE p.user_id = '${userData.id}'
+          `;
+          connection.query(consult1, (err, resp2) => {
+            if (err) throw err;
+         
+            userData.followers = resp2;
+            connection.query(consult2, (err, resp3) => {
+              if (err) throw err;
+             
+              userData.following = resp3;
+              connection.query(consult3, (err, resp4) => {
+                if (err) throw err;
+              
+                userData.pendingFollowers = resp4;
+                connection.query(consult4, (err, resp5) => {
+                  if (err) throw err;
+                  
+                  userData.storys = resp5;
+                  connection.query(consult5, (err, resp6) => {
+                    if (err) throw err;
+                    
+                    userData.pets = resp6;
+                    res.send(userData);
+                    connection.end();
+                  });
+                });
+              });
+            });
+          });
         }
       });
-      connection.end();
+    
     }
   });
 });
@@ -193,6 +251,7 @@ app.post("/downloadStory", (req, res) => {
         CONCAT(u.name,' ',u.lastName) as 'fullName',
         u.image as 'profileImage',
         s.url,
+        s.type,
         s.description
         FROM storys s
         JOIN users u

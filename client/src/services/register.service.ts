@@ -21,10 +21,11 @@ export class RegisterService extends AppServiceEx {
       email,
       password
     }
-    this.http.post<IUser[]>(this.getURL() + "/login",loginData).subscribe((user)=> {
-      if (user.length > 0) {
-        localStorage.setItem("user", JSON.stringify(user[0]));
-        this.setUser(user[0])
+    this.http.post<IUser>(this.getURL() + "/login",loginData).subscribe((user)=> {
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        this.setUser(user)
+        console.log(user)
         this.router.navigateByUrl("/petgram");
       }
     })

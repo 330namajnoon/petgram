@@ -32,14 +32,15 @@ export class AppRoutingModule extends AppServiceEx {
           // url.push("profile_view");
           // this.router.navigate(url, { state: { user: 'A1b2C3d4E5' } });
         } else {
-          router.navigate(["/login"])
+          router.navigate([""])
 
         }
       }, error => {
         console.log(error)
       })
+
     } else {
-      this.router.navigateByUrl("")
+      // this.router.navigateByUrl("/signup")
     }
   }
 
