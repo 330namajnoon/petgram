@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { AppService } from 'src/services/app.service';
+import { StorysViewService } from 'src/services/storys-view.service';
 
 @Component({
   selector: 'app-video-player',
@@ -14,7 +15,7 @@ export class VideoPlayerComponent extends AppServiceEx implements AfterViewInit 
   @ViewChild("video")video!:ElementRef;
   @ViewChild("span")span!:ElementRef;
   play:boolean = true;
-  constructor(appS:AppService) {
+  constructor(appS:AppService,private storysVS:StorysViewService) {
     super(appS);
 
 
@@ -22,6 +23,7 @@ export class VideoPlayerComponent extends AppServiceEx implements AfterViewInit 
   }
 
   ngAfterViewInit():void {
+    this.storysVS.setideoPlayerControl(this.pause.bind(this));
     const video = this.video.nativeElement as HTMLSpanElement;
     let e1 = 0
     window.addEventListener("touchstart",(ee)=> {
@@ -43,7 +45,10 @@ export class VideoPlayerComponent extends AppServiceEx implements AfterViewInit 
       }
     })
   }
-
+  pause():void {
+    this.video.nativeElement.pause();
+    this.play = false;
+  }
   play_pause():void {
     if(this.play){
       this.video.nativeElement.pause();

@@ -2,12 +2,12 @@
   <img class="loading" *ngIf="!story" src="../../../../assets/loading.gif" alt="">
   <div *ngIf="story" class="story_container">
     <img *ngIf="typePromise('img',story.type)" [src]="story.url" alt="">
-    <app-video-player *ngIf="typePromise('video',story.type)" [src]="story.url" [type]="story.type" [style]="{width:'100vw',height:storysStyle.height}" />
+    <app-video-player *ngIf="typePromise('video',story.type)" [src]="story.url" [type]="story.type" [style]="{width:'100vw',height:storysStyle.height}" #videoPlayer />
     <div class="details">
       <div class="profile">
         <img #image (click)="getProfileView()" [src]="story.profileImage" alt="">
         <h6>
-          <span routerLink="comments/story{{id}}" class="material-symbols-rounded">chat</span>
+          <span (click)="homeService.getVideoPlayerControl()()" routerLink="comments/story{{id}}" class="material-symbols-rounded">chat</span>
           {{story.comments.length}}
         </h6>
         <h6>

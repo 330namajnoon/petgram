@@ -21,12 +21,13 @@ export class AppRoutingModule extends AppServiceEx {
     super(appService);
     if (localStorage.getItem("user")) {
 
-      httpClient.post<IUser[]>(`${this.getURL()}/login`, JSON.parse(localStorage.getItem("user") || '')).subscribe(user => {
-        if (user.length > 0) {
-          this.setUser(user[0]);
+      httpClient.post<IUser>(`${this.getURL()}/login`, JSON.parse(localStorage.getItem("user") || '')).subscribe(user => {
+        if (user) {
+          this.setUser(user);
+          localStorage.setItem("user",JSON.stringify({email:user.email,password:user.password}));
           // router.navigate(["/signup"])
           // router.navigate(["/petgram"])
-          router.navigate(["/petgram/settings"])
+
           // let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
           // url[0] = "/" + url[0];
           // url.push("profile_view");
@@ -40,7 +41,7 @@ export class AppRoutingModule extends AppServiceEx {
       })
 
     } else {
-      // this.router.navigateByUrl("/signup")
+      this.router.navigateByUrl("/login")
     }
   }
 
