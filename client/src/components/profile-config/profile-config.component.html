@@ -1,0 +1,81 @@
+
+<div *ngIf="getUser()" [ngClass]="getDevice()">
+  <header>
+
+  <div class="img-container">
+    <img [src]="getUser().image" alt="">
+    <span class="material-symbols-rounded" style="color: white;" routerLink="upload-img">
+      edit
+    </span>
+  </div>
+  <h1>{{getUser().name}}</h1>
+  </header>
+  <main>
+    <section class="user-data">
+     <h3 class="head-slide" style="color: white; padding:10px; background-color:gray;"><button (click)="toggleMenu()"> User Data <i class="fa-solid fa-user-pen"></i></button></h3>
+    <form [formGroup]="userForm" (ngSubmit)="save()" [ngClass]="{'menu-open': isMenuOpen}">
+      <div class="input-pair">
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" placeholder="getUser().email" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+        <span class="material-symbols-rounded" style="color: white;" (click)="editInput(getUser().email)">
+          edit
+        </span>
+      </div>
+
+      <div class="input-pair">
+        <label for="name"> Name:</label>
+        <input type="text" id="name" formControlName="name" [placeholder]="getUser().name" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+        <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          edit
+        </span>
+      </div>
+      <div class="input-pair">
+        <label for="last-name">  Last Name:</label>
+        <input type="text" id="last-name" formControlName="lastName" [placeholder]="getUser().lastName" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+        <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().lastName)">
+          edit
+        </span>
+      </div>
+
+      <div class="input-pair">
+        <label for="last-name">Country:</label>
+        <input type="text" id="country" formControlName="country" [placeholder]="getUser().country" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+        <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().country)">
+          edit
+        </span>
+      </div>
+
+      <div class="input-pair">
+        <label for="last-name">Address:</label>
+        <input type="text" id="address" formControlName="address" [placeholder]="getUser().address" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+        <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().address)">
+          edit
+        </span>
+      </div>
+      <div class="input-pair">
+        <label for="postal-code">Zip Code:</label>
+        <input type="text" id="postal-code" formControlName="postalCode" [placeholder]="getUser().postalCode" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+        <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().postalCode)">
+          edit
+        </span>
+      </div>
+
+      <div class="input-pair">
+       <label for="avatar">upload photo</label>
+       <img *ngIf="imageSrc" src="{{imageSrc}}" style="max-width: 150px;" alt="">
+       <input type="file" (change)="uploadFile($event)">
+      </div>
+
+    </form>
+    </section>
+    <section>
+      <h3 class="head-slide" style="color: white; padding:10px; background-color:gray;"> Pet Data </h3>
+     <div>
+
+      <p style="color: white"> {{getUser().email}} </p>
+     </div>
+    </section>
+
+  </main>
+</div>
+<router-outlet />

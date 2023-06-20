@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { AppService } from 'src/services/app.service';
 import { IUser } from 'src/interfaces/IUser';
@@ -20,6 +20,7 @@ export class AppRoutingModule extends AppServiceEx {
   constructor(private httpClient: HttpClient, private router: Router, appService: AppService) {
     super(appService);
     if (localStorage.getItem("user")) {
+
       httpClient.post<IUser>(`${this.getURL()}/login`, JSON.parse(localStorage.getItem("user") || '')).subscribe(user => {
         if (user) {
           this.setUser(user);

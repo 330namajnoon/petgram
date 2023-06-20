@@ -22,10 +22,13 @@ const mysql = require("mysql2");
 const connectionData = 'mysql://t6nz31xykbbjm0v80cae:pscale_pw_pzKghIwNXRbxC7U09TzfWjF7ztI5AlZupyPJbzYjDjy@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
+
 ////////////// server listener
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
+
+
 
 
 
@@ -157,7 +160,7 @@ app.post("/login", (req, res) => {
   const connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (err) {
-      
+
       res.send(err);
     } else {
       
@@ -401,3 +404,21 @@ app.post("/profileData", multer().none(), (req, res) => {
     });
   });
 });
+
+app.post("/updateData",(req,res)=> {
+  res.send(req.body);
+})
+app.get("/getUsers",(req,res)=> {
+  
+  const connection = mysql.createConnection(connectionData);
+  connection.connect((err)=> {
+    if(!err) {
+      connection.query("SELECT * FROM users",(err,resp)=> {
+        if(!err) {
+          console.log(resp)
+          res.send(resp);
+        }
+      })
+    }
+  })
+})
