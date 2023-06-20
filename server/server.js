@@ -19,7 +19,7 @@ const io = new Server(server, { cors: { origin: "*" } });
 require("dotenv").config();
 // const mysql = require("mysql");
 const mysql = require("mysql2");
-const connectionData = 'mysql://t6nz31xykbbjm0v80cae:pscale_pw_pzKghIwNXRbxC7U09TzfWjF7ztI5AlZupyPJbzYjDjy@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://jbhe17f4kle65fw4kuep:pscale_pw_umg6i8cenMrVEKJ7jl6HehCx9a32CMwVd9zvP6Rkd3C@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 
@@ -160,77 +160,82 @@ app.post("/login", (req, res) => {
   const connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (err) {
-
       res.send(err);
     } else {
+
+    
       
       const consult = `SELECT * FROM users WHERE email = '${email}' AND password = '${password}' `;
       connection.query(consult, (err, resp) => {
         if (err) {
           res.send(err);
         } else {
-          
-          let userData = resp[0];
-          const consult1 = `
-            SELECT f.follower_id as id,u.name,u.lastName,u.image
-            FROM followers f
-            JOIN users u
-            ON f.follower_id = u.id AND f.type = 'fs'
-            WHERE f.user_id = '${userData.id}'
-          `;
-          const consult2 = `
-            SELECT f.follower_id as id,u.name,u.lastName,u.image
-            FROM followers f
-            JOIN users u
-            ON f.follower_id = u.id AND f.type = 'fg'
-            WHERE f.user_id = '${userData.id}'
-          `;
-          const consult3 = `
-            SELECT f.follower_id as id,u.name,u.lastName,u.image
-            FROM followers f
-            JOIN users u
-            ON f.follower_id = u.id AND f.type = 'pf'
-            WHERE f.user_id = '${userData.id}'
-          `;
-          const consult4 = `
-            SELECT s.id as story_id,s.pet_id
-            FROM storys s
-            WHERE s.user_id = '${userData.id}'
-          `;
-          const consult5 = `
-            SELECT p.pet_id as id,u.id as user_id,p.name,p.birthDay,p.type,p.race,p.gender,p.description
-            FROM pets p
-            JOIN users u
-            ON p.user_id = u.id
-            WHERE p.user_id = '${userData.id}'
-          `;
-          connection.query(consult1, (err, resp2) => {
-            if (err) throw err;
-         
-            userData.followers = resp2;
-            connection.query(consult2, (err, resp3) => {
+          if(resp.length > 0) {
+            let userData = resp[0];
+            
+            const consult1 = `
+              SELECT f.follower_id as id,u.name,u.lastName,u.image
+              FROM followers f
+              JOIN users u
+              ON f.follower_id = u.id AND f.type = 'fs'
+              WHERE f.user_id = '${userData.id}'
+            `;
+            const consult2 = `
+              SELECT f.follower_id as id,u.name,u.lastName,u.image
+              FROM followers f
+              JOIN users u
+              ON f.follower_id = u.id AND f.type = 'fg'
+              WHERE f.user_id = '${userData.id}'
+            `;
+            const consult3 = `
+              SELECT f.follower_id as id,u.name,u.lastName,u.image
+              FROM followers f
+              JOIN users u
+              ON f.follower_id = u.id AND f.type = 'pf'
+              WHERE f.user_id = '${userData.id}'
+            `;
+            const consult4 = `
+              SELECT s.id as story_id,s.pet_id
+              FROM storys s
+              WHERE s.user_id = '${userData.id}'
+            `;
+            const consult5 = `
+              SELECT p.pet_id as id,u.id as user_id,p.name,p.birthDay,p.type,p.race,p.gender,p.description
+              FROM pets p
+              JOIN users u
+              ON p.user_id = u.id
+              WHERE p.user_id = '${userData.id}'
+            `;
+            connection.query(consult1, (err, resp2) => {
               if (err) throw err;
-             
-              userData.following = resp3;
-              connection.query(consult3, (err, resp4) => {
+           
+              userData.followers = resp2;
+              connection.query(consult2, (err, resp3) => {
                 if (err) throw err;
-              
-                userData.pendingFollowers = resp4;
-                connection.query(consult4, (err, resp5) => {
+               
+                userData.following = resp3;
+                connection.query(consult3, (err, resp4) => {
                   if (err) throw err;
-                  
-                  userData.storys = resp5;
-                  connection.query(consult5, (err, resp6) => {
+                
+                  userData.pendingFollowers = resp4;
+                  connection.query(consult4, (err, resp5) => {
                     if (err) throw err;
                     
-                    userData.pets = resp6;
-                    res.send(userData);
-                    connection.end();
+                    userData.storys = resp5;
+                    connection.query(consult5, (err, resp6) => {
+                      if (err) throw err;
+                      
+                      userData.pets = resp6;
+                      res.send(userData);
+                      connection.end();
+                    });
                   });
                 });
               });
             });
-          });
+          }else {
+            res.send(err);
+          }
         }
       });
     
