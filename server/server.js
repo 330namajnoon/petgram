@@ -19,8 +19,7 @@ const io = new Server(server, { cors: { origin: "*" } });
 require("dotenv").config();
 // const mysql = require("mysql");
 const mysql = require("mysql2");
-const connectionData = 'mysql://qrgcgnri967b8al1kwgz:pscale_pw_D2dWTN6JlTgqg7O4fpFs69ejlq0foYly1w4ya2iuT6l@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
-
+const connectionData = 'mysql://f2468dhwscadyrxak8i4:pscale_pw_w7HoZ07djRtWq60Zc2JvyBYXKtqDc3m8vJLOuajeXOH@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 ////////////// server listener
@@ -94,11 +93,12 @@ io.on("connect", (client) => {
           INTO views
           (user_id,story_id) VALUES ('${user_id}','${story_id}')
         `;
-
-      connection.query(consult, (err, resp) => {
-        if (err) {
-          return;
-        } else {
+        
+        connection.query(consult, (err, resp) => {
+          if (err) {
+            return;
+          } else {
+          console.log(story_id);  
           io.emit(`view${story_id}`, { id: resp.insertId, user_id, story_id });
         }
       });
@@ -125,9 +125,10 @@ app.get("/storysLink", (req, res) => {
           res.send(err);
         } else {
           let resp1 = [];
-          for (let index = resp.length - 1; index > 0; index--) {
+          for (let index = resp.length-1 ; index >= 0; index--) {
             resp1.push(resp[index])
           }
+       
           res.send(resp1);
         }
       });

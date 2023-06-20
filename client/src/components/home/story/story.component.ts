@@ -10,16 +10,17 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { ILike } from 'src/interfaces/ILike';
 import { IView } from 'src/interfaces/IView';
 import { ProfileViewService } from 'src/services/profile-view.service';
-
+import { VideoPlayerComponent } from '../video-player/video-player.component';
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
   styleUrls: ['./story.component.scss']
 })
 export class StoryComponent extends AppServiceEx implements AfterViewInit, OnInit {
-  @Output()pause = new EventEmitter();
+  @ViewChild(VideoPlayerComponent)videoPlayerComponent!:VideoPlayerComponent;
+  @ViewChild('videoPlayer',{read:ElementRef})videoPlayer!:ElementRef;
   @ViewChild("container") container!: ElementRef;
-  constructor(private http: HttpClient, appService: AppService, private homeService: HomeService, private router: Router,private prS:ProfileViewService) {
+  constructor(private http: HttpClient, appService: AppService,public homeService: HomeService, private router: Router,private prS:ProfileViewService) {
     super(appService)
   }
   storysStyle = { height: `${window.innerHeight - (this.getDevice() == 'container_mobile' ? 55 : 80)}px` };
@@ -117,6 +118,7 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
 
 
   getProfileView(): void {
+    this.homeService.getVideoPlayerControl()();
     let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
     url[0] = "/" + url[0];
     url.push("profile_view");

@@ -38,7 +38,7 @@ export class StorysViewComponent implements AfterViewInit {
     let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
     url = url.slice(0,-1);
     url[0] = "/"+url[0];
-    this.router.navigate(url,{state:{user:this.storys[0].id}});
+    this.router.navigate(url,{state:{user:this.storys[0].user_id}});
 
   }
 }
