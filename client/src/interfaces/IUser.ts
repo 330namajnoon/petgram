@@ -1,6 +1,8 @@
+
 import { IFollower } from "./IFollower";
 import { IStoryAdress } from "./IStoryAdress";
 import { IPet } from "./IPet";
+
 export interface IUser {
   id:string;
   name:string;
@@ -19,4 +21,5 @@ export interface IUser {
   pendingFollowers:IFollower[];
   storys:IStoryAdress[];
   pets:IPet[];
+
 }

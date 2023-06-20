@@ -1,0 +1,22 @@
+<div [ngClass]="getDevice()">
+  <span class="material-symbols-rounded" style="color: white;" [routerLink]="['/petgram','settings']"  style="margin:8px; color:white">
+    arrow_back
+  </span>
+
+  <div class="img-container"  *ngIf="isImgSrc; else elseCond">
+    <img *ngIf="imageSrc" src="{{imageSrc}}"  alt="" >
+
+  </div>
+  <ng-template class="img-container" #elseCond>
+    <img [src]="getUser().image" alt=""  >
+  </ng-template>
+
+<form action="">
+  <div class="input-pair">
+    <label for="avatar">upload photo</label>
+    <input type="file" (change)="uploadFile($event)" accept="image/*" >
+   </div>
+</form>
+<button (click)="saveImg()">Save</button>
+
+</div>
