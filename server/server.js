@@ -19,7 +19,7 @@ const io = new Server(server, { cors: { origin: "*" } });
 require("dotenv").config();
 // const mysql = require("mysql");
 const mysql = require("mysql2");
-const connectionData = 'mysql://f2468dhwscadyrxak8i4:pscale_pw_w7HoZ07djRtWq60Zc2JvyBYXKtqDc3m8vJLOuajeXOH@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://t6nz31xykbbjm0v80cae:pscale_pw_pzKghIwNXRbxC7U09TzfWjF7ztI5AlZupyPJbzYjDjy@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 ////////////// server listener
@@ -89,17 +89,29 @@ io.on("connect", (client) => {
     connection.connect((err) => {
       if (err) return;
       const consult = `
+        SELECT * FROM views WHERE user_id = '${user_id}' && story_id = '${story_id}'
+      `;
+      const consult1 = `
           INSERT
           INTO views
           (user_id,story_id) VALUES ('${user_id}','${story_id}')
         `;
         
+        
         connection.query(consult, (err, resp) => {
           if (err) {
             return;
           } else {
-          console.log(story_id);  
-          io.emit(`view${story_id}`, { id: resp.insertId, user_id, story_id });
+            if(resp.length <= 0) {
+              connection.query(consult1, (err, resp1) => {
+                if (err) {
+                  return;
+                } else {
+                  io.emit(`view${story_id}`, { id: resp1.insertId, user_id, story_id });
+                } 
+                connection.end(); 
+              })  
+            }
         }
       });
     });
@@ -145,7 +157,7 @@ app.post("/login", (req, res) => {
   const connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (err) {
-      console.log(err);
+      
       res.send(err);
     } else {
       

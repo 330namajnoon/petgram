@@ -44,7 +44,7 @@ export class AppService {
   }
 
   setUser(user: IUser): void {
-    console.log(user)
+
     this.user = user;
   }
   getUser(): IUser {

@@ -59,6 +59,7 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
     } else {
       return false;
     }
+
   }
   like(): void {
     if(!this.searchLikes())
@@ -90,6 +91,7 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
 
           _this.story = story;
           this.socket.on("comment" + _this.story?.id, (comment) => {
+            console.log(comment);
             _this.story.comments.push(comment);
           })
           if(!this.searchViews())this.socket.emit("view",this.story.id,this.getUser().id);
