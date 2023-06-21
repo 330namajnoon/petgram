@@ -19,8 +19,7 @@ const io = new Server(server, { cors: { origin: "*" } });
 require("dotenv").config();
 // const mysql = require("mysql");
 const mysql = require("mysql2");
-const connectionData = 'mysql://w2ljoaoc6yfj39s0l5p2:pscale_pw_RNzuLTKrsMhJ0cuZpyirIJV48H1xRDJMCBE2aihrJm8@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}';
-
+const connectionData = 'mysql://jg9xr8oa9sf9q6m8dj7b:pscale_pw_90CcfUHf9kWqX5H0HNTPEph88UNHKENcODa6hYVr6xs@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
  
 ////////////// server listener
