@@ -1,0 +1,81 @@
+
+.container_mobile {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+      .img-container{
+        position:relative;
+
+        img {
+          width: 130px;
+          height: 130px;
+          border-radius: 100px;
+          margin:20px;
+
+
+        }
+        span{
+          position: absolute;
+          top:10px;
+          right:10px;
+        }
+      }
+
+      h1{
+       color: white;
+      }
+  }
+
+.user-data{
+
+      .head-slide {
+        background-color:rgb(238, 235, 235);
+        padding: 20px;
+        color: white !important;
+      }
+
+      form{
+        width:80%;
+        margin: 20px auto;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+
+      .input-pair{
+        display: grid;
+        margin-bottom: 10px;
+        grid-template-columns: auto auto auto;
+        color:white;
+        border:none;
+        color: white;
+        background-color: black;
+        label {
+          width: 100px;
+        }
+        .text-style {
+          border: none;
+          background-color: transparent;
+          font-size: 16px;
+          padding: 0;
+          outline: none;
+          cursor: default;
+        }
+        .input-style {
+          /* CSS rules for the input style */
+        }
+      }
+    }
+    .menu-open {
+      max-height: 200px; /* Adjust the height as needed */
+    }
+     }
+
+  }
+
+
+
+.container_pc {
+
+}

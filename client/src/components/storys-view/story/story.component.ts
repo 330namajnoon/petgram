@@ -32,11 +32,21 @@ export class StoryComponent extends AppServiceEx {
       return false;
     }
   }
+  searchViews(): boolean {
+    let view = this.story?.views.find(l => l.user_id == this.getUser().id);
+    console.log(view);
+    if (view) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
   like():void {
     this.socket.emit("like",this.story,this.getUser().id);
   }
   openCommends():void {
-    this.router.navigate(["/petgram","profile_view",this.story.id,"storys_view","commends"],{state:{story:this.story}});
+    this.router.navigate(["/petgram","profile_view","storys_view","commends"],{state:{story:this.story}});
   }
   getScrollTop():number {
     let c:any = document.getElementById('home_storys');

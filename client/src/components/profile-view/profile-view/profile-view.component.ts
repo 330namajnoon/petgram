@@ -87,7 +87,6 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
     if(this.profileService.getProfileViewUrl().length > 0) {
       let userId:string = this.profileService.getProfileViewUrl()[this.profileService.getProfileViewUrl().length-2];
-      console.log(this.profileService.getProfileViewUrl())
       this.profileService.setProfileViewUrl(this.profileService.getProfileViewUrl().slice(0,-1));
       this.router.navigate(url.slice(0,-1), { state: { user:userId} });
     }else {

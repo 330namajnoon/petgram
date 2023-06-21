@@ -36,7 +36,7 @@ export class HomeService extends AppServiceEx {
   async downloadStorys() {
     this.http.get<IStoryLink[]>(`${this.getURL()}/storysLink`).subscribe((storys)=> {
       this.setStorysLink(storys);
-      console.log(storys)
+
     })
   }
 
