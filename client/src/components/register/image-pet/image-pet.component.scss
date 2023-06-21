@@ -7,6 +7,9 @@
 }
 .img{
   object-fit: cover;
+}
+.img2{
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -37,5 +40,8 @@ button {
   bottom: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: white;
+  font: Roboto;
+  size:20 px;
 }
 
