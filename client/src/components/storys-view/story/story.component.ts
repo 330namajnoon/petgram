@@ -6,6 +6,7 @@ import { HomeService } from 'src/services/home.service';
 import { Router } from '@angular/router';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { ProfileViewService } from 'src/services/profile-view.service';
+import { StorysViewService } from 'src/services/storys-view.service';
 
 @Component({
   selector: 'app-story',
@@ -14,10 +15,10 @@ import { ProfileViewService } from 'src/services/profile-view.service';
 })
 export class StoryComponent extends AppServiceEx {
   @ViewChild("container")container!:ElementRef;
-  constructor(appService:AppService,private homeService:HomeService,private router:Router,private prS:ProfileViewService) {
+  constructor(appService:AppService,private homeService:HomeService,private router:Router,private prS:ProfileViewService,public storysVS:StorysViewService) {
     super(appService)
   }
-  storysStyle = {'height':`${window.innerHeight}px`};
+  storysStyle = {height:`${window.innerHeight}px`};
 
   @Input()story!:IStory;
   @Input()data!:IStoryData;
@@ -45,6 +46,7 @@ export class StoryComponent extends AppServiceEx {
     return this.story;
   }
   getProfileView():void {
+    this.storysVS.getVideoPlayerControl()();
     let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
     url[0] = "/" + url[0];
     url = url.slice(0,-1);

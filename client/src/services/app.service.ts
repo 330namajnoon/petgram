@@ -28,13 +28,13 @@ export class AppService {
     switch (tagName) {
       case "img":
         let ip = this.types.img.find(t => t == type)
-        if(ip && ip.length <= 0) {
+        if(!ip) {
           promise = false;
         }
         break;
       case "video":
         let vp = this.types.video.find(t => t == type)
-        if(vp && vp.length <= 0) {
+        if(!vp) {
           promise = false;
         }
         break;
@@ -44,6 +44,7 @@ export class AppService {
   }
 
   setUser(user: IUser): void {
+    console.log(user)
     this.user = user;
   }
   getUser(): IUser {

@@ -1,4 +1,8 @@
-import { Languages } from 'src/assets/js/Languages';
+
+import { IFollower } from "./IFollower";
+import { IStoryAdress } from "./IStoryAdress";
+import { IPet } from "./IPet";
+
 export interface IUser {
   id:string;
   name:string;
@@ -11,5 +15,11 @@ export interface IUser {
   image:string
   email:string;
   password:string;
-  Language:string
+  Language:string;
+  followers:IFollower[];
+  following:string[];
+  pendingFollowers:IFollower[];
+  storys:IStoryAdress[];
+  pets:IPet[];
+
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { AppService } from 'src/services/app.service';
 import { IUser } from 'src/interfaces/IUser';
@@ -20,17 +20,20 @@ export class AppRoutingModule extends AppServiceEx {
   constructor(private httpClient: HttpClient, private router: Router, appService: AppService) {
     super(appService);
     if (localStorage.getItem("user")) {
-      httpClient.post<IUser[]>(`${this.getURL()}/login`, JSON.parse(localStorage.getItem("user") || '')).subscribe(user => {
-        if (user.length > 0) {
-          this.setUser(user[0]);
-          router.navigate(["/signup"])
+
+      httpClient.post<IUser>(`${this.getURL()}/login`, JSON.parse(localStorage.getItem("user") || '')).subscribe(user => {
+        if (user) {
+          this.setUser(user);
+          localStorage.setItem("user",JSON.stringify({email:user.email,password:user.password}));
+          // router.navigate(["/signup"])
           // router.navigate(["/petgram"])
+
           // let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
           // url[0] = "/" + url[0];
           // url.push("profile_view");
           // this.router.navigate(url, { state: { user: 'A1b2C3d4E5' } });
         } else {
-          router.navigate(["/login"])
+          router.navigate([""])
 
         }
       }, error => {
@@ -38,7 +41,7 @@ export class AppRoutingModule extends AppServiceEx {
       })
 
     } else {
-      // this.router.navigateByUrl("/signup")
+      this.router.navigateByUrl("/login")
     }
   }
 
