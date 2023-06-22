@@ -2,7 +2,7 @@
   <h3 class="title">Foto de perfil</h3>
 
   <img (click)="image.click()" [ngStyle]="{img: form.value.fileSource}" [ngClass]="imageSrc=='assets/images/profile.png'? 'img':'img2'" width="250" height="250" [src]="imageSrc" />
-  <input #image hidden type="file" accept="image/png,image/jpeg" (change)="onFileChange($event) ">
+  <input #image id="image_pet_file" hidden type="file" accept="image/png,image/jpeg" (change)="onFileChange($event) ">
 </div>
 
 <div>

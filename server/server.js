@@ -14,14 +14,22 @@ app.use(cors());
 app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
-
+const mediyaUploader = multer({
+  storage: multer.diskStorage({
+      destination: (req, file, cd) => {
+          cd(null, "./mediya");
+      },
+      filename: (req, file, cd) => {
+          cd(null, file.originalname);
+      }
+  })
+})
 /////////////////// mysql connection
 require("dotenv").config();
 // const mysql = require("mysql");
 const mysql = require("mysql2");
 
-const connectionData = 'mysql://jg9xr8oa9sf9q6m8dj7b:pscale_pw_90CcfUHf9kWqX5H0HNTPEph88UNHKENcODa6hYVr6xs@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
-
+const connectionData = 'pscale_pw_14Ld2FNDrShOXoMrDB4oat8kSEl07ooeGtJuxoPohqN@aws.connect.psdb.cloud/petgram'
 ////////////// server listener
 
 server.listen(port, () => {
@@ -223,6 +231,12 @@ app.post("/login", (req, res) => {
     }
   });
 });
+
+app.post("/signup",mediyaUploader.single("file"),(req,res)=> {
+  console.log(req.body.user);
+  console.log(req.file);
+  res.send(true);
+})
 // app.post("/downloadStorys",multer().none(),(req,res)=> {
 
 //   try {
