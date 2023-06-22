@@ -1,3 +1,4 @@
+const myModules = require("./modules/myModules");
 const http = require("http");
 const express = require("express");
 const path = require("path");
@@ -29,13 +30,13 @@ require("dotenv").config();
 // const mysql = require("mysql");
 const mysql = require("mysql2");
 
-const connectionData = 'mysql://0g7fw5d6vwaft1pxyumh:pscale_pw_PcncWowgCP9IHJ8bJ2TmrUxm7bvHSrIcFYsbZtrjZcV@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}';
+const connectionData = 'mysql://sfklwc75j7e962oy06kd:pscale_pw_R631hK3DeHJkMAGIJyPbJs3wWanhjNsavZJVmll4rhM@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 ////////////// server listener
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
-
+  
 
 
 
@@ -255,6 +256,45 @@ app.post("/signup",mediyaUploader.single("file"),(req,res)=> {
   console.log(req.body.user);
   console.log(req.file);
   res.send(true);
+})
+
+app.post("/saveStory",mediyaUploader.single("file"),(req,res)=> {
+  const fileType = req.file.originalname.split(".")[1];
+  const newStory = JSON.parse(req.body.story);
+  const conection = mysql.createConnection(connectionData);
+  conection.connect((err)=> {
+    if(err) {
+      res.send({error:err});
+    }else {
+      conection.query("SELECT id FROM storys",(err,resp)=> {
+        if(err) {
+          res.send({error:err});
+        }else {
+          newStory.id = myModules.createNewUnikID(resp,10);
+          let fileNewRoute = `${newStory.id}.${fileType}`;
+          newStory.url += `/${fileNewRoute}`;
+
+          fs.renameSync(`./mediya/${req.file.originalname}`,`./mediya/${fileNewRoute}`);
+       
+          const consult = `
+            INSERT 
+            INTO storys 
+            (id,pet_id,user_id,url,type,description)
+            VALUES
+            ('${newStory.id}','${newStory.pet_id}','${newStory.user_id}','${newStory.url}','${newStory.type}','${newStory.description}')
+          `;
+          conection.query(consult,(err,resp1)=> {
+            if(err) {
+              res.send({error:err});
+            }else {
+              res.send({error:false,data:newStory});
+              conection.end();
+            }
+          })
+        }  
+      })
+    }
+  })
 })
 // app.post("/downloadStorys",multer().none(),(req,res)=> {
 

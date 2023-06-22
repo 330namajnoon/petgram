@@ -1,8 +1,10 @@
+import { async } from '@angular/core/testing';
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AppService } from 'src/services/app.service';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { FormControl,FormGroup } from '@angular/forms';
+import { StorysService } from 'src/services/storys.service';
 @Component({
   selector: 'app-storys',
   templateUrl: './storys.component.html',
@@ -11,12 +13,18 @@ import { FormControl,FormGroup } from '@angular/forms';
 export class StorysComponent extends AppServiceEx {
   @ViewChild("file")file!:ElementRef;
   fileSelected:boolean = true;
-  constructor(appService:AppService,private router:Router) {
+  storySaveDisplay:boolean = false;
+  constructor(appService:AppService,private router:Router,private storyS:StorysService) {
     super(appService)
     let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
     url[0] = "/"+url[0];
     url.push("view");
     this.router.navigate(url,{state:{user:this.getUser().id}});
+    this.storyS.set("setStorySaveDisplay",this.setStorySaveDisplay.bind(this));
+    router.events.subscribe(event => {
+      if(event instanceof NavigationEnd) {
+      }
+    })
   }
 
   formGroup = new FormGroup({
@@ -45,6 +53,23 @@ export class StorysComponent extends AppServiceEx {
           console.log("file type");
         }
       }
+    }
+  }
+
+  setStorySaveDisplay(value:boolean) {
+    this.storySaveDisplay = value;
+  }
+  getStorySaveDisplay():boolean {
+    return this.storySaveDisplay;
+  }
+
+  async saveStory() {
+    const res = await this.storyS.saveStory();
+    if(res.error) {
+
+    }else {
+      this.getUser().storys.unshift({pet_id:res.data.pet,story_id:res.data.id});
+      this.router.navigate(["/petgram","storys"]);
     }
   }
 }

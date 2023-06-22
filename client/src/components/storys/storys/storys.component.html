@@ -1,6 +1,12 @@
-<span *ngIf="fileSelected" (click)="clickFile()" class="material-symbols-rounded">
+<span id="addMediya" *ngIf="fileSelected" (click)="clickFile()" class="material-symbols-rounded">
   add_a_photo
 </span>
+<div *ngIf="getStorySaveDisplay()" (click)="saveStory()" class="post">
+  <h1>{{language.getWord("post")}}</h1>
+  <span   class="material-symbols-rounded">
+    send
+  </span>
+</div>
 <form [formGroup]="formGroup">
   <input #file  (change)="uploadFile($event)" formControlName="file" type="file">
 </form>

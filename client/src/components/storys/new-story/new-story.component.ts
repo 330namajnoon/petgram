@@ -4,6 +4,7 @@ import { AppService } from 'src/services/app.service';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { FormControl,FormGroup, Validators } from '@angular/forms';
 import { IStory } from 'src/interfaces/IStory';
+import { StorysService } from 'src/services/storys.service';
 @Component({
   selector: 'app-new-story',
   templateUrl: './new-story.component.html',
@@ -20,8 +21,9 @@ export class NewStoryComponent extends AppServiceEx {
   fileType!:string;
   videoStatus:boolean = false;
   @ViewChild("video")video!:ElementRef;
-  constructor(appService:AppService,private router:Router) {
+  constructor(appService:AppService,private router:Router,private storyS:StorysService) {
     super(appService);
+
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd) {
         let state = router.getCurrentNavigation()?.extras.state;
@@ -67,12 +69,6 @@ export class NewStoryComponent extends AppServiceEx {
     if(this.step < 1) {
       this.step = this.step + 1;
 
-    }else {
-      console.log(this.group.valid ? true : false);
-      if(this.group.valid) {
-
-        this.step = this.step + 1;
-      }
 
     }
   }
@@ -88,26 +84,30 @@ export class NewStoryComponent extends AppServiceEx {
   }
 
   getStorysView():void {
-    let pet:string = this.group.get("petName")?.value || "";
-    let description:string = this.group.get("description")?.value || "";
-    let storys:IStory[] = [{
-      id:"",
-      comments:[],
-      description,
-      pet,
-      fullName:this.getUser().name + " " + this.getUser().lastName,
-      likes:[],
-      views:[],
-      profileImage:this.getUser().image,
-      type:this.fileType,
-      url:"",
-      user_id:this.getUser().id
-    }];
-    let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
-    url[0] = "/"+url[0];
-    url = url.slice(0,-1);
-    url.push("storys_view");
-    this.router.navigate(url,{state:{storys,index:0}});
+    if(this.group.valid) {
+      let pet:string = this.group.get("petName")?.value || "";
+      let description:string = this.group.get("description")?.value || "";
+      let storys:IStory[] = [{
+        id:"",
+        comments:[],
+        description,
+        pet,
+        fullName:this.getUser().name + " " + this.getUser().lastName,
+        likes:[],
+        views:[],
+        profileImage:this.getUser().image,
+        type:this.fileType,
+        url:this.getFileURL(),
+        user_id:this.getUser().id
+      }];
+      this.storyS.setNewStory(storys[0],this.file);
+      this.storyS.get("setStorySaveDisplay")(true);
+      let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+      url[0] = "/"+url[0];
+      url = url.slice(0,-1);
+      url.push("storys_view");
+      this.router.navigate(url,{state:{storys,index:0}});
+    }
   }
 
 
