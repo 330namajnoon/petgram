@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegisterController } from '../register.controller';
+import { RegisterService } from 'src/services/register.service';
 
 @Component({
   selector: 'app-imagePet',
@@ -11,8 +12,8 @@ export class ImagePetComponent {
   ctrl = inject(RegisterController);
   form = this.ctrl.formImagePet;
   imageSrc: string = "assets/images/profile.png";
-
-  constructor(private router: Router) { }
+  @ViewChild("image")file!:ElementRef;
+  constructor(private router: Router,private registerS:RegisterService) { }
   onFileChange(event: any) {
     const reader = new FileReader();
 
@@ -31,11 +32,17 @@ export class ImagePetComponent {
 
     }
   }
-  goNext() {
+  async goNext() {
     console.log(this.ctrl.formDataUser.value)
     console.log(this.ctrl.formDataPet.value)
     console.log(this.ctrl.formImagePet.value)
     if (this.form.valid) {
+      let file = this.file.nativeElement;
+      this.registerS.setProfileImage(file.files[0]);
+      let signup = await this.registerS.signup();
+      if(!signup) {
+        alert("este usuario ya existe");
+      }
       this.router.navigateByUrl('/petgram');
     } else {
       alert("Debe elegir una foto de perfil")

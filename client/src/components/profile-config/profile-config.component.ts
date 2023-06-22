@@ -36,14 +36,15 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
     phone: new FormControl(0),
     languages: new FormControl(""),
     pets: new FormControl([]),
-    password: new FormControl('')
+    password: new FormControl(''),
+
 
   })
 
    ngOnInit() {
    this.petsData = this.getUser().pets;
    console.log(this.petsData)
-   
+
     console.log(this.userData);
   }
 
@@ -88,6 +89,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
       followers:this.userData.followers,
       following: this.userData.following,
       pendingFollowers: this.userData.pendingFollowers,
+      storys:[]
     }
 
 
