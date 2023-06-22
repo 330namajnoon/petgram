@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegisterController } from '../register.controller';
+import { RegisterService } from 'src/services/register.service';
+import { IUser } from 'src/interfaces/IUser';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-data-user',
@@ -9,9 +12,9 @@ import { RegisterController } from '../register.controller';
 })
 export class DataUserComponent {
   ctrl = inject(RegisterController);
-  form = this.ctrl.formDataUser;
+  form:FormGroup = this.ctrl.formDataUser;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private registerS: RegisterService) { }
 
   goNext() {
     console.log(this.ctrl.formDataUser.value)
@@ -20,6 +23,37 @@ export class DataUserComponent {
     let confirmPassword = this.form.get('confirmPassword')?.value;
     if (password === confirmPassword) {
       if (this.form.valid) {
+        let name:string = this.form.get("name")?.value;
+        let lastName:string = this.form.get("lastName")?.value;
+        let birthDay: string = this.form.get("birthDay")?.value;
+        let address:string = this.form.get("address")?.value;
+        let country:string = this.form.get("country")?.value;
+        let postalCode:number = this.form.get("postalCode")?.value;
+        let phone:number = this.form.get("phone")?.value;
+        let email:string = this.form.get("email")?.value;
+        let password:string = this.form.get("password")?.value;
+        let Language:string = this.form.get("Language")?.value;
+
+        const newUser: IUser = {
+          name,
+          lastName,
+          pets: [],
+          id: '',
+          birthDay,
+          address,
+          country,
+          postalCode,
+          phone,
+          image:'',
+          email,
+          password,
+          Language,
+          followers: [],
+          following: [],
+          pendingFollowers: [],
+          storys: []
+        }
+        this.registerS.setnewUser(newUser)
         this.router.navigateByUrl('/signup/data-pet');
       } else {
         alert("Faltan datos en el formulario")

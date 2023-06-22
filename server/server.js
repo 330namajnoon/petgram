@@ -14,7 +14,16 @@ app.use(cors());
 app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
-
+const mediyaUploader = multer({
+  storage: multer.diskStorage({
+      destination: (req, file, cd) => {
+          cd(null, "./mediya");
+      },
+      filename: (req, file, cd) => {
+          cd(null, file.originalname);
+      }
+  })
+})
 /////////////////// mysql connection
 require("dotenv").config();
 // const mysql = require("mysql");
@@ -241,6 +250,12 @@ app.post("/login", (req, res) => {
     }
   });
 });
+
+app.post("/signup",mediyaUploader.single("file"),(req,res)=> {
+  console.log(req.body.user);
+  console.log(req.file);
+  res.send(true);
+})
 // app.post("/downloadStorys",multer().none(),(req,res)=> {
 
 //   try {
