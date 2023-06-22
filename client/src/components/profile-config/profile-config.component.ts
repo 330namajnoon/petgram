@@ -12,8 +12,11 @@ import { IPet } from 'src/interfaces/IPet';
   styleUrls: ['./profile-config.component.scss']
 })
 export class ProfileConfigComponent extends AppServiceEx implements OnInit{
-
+  selectedPet: IPet | undefined;
+  selectOption: string = "Choose pet"
+  selectValue: string = "";
   isMenuOpen: boolean = false;
+  isMenuPetOpen: boolean = false;
   imageSrc: string | undefined;
   userData!: IUser ;
   petsData:IPet[] =[]
@@ -22,6 +25,15 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
 
   }
+
+  petForm = new FormGroup({
+    id: new FormControl(0),
+    name: new FormControl(''),
+    race: new FormControl(''),
+    gender: new FormControl('')
+
+
+  })
 
   userForm = new FormGroup({
     id: new FormControl('',[Validators.email]),
@@ -45,6 +57,8 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
    console.log(this.petsData)
 
     console.log(this.getUser());
+    console.log(this.selectOption);
+
 
   }
 
@@ -72,6 +86,10 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
     }
     this.userForm.value
+
+
+
+
     let user : IUser = {
       id: this.userForm.get("id")?.value || "",
       name: this.userForm.get("name")?.value || "",
@@ -101,6 +119,9 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen
 }
+  toggleMenu2() {
+  this.isMenuPetOpen = !this.isMenuPetOpen;
+}
 
 editMode: boolean = false;
 
@@ -108,8 +129,24 @@ editMode: boolean = false;
  }
 
 
+ getEachPet(selectOption: string): void {
+   this.selectedPet =  this.getUser().pets.find(p => p.name === selectOption);
+   console.log(this.selectedPet);
+
+
+  }
+
+
+
+
+
+
 
 }
+
+
+
+
 
 
 

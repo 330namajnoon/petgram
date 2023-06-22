@@ -26,7 +26,7 @@ export class AppRoutingModule extends AppServiceEx {
           this.setUser(user);
           localStorage.setItem("user",JSON.stringify({email:user.email,password:user.password}));
           // router.navigate(["/signup"])
-          // router.navigate(["/petgram"])
+          router.navigate(["/petgram/settings"])
 
           // let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
           // url[0] = "/" + url[0];

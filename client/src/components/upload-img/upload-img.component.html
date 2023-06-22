@@ -3,11 +3,16 @@
     arrow_back
   </span>
 
+
   <div class="img-container"  *ngIf="isImgSrc; else elseCond">
     <span class="material-symbols-rounded" style="color: white;" >
       edit
     </span>
+
     <img *ngIf="imageSrc" src="{{imageSrc}}"  alt="" >
+    <div class="message">
+      Edit..
+    </div>
 
   </div>
   <ng-template class="img-container" #elseCond>
@@ -19,7 +24,8 @@
     <label for="avatar">upload photo</label>
     <input type="file" (change)="uploadFile($event)" accept="image/*" >
    </div>
+   <button (click)="saveImg()" style="width: 200px; height:50px; margin:10px auto">Save</button>
+
 </form>
-<button (click)="saveImg()">Save</button>
 
 </div>

@@ -13,6 +13,7 @@
    .img-container{
        height:300px;
        padding: 30px;
+
        img{
           width:250px;
           margin: 10px auto;
@@ -26,9 +27,15 @@
 
 
  form {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
   .input-pair {
     color: white;
     font-size: 22px;
   }
  }
+
+
 }

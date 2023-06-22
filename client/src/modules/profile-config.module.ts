@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileConfigRoutingModule } from 'src/routers/profile-config-routing.module';
 import { ProfileConfigComponent } from 'src/components/profile-config/profile-config.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImgUploadModule } from './img-upload.module';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { ImgUploadModule } from './img-upload.module';
     CommonModule,
     ProfileConfigRoutingModule,
     ReactiveFormsModule,
-    ImgUploadModule
+    ImgUploadModule,
+    FormsModule
   ]
 })
 export class ProfileConfigModule { }
