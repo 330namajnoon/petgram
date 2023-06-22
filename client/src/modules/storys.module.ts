@@ -5,6 +5,7 @@ import { StorysRoutingModule } from 'src/routers/storys-routing.module';
 import { StorysComponent } from 'src/components/storys/storys/storys.component';
 import { NewStoryComponent } from 'src/components/storys/new-story/new-story.component';
 import { StorysViewModule } from './storys-view.module';
+
 @NgModule({
   declarations: [
     StorysComponent,

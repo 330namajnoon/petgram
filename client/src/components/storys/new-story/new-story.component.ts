@@ -2,14 +2,18 @@ import { Component,ViewChild,ElementRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppService } from 'src/services/app.service';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
-
+import { FormControl,FormGroup, Validators } from '@angular/forms';
+import { IStory } from 'src/interfaces/IStory';
 @Component({
   selector: 'app-new-story',
   templateUrl: './new-story.component.html',
   styleUrls: ['./new-story.component.scss']
 })
 export class NewStoryComponent extends AppServiceEx {
-
+  group = new FormGroup({
+    petName: new FormControl('',[Validators.required]),
+    description: new FormControl('',[Validators.required,Validators.min(10)]),
+  });
   private file!:File;
   step:number = 0;
   fileUrl!:string;
@@ -18,7 +22,6 @@ export class NewStoryComponent extends AppServiceEx {
   @ViewChild("video")video!:ElementRef;
   constructor(appService:AppService,private router:Router) {
     super(appService);
-    console.log("ñsvj")
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd) {
         let state = router.getCurrentNavigation()?.extras.state;
@@ -61,8 +64,17 @@ export class NewStoryComponent extends AppServiceEx {
   }
 
   next():void {
-    this.step += 1;
-    console.log(this.step)
+    if(this.step < 1) {
+      this.step = this.step + 1;
+
+    }else {
+      console.log(this.group.valid ? true : false);
+      if(this.group.valid) {
+
+        this.step = this.step + 1;
+      }
+
+    }
   }
   back():void {
     this.step--;
@@ -73,6 +85,29 @@ export class NewStoryComponent extends AppServiceEx {
     url[0] = "/" + url[0];
     url = url.slice(0,-2);
     this.router.navigate(url, { state: { user:this.getUser().id} });
+  }
+
+  getStorysView():void {
+    let pet:string = this.group.get("petName")?.value || "";
+    let description:string = this.group.get("description")?.value || "";
+    let storys:IStory[] = [{
+      id:"",
+      comments:[],
+      description,
+      pet,
+      fullName:this.getUser().name + " " + this.getUser().lastName,
+      likes:[],
+      views:[],
+      profileImage:this.getUser().image,
+      type:this.fileType,
+      url:"",
+      user_id:this.getUser().id
+    }];
+    let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+    url[0] = "/"+url[0];
+    url = url.slice(0,-1);
+    url.push("storys_view");
+    this.router.navigate(url,{state:{storys,index:0}});
   }
 
 

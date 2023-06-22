@@ -63,6 +63,24 @@ export class AppService {
   getURL(): string {
     return this.URL;
   }
+
+  createNewUnikID(data:any[],length:number):string {
+    let newID:string = "PG";
+    let cs = "ABCDEFGHIJKLNMOPQRSTUVWXYZabcdefghijklnmopqrstuvwxyz0123456789";
+    let t:boolean = true;
+    while(t) {
+      let id:string = newID;
+      for (let index = 0; index < length-2; index++) {
+        id += cs.charAt(Math.floor(Math.random()*cs.length));
+      }
+      let f:any = data.find(d => d.id == id);
+      if(!f) {
+        newID = id;
+        t = false;
+      }
+    }
+    return newID;
+  }
   async downloadStorys() {
 
   }

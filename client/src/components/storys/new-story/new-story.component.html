@@ -1,13 +1,24 @@
 <div [ngClass]="getDevice()">
   <div class="header">
-    <span (click)="next()" *ngIf="getStep() >= 0 && getStep() < 2" (click)="back()" class="material-symbols-rounded">arrow_right_alt</span>
-    <span (click)="getProfileView()" *ngIf="getStep() == 0" (click)="back()" class="material-symbols-rounded">undo</span>
-    <!-- <span (click)="back()" *ngIf="getStep() > 0 && getStep() < 2" class="material-symbols-rounded">undo</span> -->
-    <span  *ngIf="getStep() == 2" (click)="back()" class="material-symbols-rounded"></span>
+    <span (click)="next()" *ngIf="getStep() >= 0 && getStep() < 2"
+      class="material-symbols-rounded">arrow_right_alt</span>
+    <span (click)="getProfileView()" *ngIf="getStep() == 0" (click)="back()"
+      class="material-symbols-rounded">undo</span>
+    <span (click)="back()" *ngIf="getStep() > 0 && getStep() < 2" class="material-symbols-rounded">undo</span>
+    <span *ngIf="getStep() == 2" (click)="back()" class="material-symbols-rounded"></span>
   </div>
   <div *ngIf="getFileURL()" class="medya">
     <img *ngIf="typePromise('img',fileType)" [src]="getFileURL()" alt="">
-    <app-video-player *ngIf="typePromise('video',fileType)" [src]="getFileURL()" [type]="fileType" [style]="{width:'100vw',height:'100%'}"/>
+    <app-video-player *ngIf="typePromise('video',fileType)" [src]="getFileURL()" [type]="fileType"
+      [style]="{width:'100vw',height:'100%'}" />
 
   </div>
+
+  <form [formGroup]="group" *ngIf="getStep() == 1" class="select_pet" action="">
+    <select formControlName="petName" name="" id="">
+      <option  *ngFor="let pet of getUser().pets" [value]="pet.id">{{pet.name}}</option>
+    </select>
+    <textarea formControlName="description"></textarea>
+  </form>
+
 </div>
