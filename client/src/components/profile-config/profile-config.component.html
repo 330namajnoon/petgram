@@ -3,10 +3,8 @@
   <header>
 
   <div class="img-container">
-    <img [src]="getUser().image" alt="">
-    <span class="material-symbols-rounded" style="color: white;" routerLink="upload-img">
-      edit
-    </span>
+   <a routerLink="upload-img"> <img [src]="getUser().image" alt=""> </a>
+  
   </div>
   <h1>{{getUser().name}}</h1>
   </header>
@@ -72,7 +70,7 @@
       <h3 class="head-slide" style="color: white; padding:10px; background-color:gray;"> Pet Data </h3>
      <div>
 
-      <p style="color: white"> {{getUser().email}} </p>
+      <p *ngFor="let pet of getUser().pets" style="color: white"> {{pet.name}} </p>
      </div>
     </section>
 

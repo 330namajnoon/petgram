@@ -4,6 +4,9 @@
   </span>
 
   <div class="img-container"  *ngIf="isImgSrc; else elseCond">
+    <span class="material-symbols-rounded" style="color: white;" >
+      edit
+    </span>
     <img *ngIf="imageSrc" src="{{imageSrc}}"  alt="" >
 
   </div>
