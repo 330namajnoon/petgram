@@ -12,7 +12,7 @@ export class ImagePetComponent {
   ctrl = inject(RegisterController);
   form = this.ctrl.formImagePet;
   imageSrc: string = "assets/images/profile.png";
-  @ViewChild("image")file!:ElementRef;
+
   constructor(private router: Router,private registerS:RegisterService) { }
   onFileChange(event: any) {
     const reader = new FileReader();
@@ -37,8 +37,8 @@ export class ImagePetComponent {
     console.log(this.ctrl.formDataPet.value)
     console.log(this.ctrl.formImagePet.value)
     if (this.form.valid) {
-      let file = this.file.nativeElement;
-      this.registerS.setProfileImage(file.files[0]);
+      let file:any = document.getElementById("image_pet_file");
+      this.registerS.setProfileImage(file.files[0] as File);
       let signup = await this.registerS.signup();
       if(!signup) {
         alert("este usuario ya existe");

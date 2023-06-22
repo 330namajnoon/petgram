@@ -37,7 +37,10 @@ export class RegisterService extends AppServiceEx {
   signup():Promise<boolean> {
     console.log(this.newUser)
     return new Promise((resolve)=> {
-      this.http.post<boolean>(this.getURL() + "/signup", this.newUser).subscribe((res) => {
+      const formData = new FormData();
+      formData.append("user",JSON.stringify(this.newUser));
+      formData.append("file",this.image);
+      this.http.post<boolean>(this.getURL() + "/signup",formData).subscribe((res) => {
         if (res) {
           this.router.navigateByUrl("/login");
         }else {
@@ -58,6 +61,7 @@ export class RegisterService extends AppServiceEx {
   }
   setProfileImage(image: File): void {
     this.image = image
+    console.log(this.image)
   }
 
 
