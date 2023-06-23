@@ -11,6 +11,7 @@ import { ILike } from 'src/interfaces/ILike';
 import { IView } from 'src/interfaces/IView';
 import { ProfileViewService } from 'src/services/profile-view.service';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
+import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
@@ -69,40 +70,44 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
     let _this = this;
     if (!this.story) {
 
-      this.http.post<IStory>(`${this.getURL()}/downloadStory`, this.data).subscribe(_story => {
-        let story: IStory = _story;
-        let m = this.typePromise("img", story.type) ? new Image() : document.createElement("video");
-        m.src = story.url;
+      this.http.post<IHTTPResponse<IStory>>(`${this.getURL()}/downloadStory`, this.data).subscribe(res => {
+        if(!res.error) {
+          let story: IStory = res.data;
+          let m = this.typePromise("img", story.type) ? new Image() : document.createElement("video");
+          m.src = story.url;
 
-        m.addEventListener("loadedmetadata",()=> {
-          _this.story = story;
-          this.socket.on("comment" + _this.story?.id, (comment) => {
-            _this.story.comments.push(comment);
+          m.addEventListener("loadedmetadata",()=> {
+            _this.story = story;
+            this.socket.on("comment" + _this.story?.id, (comment) => {
+              _this.story.comments.push(comment);
+            })
+            if(!this.searchViews())this.socket.emit("view",this.story.id,this.getUser().id);
+            this.socket.on("view" + this.story?.id, (view) => {
+              this.story?.views.push(view as IView);
+            })
+            this.socket.on("like" + this.story?.id, (like) => {
+              this.story?.likes.push(like as ILike);
+            })
           })
-          if(!this.searchViews())this.socket.emit("view",this.story.id,this.getUser().id);
-          this.socket.on("view" + this.story?.id, (view) => {
-            this.story?.views.push(view as IView);
-          })
-          this.socket.on("like" + this.story?.id, (like) => {
-            this.story?.likes.push(like as ILike);
-          })
-        })
-        m.addEventListener("load", () => {
+          m.addEventListener("load", () => {
 
-          _this.story = story;
-          this.socket.on("comment" + _this.story?.id, (comment) => {
-            console.log(comment);
-            _this.story.comments.push(comment);
-          })
-          if(!this.searchViews())this.socket.emit("view",this.story.id,this.getUser().id);
-          this.socket.on("view" + this.story?.id, (view) => {
-            this.story?.views.push(view as IView);
-          })
-          this.socket.on("like" + this.story?.id, (like) => {
-            this.story?.likes.push(like as ILike);
-          })
+            _this.story = story;
+            this.socket.on("comment" + _this.story?.id, (comment) => {
+              console.log(comment);
+              _this.story.comments.push(comment);
+            })
+            if(!this.searchViews())this.socket.emit("view",this.story.id,this.getUser().id);
+            this.socket.on("view" + this.story?.id, (view) => {
+              this.story?.views.push(view as IView);
+            })
+            this.socket.on("like" + this.story?.id, (like) => {
+              this.story?.likes.push(like as ILike);
+            })
 
-        })
+          })
+        }else {
+
+        }
       })
 
     }
@@ -125,6 +130,6 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
     url[0] = "/" + url[0];
     url.push("profile_view");
     this.prS.setProfileViewUrl([this.story?.user_id]);
-    this.router.navigate(url, { state: { user: this.story?.user_id } });
+    this.router.navigate(url, { state: { user: this.story?.user_id ,onload:true} });
   }
 }

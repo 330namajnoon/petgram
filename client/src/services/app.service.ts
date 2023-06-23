@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AppService {
+  private loadingDisplay:boolean = false;
   private user!: IUser;
   private URL: string = 'http://localhost:4000';
   // private URL: string = 'https://abc3-94-73-37-80.ngrok-free.app';
@@ -43,6 +44,10 @@ export class AppService {
     return promise;
   }
 
+  setLoading(value:boolean):void {
+    this.loadingDisplay = value;
+  }
+
   setUser(user: IUser): void {
 
     this.user = user;
@@ -62,6 +67,10 @@ export class AppService {
   }
   getURL(): string {
     return this.URL;
+  }
+
+  getLoading():boolean {
+    return this.loadingDisplay;
   }
 
   createNewUnikID(data:any[],length:number):string {
@@ -84,6 +93,9 @@ export class AppService {
   async downloadStorys() {
 
   }
+
+
+
 
 
 }

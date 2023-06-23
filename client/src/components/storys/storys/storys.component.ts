@@ -1,10 +1,11 @@
 import { async } from '@angular/core/testing';
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AppService } from 'src/services/app.service';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { FormControl,FormGroup } from '@angular/forms';
 import { StorysService } from 'src/services/storys.service';
+import { ProfileViewService } from 'src/services/profile-view.service';
 @Component({
   selector: 'app-storys',
   templateUrl: './storys.component.html',
@@ -14,17 +15,18 @@ export class StorysComponent extends AppServiceEx {
   @ViewChild("file")file!:ElementRef;
   fileSelected:boolean = true;
   storySaveDisplay:boolean = false;
-  constructor(appService:AppService,private router:Router,private storyS:StorysService) {
+  constructor(private profileVS:ProfileViewService,appService:AppService,private router:Router,private storyS:StorysService,private acRouter:ActivatedRoute) {
     super(appService)
-    let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
-    url[0] = "/"+url[0];
-    url.push("view");
-    this.router.navigate(url,{state:{user:this.getUser().id}});
-    this.storyS.set("setStorySaveDisplay",this.setStorySaveDisplay.bind(this));
-    router.events.subscribe(event => {
-      if(event instanceof NavigationEnd) {
-      }
+    this.acRouter.params.subscribe(res => {
+      console.log()
+      let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+      url[0] = "/"+url[0];
+      url.push("view");
+      this.router.navigate(url,{state:{user:this.getUser().id,onload:this.profileVS.getProfileData()? this.profileVS.getProfileData().id == this.getUser().id ? false : true : true}});
+      this.storyS.set("setStorySaveDisplay",this.setStorySaveDisplay.bind(this));
     })
+
+
   }
 
   formGroup = new FormGroup({
@@ -68,8 +70,12 @@ export class StorysComponent extends AppServiceEx {
     if(res.error) {
 
     }else {
+      this.storyS.get("setStorySaveDisplay")(false);
       this.getUser().storys.unshift({pet_id:res.data.pet,story_id:res.data.id});
-      this.router.navigate(["/petgram","storys"]);
+      let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+      url[0] = "/"+url[0];
+      url = url.slice(0,-1);
+      this.router.navigate(url,{state:{user:this.getUser().id,onload:true}});
     }
   }
 }

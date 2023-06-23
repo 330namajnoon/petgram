@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { AppService } from 'src/services/app.service';
 
 @Component({
@@ -6,10 +7,10 @@ import { AppService } from 'src/services/app.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends AppServiceEx implements OnInit {
 
-  constructor(private appService:AppService) {
-
+  constructor(appService:AppService) {
+    super(appService)
   }
 
   ngOnInit(): void {

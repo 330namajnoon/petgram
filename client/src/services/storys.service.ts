@@ -35,6 +35,7 @@ export class StorysService extends AppServiceEx {
       const formData = new FormData();
       formData.append("story",JSON.stringify(this.newStory));
       formData.append("file",this.newFile);
+      console.log(this.newStory)
       this.http.post<{error:any,data:IStory}>(`${this.getURL()}/saveStory`,formData).subscribe((res)=> {
         resolve(res);
       })

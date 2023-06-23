@@ -10,4 +10,6 @@ export class AppServiceEx {
   language = this.appService.language;
   createNewUnikID = this.appService.createNewUnikID.bind(this.appService);
   typePromise = this.appService.typePromise.bind(this.appService);
+  setLoading = this.appService.setLoading.bind(this.appService);
+  getLoading = this.appService.getLoading.bind(this.appService);
 }
