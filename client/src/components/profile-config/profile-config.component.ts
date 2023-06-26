@@ -20,6 +20,8 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   imageSrc: string | undefined;
   userData!: IUser ;
   petsData:IPet[] =[]
+
+
   constructor(appService: AppService , private proConfig: ProfileConfigService){
     super(appService)
 
@@ -27,10 +29,10 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   }
 
   petForm = new FormGroup({
-    id: new FormControl(0),
-    name: new FormControl(''),
-    race: new FormControl(''),
-    gender: new FormControl('')
+    id: new FormControl(0,[Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.min(2)]),
+    race: new FormControl('', [Validators.required]),
+    gender: new FormControl('',[Validators.required])
 
 
   })
@@ -82,13 +84,10 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   }
 
   changeInfo() {
-    if(this.userForm.valid) {
+  //  if(this.userForm.valid) {
 
-    }
-    this.userForm.value
-
-
-
+  //    }
+  //    this.userForm.value
 
     let user : IUser = {
       id: this.userForm.get("id")?.value || "",
@@ -110,22 +109,27 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
       pendingFollowers: this.userData.pendingFollowers,
     }
 
-
+      this.proConfig.updateData(user);
+      console.log(user);
 
 
   }
 
 
+
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen
 }
+
+
   toggleMenu2() {
   this.isMenuPetOpen = !this.isMenuPetOpen;
 }
 
 editMode: boolean = false;
 
- editInput(item: any) {   this.editMode = !this.editMode;
+ editInput(item: any) {
+   this.editMode = !this.editMode;
  }
 
 
