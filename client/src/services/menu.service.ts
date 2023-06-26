@@ -10,7 +10,7 @@ export class MenuService  extends AppServiceEx {
     super(appService)
   }
   options = [
-    {name:"home",url:"home"},
+    {name:"home",url:"/petgram"},
     {name:"photo_camera",url:"storys"},
     {name:"handshake",url:"friends"},
     {name:"settings",url:"settings"},

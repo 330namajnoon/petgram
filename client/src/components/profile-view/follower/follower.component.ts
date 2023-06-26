@@ -17,12 +17,13 @@ export class FollowerComponent extends AppServiceEx {
     super(appServise);
   }
   getProfile() {
+    this.setLoading(true);
     let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
     url[0] = "/" + url[0];
     url.push("profile_view");
     let urls:string[] = this.prS.getProfileViewUrl();
     urls.push(this.user);
     this.prS.setProfileViewUrl(urls);
-    this.router.navigate(url, { state: { user:this.user} });
+    this.router.navigate(url, { state: { user:this.user,onload:true} });
   }
 }

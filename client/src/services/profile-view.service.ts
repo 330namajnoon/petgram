@@ -11,6 +11,9 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { IView } from 'src/interfaces/IView';
 import { ILike } from 'src/interfaces/ILike';
 import { IStoryLink } from 'src/interfaces/IStoryLink';
+import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
+import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,30 +22,37 @@ export class ProfileViewService extends AppServiceEx {
   private profileData!: IUserData;
   private galleryMenuSelected: string = this.language.getWord('all_storys');
   private storys: IStory[] = [];
-  constructor(private http: HttpClient, appService: AppService, private homeService: HomeService) {
+  constructor(private http: HttpClient, appService: AppService, private homeService: HomeService,private router:Router) {
     super(appService);
   }
 
-  downloadProfileData(user: string): void {
-    const _this = this;
-    if (user) {
-      _this.http.post<IUserData>(this.getURL() + "/profileData", { user }).subscribe((resp) => {
-        let profileData = resp;
-        profileData.followers = profileData.followers.map((f: IFollower) => {
-          let _f: IFollower = f;
-          return _f;
+  downloadProfileData(user: string):Promise<IHTTPResponse<IUserData>> {
+    return new Promise((resolve)=> {
+      const _this = this;
+      if (user) {
+        _this.http.post<IHTTPResponse<IUserData>>(this.getURL() + "/profileData", { user }).subscribe((resp) => {
+          if(!resp.error) {
+            let profileData = resp.data;
+            profileData.followers = profileData.followers.map((f: IFollower) => {
+              let _f: IFollower = f;
+              return _f;
+            })
+            this.profileData = profileData;
+            this.storys = new Array(this.profileData.storys.length);
+            this.downloadStorys(this.profileData.id, this.profileData.storys)
+            resolve(resp);
+          }else {
+            _this.router.navigate(["/error"],{state:{error:resp.error}});
+          }
+
         })
-        this.profileData = profileData;
-        this.storys = new Array(this.profileData.storys.length);
-        this.downloadStorys(this.profileData.id, this.profileData.storys)
 
-      })
-
-    }
+      }
+    })
   }
 
 
-  async downloadStorys(user_id: string, storysAdres: IStoryAdress[]) {
+  downloadStorys(user_id: string, storysAdres: IStoryAdress[]) {
     const _this = this;
     const url: string = this.getURL();
     async function download(index: number) {
@@ -51,19 +61,24 @@ export class ProfileViewService extends AppServiceEx {
         id:storysAdres[index].story_id,
         pet_id:storysAdres[index].pet_id
       }
-      _this.http.post<IStory>(`${url}/downloadStory`,storyLink).subscribe((resp)=> {
-        const story: IStory = resp;
-        _this.socket.on("comment" + story?.id, (comment) => {
-          story.comments.push(comment);
-        })
-        _this.socket.emit("view",story.id,_this.getUser().id);
-        _this.socket.on("view" + story?.id, (view) => {
-          story?.views.push(view as IView);
-        })
-        _this.socket.on("like" + story?.id, (like) => {
-          story?.likes.push(like as ILike);
-        })
-        _this.storys[index] = story;
+      _this.http.post<IHTTPResponse<IStory>>(`${url}/downloadStory`,storyLink).subscribe((resp)=> {
+        if(!resp.error) {
+          const story: IStory = resp.data;
+          _this.socket.on("comment" + story?.id, (comment) => {
+            story.comments.push(comment);
+          })
+          _this.socket.emit("view",story.id,_this.getUser().id);
+          _this.socket.on("view" + story?.id, (view) => {
+            story?.views.push(view as IView);
+          })
+          _this.socket.on("like" + story?.id, (like) => {
+            story?.likes.push(like as ILike);
+          })
+          _this.storys[index] = story;
+
+        }else {
+          _this.router.navigate(["/error"],{state:{error:resp.error}});
+        }
       });
     }
     for (let index = 0; index < storysAdres.length; index++) {
