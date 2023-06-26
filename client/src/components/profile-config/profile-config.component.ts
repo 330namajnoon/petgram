@@ -86,8 +86,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
       followers:this.userData.followers,
       following: this.userData.following,
       storys:[],
-      pendingFollowers: this.userData.pendingFollowers,
-      storys:[]
+      pendingFollowers: this.userData.pendingFollowers
     }
 
 

@@ -91,7 +91,7 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
       this.profileService.setProfileViewUrl(this.profileService.getProfileViewUrl().slice(0,-1));
       this.router.navigate(url.slice(0,-1), { state: { user:userId} });
     }else {
-      this.router.navigate(["/petgram"]);
+      // this.router.navigate(["/petgram"]);
 
     }
   }
