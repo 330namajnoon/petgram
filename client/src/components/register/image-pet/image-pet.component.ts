@@ -1,3 +1,4 @@
+import { IUser } from './../../../ss/interfaces/IUser';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegisterController } from '../register.controller';
