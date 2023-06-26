@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AppService {
+  private loadingDisplay:boolean = false;
   private user!: IUser;
   private URL: string = 'http://localhost:4000';
   // private URL: string = 'https://abc3-94-73-37-80.ngrok-free.app';
@@ -43,8 +44,12 @@ export class AppService {
     return promise;
   }
 
+  setLoading(value:boolean):void {
+    this.loadingDisplay = value;
+  }
+
   setUser(user: IUser): void {
-    console.log(user)
+
     this.user = user;
   }
   getUser(): IUser {
@@ -63,9 +68,34 @@ export class AppService {
   getURL(): string {
     return this.URL;
   }
+
+  getLoading():boolean {
+    return this.loadingDisplay;
+  }
+
+  createNewUnikID(data:any[],length:number):string {
+    let newID:string = "PG";
+    let cs = "ABCDEFGHIJKLNMOPQRSTUVWXYZabcdefghijklnmopqrstuvwxyz0123456789";
+    let t:boolean = true;
+    while(t) {
+      let id:string = newID;
+      for (let index = 0; index < length-2; index++) {
+        id += cs.charAt(Math.floor(Math.random()*cs.length));
+      }
+      let f:any = data.find(d => d.id == id);
+      if(!f) {
+        newID = id;
+        t = false;
+      }
+    }
+    return newID;
+  }
   async downloadStorys() {
 
   }
+
+
+
 
 
 }

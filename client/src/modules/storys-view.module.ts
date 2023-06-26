@@ -18,6 +18,9 @@ import { VideoPlayerComponent } from 'src/components/video-player/video-player.c
   imports: [
     CommonModule,
     StorysViewRoutingModule
+  ],
+  exports:[
+    VideoPlayerComponent
   ]
 })
 export class StorysViewModule { }

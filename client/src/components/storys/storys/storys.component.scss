@@ -1,0 +1,37 @@
+$w:100vw;
+$h:100vh;
+#addMediya {
+  position: fixed;
+  z-index: 20;
+  color: goldenrod;
+  font-size: 25px;
+  left: calc($w - 40px);
+  top: calc($h - 90px);
+}
+input {
+  display: none;
+}
+.post {
+  position: absolute;
+  z-index: 20;
+  color: goldenrod;
+  font-size: 25px;
+  left: calc($w - 120px);
+  top: 10px;
+  padding: 5px 20px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    position: relative;
+    color: goldenrod;
+    font-size: 20px;
+  }
+  h1 {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+  }
+}

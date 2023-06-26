@@ -1,6 +1,9 @@
+import { IPet } from 'src/interfaces/IPet';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegisterController } from '../register.controller';
+import { FormGroup } from '@angular/forms';
+import { RegisterService } from 'src/services/register.service';
 
 @Component({
   selector: 'app-data-pet',
@@ -9,7 +12,7 @@ import { RegisterController } from '../register.controller';
 })
 export class DataPetComponent {
   ctrl = inject(RegisterController);
-  form = this.ctrl.formDataPet;
+  form: FormGroup = this.ctrl.formDataPet;
 
   races = [
     { key: 1, label: 'Shitzu' },
@@ -18,11 +21,30 @@ export class DataPetComponent {
     { key: 4, label: 'podler' },
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private registerS: RegisterService) { }
 
   goNext() {
     this.form.markAllAsTouched();
-    if (this.form.valid)
+    if (this.form.valid){
+      let name: string  = this.form.get('name')?.value;
+      let birthDay = this.form.get('birthDay')?.value;
+      let gender = this.form.get('gender')?.value;
+      let race = this.form.get('race')?.value;
+      let type = this.form.get('type')?.value;
+      let description = this.form.get('description')?.value;
+      const newPet:IPet = {
+        id:'',
+        name,
+        birthDay,
+        gender,
+        race,
+        type,
+        description,
+        user_id:'',
+      }
+      this.registerS.setNewDataPet(newPet)
       this.router.navigateByUrl('/signup/image-pet');
+    }
+
   }
 }
