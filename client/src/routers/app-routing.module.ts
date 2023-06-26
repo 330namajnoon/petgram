@@ -5,9 +5,10 @@ import { IUser } from 'src/interfaces/IUser';
 import { HttpClient } from '@angular/common/http';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { RegisterService } from 'src/services/register.service';
-
+import { ErrorComponent } from 'src/components/error/error.component';
 const routes: Routes = [
   { path: "", loadChildren: () => import("../modules/register.module").then(m => m.RegisterModule) },
+  { path: "error",component:ErrorComponent},
   { path: "petgram", loadChildren: () => import("../modules/petgram.module").then(m => m.PetgramModule) },
 
 ];
@@ -29,7 +30,7 @@ export class AppRoutingModule extends AppServiceEx {
           _this.setUser(res.data);
           localStorage.setItem("user",JSON.stringify({email:res.data.email,password:res.data.password}));
           // router.navigate(["/signup"])
-          router.navigate(["/petgram"]);
+          // router.navigate(["/petgram"]);
           // let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
           // url[0] = "/" + url[0];
           // url.push("profile_view");

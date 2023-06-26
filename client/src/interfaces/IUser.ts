@@ -9,7 +9,7 @@ export interface IUser {
   lastName:string;
   birthDay:string;
   address:string;
-  country:string;
+  country:number;
   postalCode:number;
   phone:number;
   image:string
@@ -21,5 +21,6 @@ export interface IUser {
   pendingFollowers:IFollower[];
   storys:IStoryAdress[];
   pets:IPet[];
+
 
 }

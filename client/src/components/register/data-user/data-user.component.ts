@@ -4,19 +4,24 @@ import { RegisterController } from '../register.controller';
 import { RegisterService } from 'src/services/register.service';
 import { IUser } from 'src/interfaces/IUser';
 import { FormGroup } from '@angular/forms';
+import { AppServiceEx } from 'src/extends/AppServiceEx';
+import { AppService } from 'src/services/app.service';
 
 @Component({
   selector: 'app-data-user',
   templateUrl: './data-user.component.html',
   styleUrls: ['./data-user.component.scss'],
 })
-export class DataUserComponent {
+export class DataUserComponent extends AppServiceEx {
   ctrl = inject(RegisterController);
   form:FormGroup = this.ctrl.formDataUser;
 
-  constructor(private router: Router, private registerS: RegisterService) { }
+  constructor(private router: Router, private registerS: RegisterService,appService:AppService) {
+    super(appService);
+  }
 
   goNext() {
+
     console.log(this.ctrl.formDataUser.value)
     this.form.markAllAsTouched();
     let password = this.form.get('password')?.value;
@@ -27,7 +32,7 @@ export class DataUserComponent {
         let lastName:string = this.form.get("lastName")?.value;
         let birthDay: string = this.form.get("birthDay")?.value;
         let address:string = this.form.get("address")?.value;
-        let country:string = this.form.get("country")?.value;
+        let country:number = this.form.get("country")?.value;
         let postalCode:number = this.form.get("postalCode")?.value;
         let phone:number = this.form.get("phone")?.value;
         let email:string = this.form.get("email")?.value;
@@ -44,7 +49,7 @@ export class DataUserComponent {
           country,
           postalCode,
           phone,
-          image:'',
+          image:this.getURL(),
           email,
           password,
           Language,

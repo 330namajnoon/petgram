@@ -31,7 +31,7 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const { error } = require("console");
 
-const connectionData ='mysql://kz3fb2a9tc6rtak89wgk:pscale_pw_wZq0wJXiYEbM3qrqGeTG9cdpVsQOJ8KvnQHJSl5TRzh@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData ='mysql://69spl8zy8f4pgenlta50:pscale_pw_cCsqiZOJEDVcwoQk9TUzfHTTDui4VhfNsNS1cdPePAc@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 ////////////// server listener
 
@@ -258,9 +258,44 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/signup",mediyaUploader.single("file"),(req,res)=> {
-  console.log(req.body.user);
-  console.log(req.file);
-  res.send(true);
+  const {id,email,name,lastName,birthDay,address,coutry,postalCode,phone,password,image,language} = req.body.user;
+  
+  const connection = mysql.createConnection(connectionData);
+  connection.query(`SELECT email FROM users WHERE email = '${email}'`,(err,resp1)=> {
+    if(err) {
+      connection.query("SELECT id FROM users",(err,resp2)=> {
+        if(!err) {
+          const newId = myModules.createNewUnikID(resp2,10);
+          const imageUrl = image += `/${newId}.${req.file.originalname.split(".")[1]}`;
+          const consult = `
+          INSERT INTO users (id,email,name,lastName,birthDay,address,country,postalCode,phone,password,image,language)
+          VALUES
+          ('${newId}','${email}','${name}','${lastName}','${birthDay}','${address}',${coutry},${postalCode},${phone},PASSWORD('${password}'),'${imageUrl}','${language}')
+          `;
+          connection.query(consult,(err,resp3)=> {
+            if(!err) {
+              try {
+                fs.renameSync(`./mediya/${req.file.originalname}`,`./mediya/${newId}.${req.file.originalname.split(".")[1]}`);
+                res.send({data:email});
+                connection.end();
+              } catch (error) {
+                res.send({error:"server_error"})
+                connection.end();
+              }
+            }else {
+              res.send({error:"server_error"})
+              connection.end();
+            }
+          })
+        }else {
+          res.send({error:"server_error"})
+        }
+      })
+    }else {
+      res.send({error:"this_user_exists"});
+      connection.end();
+    }
+  })
 })
 
 app.post("/saveStory",mediyaUploader.single("file"),(req,res)=> {
@@ -270,10 +305,12 @@ app.post("/saveStory",mediyaUploader.single("file"),(req,res)=> {
   conection.connect((err)=> {
     if(err) {
       res.send({error:err});
+      conection.end();
     }else {
       conection.query("SELECT id FROM storys",(err,resp)=> {
         if(err) {
           res.send({error:err});
+          conection.end();
         }else {
           newStory.id = myModules.createNewUnikID(resp,10);
           let fileNewRoute = `${newStory.id}.${fileType}`;
@@ -291,6 +328,7 @@ app.post("/saveStory",mediyaUploader.single("file"),(req,res)=> {
           conection.query(consult,(err,resp1)=> {
             if(err) {
               res.send({error:err});
+              conection.end();
             }else {
               res.send({data:newStory});
               conection.end();
@@ -354,23 +392,27 @@ app.post("/downloadStory", (req, res) => {
   connection.query(consult1, (err, res1) => {
     if (err) {
       res.send({error:err});
+      connection.end();
       return;
     }
     connection.query(consult2, (err, res2) => {
       if (err) {
         res.send({error:err});
+        connection.end();
         return;
       }
 
       connection.query(consult3, (err, res3) => {
         if (err) {
           res.send({error:err});
+          connection.end();
           return;
         }
 
         connection.query(consult4, (err, res4) => {
           if (err) {
             res.send({error:err});
+            connection.end();
             return;
           }
           const story = res1[0];
@@ -442,33 +484,58 @@ app.post("/profileData", multer().none(), (req, res) => {
       WHERE p.user_id = '${req.body.user}'
     `;
     conneccion.query(consult, (err, resp1) => {
-      if (err) res.send({error:err});
-      let userData = resp1[0];
-      conneccion.query(consult1, (err, resp2) => {
-        if (err)res.send({error:err});
-        userData.followers = resp2;
-        conneccion.query(consult2, (err, resp3) => {
-          if (err) res.send({error:err});
-          userData.following = resp3;
-          conneccion.query(consult3, (err, resp4) => {
-            if (err) res.send({error:err});
-            userData.pendingFollowers = resp4;
-            conneccion.query(consult4, (err, resp5) => {
-              if (err) res.send({error:err});
-              userData.storys = resp5;
-              conneccion.query(consult5, (err, resp6) => {
-                if (err) res.send({error:err});
-                userData.pets = resp6;
-                res.send({data:userData});
+      if (err){
+        res.send({error:err});
+        conneccion.end();
+      }else {
+        let userData = resp1[0];
+        conneccion.query(consult1, (err, resp2) => {
+          if (err){
+            res.send({error:err})
+            conneccion.end();
+          }else {
+            userData.followers = resp2;
+            conneccion.query(consult2, (err, resp3) => {
+              if (err) {
+                res.send({error:err})
                 conneccion.end();
-              });
+              }else {
+                userData.following = resp3;
+                conneccion.query(consult3, (err, resp4) => {
+                  if (err) {
+                    res.send({error:err})
+                    conneccion.end();
+                  }else {
+                    userData.pendingFollowers = resp4;
+                    conneccion.query(consult4, (err, resp5) => {
+                      if (err) {
+                        res.send({error:err})
+                        conneccion.end();
+                      }else {
+                        userData.storys = resp5;
+                        conneccion.query(consult5, (err, resp6) => {
+                          if (err) {
+                            res.send({error:err})
+                            conneccion.end();
+                          }else {
+                            userData.pets = resp6;
+                            res.send({data:userData});
+                            conneccion.end();
+                          };
+                        });
+                      };
+                    });
+                  };
+                });
+              };
             });
-          });
+          };
         });
-      });
+      } 
     });
   }else {
     res.send({error:true});
+    conneccion.end();
   }
 });
 
@@ -486,6 +553,26 @@ app.get("/getUsers",(req,res)=> {
           res.send(resp);
         }
       })
+    }
+  })
+})
+
+app.get("/languages",(req,res)=> {
+  const connection = mysql.createConnection(connectionData);
+  connection.connect((err)=> {
+    if(!err) {
+      connection.query("SELECT language FROM languages",(err,resp)=> {
+        if(!err){
+          res.send({data:resp.map(l => l = l.language)});
+          connection.end();
+        }else {
+          res.send({error:"server_error"});
+          connection.end();
+        }
+      })
+    }else {
+      res.send({error:"server_error"});
+      connection.end();
     }
   })
 })

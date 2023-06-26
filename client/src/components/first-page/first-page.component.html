@@ -1,6 +1,14 @@
-<div class="container">
+<div [ngClass]="getDevice()">
+  <!-- <app-validator [control]="group.get('language')" /> -->
   <h3 class="titulo">Bienvenidos a PETGRAM</h3>
-  <button routerLink="login" class="position-button">Continuar</button>
+  <form [formGroup]="group">
+    <select formControlName="language"  *ngIf="getLanguages()" name="{{language.getWord('language')}}" >
+      <option value="">{{language.getWord('language')}}</option>
+      <option *ngFor="let language of languages" value="{{language}}">{{language}}</option>
+    </select>
+    <app-validator [control]="group.get('language')" />
+  </form>
+  <button (click)="getSignupPage()" class="position-button">Continuar</button>
 </div>
 
 

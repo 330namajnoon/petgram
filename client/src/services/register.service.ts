@@ -13,6 +13,7 @@ export class RegisterService extends AppServiceEx {
   private newUser!: IUser;
   private image!: File;
   private scrollPromise: boolean = false;
+  private languageSelected:string = "";
   constructor(private http: HttpClient, private router: Router, appService: AppService) {
     super(appService)
 
@@ -32,24 +33,38 @@ export class RegisterService extends AppServiceEx {
     })
     })
   }
-  signup():Promise<boolean> {
-    console.log(this.newUser)
+  signup():Promise<IHTTPResponse<string>> {
     return new Promise((resolve)=> {
       const formData = new FormData();
       formData.append("user",JSON.stringify(this.newUser));
       formData.append("file",this.image);
-      this.http.post<boolean>(this.getURL() + "/signup",formData).subscribe((res) => {
-        if (res) {
+      this.http.post<IHTTPResponse<string>>(this.getURL() + "/signup",formData).subscribe((res) => {
+        if (res.data) {
           this.router.navigateByUrl("/login");
         }else {
-          resolve(res);
+          resolve(res.error);
         }
       })
     })
 
   }
+  getLanguage():string {
+    return this.languageSelected;
+  }
   getScrollPromise(): boolean {
     return this.scrollPromise;
+  }
+
+  getLenguages():Promise<IHTTPResponse<string[]>> {
+    return new Promise((resolve)=> {
+      this.http.get<IHTTPResponse<string[]>>(`${this.getURL()}/languages`).subscribe(res => {
+        resolve(res)
+      })
+    })
+  }
+
+  setLanguage(language:string) {
+    this.languageSelected = language;
   }
   setScrollPromise(value: boolean): void {
     this.scrollPromise = value;

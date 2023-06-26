@@ -47,7 +47,7 @@
 
       <div class="input-pair">
         <label for="last-name">Country:</label>
-        <input type="text" id="country" formControlName="country" [placeholder]="getUser().country" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+        <input type="number" id="country" formControlName="country" [placeholder]="getUser().country" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
         <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().country)">
           edit
         </span>

@@ -30,6 +30,9 @@ export function Languages() {
     },
     description:{
       english:"Description",
+    },
+    language:{
+      english:"Language",
     }
 
 
