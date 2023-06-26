@@ -1,3 +1,4 @@
+import { IPet } from 'src/interfaces/IPet';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
@@ -9,7 +10,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileConfigService extends AppServiceEx {
-  userUrl: string = "https://app.planetscale.com/sina-cappac/petgram/main#users"
 
   constructor(private http: HttpClient,appS:AppService) {
     super(appS);
@@ -25,12 +25,12 @@ export class ProfileConfigService extends AppServiceEx {
   };
 
   getUsers():Promise<IUser[]>{
-    
     return new Promise((resolve)=> {
       this.http.get<IUser[]>(`${this.getURL()}/getUsers`).subscribe(res => {
         resolve(res);
       })
     })
   }
+
 
 }
