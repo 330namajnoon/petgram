@@ -21,7 +21,17 @@ export function Languages() {
     },
     pending_follower: {
       english:"Pending Follower",
+    },
+    post:{
+      english:"post"
+    },
+    selectPet:{
+      english:"Select Pet"
+    },
+    description:{
+      english:"Description",
     }
+
 
   }
 }
