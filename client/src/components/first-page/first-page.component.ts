@@ -49,7 +49,8 @@ export class FirstPageComponent extends AppServiceEx implements OnInit {
   getSignupPage():void {
     this.group.markAllAsTouched();
     if(this.group.valid) {
-      this.registerS.setLanguage(this.group.get("lenguage")?.value+"");
+      const select = document.getElementById("language") as HTMLSelectElement;
+      this.registerS.setLanguage(select.value);
       console.log(this.registerS.getLanguage());
       this.router.navigate(["/signup"]);
     }

@@ -62,6 +62,13 @@ export class RegisterService extends AppServiceEx {
       })
     })
   }
+  getCoutrys():Promise<IHTTPResponse<{id:number;country:string}[]>> {
+    return new Promise((resolve)=> {
+      this.http.post<IHTTPResponse<{id:number;country:string}[]>>(`${this.getURL()}/countrys`,{language:this.getLanguage()}).subscribe(res => {
+        resolve(res)
+      })
+    })
+  }
 
   setLanguage(language:string) {
     this.languageSelected = language;

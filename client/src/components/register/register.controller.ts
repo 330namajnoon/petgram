@@ -11,10 +11,10 @@ export class RegisterController {
     lastName: new FormControl('Gonzalez', Validators.required),
     birthday: new FormControl('2023-10-10', Validators.required),
     address: new FormControl('Test', Validators.required),
-    country: new FormControl('Test', Validators.required),
+    country: new FormControl('', Validators.required),
     postalCode: new FormControl('280114', Validators.required),
     email: new FormControl('test@test.com', [Validators.required, Validators.email]),
-    phone: new FormControl('346512335641', Validators.required),
+    phone: new FormControl("",[Validators.min(9)]),
     password: new FormControl('123456789', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
     confirmPassword: new FormControl('123456789', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
   });

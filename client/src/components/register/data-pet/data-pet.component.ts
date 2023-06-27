@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { RegisterController } from '../register.controller';
 import { FormGroup } from '@angular/forms';
 import { RegisterService } from 'src/services/register.service';
+import { AppServiceEx } from 'src/extends/AppServiceEx';
+import { AppService } from 'src/services/app.service';
 
 @Component({
   selector: 'app-data-pet',
   templateUrl: './data-pet.component.html',
   styleUrls: ['./data-pet.component.scss'],
 })
-export class DataPetComponent {
+export class DataPetComponent extends AppServiceEx{
   ctrl = inject(RegisterController);
   form: FormGroup = this.ctrl.formDataPet;
 
@@ -21,7 +23,9 @@ export class DataPetComponent {
     { key: 4, label: 'podler' },
   ];
 
-  constructor(private router: Router, private registerS: RegisterService) { }
+  constructor(private router: Router, private registerS: RegisterService,appS:AppService) {
+    super(appS);
+   }
 
   goNext() {
     this.form.markAllAsTouched();
@@ -44,6 +48,8 @@ export class DataPetComponent {
       }
       this.registerS.setNewDataPet(newPet)
       this.router.navigateByUrl('/signup/image-pet');
+    }else {
+      alert(this.language.getWord("missing_data_in_the_form"));
     }
 
   }
