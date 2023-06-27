@@ -68,7 +68,8 @@ export class NewStoryComponent extends AppServiceEx {
   next():void {
     if(this.step < 1) {
       this.step = this.step + 1;
-
+    }else {
+      this.group.markAllAsTouched();
 
     }
   }

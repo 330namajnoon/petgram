@@ -32,7 +32,6 @@ export class FirstPageComponent extends AppServiceEx implements OnInit {
     this.setLoading(false);
     if(!res.error) {
       this.setLanguages(res.data);
-      console.log(res.data);
     }else {
       this.router.navigate(["/error"],{state:{error:res.error}});
     }
@@ -51,7 +50,6 @@ export class FirstPageComponent extends AppServiceEx implements OnInit {
     if(this.group.valid) {
       const select = document.getElementById("language") as HTMLSelectElement;
       this.registerS.setLanguage(select.value);
-      console.log(this.registerS.getLanguage());
       this.router.navigate(["/signup"]);
     }
   }

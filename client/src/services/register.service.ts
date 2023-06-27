@@ -39,11 +39,7 @@ export class RegisterService extends AppServiceEx {
       formData.append("user",JSON.stringify(this.newUser));
       formData.append("file",this.image);
       this.http.post<IHTTPResponse<string>>(this.getURL() + "/signup",formData).subscribe((res) => {
-        if (res.data) {
-          this.router.navigateByUrl("/login");
-        }else {
-          resolve(res.error);
-        }
+        resolve(res);
       })
     })
 
@@ -65,6 +61,21 @@ export class RegisterService extends AppServiceEx {
   getCoutrys():Promise<IHTTPResponse<{id:number;country:string}[]>> {
     return new Promise((resolve)=> {
       this.http.post<IHTTPResponse<{id:number;country:string}[]>>(`${this.getURL()}/countrys`,{language:this.getLanguage()}).subscribe(res => {
+        resolve(res)
+      })
+    })
+  }
+
+  getTypes():Promise<IHTTPResponse<{id:number;type:string}[]>> {
+    return new Promise((resolve)=> {
+      this.http.post<IHTTPResponse<{id:number;type:string}[]>>(`${this.getURL()}/types`,{language:this.getLanguage()}).subscribe(res => {
+        resolve(res)
+      })
+    })
+  }
+  getRaces(id:number):Promise<IHTTPResponse<{id:number;race:string}[]>> {
+    return new Promise((resolve)=> {
+      this.http.post<IHTTPResponse<{id:number;race:string}[]>>(`${this.getURL()}/races`,{id,language:this.getLanguage()}).subscribe(res => {
         resolve(res)
       })
     })

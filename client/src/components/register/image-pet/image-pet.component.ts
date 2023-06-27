@@ -44,12 +44,19 @@ export class ImagePetComponent extends AppServiceEx {
     if (this.form.valid) {
       let file:any = document.getElementById("image_pet_file");
       this.registerS.setProfileImage(file.files[0] as File);
-      let signup = await this.registerS.signup();
-      if(!signup) {
-        alert(this.language.getWord("this_user_exists"));
-        this.router.navigateByUrl('/signup');
+      this.setLoading(true);
+      let res = await this.registerS.signup();
+      this.setLoading(false);
+      if(res.error) {
+        if(res.error == "this_user_exists") {
+          alert(this.language.getWord("this_user_exists"));
+          this.router.navigateByUrl('/signup');
+        }else {
+          this.router.navigate(["/error"],{state:{error:res.error}});
+        }
+      }else {
+        this.router.navigateByUrl('/login');
       }
-      this.router.navigateByUrl('/login');
     } else {
       alert(this.language.getWord("you_must_choose_a_profile_photo"));
     }

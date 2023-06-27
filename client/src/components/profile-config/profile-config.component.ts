@@ -97,7 +97,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
       image: this.userForm.get("image")?.value || "",
       email: this.userForm.get("email")?.value || "",
       password: this.userForm.get("password")?.value || "",
-      Language: this.userForm.get("language")?.value || "",
+      language: this.userForm.get("language")?.value || "",
       pets: this.userForm.get("pets")?.value || [],
       followers:this.userData.followers,
       following: this.userData.following,

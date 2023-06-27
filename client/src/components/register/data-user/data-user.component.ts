@@ -14,9 +14,9 @@ import { AppService } from 'src/services/app.service';
 })
 export class DataUserComponent extends AppServiceEx implements OnInit {
   ctrl = inject(RegisterController);
-  form:FormGroup = this.ctrl.formDataUser;
-  coutrys!:{id:number;country:string}[];
-  constructor(private router: Router, private registerS: RegisterService,appService:AppService,private acRouter:ActivatedRoute) {
+  form: FormGroup = this.ctrl.formDataUser;
+  coutrys!: { id: number; country: string }[];
+  constructor(private router: Router, private registerS: RegisterService, appService: AppService, private acRouter: ActivatedRoute) {
     super(appService);
   }
 
@@ -28,17 +28,17 @@ export class DataUserComponent extends AppServiceEx implements OnInit {
     let confirmPassword = this.form.get('confirmPassword')?.value;
     if (password === confirmPassword) {
       if (this.form.valid) {
-        let name:string = this.form.get("name")?.value;
-        let lastName:string = this.form.get("lastName")?.value;
+        let name: string = this.form.get("name")?.value;
+        let lastName: string = this.form.get("lastName")?.value;
         let birthDay: string = this.form.get("birthDay")?.value;
-        let address:string = this.form.get("address")?.value;
-        let country:number = parseInt(this.form.get("country")?.value);
-        let postalCode:number = parseInt(this.form.get("postalCode")?.value);
-        let phone:number = parseInt(this.form.get("phone")?.value);
-        let email:string = this.form.get("email")?.value;
-        let password:string = this.form.get("password")?.value;
-        let Language:string = this.form.get("Language")?.value;
-
+        let address: string = this.form.get("address")?.value;
+        let country: number = parseInt(this.form.get("country")?.value);
+        let postalCode: number = parseInt(this.form.get("postalCode")?.value);
+        let phone: number = parseInt(this.form.get("phone")?.value);
+        let email: string = this.form.get("email")?.value;
+        let password: string = this.form.get("password")?.value;
+        let language: string = this.registerS.getLanguage();
+        console.log(parseInt(this.form.get("country")?.value));
         const newUser: IUser = {
           name,
           lastName,
@@ -49,10 +49,10 @@ export class DataUserComponent extends AppServiceEx implements OnInit {
           country,
           postalCode,
           phone,
-          image:this.getURL(),
+          image: this.getURL(),
           email,
           password,
-          Language,
+          language,
           followers: [],
           following: [],
           pendingFollowers: [],
@@ -72,16 +72,16 @@ export class DataUserComponent extends AppServiceEx implements OnInit {
     this.acRouter.params.subscribe(prms => {
       this.downloadCountrys();
     })
-}
+  }
 
   async downloadCountrys() {
     this.setLoading(true);
     let res = await this.registerS.getCoutrys();
     this.setLoading(false);
-    if(!res.error) {
+    if (!res.error) {
       this.coutrys = res.data;
-    }else {
-      this.router.navigate(["/error"],{state:{error:res.error}});
+    } else {
+      this.router.navigate(["/error"], { state: { error: res.error } });
     }
   }
 

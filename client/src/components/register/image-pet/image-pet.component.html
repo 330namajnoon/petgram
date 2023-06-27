@@ -1,11 +1,11 @@
 <div class="container">
-  <h3 class="title">Foto de perfil</h3>
+  <h3 class="title">{{language.getWord('select_profile_image')}}</h3>
 
   <img (click)="image.click()" [ngStyle]="{img: form.value.fileSource}" [ngClass]="imageSrc=='assets/images/profile.png'? 'img':'img2'" width="250" height="250" [src]="imageSrc" />
   <input #image id="image_pet_file" hidden type="file" accept="image/png,image/jpeg" (change)="onFileChange($event) ">
 </div>
 
 <div>
-  <button  (click)="goNext()" class="next" class="position-button">EMPEZAR</button>
+  <button  (click)="goNext()" class="next" class="position-button">{{language.getWord('lets_goo')}}</button>
 </div>
 

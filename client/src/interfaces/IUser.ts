@@ -15,7 +15,7 @@ export interface IUser {
   image:string
   email:string;
   password:string;
-  Language:string;
+  language:string;
   followers:IFollower[];
   following:string[];
   pendingFollowers:IFollower[];

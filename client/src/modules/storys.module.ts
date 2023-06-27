@@ -5,7 +5,7 @@ import { StorysRoutingModule } from 'src/routers/storys-routing.module';
 import { StorysComponent } from 'src/components/storys/storys/storys.component';
 import { NewStoryComponent } from 'src/components/storys/new-story/new-story.component';
 import { StorysViewModule } from './storys-view.module';
-
+import { RegisterModule } from './register.module';
 @NgModule({
   declarations: [
     StorysComponent,
@@ -16,7 +16,8 @@ import { StorysViewModule } from './storys-view.module';
     CommonModule,
     StorysRoutingModule,
     ReactiveFormsModule,
-    StorysViewModule
+    StorysViewModule,
+    RegisterModule
   ]
 })
 export class StorysModule { }

@@ -8,39 +8,36 @@
     </div>
     <div>
       <label class="label-input" for="date">{{language.getWord('birthDay')}}</label>
-      <input class="input" formControlName="birthday" placeholder="{{language.getWord('birthDay')}}" type="date" />
-      <app-validator [control]="form.get('birthday')" />
+      <input class="input" formControlName="birthDay" placeholder="{{language.getWord('birthDay')}}" type="date" />
+      <app-validator [control]="form.get('birthDay')" />
 
     </div>
+
+    <div>
+      <label class="label-input" for="text">{{language.getWord('gender')}}:</label>
+      <select name="cars" id="cars" formControlName="gender">
+        <option value="" selected>{{language.getWord('select')}}</option>
+        <option value="M">{{language.getWord('male')}}</option>
+        <option value="F">{{language.getWord('female')}}</option>
+      </select>
+      <app-validator [control]="form.get('gender')" />
+    </div>
+
     <div>
       <label class="label-input">{{language.getWord('type')}}:</label>
-      <select formControlName="type">
-        <option value="">Selecciona</option>
-        <option value="1">Gato</option>
-        <option value="2">Perro</option>
-        <option value="3">Ave</option>
+      <select (change)="downloadRaces($event)" formControlName="type">
+        <option value="" selected>{{language.getWord('select')}}</option>
+        <option *ngFor="let type of getTypes()"  value="{{type.id}}">{{type.type}}</option>
+
       </select>
       <app-validator [control]="form.get('type')" />
 
     </div>
     <div>
-      <label class="label-input" for="text">{{language.getWord('gender')}}:</label>
-      <select name="cars" id="cars" formControlName="gender">
-        <option value="">Selecciona</option>
-        <option value="H">Hembra</option>
-        <option value="M">Macho</option>
-      </select>
-      <app-validator [control]="form.get('gender')" />
-    </div>
-    <div>
       <label class="label-input" for="text">{{language.getWord('race')}}:</label>
-      <select name="cars" id="cars" formControlName="race">
-        <option value="">Selecciona</option>
-        <option *ngFor="let item of races" [value]="item.key">
-          {{ item.label | titlecase }}
-        </option>
-        <option value="">Selecciona</option>
-
+      <select  name="cars" id="cars" formControlName="race">
+        <option value="" selected>{{language.getWord('select')}}</option>
+        <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
       </select>
       <app-validator [control]="form.get('gender')" />
     </div>

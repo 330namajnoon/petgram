@@ -114,6 +114,15 @@ export function Languages() {
     },
     this_user_exists:{
       english:"this user exists",
+    },
+    select:{
+      english:"Select",
+    },
+    lets_goo:{
+      english:"Lets goo",
+    },
+    select_profile_image:{
+      english:"Select profile image",
     }
 
 
