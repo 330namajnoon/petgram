@@ -8,6 +8,7 @@
       .img-container{
         position:relative;
 
+
         img {
           width: 130px;
           height: 130px;
@@ -28,6 +29,11 @@
       }
   }
 
+  // header finished
+
+
+  //--------- section1 ---------
+
 .user-data{
 
       .head-slide {
@@ -35,6 +41,8 @@
         padding: 20px;
         color: white !important;
       }
+
+      // --------- form1 and its properties -------
 
       form{
         width:80%;
@@ -64,18 +72,110 @@
         }
         .input-style {
           /* CSS rules for the input style */
-        }
+         }
       }
     }
-    .menu-open {
-      max-height: 200px; /* Adjust the height as needed */
-    }
+
+    //------------ form1 finished -----------
+
+        .menu-open {
+           max-height: 200px; /* Adjust the height as needed */
+         }
      }
 
-  }
+     // -------------- section2 -----------------
+     .pet-data {
+
+          .section2-slide {
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            padding:10px;
+            background-color:gray;
+            align-items: center;
+            select {
+              height:25px;
+             }
+
+             h3{
+               padding: 0;
+               margin: 0;
+             }
+
+          }
+          form {
+            width:80%;
+            margin: 20px auto;
+            max-height: 200px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            .input-pair{
+              display: grid;
+              margin-bottom: 10px;
+              grid-template-columns: auto auto auto;
+              color:white;
+              border:none;
+              color: white;
+              background-color: black;
+              label {
+                width: 100px;
+              }
+              .text-style {
+                border: none;
+                background-color: transparent;
+                font-size: 16px;
+                padding: 0;
+                outline: none;
+                cursor: default;
+              }
+              .input-style {
+                /* CSS rules for the input style */
+              }
+
+            }
+
+          }
+
+
+
+
+      }
+    }
+
+
+
+
+
+
 
 
 
 .container_pc {
+  header{
+
+  .i-container {
+    position: relative;
+    display: inline-block;
+   }
+   .message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+   }
+
+   .i-container:hover .message {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 
 }
+
+

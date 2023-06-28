@@ -1,13 +1,19 @@
 <div [ngClass]="getDevice()">
+
   <span class="material-symbols-rounded" style="color: white;" [routerLink]="['/petgram','settings']"  style="margin:8px; color:white">
     arrow_back
   </span>
 
-  <div class="img-container"  *ngIf="isImgSrc; else elseCond">
-    <span class="material-symbols-rounded" style="color: white;" >
+ <div class="img-container"  *ngIf="isImgSrc; else elseCond">
+
+    <span class="material-symbols-rounded" >
       edit
     </span>
+
     <img *ngIf="imageSrc" src="{{imageSrc}}"  alt="" >
+    <div class="message" style="color: white;">
+      Edit..
+    </div>
 
   </div>
   <ng-template class="img-container" #elseCond>
@@ -19,7 +25,8 @@
     <label for="avatar">upload photo</label>
     <input type="file" (change)="uploadFile($event)" accept="image/*" >
    </div>
+   <button (click)="saveImg()" class="save-btn">Save</button>
+
 </form>
-<button (click)="saveImg()">Save</button>
 
 </div>
