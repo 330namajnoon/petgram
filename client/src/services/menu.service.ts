@@ -5,20 +5,20 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 @Injectable({
   providedIn: 'root'
 })
-export class MenuService  extends AppServiceEx {
-  constructor(appService:AppService) {
+export class MenuService extends AppServiceEx {
+  constructor(appService: AppService) {
     super(appService)
   }
   options = [
-    {name:"home",url:"/petgram"},
-    {name:"photo_camera",url:"storys"},
-    {name:"handshake",url:"friends"},
-    {name:"settings",url:"settings"},
+    { name: "home", url: "/petgram" },
+    { name: "photo_camera", url: "/petgram/storys" },
+    { name: "handshake", url: "/petgram/friends" },
+    { name: "settings", url: "/petgram/settings" },
   ]
-  select:string = this.options[0].name;
+  select: string = this.options[0].name;
 
 
-  setPage(name:string,url:string) {
+  setPage(name: string, url: string) {
     this.select = name;
   }
 
