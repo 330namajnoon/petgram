@@ -5,12 +5,12 @@ import { MenuComponent } from 'src/components/menu/menu.component';
 
 
 const routes: Routes = [
-  {path:"",component:MenuComponent,outlet:"menu"},
-  {path:"",loadChildren:()=> import("../modules/home.module").then(m => m.HomeModule)},
+  { path: "", component: MenuComponent, outlet: "menu" },
+  { path: "", loadChildren: () => import("../modules/home.module").then(m => m.HomeModule) },
   // {path:"home",loadChildren:()=> import("../ss/petgram/home/home.module").then(m => m.HomeModule)},
   // {path:"storys",loadChildren:()=> import("../ss/petgram/storys/storys.module").then(m => m.StorysModule)},
-  {path:"settings",loadChildren:()=> import("../modules/profile-config.module").then(m => m.ProfileConfigModule)},
-  // {path:"friends",loadChildren:()=> import("../ss/petgram/friends/friends.module").then(m => m.FriendsModule)},
+  { path: "settings", loadChildren: () => import("../modules/profile-config.module").then(m => m.ProfileConfigModule) },
+  { path: "friends", loadChildren: () => import("../modules/friends.module").then(m => m.FriendsModule) },
 ];
 
 @NgModule({

@@ -29,7 +29,8 @@ require("dotenv").config();
 // const mysql = require("mysql");
 const mysql = require("mysql2");
 
-const connectionData = 'pscale_pw_14Ld2FNDrShOXoMrDB4oat8kSEl07ooeGtJuxoPohqN@aws.connect.psdb.cloud/petgram'
+const connectionData = 'mysql://kj81g0gbq451i70d5go8:pscale_pw_zA49JPJoxZ2W2FhJxqRDYIXrU7vAZsZGKVvZ5u6hoIk@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+
 ////////////// server listener
 
 server.listen(port, () => {
@@ -163,7 +164,6 @@ app.post("/login", (req, res) => {
         if (err) {
           res.send(err);
         } else {
-          
           let userData = resp[0];
           const consult1 = `
             SELECT f.follower_id as id,u.name,u.lastName,u.image
