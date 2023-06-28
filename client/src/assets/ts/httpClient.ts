@@ -5,6 +5,7 @@ export function httpClient<DataType>(method:string,url:string,data:IHttpData[],l
     const http = new XMLHttpRequest();
     const formData = new FormData();
     data.forEach(d => {
+      console.log(d.value)
       formData.append(d.name,d.value);
     })
     http.open(method,url,true);

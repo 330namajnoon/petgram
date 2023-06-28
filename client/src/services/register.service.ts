@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { AppService } from './app.service';
 import { IPet } from 'src/interfaces/IPet';
+import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,18 +21,15 @@ export class RegisterService extends AppServiceEx {
     this.newUser = user
   }
 
-  login(email: string, password: string): any {
-    let loginData = {
-      email,
-      password
-    }
-    this.http.post<IUser>(this.getURL() + "/login", loginData).subscribe((user) => {
-      if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
-        this.setUser(user)
-        console.log(user)
-        this.router.navigateByUrl("/petgram");
+  login(email: string, password: string):Promise<IHTTPResponse<IUser>> {
+    return new Promise((resolve)=> {
+      let loginData = {
+        email,
+        password
       }
+      this.http.post<IHTTPResponse<IUser>>(this.getURL() + "/login", loginData).subscribe((res) => {
+        resolve(res);
+    })
     })
   }
   signup():Promise<boolean> {
