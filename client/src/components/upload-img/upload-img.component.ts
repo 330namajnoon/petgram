@@ -13,7 +13,7 @@ import { ProfileConfigService } from 'src/services/profile-config.service';
 
 
 export class UploadImgComponent extends AppServiceEx implements OnInit{
-
+  isEdit : boolean = false;
   primitiveImgSrc!: string;
   imageSrc!: string ;
   isImgSrc: boolean = false;
@@ -39,25 +39,44 @@ ngOnInit() {
 uploadFile(event: Event): void {
   this.isImgSrc = true;
 
- 
+
 
   let target = event.target as HTMLInputElement;
 
   if (target.files !== null && target.files.length > 0){
     let fileImg = target.files[0];
 
+
     // to show the image to user
     let reader = new FileReader();
     reader.onload = ev => this.imageSrc = reader.result as string;
+    console.log(this.imageSrc);
+
     reader.readAsDataURL(fileImg); // read the image
     console.log(fileImg);
+
 
   }
 
 }
-saveImg(){
-let updatedUser: IUser = {...this.user , image: this.imageSrc}
-this.proConfigService.updateData(updatedUser)
+ saveImg(){
+  console.log(this.imageSrc)
+//  let updatedUser: IUser = {...this.user , image: this.imageSrc}
+//  console.log(updatedUser);
+
+//  this.user = updatedUser;
+
+
+
+
+ }
+
+
+
+
+
+editImg() {
+   this.isEdit = !this.isEdit;
 }
 
 

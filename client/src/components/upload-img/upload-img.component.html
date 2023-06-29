@@ -1,32 +1,33 @@
 <div [ngClass]="getDevice()">
 
-  <span class="material-symbols-rounded" style="color: white;" [routerLink]="['/petgram','settings']"  style="margin:8px; color:white">
+  <span class="material-symbols-rounded back-arrow"  [routerLink]="['/petgram','settings']"  style="margin:8px; color:white">
     arrow_back
   </span>
 
- <div class="img-container"  *ngIf="isImgSrc; else elseCond">
+  <div class="img-container"  *ngIf="isImgSrc; else elseCond">
+   <img *ngIf="imageSrc" src="{{imageSrc}}"  alt="{{getUser().name}}" >
+  </div>
 
-    <span class="material-symbols-rounded" >
+
+  <ng-template class="img2-container"  #elseCond  >
+    <span class="material-symbols-rounded"  (click)="editImg()">
       edit
     </span>
-
-    <img *ngIf="imageSrc" src="{{imageSrc}}"  alt="" >
-    <div class="message" style="color: white;">
-      Edit..
-    </div>
-
-  </div>
-  <ng-template class="img-container" #elseCond>
-    <img [src]="getUser().image" alt=""  >
+    <img  [src]="getUser().image" alt="New Photo" class="img-style" >
   </ng-template>
 
-<form action="">
-  <div class="input-pair">
-    <label for="avatar">upload photo</label>
-    <input type="file" (change)="uploadFile($event)" accept="image/*" >
-   </div>
-   <button (click)="saveImg()" class="save-btn">Save</button>
 
-</form>
 
+<div class="form-container">
+   <form action="" *ngIf="isEdit">
+
+     <div class="input-pair">
+       <label for="avatar">upload photo</label>
+       <input type="file" (change)="uploadFile($event)" accept="image/*"  >
+      </div>
+
+      <button (click)="saveImg()" class="save-btn">Save</button>
+
+   </form>
+</div>
 </div>
