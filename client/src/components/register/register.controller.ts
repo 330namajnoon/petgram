@@ -7,27 +7,27 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class RegisterController {
 
   formDataUser: FormGroup = new FormGroup({
-    name: new FormControl('Alba', Validators.required),
-    lastName: new FormControl('Gonzalez', Validators.required),
-    birthday: new FormControl('2023-10-10', Validators.required),
-    address: new FormControl('Test', Validators.required),
-    country: new FormControl('Test', Validators.required),
-    postalCode: new FormControl('280114', Validators.required),
-    email: new FormControl('test@test.com', [Validators.required, Validators.email]),
-    phone: new FormControl('346512335641', Validators.required),
-    password: new FormControl('123456789', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
-    confirmPassword: new FormControl('123456789', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
+    name: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    birthDay: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
+    postalCode: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phone: new FormControl<number>(0,[Validators.pattern("^[679]{1}[0-9]{8}$")]),
+    password: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
   });
 
   formDataPet: FormGroup = new FormGroup({
-    name: new FormControl('max', Validators.required),
-    birthday: new FormControl('2023-10-10', Validators.required),
-    gender: new FormControl('M', Validators.required),
-    type: new FormControl('1', Validators.required),
-    race: new FormControl('1', Validators.required),
-    description: new FormControl('negro'),
-    privacyPolicy: new FormControl(true, Validators.required),
-    termsAndConditions: new FormControl(true, Validators.required),
+    name: new FormControl('', Validators.required),
+    birthDay: new FormControl('', Validators.required),
+    gender: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    race: new FormControl('', Validators.required),
+    description: new FormControl(''),
+    privacyPolicy: new FormControl(false, Validators.required),
+    termsAndConditions: new FormControl(false, Validators.required),
   });
 
   formImagePet = new FormGroup({

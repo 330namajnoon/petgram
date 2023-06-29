@@ -13,11 +13,17 @@
   </div>
 
   <form [formGroup]="group" *ngIf="getStep() == 1" class="select_pet"  action="">
-    <select formControlName="petName"  name="" id="">
-      <option value="" selected>{{language.getWord("selectPet")}}</option>
-      <option  *ngFor="let pet of getUser().pets" [value]="pet.id">{{pet.name}}</option>
-    </select>
-    <textarea placeholder="{{language.getWord('description')}}" formControlName="description"></textarea>
+    <div>
+      <select formControlName="petName"  name="" id="">
+        <option value="" selected>{{language.getWord("selectPet")}}</option>
+        <option  *ngFor="let pet of getUser().pets" [value]="pet.id">{{pet.name}}</option>
+      </select>
+      <app-validator  [control]="group.get('petName')"/>
+    </div>
+    <div>
+      <textarea placeholder="{{language.getWord('description')}}" formControlName="description"></textarea>
+      <app-validator  [control]="group.get('description')"/>
+    </div>
   </form>
 
 </div>

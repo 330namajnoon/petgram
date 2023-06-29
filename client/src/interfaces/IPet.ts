@@ -3,8 +3,8 @@ export interface IPet {
   user_id:string;
   name:string;
   birthDay:string;
-  type:string;
-  race:string;
+  type:number;
+  race:number;
   gender:string;
   description:string;
 }

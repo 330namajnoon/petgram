@@ -28,6 +28,7 @@ import { DataUserComponent } from 'src/components/register/data-user/data-user.c
   exports: [
     FirstPageComponent,
     LoginComponent,
+    ValidatorComponent
   ]
 })
 export class RegisterModule { }

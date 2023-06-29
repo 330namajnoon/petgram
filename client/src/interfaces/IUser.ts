@@ -9,17 +9,18 @@ export interface IUser {
   lastName:string;
   birthDay:string;
   address:string;
-  country:string;
+  country:number;
   postalCode:number;
   phone:number;
   image:string
   email:string;
   password:string;
-  Language:string;
+  language:string;
   followers:IFollower[];
   following:string[];
   pendingFollowers:IFollower[];
   storys:IStoryAdress[];
   pets:IPet[];
+
 
 }
