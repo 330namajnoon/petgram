@@ -32,7 +32,7 @@ const mysql = require("mysql2");
 const { error } = require("console");
 
 
-const connectionData = 'mysql://nxj72edirhb9zclv12k7:pscale_pw_LDy9a4Kzd1BgvF4tixYt5xwlrFwsI7SNEHigQJzuXkz@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://ds40930n93y2bideypru:pscale_pw_hQOl9vsypAmFc5zR2kqXQwp3ThVRDJlueKSUjfIM4co@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 ////////////// server listener

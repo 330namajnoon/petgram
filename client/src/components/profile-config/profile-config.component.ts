@@ -33,10 +33,8 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   petForm = new FormGroup({
     id: new FormControl('',[Validators.required]),
     name: new FormControl('', [Validators.required, Validators.min(2)]),
-    race: new FormControl('', [Validators.required]),
+    race: new FormControl<number>(0, [Validators.required]),
     gender: new FormControl('',[Validators.required])
-
-
   })
 
   userForm = new FormGroup({
@@ -152,8 +150,8 @@ editMode: boolean = false;
       user_id: this.petForm.get('user_id')?.value || "",
       name: this.petForm.get("name")?.value || "",
       birthDay: this.petForm.get('birthday')?.value || "",
-      type: this.petForm.get("type")?.value || "",
-      race: this.petForm.get("race")?.value || "",
+      type: this.petForm.get("type")?.value || 0,
+      race: this.petForm.get("race")?.value || 0,
       gender: this.petForm.get("gender")?.value || "",
       description: this.petForm.get("description")?.value || ""
     }
