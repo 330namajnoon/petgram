@@ -21,6 +21,9 @@ import { PetDataComponent } from 'src/components/profile-view/media-gallery/pet-
   imports: [
     CommonModule,
     ProfileViewRoutingModule
+  ],
+  exports:[
+    FollowerComponent
   ]
 })
 export class ProfileViewModule { }
