@@ -76,7 +76,7 @@
        <img *ngIf="imageSrc" src="{{imageSrc}}" style="max-width: 150px;" alt="">
        <input type="file" (change)="uploadFile($event)">
       </div> -->
-      <button type="btn" (click)="changeInfo()">Save Changes</button>
+      <button type="btn" class="save-btn" (click)="changeInfo()">Save Changes</button>
     </form>
 
 
@@ -95,7 +95,7 @@
 
 
 
-      <form [formGroup]="petForm" style="color:white"  [ngClass]="{'menu-open': isMenuPetOpen}">
+      <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuPetOpen}">
 
       <div class="input-pair">
         <label for="name"> Name:</label>
@@ -120,11 +120,50 @@
           edit
         </span>
       </div>
+      <button type="btn" class="save-btn" (click)="changePetInfo()">Save Changes</button>
 
      </form>
 
     </section>
 
+    <section class="new-pet">
+
+      <h3 class="new-pet-slide" style="color: white; padding:10px; background-color:gray;"><button (click)="toggleMenu3()"> User Data <i class="fa-solid fa-user-pen"></i></button></h3>
+
+      <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuNewOpen}">
+
+        <div class="input-pair">
+          <label for="name"> Name:</label>
+          <input type="text" id="name" formControlName="name" [placeholder]="selectedPet?.name" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+          <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span>
+        </div>
+
+        <div class="input-pair">
+          <label for="race"> Race:</label>
+          <input type="text" id="race" formControlName="name" [placeholder]="selectedPet?.race" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+          <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span>
+        </div>
+
+        <div class="input-pair">
+          <label for="gender"> Gender:</label>
+          <input type="text" id="gender" formControlName="gender" [placeholder]="selectedPet?.gender" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
+          <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span>
+        </div>
+        <button type="btn" class="save-btn" (click)="changeInfo()">Save Changes</button>
+
+       </form>
+    </section>
+
+    <section class="delete-pet">
+      <h3 class="delete-pet-slide" style="color: white; padding:10px; background-color:gray;"><button (click)="toggleMenu3()"> Delete Pet<i class="fa-solid fa-user-pen"></i></button></h3>
+      <button class="delete-btn">Remove Pet</button>
+    </section>
   </main>
 </div>
 <router-outlet />
