@@ -1,4 +1,16 @@
-<div>
- Friends
- en construccion
+<div [ngClass]="getDevice()">
+  <div *ngIf="getUser().pendingFollowers.length > 0">
+    <h1 class="title">{{language.getWord('followers')}}</h1>
+    <div class="followers">
+      <app-follower *ngFor="let follower of getUser().pendingFollowers" [fullName]="follower.name+' '+follower.lastName" [Image]="follower.image" [user]="follower.id" [device]="getDevice()" />
+    </div>
+  </div>
+  <div>
+    <h1 class="title">{{language.getWord('followers')}}</h1>
+    <div class="followers">
+      <app-follower *ngFor="let follower of followers" [fullName]="follower.name+' '+follower.lastName" [Image]="follower.image" [user]="follower.id" [device]="getDevice()" />
+    </div>
+  </div>
 </div>
+
+

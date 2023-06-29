@@ -123,6 +123,9 @@ export function Languages() {
     },
     select_profile_image:{
       english:"Select profile image",
+    },
+    followers:{
+      english:"Followers",
     }
 
 
