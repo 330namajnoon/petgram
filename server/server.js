@@ -31,7 +31,7 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const { error } = require("console");
 
-const connectionData = 'mysql://mr7umw7u885ss81o8ux3:pscale_pw_psLyw0TtChxIDRAgKT3PFZ1cPrw2dfrpxt04cdWY9AS@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://nxj72edirhb9zclv12k7:pscale_pw_LDy9a4Kzd1BgvF4tixYt5xwlrFwsI7SNEHigQJzuXkz@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 ////////////// server listener
 
@@ -284,7 +284,7 @@ app.post("/signup", mediyaUploader.single("file"), (req, res) => {
     if (resp1.length <= 0) {
       connection.query("SELECT id FROM users", (err, resp2) => {
         if (!err) {
-          const newId = myModules.createNewUnikID(resp2.map(i => i = i.id), 10);
+          const newId = myModules.createNewUnikID(resp2, 10);
           const imageUrl = (image + `/${newId}.${req.file.originalname.split(".")[1]}`);
           const consult = `
           INSERT INTO users (id,email,name,lastName,birthDay,address,country,postalCode,phone,password,image,language)
@@ -295,10 +295,10 @@ app.post("/signup", mediyaUploader.single("file"), (req, res) => {
             if (!err) {
               try {
                 fs.renameSync(`./mediya/${req.file.originalname}`, `./mediya/${newId}.${req.file.originalname.split(".")[1]}`);
-                connection.query("SELECT pet_id FROM pets", (err, resp4) => {
+                connection.query("SELECT pet_id as id FROM pets", (err, resp4) => {
                   if (!err) {
                     const { name, birthDay, type, race, gender, description } = pets[0];
-                    let newPetId = myModules.createNewUnikID(resp4.map(i => i = i.id), 10);
+                    let newPetId = myModules.createNewUnikID(resp4, 10);
                     const consult = `
                       INSERT INTO pets (pet_id,user_id,name,birthDay,type,race,gender,description)
                       VALUES
