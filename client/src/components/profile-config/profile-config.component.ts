@@ -17,9 +17,11 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   selectValue: string = "";
   isMenuOpen: boolean = false;
   isMenuPetOpen: boolean = false;
+  isMenuNewOpen: boolean = false;
   imageSrc: string | undefined;
   userData!: IUser ;
-  petsData:IPet[] =[]
+  petsData:IPet[] =[];
+  deletedList : IUser[] = [];
 
 
   constructor(appService: AppService , private proConfig: ProfileConfigService){
@@ -29,7 +31,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   }
 
   petForm = new FormGroup({
-    id: new FormControl(0,[Validators.required]),
+    id: new FormControl('',[Validators.required]),
     name: new FormControl('', [Validators.required, Validators.min(2)]),
     race: new FormControl('', [Validators.required]),
     gender: new FormControl('',[Validators.required])
@@ -56,7 +58,10 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   })
 
    ngOnInit() {
-   this.petsData = this.getUser().pets;
+    this.userData = this.getUser();
+    this.petsData = this.getUser().pets;
+    console.log(this.petsData);
+
 
   }
 
@@ -104,10 +109,9 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
       storys:[],
       pendingFollowers: this.userData.pendingFollowers,
     }
+    this.proConfig.save(user);
 
-
-      this.proConfig.updateData(user);
-      console.log(user);
+   this.userData = user;
 
   }
 
@@ -122,11 +126,17 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   this.isMenuPetOpen = !this.isMenuPetOpen;
 }
 
+toggleMenu3() {
+  this.isMenuNewOpen = !this.isMenuNewOpen;
+}
+
 editMode: boolean = false;
 
- editInput(item: any) {
-   this.editMode = !this.editMode;
- }
+  editInput(item: any) {
+    this.editMode = !this.editMode;
+  }
+
+
 
 
  getEachPet(selectOption: string): void {
@@ -136,13 +146,38 @@ editMode: boolean = false;
 
   }
 
+  changePetInfo() {
+    let pet : IPet = {
+      id: this.petForm.get("id")?.value || "",
+      user_id: this.petForm.get('user_id')?.value || "",
+      name: this.petForm.get("name")?.value || "",
+      birthDay: this.petForm.get('birthday')?.value || "",
+      type: this.petForm.get("type")?.value || "",
+      race: this.petForm.get("race")?.value || "",
+      gender: this.petForm.get("gender")?.value || "",
+      description: this.petForm.get("description")?.value || ""
+    }
+   this.petsData.forEach(item => {
+    if(!(item.id === pet.id)) return;
+    item = pet;
+   });
+
+
+
+
+  }
+
+
+
+
+
+ }
 
 
 
 
 
 
-}
 
 
 
