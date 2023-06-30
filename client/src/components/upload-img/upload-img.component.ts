@@ -64,7 +64,7 @@ uploadFile(event: Event): void {
 //  let updatedUser: IUser = {...this.user , image: this.imageSrc}
 //  console.log(updatedUser);
 
-//  this.user = updatedUser;
+  this.user.image = this.imageSrc;
 
 
 

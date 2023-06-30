@@ -1,0 +1,12 @@
+<div  id="container" [ngClass]="getDevice()">
+  <input (input)="open_close($event)"  type="checkbox" [id]="'open_close'+selectName" [ngStyle]="{'display':'none'}">
+  <label class="head_lable"  [for]="'open_close'+selectName">
+      <div class="head">
+        <span class="material-symbols-rounded">expand_all</span>
+        {{selectName}}
+      </div>
+    </label>
+  <div id="data_container" class="data_container" [ngStyle]="dataContainerStyle[dataContainerStyleNumber]">
+    <app-option *ngFor="let option of options" [name]="option.name" [value]="option.value" [route]="option.route" />
+  </div>
+</div>

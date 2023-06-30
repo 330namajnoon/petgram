@@ -10,38 +10,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileConfigService extends AppServiceEx {
- users: IUser[] = []
+ users: IUser[] = [];
+ optionInputMethod:any;
   constructor(private http: HttpClient,appS:AppService) {
     super(appS);
   }
 
-  // updateData(newData:any):Promise<IUser>  {
-  //   return new Promise((resolve)=> {
-  //     this.http.post<IUser>(`${this.getURL()}/updateData`,newData).subscribe(res => {
-  //       resolve(res);
-  //     });
-  //   })
 
-  // };
-
-  updateArrayElements(elements: IUser[]): Observable<IUser[]>{
-    return this.http.post<IUser[]>(`${this.getUser()}/updateArray`, elements)
+  setOptionInputMethod(val:any) {
+    this.optionInputMethod = val;
   }
 
-  getUsers():Promise<IUser[]>{
-    return new Promise((resolve)=> {
-      this.http.get<IUser[]>(`${this.getURL()}/getUsers`).subscribe(res => {
-        resolve(res);
-      })
-    })
-  }
 
-  deleteById(id: string): void {
-    this.http.delete(`${this.getURL()}/${id}`);
-  }
-
-  async save(user: IUser): Promise<void> {
-    (await this.getUsers()).push(user);
-  }
 
 }

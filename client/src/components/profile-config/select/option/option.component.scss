@@ -1,0 +1,31 @@
+.container_mobile {
+  width: 80vw;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: rgba(128, 128, 128, 0.449);
+  border-radius: 4px;
+  justify-content: space-between;
+  h3 {
+    color: white;
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    span {
+
+      color: white;
+      font-size: 20px;
+      padding: 0;
+      margin: 0 0 0 10px;
+
+    }
+  }
+
+}

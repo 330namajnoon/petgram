@@ -1,0 +1,7 @@
+<dir  [ngClass]="getDevice()" >
+  <h3>{{name}}:</h3>
+  <div>
+    <input [disabled]="inputD" type="text" [value]="value">
+    <span (click)="setInputD(false)" class="material-symbols-rounded">edit</span>
+  </div>
+</dir>
