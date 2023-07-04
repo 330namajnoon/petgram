@@ -76,7 +76,6 @@
        <img *ngIf="imageSrc" src="{{imageSrc}}" style="max-width: 150px;" alt="">
        <input type="file" (change)="uploadFile($event)">
       </div> -->
-      <button type="btn" class="save-btn" (click)="changeInfo()">Save Changes</button>
     </form>
 
 
@@ -120,7 +119,6 @@
           edit
         </span>
       </div>
-      <button type="btn" class="save-btn" (click)="changePetInfo()">Save Changes</button>
 
      </form>
 
@@ -162,7 +160,6 @@
 
     <section class="delete-pet">
       <h3 class="delete-pet-slide" style="color: white; padding:10px; background-color:gray;"><button (click)="toggleMenu3()"> Delete Pet<i class="fa-solid fa-user-pen"></i></button></h3>
-      <button class="delete-btn">Remove Pet</button>
     </section>
   </main>
 </div>

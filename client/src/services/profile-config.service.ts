@@ -5,6 +5,7 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { AppService } from './app.service';
 import { IUser } from 'src/interfaces/IUser';
 import { Observable } from 'rxjs';
+import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,12 @@ export class ProfileConfigService extends AppServiceEx {
   }
 
   async save(user: IUser): Promise<void> {
-    (await this.getUsers()).push(user);
+    this.http.post(this.getURL(), user)
   }
 
+
 }
+
+
+
+
