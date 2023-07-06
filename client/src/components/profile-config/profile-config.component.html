@@ -1,6 +1,6 @@
 <div *ngIf="getUser()"  [ngClass]="getDevice()">
   <div class="header">
-    <img [src]="getUser().image" alt="">
+    <a routerLink="upload-img"><img [src]="getUser().image" alt=""></a>
     <h1>{{getUser().name+" "+getUser().lastName}}</h1>
   </div>
   <div  class="selects">
@@ -21,6 +21,9 @@
         route:'email'
       },
     ]"/>
+    <select class="pets_select" (change)="setPetSelected($event)" name="" id="">
+      <option *ngFor="let pet of getUser().pets" [value]="getUser().pets.indexOf(pet)">{{pet.name}}</option>
+    </select>
     <app-select *ngIf="petData" [selectName]="language.getWord('pet_data')" [options]="[
       {
         name:language.getWord('name'),
@@ -40,3 +43,4 @@
     ]"/>
   </div>
 </div>
+<router-outlet />

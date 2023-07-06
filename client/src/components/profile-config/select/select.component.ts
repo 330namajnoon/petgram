@@ -3,12 +3,17 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { AppService } from 'src/services/app.service';
 import { ISelectOption } from 'src/interfaces/ISelectOption';
 import { ProfileConfigService } from 'src/services/profile-config.service';
+import { IPet } from 'src/ss/interfaces/IPet';
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss']
 })
 export class SelectComponent extends AppServiceEx implements AfterViewInit {
+  selectOption: string = "Choose pet"
+  selectedPet!: IPet;
+
+
   dataContainerStyle:any = [
     {
       height:"auto"
@@ -49,4 +54,6 @@ export class SelectComponent extends AppServiceEx implements AfterViewInit {
   }
 
 
+
+ 
 }

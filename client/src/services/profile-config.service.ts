@@ -5,7 +5,7 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { AppService } from './app.service';
 import { IUser } from 'src/interfaces/IUser';
 import { Observable } from 'rxjs';
-
+import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +21,16 @@ export class ProfileConfigService extends AppServiceEx {
     this.optionInputMethod = val;
   }
 
+  updateImage(id:string,file:File):Promise<IHTTPResponse<string>> {
+    return new Promise((resolve)=> {
+      const formData = new FormData();
+      formData.append("id",id);
+      formData.append("file",file);
+      this.http.post<IHTTPResponse<string>>(this.getURL()+"/imageUpdate",formData).subscribe(res => {
+        resolve(res)
+      })
+    })
+  }
 
 
 }

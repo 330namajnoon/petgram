@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UploadImgComponent } from 'src/components/upload-img/upload-img.component';
+import { UploadImgComponent } from 'src/components/profile-config/upload-img/upload-img.component';
 import { ProfileConfigComponent } from 'src/components/profile-config/profile-config.component';
 const routes: Routes = [
   {

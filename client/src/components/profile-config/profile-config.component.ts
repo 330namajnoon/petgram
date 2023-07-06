@@ -48,6 +48,11 @@ export class ProfileConfigComponent extends AppServiceEx implements AfterViewIni
     return this.petData;
   }
 
+  setPetSelected(event:Event):void {
+    let select = event.target as HTMLSelectElement;
+    this.petSelected = parseInt(select.value);
+  }
+
 
 
 

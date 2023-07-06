@@ -6,7 +6,15 @@
         {{selectName}}
       </div>
     </label>
+    
   <div id="data_container" class="data_container" [ngStyle]="dataContainerStyle[dataContainerStyleNumber]">
     <app-option *ngFor="let option of options" [name]="option.name" [value]="option.value" [route]="option.route" />
   </div>
 </div>
+<!--
+
+<div class="section2-slide">
+  <select  (change)="getEachPet(selectOption)" [(ngModel)]="selectOption">
+    <option *ngFor="let pet of getUser().pets" value="{{pet.name}}">{{pet.name | uppercase}}</option>
+  </select>
+</div> -->
