@@ -35,8 +35,6 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
     name: new FormControl('', [Validators.required, Validators.min(2)]),
     race: new FormControl<number>(1, [Validators.required]),
     gender: new FormControl('',[Validators.required])
-
-
   })
 
   userForm = new FormGroup({
