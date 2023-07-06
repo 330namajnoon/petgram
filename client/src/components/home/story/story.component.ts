@@ -125,6 +125,7 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
 
 
   getProfileView(): void {
+    if(this.homeService.getVideoPlayerControl())
     this.homeService.getVideoPlayerControl()();
     let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
     url[0] = "/" + url[0];
