@@ -4,7 +4,7 @@
   <form [formGroup]="group">
     <select id="language" formControlName="language"  *ngIf="getLanguages()" name="{{language.getWord('language')}}" >
       <option value="">{{language.getWord('language')}}</option>
-      <option *ngFor="let language of languages" value="{{language}}">{{language}}</option>
+      <option *ngFor="let language of languages" value="{{language}}">{{language | titlecase}}</option>
     </select>
     <app-validator [control]="group.get('language')" />
   </form>

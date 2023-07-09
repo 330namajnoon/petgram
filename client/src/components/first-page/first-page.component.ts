@@ -13,44 +13,44 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class FirstPageComponent extends AppServiceEx implements OnInit {
   group = new FormGroup({
-    language:new FormControl("",[Validators.required]),
+    language: new FormControl("", [Validators.required]),
   })
-  languages!:string[];
-  constructor(appS:AppService,private registerS:RegisterService,private router:Router,private acRouter:ActivatedRoute) {
+  languages: string[] = [];
+  constructor(appS: AppService, private registerS: RegisterService, private router: Router, private acRouter: ActivatedRoute) {
     super(appS);
   }
 
   ngOnInit(): void {
-      this.acRouter.params.subscribe(prms => {
-        this.downloadLanguages();
-      })
+    this.acRouter.params.subscribe(prms => {
+      this.downloadLanguages();
+    })
   }
 
   async downloadLanguages() {
     this.setLoading(true);
     const res = await this.registerS.getLenguages();
     this.setLoading(false);
-    if(!res.error) {
+    if (!res.error) {
       this.setLanguages(res.data);
-    }else {
-      this.router.navigate(["/error"],{state:{error:res.error}});
+    } else {
+      this.router.navigate(["/error"], { state: { error: res.error } });
     }
   }
 
-  setLanguages(languages:string[]) {
+  setLanguages(languages: string[]) {
     this.languages = languages;
   }
 
-  getLanguages():string[] {
+  getLanguages(): string[] {
     return this.languages;
   }
 
-  getSignupPage():void {
+  getSignupPage(): void {
     this.group.markAllAsTouched();
-    if(this.group.valid) {
+    if (this.group.valid) {
       const select = document.getElementById("language") as HTMLSelectElement;
       this.registerS.setLanguage(select.value);
-      this.router.navigate(["/signup"]);
+      this.router.navigate(["/login"]);
     }
   }
 

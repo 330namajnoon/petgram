@@ -3,14 +3,18 @@ import { CommonModule } from '@angular/common';
 import { FriendsComponent } from 'src/components/friends/friends.component';
 import { FriendsRoutingModule } from 'src/routers/friends-routing.module';
 import { ProfileViewModule } from './profile-view.module';
+import { MaterialAllModules } from './material.module';
+
 @NgModule({
   declarations: [
-    FriendsComponent
+    FriendsComponent,
+
   ],
   imports: [
     CommonModule,
     FriendsRoutingModule,
-    ProfileViewModule
+    ProfileViewModule,
+    MaterialAllModules,
   ],
 
 })
