@@ -43,6 +43,20 @@ button.float-right {
 
 }
 
+.div-container-button{
+display: flex;
+justify-content: end;
+}
+
+.button-pending-follower{
+  background-color: #FBB034;
+  border-radius: 1rem;
+  font-size: 14px;
+  margin-right: 10px;
+
+}
+
+
 .table {
   padding-top: 1rem;
   padding-left: 2rem;
