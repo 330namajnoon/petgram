@@ -1,31 +1,51 @@
-.container_mobile {
-  width: 100vw;
+.container {
+  margin-top: 2rem;
+  width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    .title {
+  overflow: scroll;
+}
 
-    }
-    .followers {
-      width: 100%;
-      height: auto;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      overflow-x: auto;
-      padding: 10px;
-      box-sizing: border-box;
-    }
+::ng-deep {
+  .mdc-tab__text-label {
+    color: black;
+  }
+
+  .mdc-tab-indicator--active {
+    background-color: #FBB034;
+    border-radius: 1rem;
+  }
+
+  .mdc-tab-indicator .mdc-tab-indicator__content {
+    border: none;
   }
 }
 
-.container_pc {
+.content-follows {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  overflow-y: auto;
 
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    margin-right: 1rem;
+  }
+}
 
+button.float-right {
+  float: right;
+  background-color: #FBB034;
+  border-radius: 1rem;
+  font-size: 14px;
+
+}
+
+.table {
+  padding-top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
 }
