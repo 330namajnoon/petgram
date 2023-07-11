@@ -32,7 +32,7 @@ const mysql = require("mysql2");
 const { error } = require("console");
 
 
-const connectionData = 'mysql://tx41mwk3rvly85sxj426:pscale_pw_Y89ucORoR2gr4wMJtQswp5xGE1kjOWjLvZp0fDUyiqr@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://gpw2mj55hsdmiza0qzwr:pscale_pw_1XTBYA35lAU2Que01mYSHtfpqS8GWIcS7559VQqFX9q@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 ////////////// server listener
 
 server.listen(port, () => {
@@ -670,9 +670,9 @@ app.post("/countrys", (req, res) => {
       connection.query(`SELECT id,country FROM countrys WHERE language = '${req.body.language}'`, (err, resp) => {
         if (!err) {
           res.send({ data: resp });
+          console.log(resp);
           connection.end();
         } else {
-          console.log("lsdfnslf")
           res.send({ error: "server_error" });
           connection.end();
         }

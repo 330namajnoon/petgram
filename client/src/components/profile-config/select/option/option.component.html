@@ -1,7 +1,20 @@
-<div  [ngClass]="getDevice()" >
+<div *ngIf="type !== 'select'" [ngClass]="getDevice()" >
   <h3>{{name}}:</h3>
   <div>
-    <input [disabled]="inputD" type="text" [value]="value">
+    <input [id]="id" [disabled]="inputD" [type]="type" [value]="value">
     <span (click)="setInputD(false)" class="material-symbols-rounded">edit</span>
+  </div>
+</div>
+
+<div *ngIf="type == 'select'" [ngClass]="getDevice()" >
+  <h3>{{name}}:</h3>
+  <div>
+    <select [id]="id">
+      <!-- <OPtion *ngFor="let option of value" >{{option.country}}</OPtion> -->
+      <ng-template ngFor let-option [ngForOf]="value">
+        <OPtion *ngIf="option.id == getUser().country" selected>{{option.country}}</OPtion>
+        <OPtion *ngIf="option.id !== getUser().country" >{{option.country}}</OPtion>
+      </ng-template>
+    </select>
   </div>
 </div>

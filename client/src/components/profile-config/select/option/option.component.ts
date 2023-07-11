@@ -10,8 +10,10 @@ import { ProfileConfigService } from 'src/services/profile-config.service';
 })
 export class OptionComponent extends AppServiceEx {
   @Input()name!:string;
-  @Input()value!:string;
+  @Input()value!:any;
   @Input()route!:string;
+  @Input()type!:string;
+  @Input()id!:string;
   inputD:boolean = true;
   constructor(appS:AppService,private profileCS:ProfileConfigService) {
     super(appS);

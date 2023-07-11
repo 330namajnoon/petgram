@@ -5,6 +5,7 @@ import { IPet } from 'src/interfaces/IPet';
 import { IUser } from 'src/interfaces/IUser';
 import { AppService } from 'src/services/app.service';
 import { ProfileConfigService } from 'src/services/profile-config.service';
+import { RegisterService } from 'src/services/register.service';
 
 
 @Component({
@@ -16,14 +17,15 @@ export class ProfileConfigComponent extends AppServiceEx implements AfterViewIni
   petData!:IPet;
   petSelected:number = 0;
   user!:IUser;
-  constructor(appService: AppService , private proConfig: ProfileConfigService,private router:Router){
+  countries!: {id: number; country: string}[];
+  constructor(appService: AppService , private regService: RegisterService,private proConfig: ProfileConfigService,private router:Router){
     super(appService)
 
 
   }
 
   ngOnInit(): void {
-
+    this.getCountry();
   }
 
   ngAfterViewInit(): void {
@@ -52,6 +54,19 @@ export class ProfileConfigComponent extends AppServiceEx implements AfterViewIni
     let select = event.target as HTMLSelectElement;
     this.petSelected = parseInt(select.value);
   }
+
+   async getCountry(){
+    this.setLoading(true)
+    let res = await this.regService.getCoutrys()
+    if(!res.error){
+      this.countries = res.data;
+      console.log(this.language.language)
+    }else {
+      this.router.navigate(["./petgram" , "error"] , {state: {error: res.error}});
+    }
+
+    this.setLoading(false)
+   }
 
 
 

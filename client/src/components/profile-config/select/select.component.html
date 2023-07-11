@@ -6,9 +6,9 @@
         {{selectName}}
       </div>
     </label>
-    
+
   <div id="data_container" class="data_container" [ngStyle]="dataContainerStyle[dataContainerStyleNumber]">
-    <app-option *ngFor="let option of options" [name]="option.name" [value]="option.value" [route]="option.route" />
+    <app-option *ngFor="let option of options" [type]="option.type" [name]="option.name" [value]="option.value" [route]="option.route" [id]="'open_close'+selectName+option.name"/>
   </div>
 </div>
 <!--

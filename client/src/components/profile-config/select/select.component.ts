@@ -10,9 +10,6 @@ import { IPet } from 'src/ss/interfaces/IPet';
   styleUrls: ['./select.component.scss']
 })
 export class SelectComponent extends AppServiceEx implements AfterViewInit {
-  selectOption: string = "Choose pet"
-  selectedPet!: IPet;
-
 
   dataContainerStyle:any = [
     {
@@ -55,5 +52,5 @@ export class SelectComponent extends AppServiceEx implements AfterViewInit {
 
 
 
- 
+
 }
