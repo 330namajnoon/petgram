@@ -1,3 +1,4 @@
+import { IUser } from 'src/interfaces/IUser';
 import { Component, ElementRef, Input ,ViewChild,AfterViewInit} from '@angular/core';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { AppService } from 'src/services/app.service';
@@ -21,7 +22,9 @@ export class SelectComponent extends AppServiceEx implements AfterViewInit {
   ]
   dataContainerStyleNumber:number = 0;
   @Input()selectName!:string;
-  @Input()options!:ISelectOption[];
+  @Input()petData!:IPet;
+  @Input()userData!:IUser;
+
   constructor(appS:AppService,private profileCS:ProfileConfigService) {
     super(appS);
   }

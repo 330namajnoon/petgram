@@ -4,80 +4,11 @@
     <h1>{{getUser().name+" "+getUser().lastName}}</h1>
   </div>
   <div  class="selects">
-
-  <app-select *ngIf="countries" [selectName]="language.getWord('user_data')" [options]="[
-    {
-      type:'text',
-      name:language.getWord('name'),
-      value:getUser().name,
-      route:'name'
-    },
-    {
-      type:'text',
-      name:language.getWord('lastName'),
-      value:getUser().lastName,
-      route:'lastName'
-    },
-    {
-      type:'text',
-      name:language.getWord('email'),
-      value:getUser().email,
-      route:'email'
-    },
-    {
-      type:'date',
-      name:language.getWord('birthDay'),
-      value:getUser().birthDay,
-      route:'birthDay'
-    },
-    {
-      type:'select',
-      name:language.getWord('country'),
-      value:countries,
-      route:'country'
-    },
-    {
-      type:'text',
-      name:language.getWord('address'),
-      value:getUser().address,
-      route:'address'
-    },
-    {
-      type:'number',
-      name:language.getWord('postalCode'),
-      value:getUser().postalCode,
-      route:'postalCode'
-    },
-  ]"/>
+  <app-select *ngIf="countries" [selectName]="language.getWord('user_data')" [userData]="getUser()" />
     <select class="pets_select" (change)="setPetSelected($event)" name="" id="">
       <option *ngFor="let pet of getUser().pets" [value]="getUser().pets.indexOf(pet)">{{pet.name}}</option>
     </select>
-     <app-select *ngIf="petData" [selectName]="language.getWord('pet_data')" [options]="[
-      {
-        type:'text',
-        name:language.getWord('name'),
-        value:petData.name,
-        route:'pets.'+petSelected+'.name'
-      },
-      {
-        type:'date',
-        name:language.getWord('birthDay'),
-        value:petData.birthDay,
-        route:'pets.'+petSelected+'.birthDay'
-      },
-      {
-        type:'text',
-        name:language.getWord('race'),
-        value:petData.race+'',
-        route:'pets.'+petSelected+'.race'
-      },
-      {
-        type:'text',
-        name:language.getWord('race'),
-        value:petData.race+'',
-        route:'pets.'+petSelected+'.race'
-      },
-    ]"/>
+     <app-select *ngIf="petData" [selectName]="language.getWord('pet_data')" [petData]="petData"/>
   </div>
 </div>
 <router-outlet />
