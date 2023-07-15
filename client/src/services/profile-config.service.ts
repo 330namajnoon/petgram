@@ -6,10 +6,9 @@ import { AppService } from './app.service';
 import { IUser } from 'src/interfaces/IUser';
 import { Observable } from 'rxjs';
 import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/mani3
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,7 +35,9 @@ export class ProfileConfigService extends AppServiceEx {
     })
   }
 
-<<<<<<< HEAD
+
+
+
   deleteById(id: string): void {
     this.http.delete(`${this.getURL()}/${id}`);
   }
@@ -44,8 +45,7 @@ export class ProfileConfigService extends AppServiceEx {
   async save(user: IUser): Promise<void> {
     this.http.post(this.getURL(), user)
   }
-=======
->>>>>>> origin/mani3
+
 
 
 }

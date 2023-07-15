@@ -1,37 +1,43 @@
-import { AfterViewInit, Component, OnInit, ViewChild,ElementRef } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
-import { IPet } from 'src/interfaces/IPet';
 import { IUser } from 'src/interfaces/IUser';
 import { AppService } from 'src/services/app.service';
 import { ProfileConfigService } from 'src/services/profile-config.service';
-import { RegisterService } from 'src/services/register.service';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IPet } from 'src/interfaces/IPet';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-config',
   templateUrl: './profile-config.component.html',
   styleUrls: ['./profile-config.component.scss']
 })
-export class ProfileConfigComponent extends AppServiceEx implements AfterViewInit,OnInit  {
-  petData!:IPet;
-  petSelected:number = 0;
-  user!:IUser;
-  countries!: {id: number; country: string}[];
-  constructor(appService: AppService , private regService: RegisterService,private proConfig: ProfileConfigService,private router:Router){
+export class ProfileConfigComponent extends AppServiceEx implements OnInit{
+  selectedPet: IPet | undefined;
+  selectOption: string = "Choose pet"
+  selectValue: string = "";
+  isMenuOpen: boolean = false;
+  isMenuPetOpen: boolean = false;
+  isMenuNewOpen: boolean = false;
+  isMenuDelOpen: boolean = false;
+  imageSrc: string | undefined;
+  userData!: IUser ;
+  petsData:IPet[] =[];
+  deletedList : IUser[] = [];
+  proConfigService: any;
+
+
+  constructor(appService: AppService , private proConfig: ProfileConfigService, private router:Router, ){
     super(appService)
 
 
   }
 
-<<<<<<< HEAD
   petForm = new FormGroup({
     id: new FormControl('',[Validators.required]),
     name: new FormControl('', [Validators.required, Validators.min(2)]),
-    race: new FormControl(1, [Validators.required]),
+    race: new FormControl<number>(1, [Validators.required]),
     gender: new FormControl('',[Validators.required])
-
-
   })
 
   userForm = new FormGroup({
@@ -58,56 +64,85 @@ export class ProfileConfigComponent extends AppServiceEx implements AfterViewIni
     console.log(this.petsData);
 
 
-=======
-  ngOnInit(): void {
-    this.getCountry();
->>>>>>> origin/mani3
   }
 
-  ngAfterViewInit(): void {
-    let timer_:any;
-    let _this = this;
-    function timer() {
-      if(!_this.getUser()) {
-        return
-      }else {
-        _this.setPetData(_this.getUser().pets[_this.petSelected]);
-        if(timer_)clearInterval(timer_);
-      }
-    }
-    timer_ = setInterval(timer,500);
+  save(): void {
+    console.log(this.userForm.get('email')?.value);
+    console.log(this.userForm.get('fullName')?.value);
   }
 
-  setPetData(pet:IPet) {
-    this.petData = pet;
-  }
+  uploadFile(event: Event): void {
+    let target = event.target as HTMLInputElement;
 
-  getPetData():IPet {
-    return this.petData;
-  }
+    if (target.files !== null && target.files.length > 0){
+      let fileImg = target.files[0];
 
-  setPetSelected(event:Event):void {
-    let select = event.target as HTMLSelectElement;
-    this.petSelected = parseInt(select.value);
-  }
-
-   async getCountry(){
-    this.setLoading(true)
-    let res = await this.regService.getCoutrys()
-    if(!res.error){
-      this.countries = res.data;
-      console.log(this.language.language)
-    }else {
-      this.router.navigate(["./petgram" , "error"] , {state: {error: res.error}});
+      // Opcional: mostrar la imagen al usuario
+      let reader = new FileReader();
+      reader.onload = ev => this.imageSrc = reader.result as string;// qué hacer cuando se lea la imagen
+      reader.readAsDataURL(fileImg); // leer la imagen
     }
 
-    this.setLoading(false)
-   }
+  }
+
+  changeInfo() {
+  //  if(this.userForm.valid) {
+
+  //    }
+  //    this.userForm.value
+
+    let user : IUser = {
+      id: this.userForm.get("id")?.value || "",
+      name: this.userForm.get("name")?.value || "",
+      lastName: this.userForm.get("lastName")?.value || "",
+      birthDay: this.userForm.get("name")?.value || "",
+      address: this.userForm.get("address")?.value || "",
+      country: this.userForm.get("country")?.value || 0,
+      postalCode: this.userForm.get("postalCode")?.value || 0,
+      phone: this.userForm.get("phone")?.value || 0,
+      image: this.userForm.get("image")?.value || "",
+      email: this.userForm.get("email")?.value || "",
+      password: this.userForm.get("password")?.value || "",
+      language: this.userForm.get("language")?.value || "",
+      pets: this.userForm.get("pets")?.value || [],
+      followers:this.userData.followers,
+      following: this.userData.following,
+      storys:[],
+      pendingFollowers: this.userData.pendingFollowers,
+    }
+    this.proConfig.save(user);
+
+   this.userData = user;
+
+  }
+
+
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen
+}
+
+
+  toggleMenu2() {
+  this.isMenuPetOpen = !this.isMenuPetOpen;
+}
+
+  toggleMenu3() {
+  this.isMenuNewOpen = !this.isMenuNewOpen;
+}
+  toggleMenu4() {
+   this.isMenuDelOpen = !this.isMenuDelOpen;
+  }
+
+editMode: boolean = false;
+
+  editInput(item: any) {
+    this.editMode = !this.editMode;
+  }
 
 
 
 
-<<<<<<< HEAD
  getEachPet(selectOption: string): void {
    this.selectedPet =  this.getUser().pets.find(p => p.name === selectOption);
    console.log(this.selectedPet);
@@ -130,20 +165,17 @@ export class ProfileConfigComponent extends AppServiceEx implements AfterViewIni
     if(!(item.id === pet.id)) return;
     item = pet;
    });
-=======
->>>>>>> origin/mani3
 
 
 
 
+  }
 
 
+  
 
 
- }
-
-
-
+}
 
 
 
