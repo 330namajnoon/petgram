@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <div *ngIf="getUser()" [ngClass]="getDevice()">
 
@@ -162,5 +163,19 @@
       <h3 class="delete-pet-slide" style="color: white; padding:10px; background-color:gray;"><button (click)="toggleMenu3()"> Delete Pet<i class="fa-solid fa-user-pen"></i></button></h3>
     </section>
   </main>
+=======
+<div *ngIf="getUser()"  [ngClass]="getDevice()">
+  <div class="header">
+    <a routerLink="upload-img"><img [src]="getUser().image" alt=""></a>
+    <h1>{{getUser().name+" "+getUser().lastName}}</h1>
+  </div>
+  <div  class="selects">
+  <app-select *ngIf="countries" [selectName]="language.getWord('user_data')" [userData]="getUser()" />
+    <select class="pets_select" (change)="setPetSelected($event)" name="" id="">
+      <option *ngFor="let pet of getUser().pets" [value]="getUser().pets.indexOf(pet)">{{pet.name}}</option>
+    </select>
+     <app-select *ngIf="petData" [selectName]="language.getWord('pet_data')" [petData]="petData"/>
+  </div>
+>>>>>>> origin/mani3
 </div>
 <router-outlet />
