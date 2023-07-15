@@ -162,9 +162,9 @@
       <form  [ngClass]="{'menu-open': isMenuDelOpen}">
         <h3 style="color: white; padding:5px">Choose to delete</h3>
       <ul *ngFor="let pet of getUser().pets, index as i" style="color: white; list-style: none">
-       <li><a href="" style="color:white; font-size: 22px; text-decoration:none">{{i + 1}} - {{pet.name}}</a></li>
+       <li><a [routerLink]="['/delete-pet']" style="color:white; font-size: 22px; text-decoration:none">{{i + 1}} - {{pet.name}}</a></li>
       </ul>
-      {{getUser().followers}}
+
       </form>
     </section>
   </main>

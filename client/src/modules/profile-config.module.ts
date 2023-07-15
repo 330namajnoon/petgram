@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImgUploadModule } from './img-upload.module';
 import { SelectComponent } from 'src/components/profile-config/select/select.component';
 import { OptionComponent } from 'src/components/profile-config/select/option/option.component';
+import { DeletePetModule } from './delete-pet.module';
 @NgModule({
   declarations: [
     ProfileConfigComponent,
@@ -17,6 +18,7 @@ import { OptionComponent } from 'src/components/profile-config/select/option/opt
     ProfileConfigRoutingModule,
     ReactiveFormsModule,
     ImgUploadModule,
+    DeletePetModule,
     FormsModule
   ]
 })

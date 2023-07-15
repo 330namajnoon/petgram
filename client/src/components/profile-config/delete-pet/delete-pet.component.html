@@ -1,0 +1,15 @@
+ <div  >
+
+    <input type="text" placeholder="enter your password" #enteredPassword>
+    <button (click)="checkPassword()">check</button>
+
+</div>
+<div *ngIf="!isPasswordCorrect; else elseCond">
+ <p style="color: red;">Password incorrect , try again!</p>
+</div>
+
+<ng-template #elseCond>
+  <form action="">
+    <input type="checkbox">
+  </form>
+</ng-template> 
