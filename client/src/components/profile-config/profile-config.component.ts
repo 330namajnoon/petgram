@@ -53,7 +53,8 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
     phone: new FormControl(0),
     languages: new FormControl(""),
     pets: new FormControl([]),
-    password: new FormControl(''),
+    password: new FormControl('', Validators.required),
+    passwordConfirm: new FormControl('', [Validators.required])
 
 
   })
@@ -91,28 +92,43 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   //    }
   //    this.userForm.value
 
-    let user : IUser = {
-      id: this.userForm.get("id")?.value || "",
-      name: this.userForm.get("name")?.value || "",
-      lastName: this.userForm.get("lastName")?.value || "",
-      birthDay: this.userForm.get("name")?.value || "",
-      address: this.userForm.get("address")?.value || "",
-      country: this.userForm.get("country")?.value || 0,
-      postalCode: this.userForm.get("postalCode")?.value || 0,
-      phone: this.userForm.get("phone")?.value || 0,
-      image: this.userForm.get("image")?.value || "",
-      email: this.userForm.get("email")?.value || "",
-      password: this.userForm.get("password")?.value || "",
-      language: this.userForm.get("language")?.value || "",
-      pets: this.userForm.get("pets")?.value || [],
-      followers:this.userData.followers,
-      following: this.userData.following,
-      storys:[],
-      pendingFollowers: this.userData.pendingFollowers,
-    }
-    this.proConfig.save(user);
 
-   this.userData = user;
+     let id =this.userForm.get("id")?.value || "";
+      let name = this.userForm.get("name")?.value || "";
+      let lastName = this.userForm.get("lastName")?.value || "";
+      let birthDay =this.userForm.get("name")?.value || "";
+      let address =  this.userForm.get("address")?.value || "";
+      let country = this.userForm.get("country")?.value || 0;
+      let postalCode = this.userForm.get("postalCode")?.value || 0;
+      let phone = this.userForm.get("phone")?.value || 0;
+      let image = this.userForm.get("image")?.value || "";
+      let email = this.userForm.get("email")?.value || "";
+      let password =  this.userForm.get("password")?.value || "";
+      let language =  this.userForm.get("language")?.value || "";
+
+      const newUser: IUser = {
+        name,
+        lastName,
+        pets: [],
+        id: '',
+        birthDay,
+        address,
+        country,
+        postalCode,
+        phone,
+        image: this.getURL(),
+        email,
+        password,
+        language,
+        followers: [],
+        following: [],
+        pendingFollowers: [],
+        storys: []
+      }
+
+
+
+
 
   }
 
@@ -151,29 +167,45 @@ editMode: boolean = false;
   }
 
   changePetInfo() {
-    let pet : IPet = {
-      id: this.petForm.get("id")?.value || "",
-      user_id: this.petForm.get('user_id')?.value || "",
-      name: this.petForm.get("name")?.value || "",
-      birthDay: this.petForm.get('birthday')?.value || "",
-      type: this.petForm.get("type")?.value || 1,
-      race: this.petForm.get("race")?.value || 1,
-      gender: this.petForm.get("gender")?.value || "",
-      description: this.petForm.get("description")?.value || ""
-    }
-   this.petsData.forEach(item => {
-    if(!(item.id === pet.id)) return;
-    item = pet;
-   });
+
+      let id= this.petForm.get("id")?.value || "";
+      let user_id = this.petForm.get('user_id')?.value || "";
+      let name = this.petForm.get("name")?.value || "";
+      let birthDay = this.petForm.get('birthday')?.value || "";
+      let type = this.petForm.get("type")?.value || 1;
+      let race =  this.petForm.get("race")?.value || 1;
+      let gender = this.petForm.get("gender")?.value || "";
+      let description = this.petForm.get("description")?.value || "";
+
+     let pet: IPet = {
+       id: id,
+       user_id: user_id,
+       name: name,
+       birthDay: birthDay,
+       type: type,
+       race: race,
+       gender: gender,
+       description: description
+     }
+     
 
 
 
 
   }
 
-
   
 
+
+  addPet(pet: IPet): void {
+
+    this.getUser().pets.push(pet)
+  }
+
+  pet_delete_routing(event:Event) {
+    let a = event.target as HTMLLinkElement;
+    this.router.navigate(["./petgram","settings","delete-pet"],{state:{petId:a.id,petName:a.innerHTML}});
+  }
 
 }
 

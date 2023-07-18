@@ -10,7 +10,7 @@
        </div>
       </div>
 
-      <h1>{{getUser().name}}</h1>
+      <h4>{{getUser().name}} {{getUser().lastName}}</h4>
 
   </header>
 
@@ -70,12 +70,16 @@
 
 
 
+
 <!--
       <div class="input-pair">
        <label for="avatar">upload photo</label>
        <img *ngIf="imageSrc" src="{{imageSrc}}" style="max-width: 150px;" alt="">
        <input type="file" (change)="uploadFile($event)">
       </div> -->
+
+
+    
     </form>
 
 
@@ -157,13 +161,13 @@
        </form>
     </section>
 
-    <section class="user-data" >
-      <h3 class="delete-pet-slide" style="color: white; padding:10px; background-color:gray;" (click)="toggleMenu4()"> Delete Pet<i class="fa-solid fa-user-pen"></i></h3>
+    <section  class="user-data" >
+      <h3 class="delete-pet-slide" style="color:#ffffff; padding:10px; background-color:gray;" (click)="toggleMenu4()"> Delete Pet<i class="fa-solid fa-user-pen"></i></h3>
       <form  [ngClass]="{'menu-open': isMenuDelOpen}">
-        <h3 style="color: white; padding:5px">Choose to delete</h3>
-      <ul *ngFor="let pet of getUser().pets, index as i" style="color: white; list-style: none">
-       <li><a [routerLink]="['/delete-pet']" style="color:white; font-size: 22px; text-decoration:none">{{i + 1}} - {{pet.name}}</a></li>
-      </ul>
+        <h3 style="color: #FBB033; padding:5px">Choose to delete</h3>
+      <ol *ngFor="let pet of getUser().pets, index as i" style="color: white; ">
+       <li><a (click)="pet_delete_routing($event)" [id]="pet.id"  style="color:white; font-size: 22px; text-decoration:none">{{pet.name}}</a></li>
+      </ol>
 
       </form>
     </section>

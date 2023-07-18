@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DeletePetComponent } from 'src/components/profile-config/delete-pet/delete-pet.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeletePetRoutingModule } from 'src/routers/delete-pet-routing.module';
+import { DeletePetComponent } from 'src/components/profile-config/delete-pet/delete-pet.component';
 
 
 
@@ -11,7 +11,8 @@ import { DeletePetRoutingModule } from 'src/routers/delete-pet-routing.module';
   imports: [
     CommonModule,
     DeletePetRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
   ]
 })
