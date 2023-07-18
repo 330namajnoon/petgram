@@ -32,7 +32,9 @@ const mysql = require("mysql2");
 const { error } = require("console");
 
 
-const connectionData = 'mysql://vzc367tjblxk2jx0bdu8:pscale_pw_STx2NuSFYWIr6dNy2mPaPMCA2wht9Ph5g5DkPWc3VnH@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+
+
+const connectionData = 'mysql://t1gia1wzmfspatv70czm:pscale_pw_X3cTwufF5ZE0wbq38t5WHSBS3uVHFzi2cGAFRZ7PVaT@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
