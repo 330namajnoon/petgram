@@ -41,7 +41,7 @@ export class AppRoutingModule extends AppServiceEx {
       }
       login()
     } else {
-      this.router.navigateByUrl("/login")
+      // this.router.navigateByUrl("/login")
     }
   }
 

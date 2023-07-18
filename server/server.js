@@ -33,9 +33,8 @@ const { error } = require("console");
 
 
 
-const connectionData = 'mysql://t1gia1wzmfspatv70czm:pscale_pw_X3cTwufF5ZE0wbq38t5WHSBS3uVHFzi2cGAFRZ7PVaT@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
-////////////// server listener
+const connectionData = 'mysql://t1gia1wzmfspatv70czm:pscale_pw_X3cTwufF5ZE0wbq38t5WHSBS3uVHFzi2cGAFRZ7PVaT@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
