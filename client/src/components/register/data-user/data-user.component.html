@@ -32,12 +32,12 @@
       <app-validator [control]="form.get('address')" />
     </div>
     <div>
-      <label for="name">{{language.getWord('country')}}:</label>
-      <select formControlName="country" >
+      <label for="name">{{language.getWord('city')}}:</label>
+      <select formControlName="city" >
         <option value="" selected >{{language.getWord('select_a_country')}}</option>
-        <option *ngFor="let coutry of coutrys" value="{{coutry.id}}">{{coutry.country}}</option>
+        <option *ngFor="let city of cities" value="{{city.id}}">{{city.city}}</option>
       </select>
-      <app-validator [control]="form.get('country')" />
+      <app-validator [control]="form.get('city')" />
     </div>
     <div>
       <label for="name">{{language.getWord('postalCode')}}:</label>

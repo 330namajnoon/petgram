@@ -7,17 +7,38 @@
 
 ::ng-deep {
   .mdc-tab__text-label {
-    color: black;
+    color: white;
+    padding: auto;
   }
 
   .mdc-tab-indicator--active {
     background-color: #FBB034;
     border-radius: 1rem;
+    margin: 15px;
   }
 
   .mdc-tab-indicator .mdc-tab-indicator__content {
-    border: none;
+    // border: none;
+    color: #FBB034;
   }
+
+  .mdc-tab {
+    margin-bottom: 16px !important;
+  }
+  .mat-mdc-tab.mdc-tab {
+    height: 40px !important
+}
+.mat-mdc-tab-header-pagination {
+color: #FBB034;
+}
+.mat-mdc-outlined-button:not(:disabled){
+  color:white !important
+}
+.mdc-data-table__cell {
+  color:white !important
+}
+.mat-mdc-tab-header {
+  padding-top: 0px;
 }
 
 .content-follows {
@@ -38,28 +59,31 @@
 button.float-right {
   float: right;
   background-color: #FBB034;
-  border-radius: 1rem;
   font-size: 14px;
-
 }
 
-.div-container-button{
-display: flex;
-justify-content: end;
+.div-container-button {
+  display: flex;
+  justify-content: end;
 }
 
-.button-pending-follower{
-  background-color: #FBB034;
+.button-pending-follower {
+  background-color: #FBB034 !important;
   border-radius: 1rem;
   font-size: 14px;
   margin-right: 10px;
-
 }
-
 
 .table {
   padding-top: 1rem;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: 2rem;
+}
+.icono{
+height: 25%;
+width: 25%;
+}
+
+
 }
