@@ -58,9 +58,9 @@ export class RegisterService extends AppServiceEx {
       })
     })
   }
-  getCoutrys():Promise<IHTTPResponse<{id:number;country:string}[]>> {
+  getCoutrys():Promise<IHTTPResponse<{id:number;city:string}[]>> {
     return new Promise((resolve)=> {
-      this.http.post<IHTTPResponse<{id:number;country:string}[]>>(`${this.getURL()}/countrys`,{language:this.getLanguage()}).subscribe(res => {
+      this.http.post<IHTTPResponse<{id:number;city:string}[]>>(`${this.getURL()}/countrys`,{language:this.getLanguage()}).subscribe(res => {
         resolve(res)
       })
     })
