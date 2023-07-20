@@ -32,17 +32,10 @@ const mysql = require("mysql2");
 const { error } = require("console");
 
 
-
-
-const connectionData = 'mysql://ojn5lt2svssw28xbukng:pscale_pw_Pr1FHIBn5uAl6ghxRlSOHUqfCHBjvalTSRB84lQFSKk@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://0tmbr9lp1u6ktuf2jsih:pscale_pw_xXAyDybqUhZnBJcLy6roqU626LWs7J4MrvFiQpXep1b@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
-
-
-
-
-
 });
 
 /////////////////  Socket.io connection
@@ -681,25 +674,6 @@ app.post("/countrys", (req, res) => {
     } else {
       res.send({ error: "server_error" });
       connection.end();
-    }
-  })
-})
-
-app.get("/getRace",(req,res)=> {
-  const conneccion = mysql.createConnection(connectionData);
-  conneccion.connect((err)=> {
-    if(err)
-      res.send({error:"server_error"});
-    else {
-      const consult = `
-        SELECT race FROM races WHERE id = ${req.query.id}
-      `;
-      conneccion.query(consult,(err,res)=> {
-        if(err)
-          res.send({error:"server_error"});
-        else 
-          res.send({data:res[0]});
-      })
     }
   })
 })
