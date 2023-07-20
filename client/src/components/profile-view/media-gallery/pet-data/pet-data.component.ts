@@ -3,6 +3,8 @@ import { IPet } from 'src/interfaces/IPet';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { AppService } from 'src/services/app.service';
 import { ProfileViewService } from 'src/services/profile-view.service';
+import { Router } from '@angular/router';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-pet-data',
@@ -14,10 +16,22 @@ import { ProfileViewService } from 'src/services/profile-view.service';
 
 export class PetDataComponent extends AppServiceEx {
   @Input()petData!:IPet;
+  race!:string;
+  type!:string;
   private display:boolean = false;
-  constructor(appService:AppService,private profileVS:ProfileViewService) {
+  constructor(private router:Router,appService:AppService,private profileVS:ProfileViewService) {
     super(appService);
 
+  }
+
+  async getRace(race:number) {
+    this.setLoading(true);
+    let res = await this.profileVS.getRace(this.petData.race);
+    if(res.data) {
+      this.race = res.data;
+    }else {
+      this.router.navigate(["/error"],{state:{error:res.error}});
+    }
   }
 
   getDisplayClass():string {

@@ -34,7 +34,7 @@ const { error } = require("console");
 
 
 
-const connectionData = 'mysql://t1gia1wzmfspatv70czm:pscale_pw_X3cTwufF5ZE0wbq38t5WHSBS3uVHFzi2cGAFRZ7PVaT@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://ojn5lt2svssw28xbukng:pscale_pw_Pr1FHIBn5uAl6ghxRlSOHUqfCHBjvalTSRB84lQFSKk@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
@@ -681,6 +681,25 @@ app.post("/countrys", (req, res) => {
     } else {
       res.send({ error: "server_error" });
       connection.end();
+    }
+  })
+})
+
+app.get("/getRace",(req,res)=> {
+  const conneccion = mysql.createConnection(connectionData);
+  conneccion.connect((err)=> {
+    if(err)
+      res.send({error:"server_error"});
+    else {
+      const consult = `
+        SELECT race FROM races WHERE id = ${req.query.id}
+      `;
+      conneccion.query(consult,(err,res)=> {
+        if(err)
+          res.send({error:"server_error"});
+        else 
+          res.send({data:res[0]});
+      })
     }
   })
 })

@@ -10,7 +10,7 @@ export class StorysViewService {
   getVideoPlayerControl():any {
     return this.videoPlayerControl;
   }
-  setideoPlayerControl(control:any):void {
+  setiVdeoPlayerControl(control:any):void {
     this.videoPlayerControl = control;
   }
 }

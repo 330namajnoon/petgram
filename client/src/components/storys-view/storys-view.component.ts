@@ -2,6 +2,7 @@ import { Component,AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/services/app.service';
 import { IStory } from 'src/interfaces/IStory';
+import { StorysViewService } from 'src/services/storys-view.service';
 
 @Component({
   selector: 'app-storys-view',
@@ -11,7 +12,7 @@ import { IStory } from 'src/interfaces/IStory';
 export class StorysViewComponent implements AfterViewInit {
   index:number = 0;
   storys!:IStory[];
-  constructor(private appS:AppService,private router:Router) {
+  constructor(private appS:AppService,private router:Router,private storysVS:StorysViewService) {
     let state = this.router.getCurrentNavigation()?.extras.state;
     if(state) {
       let data = state as {storys:IStory[],index:number};
@@ -21,6 +22,7 @@ export class StorysViewComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.storysVS.getVideoPlayerControl()();
     let container:HTMLElement|null = document.getElementById("storys_view_container");
     if(container) {
       let scrollHeight = container.scrollHeight;
