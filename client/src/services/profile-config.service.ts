@@ -46,8 +46,33 @@ export class ProfileConfigService extends AppServiceEx {
     this.http.post(this.getURL(), user)
   }
 
+  getLanguage():string {
+    return this.language.language;
+  }
 
-  
+  getCoutrys():Promise<IHTTPResponse<{id:number;country:string}[]>> {
+    return new Promise((resolve)=> {
+      this.http.post<IHTTPResponse<{id:number;country:string}[]>>(`${this.getURL()}/countrys`,{language:this.getLanguage() || this.getUser().language}).subscribe(res => {
+        resolve(res)
+      })
+    })
+  }
+
+  getTypes():Promise<IHTTPResponse<{id:number;type:string}[]>> {
+    return new Promise((resolve)=> {
+      this.http.post<IHTTPResponse<{id:number;type:string}[]>>(`${this.getURL()}/types`,{language:this.getLanguage()}).subscribe(res => {
+        resolve(res)
+      })
+    })
+  }
+  getRaces(id:number):Promise<IHTTPResponse<{id:number;race:string}[]>> {
+    return new Promise((resolve)=> {
+      this.http.post<IHTTPResponse<{id:number;race:string}[]>>(`${this.getURL()}/races`,{id,language:this.getLanguage()}).subscribe(res => {
+        resolve(res)
+      })
+    })
+  }
+
 
 }
 
