@@ -1,10 +1,11 @@
 
 .container_mobile {
-  margin-bottom: 30px;
+
   margin-top: 30px;
   height: 100%;
   display: block;
   overflow: auto;
+
   *{
     box-sizing: 2px 2px 2px 1px  border-box;
   }
@@ -34,6 +35,7 @@
           position: absolute;
           top:10px;
           right:10px;
+          color: white;
         }
       }
 
@@ -51,13 +53,19 @@
 
 .user-data{
 
-
+      h3{
+        color: #FBB033;
+        padding:10px;
+        background-color:gray;
+        font-weight: bold;
+        
+      }
       .head-slide {
         font-family: 'robot' , sans-serif;
-
-        background-color:rgb(238, 235, 235);
+        background-color:rgb(250, 246, 246);
         padding: 20px;
-        color: white !important;
+        color: #FBB033 !important;
+
         select {
           background-color: #808080;
 
@@ -78,21 +86,25 @@
         width:80%;
         margin: 20px auto;
         max-height: 0;
-        overflow: hidden;
+        overflow: auto;
         transition: max-height 0.3s ease-out;
 
       .input-pair{
         display: grid;
         margin-bottom: 10px;
-        grid-template-columns: auto auto auto;
-        color:white;
+        grid-template-columns: 33.33% 43.33% 23.33%;
         border:none;
-        color: white;
         background-color: black;
         padding: 8px;
         border: 1px solid #ffffff;
         border-radius: 5px;
 
+        span{
+          color:#ffffff;
+          margin-left: 30px;
+
+
+        }
         label {
           width: 100px;
           display: block;
@@ -112,6 +124,7 @@
           cursor: default;
           border-radius: 5px;
           font-size: 10px;
+
 
 
 
@@ -173,7 +186,7 @@
 
           }
         }
-      
+
 
       }
 

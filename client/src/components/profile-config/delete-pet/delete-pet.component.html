@@ -1,5 +1,5 @@
  <div [ngClass]="getDevice()">
-  
+
 
   <div class="head">
     <span class="material-symbols-rounded back-arrow" [routerLink]="['/petgram','settings']">
@@ -22,12 +22,13 @@
       <span style="color: red;">
           Passwords don't match!
       </span>
-    </div> 
+    </div>
   </div>
+  <input type="submit" (click)="removePet()" class="save-btn"   value="Remove Pet">
 
-    <button (click)="removePet()" class="save-btn">Remove Pet</button>
 
 </form>
+
 <!-- <div *ngIf="!isPasswordCorrect; else elseCond">
  <p style="color: red;">Password incorrect , try again!</p>
 </div>
@@ -38,5 +39,5 @@
   </form>
 </ng-template>  -->
 
-  
+
  </div>

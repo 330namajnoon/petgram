@@ -15,8 +15,8 @@ import { AbstractControl, FormControl, Validators ,FormGroup} from '@angular/for
   styleUrls: ['./delete-pet.component.scss']
 })
 export class DeletePetComponent  extends AppServiceEx implements OnInit{
-
- isPasswordCorrect: boolean = false;
+ isPassMet: boolean = false;
+ isPasswordCorrect: boolean = true;
  enteredPassword: string = "";
   petName!:string;
   petId!:string;
@@ -33,23 +33,28 @@ export class DeletePetComponent  extends AppServiceEx implements OnInit{
         }
       }
     })
-    
+
  }
 
 
+
  ngOnInit(): void {
-  
+
  }
  passForm = new FormGroup({
   password: new FormControl('', [Validators.required]),
     passwordConfirm: new FormControl('', [Validators.required])
   }, {validators: this.passwordConfirmValidator}  );
- 
+
  passwordConfirmValidator(control: AbstractControl) {
-  if (control.get('password')?.value === control.get('passwordConfirm')?.value)
-    return null; // si son iguales no hay error
-  else
+  if (control.get('password')?.value === control.get('passwordConfirm')?.value){
+
+
+  return null; // si son iguales no hay error
+  }
+  else{
     return {'confirmError': true}; // si son distintas sí hay error
+  }
 }
 
   // Validator personalizado a nivel de FormGroup: dos campos distintos

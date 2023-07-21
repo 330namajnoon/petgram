@@ -24,16 +24,16 @@
       display: grid;
       grid-template-columns: auto;
       margin-bottom: 70%;
-      
+
       .input-pair{
         display: grid;
         grid-template-columns: auto;
         color:white;
         border:none;
         color: white;
-      
+
         padding: 12px;
-       
+
         border-radius: 5px;
 
         .check {
@@ -45,7 +45,7 @@
         }
         input{
           box-sizing: border-box;
-        
+
           height: 40px;
           background: #575757;
           border: 1px solid #ffffff;
@@ -59,6 +59,25 @@
 
       .save-btn {
         background: #fbb034;
+        border-radius: 10px;
+        width: 260px;
+        margin: 8px auto;
+        font-size: 20px;
+        color: #f4f4f4;
+        padding: 12px 16px;
+      }
+      // .b_enabled {
+      //   background: #fbb034;
+      //   border-radius: 10px;
+      //   width: 260px;
+      //   margin: 8px auto;
+      //   font-size: 20px;
+      //   color: #f4f4f4;
+      //   padding: 12px 16px;
+      // }
+         .disabled {
+        cursor: default;
+        background: #fbaf34a0;
         border-radius: 10px;
         width: 260px;
         margin: 8px auto;

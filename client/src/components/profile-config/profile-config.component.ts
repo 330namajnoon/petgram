@@ -70,7 +70,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
       this.setLoading(false);
     }
   }
- 
+
   petForm = new FormGroup({
     id: new FormControl('',[Validators.required]),
     type: new FormControl(1),
