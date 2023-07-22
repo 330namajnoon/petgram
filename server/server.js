@@ -32,7 +32,7 @@ const mysql = require("mysql2");
 const { error } = require("console");
 
 
-const connectionData ='mysql://3lp0olpczy9wzn45f7gs:pscale_pw_UwSbZb0Q3H3nSd4ewUQRymkER1x6BaxAzgk2gQHmXMp@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://th304bfcd97i48mj048f:pscale_pw_Gsndy0eVWBBLXO7Q6SKOADUvKfoy7ufklUX6gDf7yz2@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 
@@ -300,11 +300,11 @@ app.post("/signup", mediyaUploader.single("file"), (req, res) => {
                       VALUES
                       ('${newPetId}','${newId}','${name}','${birthDay}',${type},${race},'${gender}','${description}')
                     `;
-                    connection.query(consult,(err,resp5)=> {
-                      if(!err){
+                    connection.query(consult, (err, resp5) => {
+                      if (!err) {
                         res.send({ data: email });
                         connection.end();
-                      }else {
+                      } else {
                         console.log(err);
                         res.send({ error: "server_error_5" })
                         connection.end();
@@ -696,6 +696,61 @@ app.post("/follow", (req, res) => {
           '${req.body.follower_id}', 
           'pf'
         );
+      `, (err, resp) => {
+        if (!err) {
+          res.send({ data: resp });
+          connection.end();
+        } else {
+          console.error(err)
+          res.send({ error: "server_error" });
+          connection.end();
+        }
+      })
+    } else {
+      res.send({ error: "server_error" });
+      connection.end();
+    }
+  })
+})
+
+app.put("/follow/accept", (req, res) => {
+  const connection = mysql.createConnection(connectionData);
+  connection.connect((err) => {
+    if (!err) {
+      connection.query(`
+      update 
+        followers 
+      set 
+        type = 'fa'
+      where 
+        follower_id = '${req.body.follower_id}' AND
+        user_id = '${req.body.user_id}'; 
+      `, (err, resp) => {
+        if (!err) {
+          res.send({ data: resp });
+          connection.end();
+        } else {
+          console.error(err)
+          res.send({ error: "server_error" });
+          connection.end();
+        }
+      })
+    } else {
+      res.send({ error: "server_error" });
+      connection.end();
+    }
+  })
+})
+app.delete("/follow/delete", (req, res) => {
+  const connection = mysql.createConnection(connectionData);
+  connection.connect((err) => {
+    if (!err) {
+      connection.query(`
+      delete from 
+        followers 
+      where 
+        follower_id = '${req.body.follower_id}' AND
+        user_id = '${req.body.user_id}'; 
       `, (err, resp) => {
         if (!err) {
           res.send({ data: resp });

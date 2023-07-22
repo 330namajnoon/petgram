@@ -100,6 +100,12 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
     this.friendsService.follow(this.getProfileData().id, this.getUser().id);
   }
+  unfollow(){
+    this.friendsService.delete(this.getProfileData().id, this.getUser().id);
+    this.profileService.getProfileData().followers = this.profileService.getProfileData().followers.filter(
+      user => user.id !== this.getUser().id
+    )
+  }
 
   back() {
 
@@ -114,4 +120,5 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
     }
   }
+
 }

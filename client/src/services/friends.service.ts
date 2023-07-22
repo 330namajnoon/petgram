@@ -55,4 +55,28 @@ export class FriendsService extends AppServiceEx {
       }
     });
   }
+
+  accept(user_id: string, follower_id: string) {
+    this.http.put<IHTTPResponse<any>>(`${this.getURL()}/follow/accept`, {
+      user_id: user_id, follower_id: follower_id
+    }).subscribe((resp) => {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        this.profileData()
+      }
+    });
+  }
+
+  delete(user_id: string, follower_id: string) {
+    this.http.delete<IHTTPResponse<any>>(`${this.getURL()}/follow/delete`, {
+      body: { user_id: user_id, follower_id: follower_id }
+    }).subscribe((resp) => {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        this.profileData()
+      }
+    });
+  }
 }

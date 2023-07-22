@@ -44,12 +44,16 @@ export class FriendsComponent extends AppServiceEx implements OnInit {
 
   }
   acceptFollower(follower: IFollower) {
-    follower.status = 'accepted';
+    console.log(follower)
+    this.friendsService.accept(this.getUser().id, follower.id)
   }
-
   deleteFollower(follower: IFollower) {
-
+    this.friendsService.delete(this.getUser().id, follower.id)
   }
+  deleteFollowing(follower: IFollower) {
+    this.friendsService.delete(follower.id ,this.getUser().id)
+  }
+
 
   goProfile(follower: IFollower) {
     this.router.navigate(["/petgram/profile_view"], { state: { user: follower.id, onload: true } });
