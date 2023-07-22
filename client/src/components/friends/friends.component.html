@@ -5,12 +5,12 @@
       <mat-tab label="{{language.getWord('followers')}}">
 
         <section class="example-container mat-elevation-z8" tabindex="0">
-          <table class="table" mat-table [dataSource]="dataSource">
+          <table class="table" mat-table [dataSource]="friendsService.dsFollowers">
 
             <ng-container matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
                 <div class="content-follows">
-                  <img loading="lazy" [src]="element.avatar">
+                  <img loading="lazy" [src]="element.avatar" (click)="goProfile(element)">
                   {{element.name}} {{element.lastName}}
                 </div>
               </td>
@@ -30,12 +30,12 @@
 
       <mat-tab label="{{language.getWord('pendingFollowers')}}">
         <section class="example-container mat-elevation-z8" tabindex="0">
-          <table class="table" mat-table [dataSource]="dataSource">
+          <table class="table" mat-table [dataSource]="friendsService.dsPendingFollowers">
 
             <ng-container matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
                 <div class="content-follows">
-                  <img loading="lazy" [src]="element.avatar">
+                  <img loading="lazy" [src]="element.avatar" (click)="goProfile(element)">
                   {{element.name}} {{element.lastName}}
                 </div>
               </td>
@@ -59,14 +59,14 @@
         </section>
 
       </mat-tab>
-      <mat-tab label="{{language.getWord('followers')}}">
+      <mat-tab label="{{language.getWord('following')}}">
         <section class="example-container mat-elevation-z8" tabindex="0">
-          <table class="table" mat-table [dataSource]="dataSource">
+          <table class="table" mat-table [dataSource]="friendsService.dsFollowing">
 
             <ng-container matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
                 <div class="content-follows">
-                  <img loading="lazy" [src]="element.avatar">
+                  <img loading="lazy" [src]="element.avatar" (click)="goProfile(element)">
                   {{element.name}} {{element.lastName}}
                 </div>
               </td>

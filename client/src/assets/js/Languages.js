@@ -130,8 +130,8 @@ export function Languages() {
     pendingFollowers:{
       english:"PendingFollowers",
     },
-    follows:{
-      english:"Follows",
+    following:{
+      english:"Following",
     }
 
   }
