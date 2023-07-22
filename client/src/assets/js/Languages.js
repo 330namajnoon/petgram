@@ -126,8 +126,13 @@ export function Languages() {
     },
     followers:{
       english:"Followers",
+    },
+    pendingFollowers:{
+      english:"PendingFollowers",
+    },
+    following:{
+      english:"Following",
     }
-
 
   }
 }
