@@ -12,7 +12,7 @@ import { AppService } from 'src/services/app.service';
 })
 export class FriendsComponent extends AppServiceEx {
   followers: IFollower[] = [];
-  outstandingFollowers: IFollower[] = [];
+  pendingFollowers: IFollower[] = [];
   follows: IFollower[] = [];
   dataSource;
   displayedColumns: string[] = ['follower', 'action'];

@@ -32,7 +32,9 @@ const mysql = require("mysql2");
 const { error } = require("console");
 
 
-const connectionData = 'mysql://ojn5lt2svssw28xbukng:pscale_pw_Pr1FHIBn5uAl6ghxRlSOHUqfCHBjvalTSRB84lQFSKk@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData ='mysql://rfgtwtr5ivzatz5pf21m:pscale_pw_wfrgYMvdb5qHAcFXyCtkRV2jBinIub4eq7JJAlqb2xd@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+
+
 
 server.listen(port, () => {
   console.log(`server is up on port ${port}!`);
@@ -489,27 +491,27 @@ app.post("/profileData", multer().none(), (req, res) => {
         FROM users u
         WHERE id = '${req.body.user}'
       `;
-    const consult1 = `
+    const followers = `
         SELECT f.follower_id as id,u.name,u.lastName,u.image
         FROM followers f
         JOIN users u
-        ON f.follower_id = u.id AND f.type = 'fs'
-        WHERE f.user_id = '${req.body.user}'
+        ON u.id = f.follower_id
+        WHERE f.user_id = '${req.body.user}' AND f.type = 'fa'
       `;
 
-    const consult2 = `
-        SELECT f.follower_id as id,u.name,u.lastName,u.image
+    const following = `
+        SELECT f.user_id as id,u.name,u.lastName,u.image
         FROM followers f
         JOIN users u
-        ON f.follower_id = u.id AND f.type = 'fg'
-        WHERE f.user_id = '${req.body.user}'
+        ON u.id = f.user_id
+        WHERE f.follower_id = '${req.body.user}'
       `;
-    const consult3 = `
+    const pendingFollowers = `
         SELECT f.follower_id as id,u.name,u.lastName,u.image
         FROM followers f
         JOIN users u
-        ON f.follower_id = u.id AND f.type = 'pf'
-        WHERE f.user_id = '${req.body.user}'
+        ON f.follower_id = u.id
+        WHERE f.user_id = '${req.body.user}' AND f.type = 'pf'
       `;
     const consult4 = `
       SELECT s.id as story_id,s.pet_id
@@ -529,19 +531,19 @@ app.post("/profileData", multer().none(), (req, res) => {
         conneccion.end();
       } else {
         let userData = resp1[0];
-        conneccion.query(consult1, (err, resp2) => {
+        conneccion.query(followers, (err, resp2) => {
           if (err) {
             res.send({ error: err })
             conneccion.end();
           } else {
             userData.followers = resp2;
-            conneccion.query(consult2, (err, resp3) => {
+            conneccion.query(following, (err, resp3) => {
               if (err) {
                 res.send({ error: err })
                 conneccion.end();
               } else {
                 userData.following = resp3;
-                conneccion.query(consult3, (err, resp4) => {
+                conneccion.query(pendingFollowers, (err, resp4) => {
                   if (err) {
                     res.send({ error: err })
                     conneccion.end();
@@ -667,6 +669,39 @@ app.post("/countrys", (req, res) => {
           connection.end();
         } else {
           console.log("lsdfnslf")
+          res.send({ error: "server_error" });
+          connection.end();
+        }
+      })
+    } else {
+      res.send({ error: "server_error" });
+      connection.end();
+    }
+  })
+})
+app.post("/follow", (req, res) => {
+  const connection = mysql.createConnection(connectionData);
+  connection.connect((err) => {
+    if (!err) {
+      connection.query(`
+      insert into 
+        followers (
+          user_id, 
+          follower_id, 
+          type
+        )
+      values
+        (
+          '${req.body.user_id}', 
+          '${req.body.follower_id}', 
+          'pf'
+        );
+      `, (err, resp) => {
+        if (!err) {
+          res.send({ data: resp });
+          connection.end();
+        } else {
+          console.error(err)
           res.send({ error: "server_error" });
           connection.end();
         }

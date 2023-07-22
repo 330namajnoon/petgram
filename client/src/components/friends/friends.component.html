@@ -2,7 +2,7 @@
   <div>
     <mat-tab-group>
 
-      <mat-tab label="Seguidores">
+      <mat-tab label="{{language.getWord('followers')}}">
 
         <section class="example-container mat-elevation-z8" tabindex="0">
           <table class="table" mat-table [dataSource]="dataSource">
@@ -28,7 +28,7 @@
 
       </mat-tab>
 
-      <mat-tab label="Seguidores pendientes">
+      <mat-tab label="{{language.getWord('pendingFollowers')}}">
         <section class="example-container mat-elevation-z8" tabindex="0">
           <table class="table" mat-table [dataSource]="dataSource">
 
@@ -59,7 +59,7 @@
         </section>
 
       </mat-tab>
-      <mat-tab label="Seguidos">
+      <mat-tab label="{{language.getWord('followers')}}">
         <section class="example-container mat-elevation-z8" tabindex="0">
           <table class="table" mat-table [dataSource]="dataSource">
 
