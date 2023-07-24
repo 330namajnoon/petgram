@@ -23,7 +23,7 @@
 
      <h3 class="head-slide" (click)="toggleMenu()"> User Data <i class="fa-solid fa-user-pen"></i></h3>
 
-     <form [formGroup]="userForm" (ngSubmit)="save()" [ngClass]="{'menu-open': isMenuOpen}">
+     <form [formGroup]="userForm" (ngSubmit)="updateUserData()" [ngClass]="{'menu-open': isMenuOpen}">
       <div class="input-pair">
         <label for="email">Email:</label>
         <input type="email" id="email" formControlName="email" placeholder="getUser().email" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode">
@@ -80,13 +80,13 @@
        <input type="file" (change)="uploadFile($event)">
       </div> -->
 
-
+    <input type="submit" value="update user">
 
     </form>
+</section>
 
 
 
-    </section>
 
     <!--------------------------------Update Pet---------------------------------->
 
@@ -101,7 +101,7 @@
 
 
 
-    <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuPetOpen}" onsubmit="updatePet()">
+    <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuPetOpen}" onsubmit="updatePetData()">
 
       <div class="input-pair">
         <label for="name"> Name:</label>
@@ -141,6 +141,7 @@
 
 
         <!-- <input type="number" id="type" formControlName="type" [placeholder]="selectedPet?.type" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode"> -->
+
         <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
           edit
         </span>
@@ -162,7 +163,7 @@
         </span>
       </div>
 
-
+     <input type="submit" value="update pet">
      </form>
 
     </section>

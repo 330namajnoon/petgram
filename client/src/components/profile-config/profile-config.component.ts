@@ -18,6 +18,9 @@ import { IRaces } from 'src/interfaces/IRaces';
 
 
 export class ProfileConfigComponent extends AppServiceEx implements OnInit{
+
+
+
   //--------------------------atributos ---------------------------------
   selectedPet: IPet | undefined;
   selectOption: string = "Choose pet"
@@ -33,13 +36,14 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   proConfigService: any;
   types!:ITypes[];
   races!:IRaces[];
+  countries: any;
 
 
 
   //---------------------------------------constructor -------------------------------------
 
 
-  constructor(appService: AppService , private proConfig: ProfileConfigService, private router:Router ){
+  constructor(appService: AppService , private proConfig: ProfileConfigService, private router:Router , private regService : RegisterService){
     super(appService)
 
 
@@ -49,11 +53,38 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
   //------------------------------------------- methods ----------------------------------
 
+  ngOnInit() {
+    this.userData = this.getUser();
+    this.petsData = this.getUser().pets;
+    console.log(this.petsData);
+
+
+  }
+
+
+
+
+
+
   change_type(e:Event) {
     let select = e.target as HTMLSelectElement;
     this.get_ts(parseInt(select.value));
     alert("hola")
   }
+
+
+  async getCountry(){
+    this.setLoading(true)
+    let res = await this.regService.getCoutrys()
+    if(!res.error){
+      this.countries = res.data;
+      console.log(this.language.language)
+    }else {
+      this.router.navigate(["./petgram" , "error"] , {state: {error: res.error}});
+    }
+
+    this.setLoading(false)
+   }
 
 
   async get_ts(id:number|undefined) {
@@ -87,19 +118,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
 
 
-
-  petForm = new FormGroup({
-    id: new FormControl('',[Validators.required]),
-    type: new FormControl(1),
-    name: new FormControl('', [Validators.required, Validators.min(2)]),
-    race: new FormControl<number>(1, [Validators.required]),
-    gender: new FormControl('',[Validators.required]),
-    birthDay: new FormControl(''),
-    description: new FormControl('')
-  })
-
-
-
+// ------------------------------------ USER FORM --------------------------------------
 
   userForm = new FormGroup({
     id: new FormControl('',[Validators.email]),
@@ -123,13 +142,26 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
 
 
-   ngOnInit() {
-    this.userData = this.getUser();
-    this.petsData = this.getUser().pets;
-    console.log(this.petsData);
 
 
-  }
+// ------------------------------- PET FORM -------------------------------------
+
+
+petForm = new FormGroup({
+  id: new FormControl('',[Validators.required]),
+  type: new FormControl(1),
+  name: new FormControl('', [Validators.required, Validators.min(2)]),
+  race: new FormControl<number>(1, [Validators.required]),
+  gender: new FormControl('',[Validators.required]),
+  birthDay: new FormControl(''),
+  description: new FormControl('')
+})
+
+
+
+
+
+
 
   save(): void {
     console.log(this.userForm.get('email')?.value);
@@ -210,9 +242,13 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   toggleMenu3() {
   this.isMenuNewOpen = !this.isMenuNewOpen;
 }
+
+
   toggleMenu4() {
    this.isMenuDelOpen = !this.isMenuDelOpen;
   }
+
+
 
 editMode: boolean = false;
 
@@ -221,7 +257,7 @@ editMode: boolean = false;
   }
 
 
-
+// ------------------------------------- Select pet In Pet Data --------------------------
 
  getEachPet(selectOption: string): void {
    this.selectedPet =  this.getUser().pets.find(p => p.name === selectOption);
@@ -234,14 +270,28 @@ editMode: boolean = false;
   }
 
 
-  changePetInfo() {
+  //----------------------------------- Update User Data -------------------------------
 
 
+  updateUserData() {
+
+  }
+
+
+
+
+  // -------------------------------- Update Pet Data  ----------------------------------
+
+
+  updatePetData() {
 
 
   }
 
 
+
+
+// ------------------------------------ Add New Pet ----------------------------------
 
 
 //   addPet(pet : IPet): void {
@@ -269,6 +319,11 @@ editMode: boolean = false;
 //    this.getUser().pets.push(pet)
 //    console.log(this.getUser().pets.push(pet));
 // }
+
+
+
+
+
 
 addPet(pet: IPet): void {
 
@@ -302,6 +357,9 @@ addPet(pet: IPet): void {
 
   console.log(this.getUser().pets);
 }
+
+
+// ------------------------------------ Delete Pet From The List ------------------------------
 
   pet_delete_routing(event:Event) {
     let a = event.target as HTMLLinkElement;
