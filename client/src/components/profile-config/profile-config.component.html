@@ -17,6 +17,8 @@
 
   <main>
 
+
+<!----------------------------------Update User ----------------------------------->
     <section class="user-data">
 
      <h3 class="head-slide" (click)="toggleMenu()"> User Data <i class="fa-solid fa-user-pen"></i></h3>
@@ -86,6 +88,7 @@
 
     </section>
 
+    <!--------------------------------Update Pet---------------------------------->
 
     <section class="user-data" >
 
@@ -98,7 +101,7 @@
 
 
 
-      <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuPetOpen}" onsubmit="updatePet()">
+    <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuPetOpen}" onsubmit="updatePet()">
 
       <div class="input-pair">
         <label for="name"> Name:</label>
@@ -118,6 +121,8 @@
             <option *ngIf="type.id !== selectedPet?.type" [value]="type.id">{{type.type}}</option>
           </ng-template>
         </select>
+
+
         <!-- <input type="number" id="type" formControlName="type" [placeholder]="selectedPet?.type" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode"> -->
         <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
           edit
@@ -133,6 +138,8 @@
             <option *ngIf="race.id !== selectedPet?.race" [value]="race.id">{{race.race}}</option>
           </ng-template>
         </select>
+
+
         <!-- <input type="number" id="type" formControlName="type" [placeholder]="selectedPet?.type" [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" [disabled]="!editMode"> -->
         <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
           edit
@@ -160,11 +167,13 @@
 
     </section>
 
+    <!-----------------------------------Add PET----------------------------------->
+
     <section class="user-data">
 
       <h3 (click)='toggleMenu3()'> Add Pet <i class="fa-solid fa-user-pen"></i></h3>
 
-      <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuNewOpen}" onsubmit="addPet()">
+      <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuNewOpen}" onsubmit="addPet(event)">
 
         <div class="input-pair">
           <label for="name"> Name:</label>
@@ -203,10 +212,11 @@
             edit
           </span>
         </div>
-
-       <input type="submit"  value="add pet">
+       <input type="submit" value="add pet">
        </form>
     </section>
+
+    <!--------------------------------Delete Pet----------------------------------->
 
     <section  class="user-data" >
       <h3 class="delete-pet-slide"  (click)="toggleMenu4()"> Delete Pet<i class="fa-solid fa-user-pen"></i></h3>

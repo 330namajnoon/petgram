@@ -9,14 +9,16 @@ import { Router } from '@angular/router';
 import { RegisterService } from 'src/services/register.service';
 import { ITypes } from 'src/interfaces/ITypes';
 import { IRaces } from 'src/interfaces/IRaces';
-import { event } from 'jquery';
 
 @Component({
   selector: 'app-profile-config',
   templateUrl: './profile-config.component.html',
   styleUrls: ['./profile-config.component.scss']
 })
+
+
 export class ProfileConfigComponent extends AppServiceEx implements OnInit{
+  //--------------------------atributos ---------------------------------
   selectedPet: IPet | undefined;
   selectOption: string = "Choose pet"
   selectValue: string = "";
@@ -33,16 +35,27 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   races!:IRaces[];
 
 
+
+  //---------------------------------------constructor -------------------------------------
+
+
   constructor(appService: AppService , private proConfig: ProfileConfigService, private router:Router ){
     super(appService)
 
 
   }
+
+
+
+  //------------------------------------------- methods ----------------------------------
+
   change_type(e:Event) {
     let select = e.target as HTMLSelectElement;
     this.get_ts(parseInt(select.value));
     alert("hola")
   }
+
+
   async get_ts(id:number|undefined) {
     this.setLoading(true);
     let res = await this.proConfig.getTypes();
@@ -71,6 +84,10 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
     }
   }
 
+
+
+
+
   petForm = new FormGroup({
     id: new FormControl('',[Validators.required]),
     type: new FormControl(1),
@@ -80,6 +97,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
     birthDay: new FormControl(''),
     description: new FormControl('')
   })
+
 
 
 
@@ -101,6 +119,9 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
 
   })
+
+
+
 
    ngOnInit() {
     this.userData = this.getUser();
@@ -223,32 +244,64 @@ editMode: boolean = false;
 
 
 
-  addPet(): void {
+//   addPet(pet : IPet): void {
 
-    let id= this.petForm.get("id")?.value || "";
-    let user_id = this.petForm.get('user_id')?.value || "";
-    let name = this.petForm.get("name")?.value || "";
-    let birthDay = this.petForm.get('birthday')?.value || "";
-    let type = this.petForm.get("type")?.value || 1;
-    let race =  this.petForm.get("race")?.value || 1;
-    let gender = this.petForm.get("gender")?.value || "";
-    let description = this.petForm.get("description")?.value || "";
+//     let id= this.petForm.get("id")?.value || "";
+//     let user_id = this.petForm.get('user_id')?.value || "";
+//     let name = this.petForm.get("name")?.value || "";
+//     let birthDay = this.petForm.get('birthday')?.value || "";
+//     let type = this.petForm.get("type")?.value || 1;
+//     let race =  this.petForm.get("race")?.value || 1;
+//     let gender = this.petForm.get("gender")?.value || "";
+//     let description = this.petForm.get("description")?.value || "";
 
-   let pet: IPet = {
-     id: id,
-     user_id: user_id,
-     name: name,
-     birthDay: birthDay,
-     type: type,
-     race: race,
-     gender: gender,
-     description: description
-   }
+//     pet = {
+//      id: id,
+//      user_id: user_id,
+//      name: name,
+//      birthDay: birthDay,
+//      type: type,
+//      race: race,
+//      gender: gender,
+//      description: description
+//    }
 
+//    this.getUser().pets.push(pet)
+//    console.log(this.getUser().pets.push(pet));
+// }
 
-   this.getUser().pets.push(pet)
+addPet(pet: IPet): void {
 
+     let id= this.petForm.get("id")?.value || "";
+     let user_id = this.petForm.get('user_id')?.value || "";
+     let name = this.petForm.get("name")?.value || "";
+     let birthDay = this.petForm.get('birthday')?.value || "";
+     let type = this.petForm.get("type")?.value || 1;
+     let race =  this.petForm.get("race")?.value || 1;
+     let gender = this.petForm.get("gender")?.value || "";
+     let description = this.petForm.get("description")?.value || "";
+
+   pet = {
+    id: id,
+    user_id: user_id,
+    name: name,
+    birthDay: birthDay,
+    type: type,
+    race: race,
+    gender: gender,
+    description: description
+  };
+
+  // Ensure that the 'pets' property is initialized as an empty array
+  if (!this.getUser().pets) {
+    this.getUser().pets= [];
   }
+
+  // Add the pet to the user's pets array
+  this.getUser().pets.push(pet);
+
+  console.log(this.getUser().pets);
+}
 
   pet_delete_routing(event:Event) {
     let a = event.target as HTMLLinkElement;
