@@ -183,48 +183,6 @@ petForm = new FormGroup({
   }
 
   changeInfo() {
-  //  if(this.userForm.valid) {
-
-  //    }
-  //    this.userForm.value
-
-
-     let id =this.userForm.get("id")?.value || "";
-      let name = this.userForm.get("name")?.value || "";
-      let lastName = this.userForm.get("lastName")?.value || "";
-      let birthDay =this.userForm.get("name")?.value || "";
-      let address =  this.userForm.get("address")?.value || "";
-      let country = this.userForm.get("country")?.value || 0;
-      let postalCode = this.userForm.get("postalCode")?.value || 0;
-      let phone = this.userForm.get("phone")?.value || 0;
-      let image = this.userForm.get("image")?.value || "";
-      let email = this.userForm.get("email")?.value || "";
-      let password =  this.userForm.get("password")?.value || "";
-      let language =  this.userForm.get("language")?.value || "";
-
-      const newUser: IUser = {
-        name,
-        lastName,
-        pets: [],
-        id: '',
-        birthDay,
-        address,
-        country,
-        postalCode,
-        phone,
-        image: this.getURL(),
-        email,
-        password,
-        language,
-        followers: [],
-        following: [],
-        pendingFollowers: [],
-        storys: []
-      }
-
-
-
-
 
   }
 
@@ -274,6 +232,47 @@ editMode: boolean = false;
 
 
   updateUserData() {
+
+
+
+
+  let id =this.userForm.get("id")?.value || "";
+  let name = this.userForm.get("name")?.value || "";
+  let lastName = this.userForm.get("lastName")?.value || "";
+  let birthDay =this.userForm.get("name")?.value || "";
+  let address =  this.userForm.get("address")?.value || "";
+  let country = this.userForm.get("country")?.value || 0;
+  let postalCode = this.userForm.get("postalCode")?.value || 0;
+  let phone = this.userForm.get("phone")?.value || 0;
+  let image = this.userForm.get("image")?.value || "";
+  let email = this.userForm.get("email")?.value || "";
+  let password =  this.userForm.get("password")?.value || "";
+  let language =  this.userForm.get("language")?.value || "";
+
+  const newUser: IUser = {
+    name,
+    lastName,
+    pets: [],
+    id: '',
+    birthDay,
+    address,
+    country,
+    postalCode,
+    phone,
+    image: this.getURL(),
+    email,
+    password,
+    language,
+    followers: [],
+    following: [],
+    pendingFollowers: [],
+    storys: []
+  }
+
+  Object.assign(this.getUser(), newUser);
+
+
+
 
   }
 
