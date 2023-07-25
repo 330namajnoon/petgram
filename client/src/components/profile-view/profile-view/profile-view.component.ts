@@ -47,8 +47,17 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
     })
   }
 
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
+    this.socket.on("accept",(resp)=> {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+
+      }
+    })
   }
 
   getMyProfile(): boolean {

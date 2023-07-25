@@ -32,7 +32,7 @@ const mysql = require("mysql2");
 const { error } = require("console");
 
 
-const connectionData = 'mysql://th304bfcd97i48mj048f:pscale_pw_Gsndy0eVWBBLXO7Q6SKOADUvKfoy7ufklUX6gDf7yz2@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://0wykwepu4lteqeit8anr:pscale_pw_HxyDJt7T6soOIfIE3Puc1thSmuYLoj4RweAn8D7fPqp@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 
@@ -125,6 +125,70 @@ io.on("connect", (client) => {
       });
     });
   });
+
+
+  client.on("follow", (user_id, follower_id) => {
+    const connection = mysql.createConnection(connectionData);
+    connection.connect((err) => {
+      if (!err) {
+        connection.query(`
+      insert into 
+        followers (
+          user_id, 
+          follower_id, 
+          type
+        )
+      values
+        (
+          '${user_id}', 
+          '${follower_id}', 
+          'pf'
+        );
+      `, (err, resp) => {
+          if (!err) {
+            io.emit("follow", { data: resp })
+            connection.end();
+          } else {
+            console.error(err)
+            io.emit("follow", { error: "server_error" });
+            connection.end();
+          }
+        })
+      } else {
+        res.send({ error: "server_error" });
+        connection.end();
+      }
+    })
+  })
+
+  client.on("accept", (user_id, follower_id) => {
+    const connection = mysql.createConnection(connectionData);
+    connection.connect((err) => {
+      if (!err) {
+        connection.query(`
+      update 
+        followers 
+      set 
+        type = 'fa'
+      where 
+        follower_id = '${follower_id}' AND
+        user_id = '${user_id}'; 
+      `, (err, resp) => {
+          if (!err) {
+            io.emit("accept",{ data: resp });
+            connection.end();
+          } else {
+            console.error(err)
+            io.emit("accept",{ error: "server_error" });
+            connection.end();
+          }
+        })
+      } else {
+        res.send({ error: "server_error" });
+        connection.end();
+      }
+    })
+  })
 
   client.on("disconnect", () => {
     console.log("new disconnect");

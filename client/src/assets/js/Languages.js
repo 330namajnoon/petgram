@@ -50,7 +50,10 @@ export function Languages() {
       english:"Last Name",
     },
     birthDay:{
-      english:"Birth Day",
+      english:"BirthDay",
+    },
+    city:{
+      english:"City",
     },
     address:{
       english:"Address",
@@ -140,5 +143,6 @@ Languages.prototype.setLanguage = function(language = "english") {
   this.language = language;
 }
 Languages.prototype.getWord = function(word = "home") {
+  if (!this.language) this.language = "english";
   return this.languages[word][this.language];
 }

@@ -36,11 +36,21 @@ export class FriendsComponent extends AppServiceEx implements OnInit {
 
   ngOnInit(): void {
     console.log("friends")
-    setTimeout(() => {
-
-      this.friendsService.profileData()
-    }, 500);
-
+    this.friendsService.profileData()
+    this.socket.on("follow",(resp)=> {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        this.friendsService.profileData();
+      }
+    })
+    this.socket.on("accept",(resp)=> {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        this.friendsService.profileData();
+      }
+    })
 
   }
   acceptFollower(follower: IFollower) {
