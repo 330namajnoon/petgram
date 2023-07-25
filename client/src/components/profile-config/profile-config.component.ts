@@ -1,3 +1,4 @@
+import { httpClient } from 'src/assets/ts/httpClient';
 import { Component, OnInit } from '@angular/core';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { IUser } from 'src/interfaces/IUser';
@@ -22,6 +23,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
 
   //--------------------------atributos ---------------------------------
+
   selectedPet: IPet | undefined;
   selectOption: string = "Choose pet"
   selectValue: string = "";
@@ -29,6 +31,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
   isMenuPetOpen: boolean = false;
   isMenuNewOpen: boolean = false;
   isMenuDelOpen: boolean = false;
+  isMenuLoginoutOpen : boolean = false;
   imageSrc: string | undefined;
   userData!: IUser ;
   petsData:IPet[] =[];
@@ -206,6 +209,10 @@ petForm = new FormGroup({
    this.isMenuDelOpen = !this.isMenuDelOpen;
   }
 
+  toggleMenu5() {
+   this.isMenuLoginoutOpen = !this.isMenuLoginoutOpen;
+  }
+
 
 
 editMode: boolean = false;
@@ -231,45 +238,73 @@ editMode: boolean = false;
   //----------------------------------- Update User Data -------------------------------
 
 
-  updateUserData() {
+  updateUserData(atr:string) {
+    switch (atr) {
+      case "email":
+        this.getUser().email = this.userForm.get(atr)?.value || "";
+        break;
+      case "name":
+        this.getUser().name = this.userForm.get(atr)?.value || "";
+        break;
+        case "lastName":
+          this.getUser().lastName = this.userForm.get(atr)?.value || "";
+          break;
+        case "country":
+          this.getUser().country = this.userForm.get(atr)?.value || "";
+          break;
+        case "address":
+          this.getUser().address = this.userForm.get(atr)?.value || "";
+          break;
+        case "postalCode":
+          this.getUser().postalCode= this.userForm.get(atr)?.value || 0;
+          break;
+        case "birthDay":
+          this.getUser().birthDay= this.userForm.get(atr)?.value || "";
+          break;
+      default:
+        break;
+    }
 
 
 
 
-  let id =this.userForm.get("id")?.value || "";
-  let name = this.userForm.get("name")?.value || "";
-  let lastName = this.userForm.get("lastName")?.value || "";
-  let birthDay =this.userForm.get("name")?.value || "";
-  let address =  this.userForm.get("address")?.value || "";
-  let country = this.userForm.get("country")?.value || 0;
-  let postalCode = this.userForm.get("postalCode")?.value || 0;
-  let phone = this.userForm.get("phone")?.value || 0;
-  let image = this.userForm.get("image")?.value || "";
-  let email = this.userForm.get("email")?.value || "";
-  let password =  this.userForm.get("password")?.value || "";
-  let language =  this.userForm.get("language")?.value || "";
 
-  const newUser: IUser = {
-    name,
-    lastName,
-    pets: [],
-    id: '',
-    birthDay,
-    address,
-    country,
-    postalCode,
-    phone,
-    image: this.getURL(),
-    email,
-    password,
-    language,
-    followers: [],
-    following: [],
-    pendingFollowers: [],
-    storys: []
-  }
+  // let id =this.userForm.get("id")?.value || "";
+  // let name = this.userForm.get("name")?.value || "";
+  // let lastName = this.userForm.get("lastName")?.value || "";
+  // let birthDay =this.userForm.get("name")?.value || "";
+  // let address =  this.userForm.get("address")?.value || "";
+  // let country = this.userForm.get("country")?.value || 0;
+  // let postalCode = this.userForm.get("postalCode")?.value || 0;
+  // let phone = this.userForm.get("phone")?.value || 0;
+  // let image = this.userForm.get("image")?.value || "";
+  // let email = this.userForm.get("email")?.value || "";
+  // let password =  this.userForm.get("password")?.value || "";
+  // let language =  this.userForm.get("language")?.value || "";
 
-  Object.assign(this.getUser(), newUser);
+  // const newUser: IUser = {
+  //   name,
+  //   lastName,
+  //   pets: [],
+  //   id: '',
+  //   birthDay,
+  //   address,
+  //   country,
+  //   postalCode,
+  //   phone,
+  //   image: this.getURL(),
+  //   email,
+  //   password,
+  //   language,
+  //   followers: [],
+  //   following: [],
+  //   pendingFollowers: [],
+  //   storys: []
+
+  //   // this.httpClient.post()
+  // }
+
+
 
 
 
@@ -282,12 +317,30 @@ editMode: boolean = false;
   // -------------------------------- Update Pet Data  ----------------------------------
 
 
-  updatePetData() {
+  updatePetData(atr: string) {
+    switch (atr) {
+      case "name":
+        this.selectedPet!.name = this.petForm.get(atr)?.value || "";
+        break;
+      case "type":
+        this.selectedPet!.type  = this.petForm.get(atr)?.value || 0;
+        break;
+        case "race":
+          this.selectedPet!.race  = this.petForm.get(atr)?.value || 0;
+          break;
+        case "gender":
+          this.selectedPet!.gender = this.petForm.get(atr)?.value || "";
+          break;
+        case "description":
+          this.selectedPet!.description  = this.petForm.get(atr)?.value || "";
+          break;
 
+      default:
+        break;
 
   }
 
-
+  }
 
 
 // ------------------------------------ Add New Pet ----------------------------------
