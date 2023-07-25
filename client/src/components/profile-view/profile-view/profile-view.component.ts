@@ -103,7 +103,7 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
   follow(): void {
     let { image, name, lastName, id } = this.getUser();
     let follower: IFollower = {
-      avatar: image, id, name, lastName
+       image, id, name, lastName
     }
     this.profileService.getProfileData().pendingFollowers.push(follower);
 

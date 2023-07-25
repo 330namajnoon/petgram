@@ -5,7 +5,6 @@ import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { IUser } from 'src/interfaces/IUser';
 import { AppService } from 'src/services/app.service';
 import { ProfileConfigService } from 'src/services/profile-config.service';
-import state from 'sweetalert/typings/modules/state';
 
 @Component({
   selector: 'app-upload-img',

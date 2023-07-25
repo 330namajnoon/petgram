@@ -32,7 +32,7 @@ export class DataUserComponent extends AppServiceEx implements OnInit {
         let lastName: string = this.form.get("lastName")?.value;
         let birthDay: string = this.form.get("birthDay")?.value;
         let address: string = this.form.get("address")?.value;
-        let city: number = parseInt(this.form.get("city")?.value);
+        let country: number = parseInt(this.form.get("country")?.value);
         let postalCode: number = parseInt(this.form.get("postalCode")?.value);
         let phone: number = parseInt(this.form.get("phone")?.value);
         let email: string = this.form.get("email")?.value;
@@ -46,7 +46,7 @@ export class DataUserComponent extends AppServiceEx implements OnInit {
           id: '',
           birthDay,
           address,
-          city,
+          country,
           postalCode,
           phone,
           image: this.getURL(),

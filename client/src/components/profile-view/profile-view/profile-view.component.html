@@ -12,7 +12,7 @@
     </div>
     <h3 class="title">{{language.getWord('contacts')}}</h3>
     <div class="followers">
-      <app-follower *ngFor="let follower of getProfileData().followers" [device]="getDevice()" [Image]="follower.avatar" [user]="follower.id" [fullName]="follower.name+' '+follower.lastName"  />
+      <app-follower *ngFor="let follower of getProfileData().followers" [device]="getDevice()" [Image]="follower.image" [user]="follower.id" [fullName]="follower.name+' '+follower.lastName"  />
     </div>
   </div>
   <div class="gallerys">
