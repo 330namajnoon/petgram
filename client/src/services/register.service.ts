@@ -27,8 +27,10 @@ export class RegisterService extends AppServiceEx {
       let loginData = {
         email,
         password
+
       }
       this.http.post<IHTTPResponse<IUser>>(this.getURL() + "/login", loginData).subscribe((res) => {
+        !res.error ? this.language.setLanguage(res.data.language) : null;
         resolve(res);
     })
     })
