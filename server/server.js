@@ -33,7 +33,8 @@ const { error } = require("console");
 
 
 
-const connectionData = 'mysql://w52f393jf3p647laj9h0:pscale_pw_tfU4tm0zxXWpvmRq9FrzUMyVR5FsrZtNGycrcNWdXlN@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://yumdq2b9vaoouo49bhbw:pscale_pw_dwX3VWPLWiuwZeKn9SEmEL8eZKHbcatUM0GbWkT60YW@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+
 
 
 

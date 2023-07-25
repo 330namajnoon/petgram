@@ -1,154 +1,193 @@
 export function Languages() {
-  this.language = "english";
+  this.language = "español";
   this.languages = {
-    home:{
-      english:"home",
+    home: {
+      english: "home",
+      español: "Inicio"
     },
     write_a_comment: {
-      english:"Write a comment",
+      english: "Write a comment",
+      español: "Escribir un comentario"
     },
-    contacts:{
-      english:"Contacts",
+    contacts: {
+      english: "Contacts",
+      español: "Contactos"
     },
-    all_storys:{
-      english:"All Storys",
+    all_storys: {
+      english: "All Storys",
+      español: "Todas las historias"
     },
-    follow:{
-      english:"Follow",
+    follow: {
+      english: "Follow",
+      español: "Seguir"
     },
-    unfollow:{
-      english:"Unfollow",
+    unfollow: {
+      english: "Unfollow",
+      español: "Dejar de seguir"
     },
     pending_follower: {
-      english:"Pending Follower",
+      english: "Pending Follower",
+      español: "Seguidores pendientes"
     },
-    post:{
-      english:"post"
+    post: {
+      english: "post",
+      español: "Publicar"
     },
-    selectPet:{
-      english:"Select Pet"
+    selectPet: {
+      english: "Select Pet",
+      español: "Seleccionar mascota"
     },
-    description:{
-      english:"Description",
+    language: {
+      english: "Language",
+      español: "Lenguaje"
     },
-    language:{
-      english:"Language",
+    select_a_country: {
+      english: "Select a country",
+      español: "Seleccione una ciudad"
     },
-    select_a_country:{
-      english:"Select a country",
+    male: {
+      english: "Male",
+      español: "Macho"
     },
-    male:{
-      english:"Male",
+    female: {
+      english: "Female",
+      español: "Hembra"
     },
-    female:{
-      english:"Female",
+    name: {
+      english: "Name",
+      español: "Nombre"
     },
-    name:{
-      english:"Name",
+    lastName: {
+      english: "Last Name",
+      español: "Apellido"
     },
-    lastName:{
-      english:"Last Name",
+    birthDay: {
+      english: "BirthDay",
+      español: "Fecha de nacimiento"
     },
-    birthDay:{
-      english:"BirthDay",
+    city: {
+      english: "City",
+      español: "Ciudad"
     },
-    city:{
-      english:"City",
+    address: {
+      english: "Address",
+      español: "Dirección"
     },
-    address:{
-      english:"Address",
+    country: {
+      english: "Country",
+      español: "País"
     },
-    country:{
-      english:"Country",
+    postalCode: {
+      english: "Postal Code",
+      español: "Código postal"
     },
-    postalCode:{
-      english:"Postal Code",
+    email: {
+      english: "Email",
+      español: "Correo electrónico"
     },
-    female:{
-      english:"Female",
+    phone: {
+      english: "Phone",
+      español: "Teléfono"
     },
-    email:{
-      english:"Email",
+    password: {
+      english: "Password",
+      español: "Contraseña"
     },
-    phone:{
-      english:"Phone",
+    password_confirmation: {
+      english: "Password confirmation",
+      español: "Confirmar contraseña"
     },
-    password:{
-      english:"Password",
+    type: {
+      english: "Type",
+      español: "Tipos"
     },
-    password_confirmation:{
-      english:"Password confirmation",
+    gender: {
+      english: "Gender",
+      español: "Género"
     },
-    type:{
-      english:"Type",
+    race: {
+      english: "Race",
+      español: "Razas"
     },
-    gender:{
-      english:"Gender",
-    },
-    race:{
-      english:"Race",
-    },
-    description:{
-      english:"Description",
+    description: {
+      english: "Description",
+      español: "Descripción"
     },
     privacy_and_notification_settings: {
-      english:"Privacy and notification settings",
+      english: "Privacy and notification settings",
+      español: "Configuración de privacidad y notificaciones"
     },
-    acceptance_of_terms_and_conditions:{
-      english:"Acceptance of terms and conditions",
+    acceptance_of_terms_and_conditions: {
+      english: "Acceptance of terms and conditions",
+      español: "Aceptación de términos y condiciones"
     },
-    userData:{
-      english:"User Data",
+    userData: {
+      english: "User Data",
+      español: "Datos de usuario"
     },
-    petData:{
-      english:"Pet Data",
+    petData: {
+      english: "Pet Data",
+      español: "Datos de mascotas"
     },
-    next:{
-      english:"Next",
+    next: {
+      english: "Next",
+      español: "Siguiente"
     },
-    missing_data_in_the_form:{
-      english:"Missing data in the form",
+    missing_data_in_the_form: {
+      english: "Missing data in the form",
+      español: "Faltan datos en el formulario"
     },
-    passwords_do_not_match:{
-      english:"Passwords do not match",
+    passwords_do_not_match: {
+      english: "Passwords do not match",
+      español: "Las contraseñas no coinciden"
     },
-    you_must_choose_a_profile_photo:{
-      english:"You must choose a profile photo",
+    you_must_choose_a_profile_photo: {
+      english: "You must choose a profile photo",
+      español: "Debes elegir una foto perfil"
     },
-    this_user_exists:{
-      english:"this user exists",
+    this_user_exists: {
+      english: "this user exists",
+      español: "Este usuario ya existe"
     },
-    select:{
-      english:"Select",
+    select: {
+      english: "Select",
+      español: "Seleccionar"
     },
-    lets_goo:{
-      english:"Lets goo",
+    lets_goo: {
+      english: "Lets go",
+      español: "Ir"
     },
-    select_profile_image:{
-      english:"Select profile image",
+    select_profile_image: {
+      english: "Select profile image",
+      español: "Seleccione una foto perfil"
     },
-    user_data:{
-      english:"User Data"
+    user_data: {
+      english: "User Data",
+      español: "Datos de usuario"
     },
-    pet_data:{
-      english:"Pet Data"
+    pet_data: {
+      english: "Pet Data",
+      español: "Datos de mascota"
     },
-    followers:{
-      english:"Followers",
+    followers: {
+      english: "Followers",
+      español: "Seguidores"
     },
-    pendingFollowers:{
-      english:"PendingFollowers",
+    pendingFollowers: {
+      english: "PendingFollowers",
+      español: "Seguidores pendientes"
     },
-    following:{
-      english:"Following",
+    following: {
+      english: "Following",
+      español: "Seguidos"
     }
-
   }
 }
-Languages.prototype.setLanguage = function(language = "english") {
+Languages.prototype.setLanguage = function (language = "español") {
   this.language = language;
 }
-Languages.prototype.getWord = function(word = "home") {
-  if (!this.language) this.language = "english";
-  return this.languages[word][this.language];
+Languages.prototype.getWord = function (word = "home") {
+  if (!this.language) this.language = "español";
+  const translate = this.languages[word][this.language];
+  return translate || `[${word}]`;
 }
