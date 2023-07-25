@@ -124,6 +124,12 @@ export function Languages() {
     select_profile_image:{
       english:"Select profile image",
     },
+    user_data:{
+      english:"User Data"
+    },
+    pet_data:{
+      english:"Pet Data"
+    },
     followers:{
       english:"Followers",
     },

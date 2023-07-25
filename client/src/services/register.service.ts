@@ -27,8 +27,10 @@ export class RegisterService extends AppServiceEx {
       let loginData = {
         email,
         password
+
       }
       this.http.post<IHTTPResponse<IUser>>(this.getURL() + "/login", loginData).subscribe((res) => {
+        !res.error ? this.language.setLanguage(res.data.language) : null;
         resolve(res);
     })
     })
@@ -60,7 +62,9 @@ export class RegisterService extends AppServiceEx {
   }
   getCoutrys():Promise<IHTTPResponse<{id:number;city:string}[]>> {
     return new Promise((resolve)=> {
+
       this.http.post<IHTTPResponse<{id:number;city:string}[]>>(`${this.getURL()}/countrys`,{language:this.getLanguage()}).subscribe(res => {
+
         resolve(res)
       })
     })

@@ -1,0 +1,46 @@
+.container_mobile {
+  width: 80vw;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: rgba(128, 128, 128, 0.449);
+  border-radius: 4px;
+  justify-content: space-between;
+  margin: 10px;
+  h3 {
+    color: white;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    justify-content: space-evenly;
+    span {
+
+      color: white;
+      font-size: 20px;
+      padding: 5;
+      margin: 0 0 0 10px;
+
+    }
+    input {
+      width: 78%;
+      padding: 5px;
+      font-size: 13px;
+    }
+    select {
+      width: 77%;
+      padding: 5px;
+      font-size: 13px;
+      margin-right: 10px;
+      border: 0;
+      border-radius: 3px;
+    }
+  }
+
+}
