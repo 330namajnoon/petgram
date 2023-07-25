@@ -129,8 +129,16 @@ export function Languages() {
     },
     pet_data:{
       english:"Pet Data"
+    },
+    followers:{
+      english:"Followers",
+    },
+    pendingFollowers:{
+      english:"PendingFollowers",
+    },
+    following:{
+      english:"Following",
     }
-
 
   }
 }

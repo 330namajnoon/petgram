@@ -55,7 +55,7 @@
         <!-- select -->
         <input (change)="updateUserData('country')" type="number" id="country"  formControlName="country" placeholder="{{language.getWord('country')}}" [ngClass]="{ 'text-style': !userForm.get('country')?.touched, 'input-style': userForm.get('country')?.touched }" [disabled]="!userForm.get('country')?.touched">
         <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().country)">
-          edit
+         edit
         </span> -->
       </div>
 

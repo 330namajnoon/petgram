@@ -54,6 +54,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
 
 
+
   //------------------------------------------- methods ----------------------------------
 
   ngOnInit() {
@@ -123,6 +124,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit{
 
 // ------------------------------------ USER FORM --------------------------------------
 
+
   userForm = new FormGroup({
     id: new FormControl('',[Validators.email]),
     email: new FormControl(''),
@@ -187,6 +189,35 @@ petForm = new FormGroup({
 
   changeInfo() {
 
+  //  if(this.userForm.valid) {
+
+  //    }
+  //    this.userForm.value
+
+    let user : IUser = {
+      id: this.userForm.get("id")?.value || "",
+      name: this.userForm.get("name")?.value || "",
+      lastName: this.userForm.get("lastName")?.value || "",
+      birthDay: this.userForm.get("name")?.value || "",
+      address: this.userForm.get("address")?.value || "",
+      city: this.userForm.get("country")?.value || 0,
+      postalCode: this.userForm.get("postalCode")?.value || 0,
+      phone: this.userForm.get("phone")?.value || 0,
+      image: this.userForm.get("image")?.value || "",
+      email: this.userForm.get("email")?.value || "",
+      password: this.userForm.get("password")?.value || "",
+      language: this.userForm.get("language")?.value || "",
+      pets: this.userForm.get("pets")?.value || [],
+      followers:this.userData.followers,
+      following: this.userData.following,
+      storys:[],
+      pendingFollowers: this.userData.pendingFollowers,
+    }
+    this.proConfig.save(user);
+
+   this.userData = user;
+
+
   }
 
 
@@ -235,6 +266,7 @@ editMode: boolean = false;
   }
 
 
+
   //----------------------------------- Update User Data -------------------------------
 
 
@@ -263,6 +295,7 @@ editMode: boolean = false;
           break;
       default:
         break;
+
     }
 
 
