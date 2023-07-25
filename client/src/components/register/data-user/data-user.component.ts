@@ -15,7 +15,7 @@ import { AppService } from 'src/services/app.service';
 export class DataUserComponent extends AppServiceEx implements OnInit {
   ctrl = inject(RegisterController);
   form: FormGroup = this.ctrl.formDataUser;
-  cities!: { id: number; city: string }[];
+  cities!: { id: number; country: string }[];
   constructor(private router: Router, private registerS: RegisterService, appService: AppService, private acRouter: ActivatedRoute) {
     super(appService);
   }
@@ -58,6 +58,7 @@ export class DataUserComponent extends AppServiceEx implements OnInit {
           pendingFollowers: [],
           storys: []
         }
+        this.cities.push()
         this.registerS.setnewUser(newUser)
         this.router.navigateByUrl('/signup/data-pet');
       } else {
@@ -69,15 +70,18 @@ export class DataUserComponent extends AppServiceEx implements OnInit {
   }
 
   ngOnInit(): void {
-    this.acRouter.params.subscribe(prms => {
-      this.downloadCitys();
-    })
+    // this.acRouter.params.subscribe(prms => {
+    //   this.downloadCitys();
+    // })
+    this.downloadCitys();
   }
 
   async downloadCitys() {
     this.setLoading(true);
     let res = await this.registerS.getCoutrys();
     this.setLoading(false);
+    console.log('CITIES');
+    console.log(res.data)
     if (!res.error) {
       this.cities = res.data;
     } else {

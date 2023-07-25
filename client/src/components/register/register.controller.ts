@@ -11,6 +11,7 @@ export class RegisterController {
     lastName: new FormControl('', Validators.required),
     birthDay: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
     postalCode: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),

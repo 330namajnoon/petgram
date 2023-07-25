@@ -36,20 +36,34 @@ export class FriendsComponent extends AppServiceEx implements OnInit {
 
   ngOnInit(): void {
     console.log("friends")
-    setTimeout(() => {
-
-      this.friendsService.profileData()
-    }, 500);
-
+    this.friendsService.profileData()
+    this.socket.on("follow",(resp)=> {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        this.friendsService.profileData();
+      }
+    })
+    this.socket.on("accept",(resp)=> {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        this.friendsService.profileData();
+      }
+    })
 
   }
   acceptFollower(follower: IFollower) {
-    follower.status = 'accepted';
+    console.log(follower)
+    this.friendsService.accept(this.getUser().id, follower.id)
   }
-
   deleteFollower(follower: IFollower) {
-
+    this.friendsService.delete(this.getUser().id, follower.id)
   }
+  deleteFollowing(follower: IFollower) {
+    this.friendsService.delete(follower.id ,this.getUser().id)
+  }
+
 
   goProfile(follower: IFollower) {
     this.router.navigate(["/petgram/profile_view"], { state: { user: follower.id, onload: true } });

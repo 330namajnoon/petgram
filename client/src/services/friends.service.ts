@@ -45,13 +45,30 @@ export class FriendsService extends AppServiceEx {
   }
 
   follow(user_id: string, follower_id: string) {
-    this.http.post<IHTTPResponse<any>>(`${this.getURL()}/follow`, {
-      user_id: user_id, follower_id: follower_id
+    this.socket.emit("follow",user_id,follower_id);
+  }
+
+  accept(user_id: string, follower_id: string) {
+    this.socket.emit("accept",user_id,follower_id);
+    // this.http.put<IHTTPResponse<any>>(`${this.getURL()}/follow/accept`, {
+    //   user_id: user_id, follower_id: follower_id
+    // }).subscribe((resp) => {
+    //   if (resp.error) {
+    //     this.router.navigate(["/error"], { state: { error: resp.error } });
+    //   } else {
+    //     this.profileData()
+    //   }
+    // });
+  }
+
+  delete(user_id: string, follower_id: string) {
+    this.http.delete<IHTTPResponse<any>>(`${this.getURL()}/follow/delete`, {
+      body: { user_id: user_id, follower_id: follower_id }
     }).subscribe((resp) => {
       if (resp.error) {
         this.router.navigate(["/error"], { state: { error: resp.error } });
       } else {
-        console.log('follow success')
+        this.profileData()
       }
     });
   }

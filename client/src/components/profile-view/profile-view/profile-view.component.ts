@@ -47,8 +47,17 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
     })
   }
 
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
+    this.socket.on("accept",(resp)=> {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+
+      }
+    })
   }
 
   getMyProfile(): boolean {
@@ -100,6 +109,12 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
     this.friendsService.follow(this.getProfileData().id, this.getUser().id);
   }
+  unfollow(){
+    this.friendsService.delete(this.getProfileData().id, this.getUser().id);
+    this.profileService.getProfileData().followers = this.profileService.getProfileData().followers.filter(
+      user => user.id !== this.getUser().id
+    )
+  }
 
   back() {
 
@@ -114,4 +129,5 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
     }
   }
+
 }

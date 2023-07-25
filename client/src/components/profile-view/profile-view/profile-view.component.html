@@ -7,7 +7,7 @@
       <h1>{{getProfileData().fullName}}</h1>
       <input (click)="follow()" *ngIf="!pendingFollowersSearch() && !followersSearch() " class="follow" type="button" value="{{language.getWord('follow')}}">
       <input *ngIf="pendingFollowersSearch()" class="pendingFollower" type="button" value="{{language.getWord('pending_follower')}}">
-      <input *ngIf="followersSearch()" class="unFollow" type="button" value="{{language.getWord('unfollow')}}">
+      <input (click)="unfollow()" *ngIf="followersSearch()" class="unFollow" type="button" value="{{language.getWord('unfollow')}}">
       <!-- <input class="unFollow" type="button" value="Dejar de seguir"> -->
     </div>
     <h3 class="title">{{language.getWord('contacts')}}</h3>
