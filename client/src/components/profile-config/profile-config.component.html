@@ -205,7 +205,10 @@
 
         <div class="input-pair">
           <label for="race"> Race:</label>
-          <input type="text" id="race" formControlName="name" placeholder="new pets's race" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched">
+          <select  formControlName="race">
+            <option value="" selected>{{language.getWord('select')}}</option>
+            <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
+          </select>
           <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
             edit
           </span> -->
@@ -213,15 +216,22 @@
 
         <div class="input-pair">
           <label for="gender"> {{language.getWord('type')}}</label>
-          <input type="text" id="gender" formControlName="gender" placeholder="{{language.getWord('type')}}" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched">
-          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          <select (change)="downloadRaces($event)" formControlName="type">
+            <option value="" selected>{{language.getWord('select')}}</option>
+            <option *ngFor="let type of getTypes()"  value="{{type.id}}">{{type.type}}</option>
+          </select>
+            <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
             edit
           </span> -->
         </div>
         <div class="input-pair">
           <label for="birthday">{{language.getWord('gender')}}</label>
-          <input type="text" id="birthday" formControlName="birthDay" placeholder="{{language.getWord('gender')}}" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched" >
-          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          <select name="cars" id="cars" formControlName="gender">
+            <option value="" selected>{{language.getWord('select')}}</option>
+            <option value="M">{{language.getWord('male')}}</option>
+            <option value="F">{{language.getWord('female')}}</option>
+          </select>
+            <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
             edit
           </span> -->
         </div>
