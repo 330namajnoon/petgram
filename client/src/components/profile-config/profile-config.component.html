@@ -193,7 +193,7 @@
 
       <h3 (click)='toggleMenu3()'> Add Pet <i class="fa-solid fa-user-pen"></i></h3>
 
-      <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuNewOpen}" onsubmit="addPet(event)">
+      <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuNewOpen}" onsubmit="addPet()">
 
         <div class="input-pair">
           <label for="name"> Name:</label>

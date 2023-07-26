@@ -156,20 +156,36 @@ petForm = new FormGroup({
   name: new FormControl('', [Validators.required, Validators.min(2)]),
   race: new FormControl<number>(1, [Validators.required]),
   gender: new FormControl('',[Validators.required]),
-  birthDay: new FormControl(''),
-  description: new FormControl('')
+  birthDay: new FormControl('', Validators.required),
+  description: new FormControl(''),
+  privacyPolicy: new FormControl(false, Validators.required),
+  termsAndConditions: new FormControl(false, Validators.required),
+
+
 })
 
 
+// name: new FormControl('', Validators.required),
+// birthDay: new FormControl('', Validators.required),
+// gender: new FormControl('', Validators.required),
+// type: new FormControl('', Validators.required),
+// race: new FormControl('', Validators.required),
+// description: new FormControl(''),
+// privacyPolicy: new FormControl(false, Validators.required),
+// termsAndConditions: new FormControl(false, Validators.required),
 
 
 
 
 
-  save(): void {
-    console.log(this.userForm.get('email')?.value);
-    console.log(this.userForm.get('fullName')?.value);
-  }
+
+
+  // save(): void {
+  //   console.log(this.userForm.get('email')?.value);
+  //   console.log(this.userForm.get('fullName')?.value);
+  // }
+
+
 
   uploadFile(event: Event): void {
     let target = event.target as HTMLInputElement;
@@ -377,38 +393,6 @@ editMode: boolean = false;
 
 
 
-addPet(pet: IPet): void {
-
-     let id= this.petForm.get("id")?.value || "";
-     let user_id = this.petForm.get('user_id')?.value || "";
-     let name = this.petForm.get("name")?.value || "";
-     let birthDay = this.petForm.get('birthday')?.value || "";
-     let type = this.petForm.get("type")?.value || 1;
-     let race =  this.petForm.get("race")?.value || 1;
-     let gender = this.petForm.get("gender")?.value || "";
-     let description = this.petForm.get("description")?.value || "";
-
-   pet = {
-    id: id,
-    user_id: user_id,
-    name: name,
-    birthDay: birthDay,
-    type: type,
-    race: race,
-    gender: gender,
-    description: description
-  };
-
-  // Ensure that the 'pets' property is initialized as an empty array
-  if (!this.getUser().pets) {
-    this.getUser().pets= [];
-  }
-
-  // Add the pet to the user's pets array
-  this.getUser().pets.push(pet);
-
-  console.log(this.getUser().pets);
-}
 
 
 // ------------------------------------ Delete Pet From The List ------------------------------
@@ -418,6 +402,34 @@ addPet(pet: IPet): void {
     this.router.navigate(["./petgram","settings","delete-pet"],{state:{petId:a.id,petName:a.innerHTML}});
   }
 
+
+//   addPet(): void{
+
+//   this.petForm.markAllAsTouched();
+//   if (this.petForm.valid){
+//     const name= this.petForm.get('name')!.value;
+//     let birthDay = this.petForm.get('birthDay')?.value;
+//     let gender = this.petForm.get('gender')?.value;
+//     let race = this.petForm.get('race')?.value;
+//     let type = this.petForm.get('type')?.value;
+//     let description = this.petForm.get('description')?.value;
+
+//     const newPet:IPet = {
+//       id:'',
+//       name,
+//       birthDay,
+//       gender,
+//       race,
+//       type,
+//       description,
+//       user_id:'',
+//     }
+//     this.regService.setNewDataPet(newPet)
+//     this.router.navigateByUrl('/signup/image-pet');
+//   }else {
+//     alert(this.language.getWord("missing_data_in_the_form"));
+//   }
+// }
 
 
 }
