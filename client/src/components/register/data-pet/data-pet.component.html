@@ -35,7 +35,7 @@
     </div>
     <div>
       <label class="label-input" for="text">{{language.getWord('race')}}:</label>
-      <select  name="cars" id="cars" formControlName="race">
+      <select formControlName="race">
         <option value="" selected>{{language.getWord('select')}}</option>
         <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
       </select>
