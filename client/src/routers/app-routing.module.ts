@@ -30,7 +30,8 @@ export class AppRoutingModule extends AppServiceEx {
           _this.setUser(res.data);
           localStorage.setItem("user",JSON.stringify({email:res.data.email,password:res.data.password}));
           // router.navigate(["/signup"])
-          router.navigate(["/petgram/friends"]);
+
+          // router.navigate(["/petgram/friends"]);
           // let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
           // url[0] = "/" + url[0];
           // url.push("profile_view");

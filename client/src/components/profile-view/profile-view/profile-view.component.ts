@@ -7,6 +7,7 @@ import { ProfileViewService } from 'src/services/profile-view.service';
 import { IStoryAdress } from 'src/interfaces/IStoryAdress';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { IFollower } from 'src/interfaces/IFollower';
+import { FriendsService } from 'src/services/friends.service';
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
@@ -14,7 +15,14 @@ import { IFollower } from 'src/interfaces/IFollower';
 })
 export class ProfileViewComponent extends AppServiceEx implements OnInit {
   loading: boolean = true;
-  constructor(private profileService: ProfileViewService, private acRoute: ActivatedRoute, private router: Router, private homeService: HomeService, appService: AppService) {
+  constructor(
+    private profileService: ProfileViewService,
+    private acRoute: ActivatedRoute,
+    private router: Router,
+    private homeService: HomeService,
+    private friendsService: FriendsService,
+    appService: AppService
+  ) {
     super(appService)
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -39,8 +47,17 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
     })
   }
 
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
+    this.socket.on("accept",(resp)=> {
+      if (resp.error) {
+        this.router.navigate(["/error"], { state: { error: resp.error } });
+      } else {
+        let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+
+      }
+    })
   }
 
   getMyProfile(): boolean {
@@ -86,9 +103,17 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
   follow(): void {
     let { image, name, lastName, id } = this.getUser();
     let follower: IFollower = {
-      avatar: image, id, name, lastName
+       image, id, name, lastName
     }
     this.profileService.getProfileData().pendingFollowers.push(follower);
+
+    this.friendsService.follow(this.getProfileData().id, this.getUser().id);
+  }
+  unfollow(){
+    this.friendsService.delete(this.getProfileData().id, this.getUser().id);
+    this.profileService.getProfileData().followers = this.profileService.getProfileData().followers.filter(
+      user => user.id !== this.getUser().id
+    )
   }
 
   back() {
@@ -104,4 +129,5 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
 
     }
   }
+
 }

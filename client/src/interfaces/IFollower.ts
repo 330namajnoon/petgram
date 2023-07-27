@@ -1,5 +1,5 @@
 export interface IFollower {
-  avatar: string;
+  image: string;
   id: string;
   name: string;
   lastName: string;

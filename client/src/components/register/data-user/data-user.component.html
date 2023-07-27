@@ -32,10 +32,10 @@
       <app-validator [control]="form.get('address')" />
     </div>
     <div>
-      <label for="name">{{language.getWord('country')}}:</label>
+      <label for="country">{{language.getWord('city')}}:</label>
       <select formControlName="country" >
-        <option value="" selected >{{language.getWord('select_a_country')}}</option>
-        <option *ngFor="let coutry of coutrys" value="{{coutry.id}}">{{coutry.country}}</option>
+        <option value="" selected >Seleccionar city</option>
+        <option *ngFor="let city of cities" value="{{city.id}}">{{city.country}}</option>
       </select>
       <app-validator [control]="form.get('country')" />
     </div>
@@ -58,6 +58,8 @@
     <div>
       <label for="password">{{language.getWord('password')}}:</label>
       <input formControlName="password" placeholder="{{language.getWord('password')}}" type="password" />
+    </div>
+    <div>
       <app-password-validator [control]="form.get('password')" />
     </div>
     <div>

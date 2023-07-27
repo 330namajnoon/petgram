@@ -1,5 +1,5 @@
 <div #container id="story{{id}}" [ngStyle]="storysStyle" [ngClass]="getDevice()">
-  <img class="loading" *ngIf="!story" src="../../../../assets/loading.gif" alt="">
+  <img class="loading" *ngIf="!story" src="assets/loading.gif" alt="">
   <div *ngIf="story" class="story_container">
     <img *ngIf="typePromise('img',story.type)" [src]="story.url" alt="">
     <app-video-player *ngIf="typePromise('video',story.type)" [src]="story.url" [type]="story.type" [style]="{width:'100vw',height:storysStyle.height}" #videoPlayer />
