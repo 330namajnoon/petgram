@@ -174,12 +174,16 @@ export function Languages() {
       español: "Seguidores"
     },
     pendingFollowers: {
-      english: "PendingFollowers",
+      english: "Pending Followers",
       español: "Seguidores pendientes"
     },
     following: {
       english: "Following",
       español: "Seguidos"
+    },
+    pending_request:{
+      english:"Pending request",
+      español:"Solicitud Pendiente"
     }
   }
 }
