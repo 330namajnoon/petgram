@@ -432,6 +432,12 @@ editMode: boolean = false;
 // }
 
 
+
+logout(): void {
+ this.router.navigate(['/petgram']);
+}
+
+
 }
 
 
