@@ -23,7 +23,8 @@ export class VideoPlayerComponent extends AppServiceEx implements AfterViewInit 
   }
 
   ngAfterViewInit():void {
-    this.storysVS.setideoPlayerControl(this.pause.bind(this));
+
+    this.storysVS.setiVdeoPlayerControl(this.pause.bind(this));
     const video = this.video.nativeElement as HTMLSpanElement;
     let e1 = 0
     window.addEventListener("touchstart",(ee)=> {

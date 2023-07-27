@@ -54,7 +54,7 @@ export class CommentsComponent extends AppServiceEx implements OnInit,AfterViewI
         date:_date,
         time
       }
-      this.socket.emit("commend",comment);
+      this.socket.emit("comment",comment);
       this.chatBox.nativeElement.value = "";
     }
   }
