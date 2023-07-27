@@ -123,6 +123,14 @@ export class ProfileViewService extends AppServiceEx {
     return this.galleryMenuSelected;
   }
 
+  getRace(race:number):Promise<IHTTPResponse<string>> {
+    return new Promise((resolve)=> {
+      this.http.get<IHTTPResponse<string>>(`${this.getURL()}/getRace?id=${race}`).subscribe(res => {
+        resolve(res);
+      })
+    })
+  }
+
 
 
 }
