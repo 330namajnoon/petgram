@@ -1,0 +1,272 @@
+
+<div *ngIf="getUser()" [ngClass]="getDevice()">
+
+  <header>
+
+      <div class="img-container">
+        <div class="i-container">
+          <a routerLink="upload-img"> <img [src]="getUser().image" alt=""> </a>
+
+       </div>
+      </div>
+
+      <h4>{{getUser().name}} {{getUser().lastName}}</h4>
+
+  </header>
+
+
+  <main>
+
+
+<!----------------------------------Update User ----------------------------------->
+
+
+    <section class="user-data">
+
+     <h3 class="head-slide" (click)="toggleMenu()"> User Data <i class="fa-solid fa-user-pen"></i></h3>
+
+     <form [formGroup]="userForm"  [ngClass]="{'menu-open': isMenuOpen}">
+
+      <div class="input-pair">
+        <label  for="email">{{language.getWord('email')}}</label>
+        <input   (change)="updateUserData('email')" [value]="getUser().email" type="email" id="email" formControlName="email" placeholder="{{language.getWord('email')}}" class="input-style" >
+        <!-- <span class="material-symbols-rounded"  (click)="editInput(getUser().email)">
+          edit
+        </span> -->
+      </div>
+
+      <div class="input-pair">
+        <label for="name"> {{language.getWord('name')}} </label>
+        <input (change)="updateUserData('name')" [value]="getUser().name" type="text" id="name" formControlName="name" placeholder="{{language.getWord('name')}}" [ngClass]="{ 'text-style': !userForm.get('name')?.touched, 'input-style': userForm.get('name')?.touched }" [disabled]="!userForm.get('name')?.touched">
+        <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().name)">
+          edit
+        </span> -->
+      </div>
+      <div class="input-pair">
+        <label for="last-name">  {{language.getWord('lastName')}}</label>
+        <input (change)="updateUserData('lastName')" [value]="getUser().lastName" type="text" id="last-name" formControlName="lastName" placeholder="{{language.getWord('lastName')}}" [ngClass]="{ 'text-style': !userForm.get('lastName')?.touched, 'input-style': userForm.get('lastName')?.touched }" [disabled]="!userForm.get('lastName')?.touched">
+        <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().lastName)">
+          edit
+        </span> -->
+      </div>
+
+      <div class="input-pair">
+        <label for="country">{{language.getWord('country')}}</label>
+        <!-- select -->
+        <input (change)="updateUserData('country')" type="number" id="country"  formControlName="country" placeholder="{{language.getWord('country')}}" [ngClass]="{ 'text-style': !userForm.get('country')?.touched, 'input-style': userForm.get('country')?.touched }" [disabled]="!userForm.get('country')?.touched">
+        <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().country)">
+         edit
+        </span> -->
+      </div>
+
+      <div class="input-pair">
+        <label for="address">{{language.getWord('address')}}</label>
+        <input (change)="updateUserData('address')" type="text" id="address" formControlName="address" placeholder="{{language.getWord('address')}}" [ngClass]="{ 'text-style': !userForm.get('address')?.touched, 'input-style': userForm.get('address')?.touched }" [disabled]="!userForm.get('address')?.touched">
+        <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().address)">
+          edit
+        </span> -->
+      </div>
+      <div class="input-pair">
+        <label for="postalCode">{{language.getWord('postalCode')}}</label>
+        <input (change)="updateUserData('pstalCode')" type="text" id="postalCode" formControlName="postalCode" placeholder="{{language.getWord('postalCode')}}" [ngClass]="{ 'text-style': !userForm.get('postalCode')?.touched, 'input-style': userForm.get('postalCode')?.touched }" [disabled]="!userForm.get('postalCode')?.touched">
+        <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().postalCode)">
+          edit
+        </span> -->
+      </div>
+
+      <div class="input-pair">
+        <label for="birthday">{{language.getWord('birthDay')}}</label>
+        <input (change)="updateUserData('birthday')" formControlName="birthDay" placeholder="{{language.getWord('birthDay')}}" type="date" />
+
+
+      </div>
+
+
+<!--
+      <div class="input-pair">
+       <label for="avatar">upload photo</label>
+       <img *ngIf="imageSrc" src="{{imageSrc}}" style="max-width: 150px;" alt="">
+       <input type="file" (change)="uploadFile($event)">
+      </div> -->
+
+    <input type="submit" value="update user" class="submit-btn">
+
+    </form>
+</section>
+
+
+
+
+    <!--------------------------------Update Pet---------------------------------->
+
+    <section class="user-data" >
+
+        <div class="section2-slide">
+           <h3 class="head-slide" (click)="toggleMenu2()"> Pet Data </h3>
+           <select  (change)="getEachPet(selectOption)" [(ngModel)]="selectOption">
+             <option *ngFor="let pet of getUser().pets" value="{{pet.name}}">{{pet.name | uppercase}}</option>
+           </select>
+        </div>
+
+
+
+    <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuPetOpen}" >
+
+      <div class="input-pair">
+        <label for="name">{{language.getWord('name')}}</label>
+        <input (change)="updatePetData('name')" type="text" id="name" formControlName="name" [placeholder]="selectedPet?.name" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched">
+        <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          edit
+        </span> -->
+      </div>
+
+      <div class="input-pair">
+        <label for="type"> {{language.getWord('type')}}:</label>
+        <select (change)="change_type($event)" (change)="updatePetData('type')" name="" id="">
+          <ng-template ngFor let-type [ngForOf]="types" >
+            <option *ngIf="type.id == selectedPet?.type" selected [value]="type.id">{{type.type}}</option>
+          </ng-template>
+          <ng-template ngFor let-type [ngForOf]="types" >
+            <option *ngIf="type.id !== selectedPet?.type" [value]="type.id">{{type.type}}</option>
+          </ng-template>
+        </select>
+
+
+        <!-- <input type="number" id="type" formControlName="type" [placeholder]="selectedPet?.type" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched"> -->
+        <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          edit
+        </span> -->
+      </div>
+      <div class="input-pair">
+        <label for="type"> {{language.getWord('race')}}</label>
+        <select  [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" name="" id="race" (change)="updatePetData('race')">
+          <ng-template ngFor let-race [ngForOf]="races" >
+            <option *ngIf="race.id == selectedPet?.race" selected [value]="race.id">{{race.race}}</option>
+          </ng-template>
+          <ng-template ngFor let-race [ngForOf]="races" >
+            <option *ngIf="race.id !== selectedPet?.race" [value]="race.id">{{race.race}}</option>
+          </ng-template>
+        </select>
+
+
+        <!-- <input type="number" id="type" formControlName="type" [placeholder]="selectedPet?.type" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched"> -->
+
+        <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          edit
+        </span> -->
+      </div>
+
+      <!-- <div class="input-pair">
+        <label for="race"> {{language.getWord('race')}}</label>
+        <input type="text" id="race" formControlName="name" [placeholder]="selectedPet?.race" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched">
+       <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          edit
+        </span>
+      </div> -->
+
+      <div class="input-pair">
+        <label for="gender">{{language.getWord('gender')}}</label>
+        <input type="text" id="gender" formControlName="gender" [placeholder]="selectedPet?.gender" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched">
+        <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          edit
+        </span> -->
+      </div>
+
+      <div class="input-pair">
+        <label for="gender">Description:</label>
+        <input (change)="updatePetData('gender')" type="text" id="gender" formControlName="gender" [placeholder]="selectedPet?.description">
+        <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          edit
+        </span> -->
+      </div>
+
+       <input type="submit" value="update pet" class="submit-btn">
+     </form>
+
+    </section>
+
+
+
+    <!-----------------------------------Add PET----------------------------------->
+
+    <section class="user-data">
+
+      <h3 (click)='toggleMenu3()'> Add Pet <i class="fa-solid fa-user-pen"></i></h3>
+
+      <form [formGroup]="petForm"  [ngClass]="{'menu-open': isMenuNewOpen}" onsubmit="addPet(event)">
+
+        <div class="input-pair">
+          <label for="name"> Name:</label>
+          <input type="text" id="name" formControlName="name" placeholder="new pet's name" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched">
+          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span> -->
+        </div>
+
+        <div class="input-pair">
+          <label for="race"> Race:</label>
+          <select  formControlName="race">
+            <option value="" selected>{{language.getWord('select')}}</option>
+            <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
+          </select>
+          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span> -->
+        </div>
+
+        <div class="input-pair">
+          <label for="gender"> {{language.getWord('type')}}</label>
+          <select (change)="downloadRaces($event)" formControlName="type">
+            <option value="" selected>{{language.getWord('select')}}</option>
+            <option *ngFor="let type of getTypes()"  value="{{type.id}}">{{type.type}}</option>
+          </select>
+            <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span> -->
+        </div>
+        <div class="input-pair">
+          <label for="birthday">{{language.getWord('gender')}}</label>
+          <select name="cars" id="cars" formControlName="gender">
+            <option value="" selected>{{language.getWord('select')}}</option>
+            <option value="M">{{language.getWord('male')}}</option>
+            <option value="F">{{language.getWord('female')}}</option>
+          </select>
+            <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span> -->
+        </div>
+        <div class="input-pair">
+          <label for="description"> {{language.getWord('description')}}</label>
+          <input type="text" id="description" formControlName="description" placeholder="{{language.getWord('description')}}" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched" >
+          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span> -->
+        </div>
+       <input type="submit" value="add pet" class="submit-btn">
+       </form>
+    </section>
+
+
+
+    <!--------------------------------Delete Pet----------------------------------->
+
+
+
+    <section  class="user-data" >
+      <h3 class="delete-pet-slide"  (click)="toggleMenu4()"> Delete Pet<i class="fa-solid fa-user-pen"></i></h3>
+      <form  [ngClass]="{'menu-open': isMenuDelOpen}">
+        <h3 style="color: #FBB033; padding:5px">Choose to delete</h3>
+      <ol *ngFor="let pet of getUser().pets, index as i" style="color: white; ">
+       <li><a (click)="pet_delete_routing($event)" [id]="pet.id"  style="color:white; font-size: 22px; text-decoration:none">{{pet.name}}</a></li>
+      </ol>
+
+      </form>
+    </section>
+
+    <section class="user-data">
+
+      <h3 class="head-slide" routerLink="/" (click)="toggleMenu5()">Logout <i class="fa-solid fa-user-pen"></i></h3>
+    </section>
+  </main>
+</div>
+<router-outlet />
