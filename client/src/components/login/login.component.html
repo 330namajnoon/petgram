@@ -8,7 +8,7 @@
   />
   <form [formGroup]="form" (ngSubmit)="sendData()">
     <div>
-      <label for="email">Correo Electrónico:</label>
+      <label for="email">{{language.getWord('email')}}:</label>
       <input
         formControlName="email"
         placeholder="Ingrese un correo electrónico"
@@ -34,6 +34,6 @@
     </div>
   </form>
   <div class="register">
-    <a routerLink="/signup">Registrar</a>
+    <a routerLink="/signup">{{language.getWord('register')}}</a>
   </div>
 </div>

@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/register.service';
 import { AppService } from 'src/services/app.service';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { Router } from '@angular/router';
+import { RegisterController } from '../register/register.controller';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent extends AppServiceEx {
+export class LoginComponent extends AppServiceEx implements OnInit {
+  ctrl = inject(RegisterController);
+
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -20,6 +23,12 @@ export class LoginComponent extends AppServiceEx {
 
   constructor(private appservice:AppService,private registerService: RegisterService,private router:Router) {
     super(appservice);
+  }
+
+  ngOnInit(): void {
+    this.ctrl.formDataPet.reset();
+    this.ctrl.formDataUser.reset();
+    this.ctrl.formImagePet.reset();
   }
 
   async sendData() {

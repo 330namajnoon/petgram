@@ -50,6 +50,7 @@ export class FirstPageComponent extends AppServiceEx implements OnInit {
     if (this.group.valid) {
       const select = document.getElementById("language") as HTMLSelectElement;
       this.registerS.setLanguage(select.value);
+      this.language.setLanguage(select.value);
       this.router.navigate(["/login"]);
     }
   }

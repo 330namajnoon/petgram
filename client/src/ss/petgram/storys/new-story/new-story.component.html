@@ -1,6 +1,0 @@
-<div [ngClass]="getDevice()">
-  <div *ngIf="getFileURL()" class="medya">
-    <img *ngIf="getFileType() == 'jpeg' || getFileType() == 'png' " [src]="getFileURL()" alt="">
-    <video (click)="videoPlay_pause()"  #video *ngIf="getFileType() == 'mp4'" [src]="getFileURL()" preload="auto"></video>
-  </div>
-</div>

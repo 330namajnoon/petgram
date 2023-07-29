@@ -22,91 +22,59 @@
 
     <section class="user-data">
 
-      <h3 class="head-slide" (click)="toggleMenu('user-data')"> User Data <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 class="head-slide" (click)="toggleMenu('user-data')">{{language.getWord('userData')}} <i class="fa-solid fa-user-pen"></i></h3>
 
       <form [formGroup]="userForm" [ngClass]="{'menu-open': menuOpen === 'user-data'}">
 
         <div class="input-pair">
           <label for="email">{{language.getWord('email')}}</label>
-          <input (change)="updateUserData('email')" [value]="getUser().email" type="email" id="email"
-            formControlName="email" placeholder="{{language.getWord('email')}}" class="input-style">
-          <!-- <span class="material-symbols-rounded"  (click)="editInput(getUser().email)">
-          edit
-        </span> -->
+          <input [value]="getUser().email" type="email" id="email" formControlName="email"
+            placeholder="{{language.getWord('email')}}" class="input-style">
         </div>
 
         <div class="input-pair">
           <label for="name"> {{language.getWord('name')}} </label>
-          <input (change)="updateUserData('name')" [value]="getUser().name" type="text" id="name" formControlName="name"
+          <input [value]="getUser().name" type="text" id="name" formControlName="name"
             placeholder="{{language.getWord('name')}}"
             [ngClass]="{ 'text-style': !userForm.get('name')?.touched, 'input-style': userForm.get('name')?.touched }"
             [disabled]="!userForm.get('name')?.touched">
-          <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().name)">
-          edit
-        </span> -->
         </div>
         <div class="input-pair">
           <label for="last-name"> {{language.getWord('lastName')}}</label>
-          <input (change)="updateUserData('lastName')" [value]="getUser().lastName" type="text" id="last-name"
-            formControlName="lastName" placeholder="{{language.getWord('lastName')}}"
+          <input [value]="getUser().lastName" type="text" id="last-name" formControlName="lastName"
+            placeholder="{{language.getWord('lastName')}}"
             [ngClass]="{ 'text-style': !userForm.get('lastName')?.touched, 'input-style': userForm.get('lastName')?.touched }"
             [disabled]="!userForm.get('lastName')?.touched">
-          <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().lastName)">
-          edit
-        </span> -->
         </div>
 
         <div class="input-pair">
           <label for="city">{{language.getWord('city')}}</label>
-          <!-- select -->
-          <input (change)="updateUserData('country')" type="number" id="country" formControlName="country"
-            placeholder="{{language.getWord('city')}}"
-            [ngClass]="{ 'text-style': !userForm.get('country')?.touched, 'input-style': userForm.get('country')?.touched }"
-            [disabled]="!userForm.get('country')?.touched">
-          <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().country)">
-         edit
-        </span> -->
+          <select formControlName="country">
+            <option value="" selected>{{language.getWord('select_city')}} </option>
+            <option *ngFor="let city of cities" [value]="city.id">{{city.country}}</option>
+          </select>
         </div>
 
         <div class="input-pair">
           <label for="address">{{language.getWord('address')}}</label>
-          <input (change)="updateUserData('address')" type="text" id="address" formControlName="address"
-            placeholder="{{language.getWord('address')}}"
+          <input type="text" id="address" formControlName="address" placeholder="{{language.getWord('address')}}"
             [ngClass]="{ 'text-style': !userForm.get('address')?.touched, 'input-style': userForm.get('address')?.touched }"
             [disabled]="!userForm.get('address')?.touched">
-          <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().address)">
-          edit
-        </span> -->
         </div>
         <div class="input-pair">
           <label for="postalCode">{{language.getWord('postalCode')}}</label>
-          <input (change)="updateUserData('pstalCode')" type="text" id="postalCode" formControlName="postalCode"
+          <input type="text" id="postalCode" formControlName="postalCode"
             placeholder="{{language.getWord('postalCode')}}"
             [ngClass]="{ 'text-style': !userForm.get('postalCode')?.touched, 'input-style': userForm.get('postalCode')?.touched }"
             [disabled]="!userForm.get('postalCode')?.touched">
-          <!-- <span class="material-symbols-rounded"   (click)="editInput(getUser().postalCode)">
-          edit
-        </span> -->
         </div>
 
         <div class="input-pair">
           <label for="birthday">{{language.getWord('birthDay')}}</label>
-          <input (change)="updateUserData('birthday')" formControlName="birthDay"
-            placeholder="{{language.getWord('birthDay')}}" type="date" />
-
-
+          <input formControlName="birthDay" placeholder="{{language.getWord('birthDay')}}" type="date" />
         </div>
 
-
-        <!--
-      <div class="input-pair">
-       <label for="avatar">upload photo</label>
-       <img *ngIf="imageSrc" src="{{imageSrc}}" style="max-width: 150px;" alt="">
-       <input type="file" (change)="uploadFile($event)">
-      </div> -->
-
-        <input type="submit" value="Update user" class="submit-btn">
-
+        <input type="button" value="{{language.getWord('update_user')}}" class="submit-btn" (click)="updateUser()">
       </form>
     </section>
 
@@ -118,7 +86,7 @@
     <section class="user-data">
 
       <div class="section2-slide">
-        <h3 class="head-slide" (click)="toggleMenu('pet-data')"> Pet Data </h3>
+        <h3 class="head-slide" (click)="toggleMenu('pet-data')">{{language.getWord('pet_data')}} </h3>
       </div>
 
       <form [formGroup]="petForm" [ngClass]="{'menu-open': menuOpen === 'pet-data'}">
@@ -158,7 +126,7 @@
           </div>
 
           <div class="input-pair">
-            <label for="race"> Race:</label>
+            <label for="race"> {{language.getWord('race')}}</label>
             <select formControlName="race">
               <option value="" selected>{{language.getWord('select')}}</option>
               <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
@@ -186,14 +154,14 @@
           </div>
 
           <div class="input-pair">
-            <label>Description:</label>
+            <label>{{language.getWord('description')}}:</label>
             <input type="text" formControlName="description" [placeholder]="selectedPet?.description">
             <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
           edit
         </span> -->
           </div>
 
-          <input type="button" value="Update pet" class="submit-btn" (click)="updatePet()">
+          <input type="button" value="{{language.getWord('update_pet')}}"class="submit-btn" (click)="updatePet()">
 
         </ng-container>
       </form>
@@ -206,13 +174,13 @@
 
     <section class="user-data">
 
-      <h3 (click)="toggleMenu('add-pet')"> Add Pet <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 (click)="toggleMenu('add-pet')"> {{language.getWord('add_pet')}} <i class="fa-solid fa-user-pen"></i></h3>
 
       <form [formGroup]="petForm" [ngClass]="{'menu-open': menuOpen === 'add-pet'}">
 
         <div class="input-pair">
-          <label for="name"> Name:</label>
-          <input type="text" id="name" formControlName="name" placeholder="new pet's name"
+          <label for="name"> {{language.getWord('name')}}:</label>
+          <input type="text" id="name" formControlName="name" placeholder="{{language.getWord('name')}}"
             [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }"
             [disabled]="!userForm.get('email')?.touched">
           <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
@@ -236,7 +204,7 @@
         </div>
 
         <div class="input-pair">
-          <label for="race"> Race:</label>
+          <label for="race"> {{language.getWord('race')}}</label>
           <select formControlName="race">
             <option value="" selected>{{language.getWord('select')}}</option>
             <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
@@ -274,7 +242,7 @@
             (change)="onFileChange($event) ">
         </div>
 
-        <input type="button" value="Add pet" class="submit-btn" (click)="addPet()">
+        <input type="button" value="{{language.getWord('add_pet')}}" class="submit-btn" (click)="addPet()">
       </form>
     </section>
 
@@ -283,13 +251,13 @@
     <!--------------------------------Delete Pet----------------------------------->
 
     <section class="user-data">
-      <h3 class="delete-pet-slide" (click)="toggleMenu('delete-pet')"> Delete Pet<i class="fa-solid fa-user-pen"></i>
+      <h3 class="delete-pet-slide" (click)="toggleMenu('delete-pet')">{{language.getWord('delete_pet')}}<i class="fa-solid fa-user-pen"></i>
       </h3>
       <form [ngClass]="{'menu-open': menuOpen === 'delete-pet'}">
-        <h3 style="color: #FBB033; padding:5px">Choose to delete</h3>
+        <h3 style="color: #FBB033; padding:5px">{{language.getWord('choose_delete')}}</h3>
         <ol *ngFor="let pet of getUser().pets, index as i" style="color: white; margin-bottom: 25px">
-            <a class="delete-button" (click)="pet_delete_routing($event)" [id]="pet.id"
-              style="color:white; font-size: 22px; text-decoration:none">{{pet.name | titlecase}}</a>
+          <a class="delete-button" (click)="pet_delete_routing($event)" [id]="pet.id"
+            style="color:white; font-size: 22px; text-decoration:none">{{pet.name | titlecase}}</a>
         </ol>
 
       </form>
@@ -297,7 +265,7 @@
 
     <section class="user-data">
 
-      <h3 class="head-slide" (click)="logout()">Logout <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 class="head-slide" (click)="logout()">{{language.getWord('log_out')}} <i class="fa-solid fa-user-pen"></i></h3>
     </section>
   </main>
 </div>

@@ -24,6 +24,8 @@ export class ImagePetComponent extends AppServiceEx {
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
+
+      this.registerS.setPetImage(file);
       reader.readAsDataURL(file);
 
       reader.onload = () => {
@@ -42,8 +44,6 @@ export class ImagePetComponent extends AppServiceEx {
     console.log(this.ctrl.formDataPet.value)
     console.log(this.ctrl.formImagePet.value)
     if (this.form.valid) {
-      let file:any = document.getElementById("image_pet_file");
-      this.registerS.setProfileImage(file.files[0] as File);
       this.setLoading(true);
       let res = await this.registerS.signup();
       this.setLoading(false);

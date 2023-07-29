@@ -1,8 +1,10 @@
 <div [ngClass]="getDevice()">
   <div class="header">
-    <span (click)="next()" *ngIf="getStep() >= 0 && getStep() < 1" class="material-symbols-rounded">arrow_right_alt</span>
+    <span (click)="next()" *ngIf="getStep() >= 0 && getStep() < 1"
+      class="material-symbols-rounded">arrow_right_alt</span>
     <span *ngIf="getStep() == 1" (click)="getStorysView()" class="material-symbols-rounded">arrow_right_alt</span>
-    <span (click)="getProfileView()" *ngIf="getStep() == 0" (click)="back()" class="material-symbols-rounded">undo</span>
+    <span (click)="getProfileView()" *ngIf="getStep() == 0" (click)="back()"
+      class="material-symbols-rounded">undo</span>
     <span (click)="back()" *ngIf="getStep() > 0 && getStep() < 2" class="material-symbols-rounded">undo</span>
   </div>
   <div *ngIf="getFileURL()" class="medya">
@@ -12,17 +14,17 @@
 
   </div>
 
-  <form [formGroup]="group" *ngIf="getStep() == 1" class="select_pet"  action="">
+  <form [formGroup]="group" *ngIf="getStep() == 1" class="select_pet" action="">
     <div>
-      <select formControlName="petName"  name="" id="">
+      <select formControlName="petName">
         <option value="" selected>{{language.getWord("selectPet")}}</option>
-        <option  *ngFor="let pet of getUser().pets" [value]="pet.id">{{pet.name}}</option>
+        <option *ngFor="let pet of getUser().pets" [value]="pet.id">{{pet.name}}</option>
       </select>
-      <app-validator  [control]="group.get('petName')"/>
+      <app-validator [control]="group.get('petName')" />
     </div>
     <div>
       <textarea placeholder="{{language.getWord('description')}}" formControlName="description"></textarea>
-      <app-validator  [control]="group.get('description')"/>
+      <app-validator [control]="group.get('description')" />
     </div>
   </form>
 

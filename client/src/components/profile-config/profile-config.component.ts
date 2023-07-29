@@ -41,7 +41,10 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
   types!: ITypes[];
   races!: IRaces[];
   countries: any;
+  cities!: { id: number; country: string }[];
 
+
+  userForm = inject(RegisterController).formDataUser
   petForm = inject(RegisterController).formDataPet
   formImagePet = inject(RegisterController).formImagePet
 
@@ -55,16 +58,17 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
     private proConfig: ProfileConfigService,
     private router: Router,
     private regService: RegisterService,
+
   ) {
     super(appService)
     this.get_ts(undefined);
+    this.downloadCitys();
   }
   //------------------------------------------- methods ----------------------------------
 
   ngOnInit() {
     this.userData = this.getUser();
     this.petsData = this.getUser().pets;
-    console.log(this.petsData);
     this.get_ts(undefined);
 
     // RESETEO DE FORMULARIOS
@@ -72,6 +76,16 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
     this.formImagePet.reset();
     this.imageSrc = "assets/images/profile.png";
     this.selectOption = '';
+
+    this.userForm.patchValue({
+      email: this.getUser().email,
+      name: this.getUser().name,
+      lastName: this.getUser().lastName,
+      country: this.getUser().country,
+      address: this.getUser().address,
+      postalCode: this.getUser().postalCode,
+      birthDay: this.getUser().birthDay ? formatDate(new Date(this.getUser().birthDay), 'yyyy-MM-dd', 'en') : undefined,
+    });
   }
   getRaces(): { id: number; race: string }[] {
     return this.races;
@@ -155,25 +169,21 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
     }
   }
 
+  async downloadCitys() {
+    this.setLoading(true);
+    let res = await this.regService.getCoutrys();
+    this.setLoading(false);
+    console.log('CITIES');
+    console.log(res.data)
+    if (!res.error) {
+      this.cities = res.data;
+    } else {
+      this.router.navigate(["/error"], { state: { error: res.error } });
+    }
+  }
+
 
   // ------------------------------------ USER FORM --------------------------------------
-
-  userForm = new FormGroup({
-    id: new FormControl('', [Validators.email]),
-    email: new FormControl(''),
-    name: new FormControl(''),
-    lastName: new FormControl(''),
-    image: new FormControl(''),
-    age: new FormControl(18),
-    address: new FormControl(''),
-    country: new FormControl(),
-    postalCode: new FormControl(0),
-    phone: new FormControl(0),
-    languages: new FormControl(""),
-    pets: new FormControl([]),
-    password: new FormControl('', Validators.required),
-    passwordConfirm: new FormControl('', [Validators.required])
-  })
 
   save(): void {
     console.log(this.userForm.get('email')?.value);
@@ -261,80 +271,28 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
 
   //----------------------------------- Update User Data -------------------------------
 
-
-  updateUserData(atr: string) {
-    switch (atr) {
-      case "email":
-        this.getUser().email = this.userForm.get(atr)?.value || "";
-        break;
-      case "name":
-        this.getUser().name = this.userForm.get(atr)?.value || "";
-        break;
-      case "lastName":
-        this.getUser().lastName = this.userForm.get(atr)?.value || "";
-        break;
-      case "country":
-        this.getUser().country = this.userForm.get(atr)?.value || "";
-        break;
-      case "address":
-        this.getUser().address = this.userForm.get(atr)?.value || "";
-        break;
-      case "postalCode":
-        this.getUser().postalCode = this.userForm.get(atr)?.value || 0;
-        break;
-      case "birthDay":
-        this.getUser().birthDay = this.userForm.get(atr)?.value || "";
-        break;
-      default:
-        break;
-
+  updateUser(): void {
+    let user = {
+      id: this.getUser().id,
+      email: this.userForm.get("email")?.value,
+      name: this.userForm.get("name")?.value,
+      lastName: this.userForm.get("lastName")?.value,
+      country: this.userForm.get("country")?.value,
+      address: this.userForm.get("address")?.value,
+      postalCode: this.userForm.get("postalCode")?.value,
+      birthDay: this.userForm.get("birthDay")?.value,
     }
-
-
-
-
-
-    // let id =this.userForm.get("id")?.value || "";
-    // let name = this.userForm.get("name")?.value || "";
-    // let lastName = this.userForm.get("lastName")?.value || "";
-    // let birthDay =this.userForm.get("name")?.value || "";
-    // let address =  this.userForm.get("address")?.value || "";
-    // let country = this.userForm.get("country")?.value || 0;
-    // let postalCode = this.userForm.get("postalCode")?.value || 0;
-    // let phone = this.userForm.get("phone")?.value || 0;
-    // let image = this.userForm.get("image")?.value || "";
-    // let email = this.userForm.get("email")?.value || "";
-    // let password =  this.userForm.get("password")?.value || "";
-    // let language =  this.userForm.get("language")?.value || "";
-
-    // const newUser: IUser = {
-    //   name,
-    //   lastName,
-    //   pets: [],
-    //   id: '',
-    //   birthDay,
-    //   address,
-    //   country,
-    //   postalCode,
-    //   phone,
-    //   image: this.getURL(),
-    //   email,
-    //   password,
-    //   language,
-    //   followers: [],
-    //   following: [],
-    //   pendingFollowers: [],
-    //   storys: []
-
-    //   // this.httpClient.post()
-    // }
-
-
-
-
-
-
+    if (user.email && user.name && user.lastName && user.birthDay && user.address && user.country && user.postalCode) {
+      this.http.post<IHTTPResponse<any>>(this.getURL() + "/update-user", user).subscribe(async (res) => {
+        alert('Datos actualizados correctamente');
+        await this.appService2.loadUser();
+        this.ngOnInit();
+      });
+    } else {
+      alert('FALTAN DATOS');
+    }
   }
+
 
 
 
@@ -343,12 +301,12 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
 
   updatePet(): void {
     let pet_id = this.selectOption;
-    let name = this.petForm.get("name")?.value || "";
-    let birthDay = this.petForm.get('birthDay')?.value || "";
-    let type = this.petForm.get("type")?.value || 1;
-    let race = this.petForm.get("race")?.value || 1;
-    let gender = this.petForm.get("gender")?.value || "";
-    let description = this.petForm.get("description")?.value || "";
+    let name = this.petForm.get("name")?.value;
+    let birthDay = this.petForm.get('birthDay')?.value;
+    let type = this.petForm.get("type")?.value;
+    let race = this.petForm.get("race")?.value;
+    let gender = this.petForm.get("gender")?.value;
+    let description = this.petForm.get("description")?.value;
 
     if (birthDay && name && type && race && gender && pet_id) {
       this.http.post<IHTTPResponse<any>>(this.getURL() + "/update-pet", {
@@ -370,12 +328,12 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
 
   addPet(): void {
     let user_id = this.getUser().id;
-    let name = this.petForm.get("name")?.value || "";
-    let birthDay = this.petForm.get('birthDay')?.value || "";
-    let type = this.petForm.get("type")?.value || 1;
-    let race = this.petForm.get("race")?.value || 1;
-    let gender = this.petForm.get("gender")?.value || "";
-    let description = this.petForm.get("description")?.value || "";
+    let name = this.petForm.get("name")?.value;
+    let birthDay = this.petForm.get('birthDay')?.value;
+    let type = this.petForm.get("type")?.value;
+    let race = this.petForm.get("race")?.value;
+    let gender = this.petForm.get("gender")?.value;
+    let description = this.petForm.get("description")?.value;
 
     if (birthDay && name && type && race && gender && user_id && this.formImagePet.valid) {
       const formData = new FormData();

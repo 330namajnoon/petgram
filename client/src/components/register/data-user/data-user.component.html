@@ -33,8 +33,8 @@
     </div>
     <div>
       <label for="country">{{language.getWord('city')}}:</label>
-      <select formControlName="country" >
-        <option value="" selected >Seleccionar city</option>
+      <select formControlName="country">
+        <option value="" selected>{{language.getWord('select_city')}}</option>
         <option *ngFor="let city of cities" value="{{city.id}}">{{city.country}}</option>
       </select>
       <app-validator [control]="form.get('country')" />
@@ -45,8 +45,9 @@
       <app-validator [control]="form.get('postalCode')" />
     </div>
     <div>
-      <label for="email">{{language.getWord('email')}}:</label>
-      <input formControlName="email" placeholder="{{language.getWord('email')}}" type="email" id="email" name="email" />
+      <label>{{language.getWord('email')}}:</label>
+      <input formControlName="email" autocomplete="off" name="nada" placeholder="{{language.getWord('email')}}"
+        type="email" />
       <app-validator [control]="form.get('email')" />
     </div>
     <div>
@@ -57,19 +58,19 @@
 
     <div>
       <label for="password">{{language.getWord('password')}}:</label>
-      <input formControlName="password" placeholder="{{language.getWord('password')}}" type="password" />
+      <input formControlName="password" autocomplete="off" name="nada" placeholder="{{language.getWord('password')}}" type="password" />
     </div>
     <div>
       <app-password-validator [control]="form.get('password')" />
     </div>
     <div>
       <label for="confirmpassword">{{language.getWord('password_confirmation')}}:</label>
-      <input formControlName="confirmPassword" placeholder="{{language.getWord('password_confirmation')}}" type="password" />
+      <input formControlName="confirmPassword" placeholder="{{language.getWord('password_confirmation')}}"
+        type="password" />
       <app-password-validator [control]="form.get('confirmPassword')" />
     </div>
-     <div>
-    <button class="siguiente" (click)="goNext()">{{language.getWord('next')}}</button>
+    <div>
+      <button class="siguiente" (click)="goNext()">{{language.getWord('next')}}</button>
+    </div>
   </div>
 </div>
-  </div>
-

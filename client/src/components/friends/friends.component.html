@@ -10,7 +10,7 @@
             <ng-container matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
                 <div class="content-follows">
-                  <img loading="lazy" [src]="element.avatar" (click)="goProfile(element)">
+                  <img loading="lazy" [src]="element.image" (click)="goProfile(element)">
                   {{element.name}} {{element.lastName}}
                 </div>
               </td>
@@ -35,7 +35,7 @@
             <ng-container matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
                 <div class="content-follows">
-                  <img loading="lazy" [src]="element.avatar" (click)="goProfile(element)">
+                  <img loading="lazy" [src]="element.image" (click)="goProfile(element)">
                   {{element.name}} {{element.lastName}}
                 </div>
               </td>
@@ -66,7 +66,7 @@
             <ng-container matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
                 <div class="content-follows">
-                  <img loading="lazy" [src]="element.avatar" (click)="goProfile(element)">
+                  <img loading="lazy" [src]="element.image" (click)="goProfile(element)">
                   {{element.name}} {{element.lastName}}
                 </div>
               </td>
