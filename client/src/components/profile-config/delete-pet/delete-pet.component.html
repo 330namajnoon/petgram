@@ -7,10 +7,10 @@
     </span>
   </div>
 
-  <h4 style="color:#FBB033 ;">You're about to remove pet with Id: {{petId}}</h4>
+  <h4 style="color:#FBB033 ;">You're about to remove pet: {{petName}}</h4>
 
  <form [formGroup]="passForm" ngSubmit="" class="password-field">
-    <div class="input-pair">
+    <!-- <div class="input-pair">
       <label for="password">Your password</label>
     <input type="password" placeholder="enter your password" #enteredPassword formControlName="password">
 
@@ -23,8 +23,8 @@
           Passwords don't match!
       </span>
     </div>
-  </div>
-  <input type="submit" (click)="removePet()" class="save-btn"   value="Remove Pet">
+  </div> -->
+  <input type="button" (click)="removePet()" class="save-btn"   value="Confirmar">
 
 
 </form>

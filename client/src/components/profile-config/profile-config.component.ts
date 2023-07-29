@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 import { RegisterService } from 'src/services/register.service';
 import { ITypes } from 'src/interfaces/ITypes';
 import { IRaces } from 'src/interfaces/IRaces';
+import { HttpClient } from '@angular/common/http';
+import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-profile-config',
@@ -28,12 +31,9 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
   selectedPet: IPet | undefined;
   selectOption: string = "Choose pet"
   selectValue: string = "";
-  isMenuOpen: boolean = false;
-  isMenuPetOpen: boolean = false;
-  isMenuNewOpen: boolean = false;
-  isMenuDelOpen: boolean = false;
-  isMenuLoginoutOpen: boolean = false;
-  imageSrc: string | undefined;
+  menuOpen: 'user-data' | 'pet-data' | 'add-pet' | 'delete-pet' | '' = '';
+  imageSrc: string = "assets/images/profile.png";
+  imageFile!: File;
   userData!: IUser;
   petsData: IPet[] = [];
   deletedList: IUser[] = [];
@@ -48,13 +48,16 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
   //---------------------------------------constructor -------------------------------------
 
 
-  constructor(appService: AppService,
+  constructor(
+    appService: AppService,
+    private appService2: AppService,
+    private http: HttpClient,
     private proConfig: ProfileConfigService,
     private router: Router,
     private regService: RegisterService,
-
   ) {
     super(appService)
+    this.get_ts(undefined);
   }
   //------------------------------------------- methods ----------------------------------
 
@@ -62,27 +65,34 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
     this.userData = this.getUser();
     this.petsData = this.getUser().pets;
     console.log(this.petsData);
+    this.get_ts(undefined);
 
+    // RESETEO DE FORMULARIOS
+    this.petForm.reset();
+    this.formImagePet.reset();
+    this.imageSrc = "assets/images/profile.png";
+    this.selectOption = '';
   }
-  getRaces():{id:number;race:string}[] {
-    return this.races;}
+  getRaces(): { id: number; race: string }[] {
+    return this.races;
+  }
 
-    async downloadRaces(event:Event) {
-      let select = event.target as HTMLSelectElement;
-      if(select.value !== "") {
-        this.setLoading(true);
-        let res = await this.regService.getRaces(parseInt(select.value));
-        this.setLoading(false);
-        if (!res.error) {
-          this.races = res.data;
-        } else {
-          this.router.navigate(["/error"], { state: { error: res.error } });
-        }
+  async downloadRaces(event: Event) {
+    let select = event.target as HTMLSelectElement;
+    if (select.value !== "") {
+      this.setLoading(true);
+      let res = await this.regService.getRaces(parseInt(select.value));
+      this.setLoading(false);
+      if (!res.error) {
+        this.races = res.data;
+      } else {
+        this.router.navigate(["/error"], { state: { error: res.error } });
       }
     }
-    getTypes():{id:number;type:string}[] {
-      return this.types;
-    }
+  }
+  getTypes(): { id: number; type: string }[] {
+    return this.types;
+  }
 
   change_type(e: Event) {
     let select = e.target as HTMLSelectElement;
@@ -102,7 +112,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
 
     this.setLoading(false)
   }
-  logout(){
+  logout() {
     localStorage.clear();
     this.router.navigate(["/login"])
   }
@@ -130,6 +140,21 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
       this.setLoading(false);
     }
   }
+  onFileChange(event: any) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      this.imageFile = file;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+        this.formImagePet.patchValue({
+          fileSource: reader.result as any
+        });
+      };
+    }
+  }
+
 
   // ------------------------------------ USER FORM --------------------------------------
 
@@ -201,26 +226,12 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
 
 
   }
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen
+
+  toggleMenu(option: any) {
+    this.menuOpen = option === this.menuOpen ? '' : option;
+    this.ngOnInit();
   }
 
-  toggleMenu2() {
-    this.isMenuPetOpen = !this.isMenuPetOpen;
-  }
-
-  toggleMenu3() {
-    this.isMenuNewOpen = !this.isMenuNewOpen;
-  }
-
-
-  toggleMenu4() {
-    this.isMenuDelOpen = !this.isMenuDelOpen;
-  }
-
-  toggleMenu5() {
-    this.isMenuLoginoutOpen = !this.isMenuLoginoutOpen;
-  }
 
   editMode: boolean = false;
 
@@ -231,10 +242,18 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
 
   // ------------------------------------- Select pet In Pet Data --------------------------
 
-  getEachPet(selectOption: string): void {
-    this.selectedPet = this.getUser().pets.find(p => p.name === selectOption);
-    console.log(this.selectedPet);
-    this.get_ts(undefined);
+  async getEachPet(selectOption: string) {
+    this.selectedPet = this.getUser().pets.find(p => p.id === selectOption);
+    await this.get_ts(this.selectedPet?.type);
+
+    this.petForm.patchValue({
+      name: this.selectedPet?.name,
+      birthDay: this.selectedPet?.birthDay ? formatDate(new Date(this.selectedPet?.birthDay), 'yyyy-MM-dd', 'en') : undefined,
+      type: this.selectedPet?.type,
+      race: this.selectedPet?.race,
+      gender: this.selectedPet?.gender,
+      description: this.selectedPet?.description,
+    })
 
     //this.selectedPet.type = this.get_ts();
 
@@ -322,98 +341,64 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
 
   // -------------------------------- Update Pet Data  ----------------------------------
 
-
-  updatePetData(atr: string) {
-    switch (atr) {
-      case "name":
-        this.selectedPet!.name = this.petForm.get(atr)?.value || "";
-        break;
-      case "type":
-        this.selectedPet!.type = this.petForm.get(atr)?.value || 0;
-        break;
-      case "race":
-        this.selectedPet!.race = this.petForm.get(atr)?.value || 0;
-        break;
-      case "gender":
-        this.selectedPet!.gender = this.petForm.get(atr)?.value || "";
-        break;
-      case "description":
-        this.selectedPet!.description = this.petForm.get(atr)?.value || "";
-        break;
-
-      default:
-        break;
-
-    }
-
-  }
-
-
-  // ------------------------------------ Add New Pet ----------------------------------
-
-
-  //   addPet(pet : IPet): void {
-
-  //     let id= this.petForm.get("id")?.value || "";
-  //     let user_id = this.petForm.get('user_id')?.value || "";
-  //     let name = this.petForm.get("name")?.value || "";
-  //     let birthDay = this.petForm.get('birthday')?.value || "";
-  //     let type = this.petForm.get("type")?.value || 1;
-  //     let race =  this.petForm.get("race")?.value || 1;
-  //     let gender = this.petForm.get("gender")?.value || "";
-  //     let description = this.petForm.get("description")?.value || "";
-
-  //     pet = {
-  //      id: id,
-  //      user_id: user_id,
-  //      name: name,
-  //      birthDay: birthDay,
-  //      type: type,
-  //      race: race,
-  //      gender: gender,
-  //      description: description
-  //    }
-
-  //    this.getUser().pets.push(pet)
-  //    console.log(this.getUser().pets.push(pet));
-  // }
-
-
-
-
-
-
-  addPet(pet: IPet): void {
-
-    let id = this.petForm.get("id")?.value || "";
-    let user_id = this.petForm.get('user_id')?.value || "";
+  updatePet(): void {
+    let pet_id = this.selectOption;
     let name = this.petForm.get("name")?.value || "";
-    let birthDay = this.petForm.get('birthday')?.value || "";
+    let birthDay = this.petForm.get('birthDay')?.value || "";
     let type = this.petForm.get("type")?.value || 1;
     let race = this.petForm.get("race")?.value || 1;
     let gender = this.petForm.get("gender")?.value || "";
     let description = this.petForm.get("description")?.value || "";
 
-    pet = {
-      id: id,
-      user_id: user_id,
-      name: name,
-      birthDay: birthDay,
-      type: type,
-      race: race,
-      gender: gender,
-      description: description
-    };
-
-    // Ensure that the 'pets' property is initialized as an empty array
-    if (!this.getUser().pets) {
-      this.getUser().pets = [];
+    if (birthDay && name && type && race && gender && pet_id) {
+      this.http.post<IHTTPResponse<any>>(this.getURL() + "/update-pet", {
+        pet_id: pet_id,
+        name: name,
+        birthDay: birthDay,
+        type: type,
+        race: race,
+        gender: gender,
+        description: description,
+      }).subscribe(async (res) => {
+        alert('Datos actualizados correctamente');
+        await this.appService2.loadUser();
+      });
+    } else {
+      alert('FALTAN DATOS');
     }
+  }
 
-    // Add the pet to the user's pets array
-    this.getUser().pets.push(pet);
+  addPet(): void {
+    let user_id = this.getUser().id;
+    let name = this.petForm.get("name")?.value || "";
+    let birthDay = this.petForm.get('birthDay')?.value || "";
+    let type = this.petForm.get("type")?.value || 1;
+    let race = this.petForm.get("race")?.value || 1;
+    let gender = this.petForm.get("gender")?.value || "";
+    let description = this.petForm.get("description")?.value || "";
 
-    console.log(this.getUser().pets);
+    if (birthDay && name && type && race && gender && user_id && this.formImagePet.valid) {
+      const formData = new FormData();
+      formData.append("user_id", user_id);
+      formData.append("name", name);
+      formData.append("birthDay", birthDay);
+      formData.append("type", type);
+      formData.append("race", race);
+      formData.append("gender", gender);
+      formData.append("description", description);
+      formData.append("file", this.imageFile);
+
+      this.http.post<IHTTPResponse<any>>(this.getURL() + "/add-pet", formData).subscribe((res) => {
+        alert('REGISTRO OK');
+        this.petForm.reset();
+        this.formImagePet.reset();
+        this.imageSrc = "assets/images/profile.png";
+
+        this.appService2.loadUser();
+      });
+    } else {
+      alert('FALTAN DATOS');
+    }
   }
 
 
