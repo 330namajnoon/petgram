@@ -20,7 +20,7 @@ export class UploadImgComponent extends AppServiceEx {
   isImgSrc: boolean = false;
   user!: IUser;
   file!: File;
-  constructor(app: AppService, private proConfigService: ProfileConfigService,private router:Router) {
+  constructor(app: AppService, private proConfigService: ProfileConfigService, private router: Router) {
     super(app)
   }
 
@@ -48,15 +48,18 @@ export class UploadImgComponent extends AppServiceEx {
 
   }
   async saveImg() {
-    this.setLoading(true);
-    let res = await this.proConfigService.updateImage(this.getUser().id,this.file);
-    if(!res.error) {
-      this.setLoading(false);
-      this.router.navigate(["/petgram","settings"]);
-    }else {
-      this.router.navigate(["/petgram","error"],{state:{error:res.error}});
+    if (this.file) {
+      this.setLoading(true);
+      let res = await this.proConfigService.updateImage(this.getUser().id, this.file);
+      if (!res.error) {
+        this.setLoading(false);
+        this.router.navigate(["/petgram", "settings"]);
+      } else {
+        this.router.navigate(["/petgram", "error"], { state: { error: res.error } });
+      }
+    } else {
+      alert('Debe seleccionar una imagen');
     }
-
   }
 
 

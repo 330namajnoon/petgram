@@ -22,7 +22,7 @@
 
     <section class="user-data">
 
-      <h3 class="head-slide" (click)="toggleMenu('user-data')"> User Data <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 class="head-slide" (click)="toggleMenu('user-data')">{{language.getWord('userData')}} <i class="fa-solid fa-user-pen"></i></h3>
 
       <form [formGroup]="userForm" [ngClass]="{'menu-open': menuOpen === 'user-data'}">
 
@@ -50,7 +50,7 @@
         <div class="input-pair">
           <label for="city">{{language.getWord('city')}}</label>
           <select formControlName="country">
-            <option value="" selected>Seleccionar city</option>
+            <option value="" selected>{{language.getWord('select_city')}} </option>
             <option *ngFor="let city of cities" [value]="city.id">{{city.country}}</option>
           </select>
         </div>
@@ -74,7 +74,7 @@
           <input formControlName="birthDay" placeholder="{{language.getWord('birthDay')}}" type="date" />
         </div>
 
-        <input type="button" value="Update user" class="submit-btn" (click)="updateUser()">
+        <input type="button" value="{{language.getWord('update_user')}}" class="submit-btn" (click)="updateUser()">
       </form>
     </section>
 
@@ -86,7 +86,7 @@
     <section class="user-data">
 
       <div class="section2-slide">
-        <h3 class="head-slide" (click)="toggleMenu('pet-data')"> Pet Data </h3>
+        <h3 class="head-slide" (click)="toggleMenu('pet-data')">{{language.getWord('pet_data')}} </h3>
       </div>
 
       <form [formGroup]="petForm" [ngClass]="{'menu-open': menuOpen === 'pet-data'}">
@@ -126,7 +126,7 @@
           </div>
 
           <div class="input-pair">
-            <label for="race"> Race:</label>
+            <label for="race"> {{language.getWord('race')}}</label>
             <select formControlName="race">
               <option value="" selected>{{language.getWord('select')}}</option>
               <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
@@ -154,14 +154,14 @@
           </div>
 
           <div class="input-pair">
-            <label>Description:</label>
+            <label>{{language.getWord('description')}}:</label>
             <input type="text" formControlName="description" [placeholder]="selectedPet?.description">
             <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
           edit
         </span> -->
           </div>
 
-          <input type="button" value="Update pet" class="submit-btn" (click)="updatePet()">
+          <input type="button" value="{{language.getWord('update_pet')}}"class="submit-btn" (click)="updatePet()">
 
         </ng-container>
       </form>
@@ -174,13 +174,13 @@
 
     <section class="user-data">
 
-      <h3 (click)="toggleMenu('add-pet')"> Add Pet <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 (click)="toggleMenu('add-pet')"> {{language.getWord('add_pet')}} <i class="fa-solid fa-user-pen"></i></h3>
 
       <form [formGroup]="petForm" [ngClass]="{'menu-open': menuOpen === 'add-pet'}">
 
         <div class="input-pair">
-          <label for="name"> Name:</label>
-          <input type="text" id="name" formControlName="name" placeholder="new pet's name"
+          <label for="name"> {{language.getWord('name')}}:</label>
+          <input type="text" id="name" formControlName="name" placeholder="{{language.getWord('name')}}"
             [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }"
             [disabled]="!userForm.get('email')?.touched">
           <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
@@ -204,7 +204,7 @@
         </div>
 
         <div class="input-pair">
-          <label for="race"> Race:</label>
+          <label for="race"> {{language.getWord('race')}}</label>
           <select formControlName="race">
             <option value="" selected>{{language.getWord('select')}}</option>
             <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
@@ -242,7 +242,7 @@
             (change)="onFileChange($event) ">
         </div>
 
-        <input type="button" value="Add pet" class="submit-btn" (click)="addPet()">
+        <input type="button" value="{{language.getWord('add_pet')}}" class="submit-btn" (click)="addPet()">
       </form>
     </section>
 
@@ -251,10 +251,10 @@
     <!--------------------------------Delete Pet----------------------------------->
 
     <section class="user-data">
-      <h3 class="delete-pet-slide" (click)="toggleMenu('delete-pet')"> Delete Pet<i class="fa-solid fa-user-pen"></i>
+      <h3 class="delete-pet-slide" (click)="toggleMenu('delete-pet')">{{language.getWord('delete_pet')}}<i class="fa-solid fa-user-pen"></i>
       </h3>
       <form [ngClass]="{'menu-open': menuOpen === 'delete-pet'}">
-        <h3 style="color: #FBB033; padding:5px">Choose to delete</h3>
+        <h3 style="color: #FBB033; padding:5px">{{language.getWord('choose_delete')}}</h3>
         <ol *ngFor="let pet of getUser().pets, index as i" style="color: white; margin-bottom: 25px">
           <a class="delete-button" (click)="pet_delete_routing($event)" [id]="pet.id"
             style="color:white; font-size: 22px; text-decoration:none">{{pet.name | titlecase}}</a>
@@ -265,7 +265,7 @@
 
     <section class="user-data">
 
-      <h3 class="head-slide" (click)="logout()">Logout <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 class="head-slide" (click)="logout()">{{language.getWord('log_out')}} <i class="fa-solid fa-user-pen"></i></h3>
     </section>
   </main>
 </div>

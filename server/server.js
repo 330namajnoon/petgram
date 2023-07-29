@@ -31,10 +31,12 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const { error } = require("console");
 
-
-
-const connectionData = 'mysql://r3j89mhm73dthegsy03v:pscale_pw_9Ikkrz2cneRrMBRAMZbsJjV0YeTFVvPMcjnkbIVp5ei@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
-
+const connectionData = 'mysql://fi68zrbrur3f6bzuv9iu:pscale_pw_vhQKyKCD5Au7DYg8apSZUcmIdRMLuF7ftQxRwa4FiQJ@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const con = mysql.createConnection(connectionData);
+con.connect((e) => {
+  if (e && e.sqlMessage)
+    console.error('ERROR: ', e.sqlMessage);
+})
 
 
 
@@ -544,10 +546,12 @@ app.post("/downloadStory", (req, res) => {
             return;
           }
           const story = res1[0];
-          story.comments = res2;
-          story.likes = res3;
-          story.views = res4;
-          res.send({ data: story });
+          if (story) {
+            story.comments = res2;
+            story.likes = res3;
+            story.views = res4;
+            res.send({ data: story });
+          } else res.send({});
           connection.end();
         });
 
@@ -709,7 +713,7 @@ app.post("/races", (req, res) => {
   const connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (!err) {
-      connection.query(`SELECT id,race FROM races WHERE language = '${req.body.language}' && type_id = ${req.body.id}`, (err, resp) => {
+      connection.query(`SELECT id,race FROM races WHERE type_id = ${req.body.id}`, (err, resp) => {
         if (!err) {
           res.send({ data: resp });
           connection.end();
@@ -729,7 +733,7 @@ app.post("/types", (req, res) => {
   const connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (!err) {
-      connection.query(`SELECT id,type FROM types WHERE language = '${req.body.language}'`, (err, resp) => {
+      connection.query(`SELECT id,type FROM types`, (err, resp) => {
         if (!err) {
           res.send({ data: resp });
           connection.end();

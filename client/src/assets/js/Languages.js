@@ -107,7 +107,7 @@ export function Languages() {
     },
     race: {
       english: "Race",
-      español: "Razas"
+      español: "Raza"
     },
     description: {
       english: "Description",
@@ -184,7 +184,40 @@ export function Languages() {
     pending_request:{
       english:"Pending request",
       español:"Solicitud Pendiente"
+    },
+    register:{
+      english:"Register",
+      español:"Registrar"
+    },
+     select_city:{
+      english:"Select city",
+      español:"Seleccionar ciudad"
+    },
+    update_pet:{
+      english:"Update pet",
+      español:"Actualizar mascota"
+    },
+    update_user:{
+      english:"Update user",
+      español: "Actualizar usuario"
+    },
+    add_pet:{
+      english:"Add pet",
+      español: "Agregar mascota"
+    },
+    delete_pet:{
+      english:"Delete pet",
+      español: "Eliminar mascota"
+    },
+    choose_delete:{
+      english:"Choose to delete",
+      español: "Selecciona para eliminar"
+    },
+    log_out:{
+      english:"LogOut",
+      español: "Cerrar sesion"
     }
+
   }
 }
 Languages.prototype.setLanguage = function (language = "español") {
