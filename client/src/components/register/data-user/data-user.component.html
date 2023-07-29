@@ -34,7 +34,7 @@
     <div>
       <label for="country">{{language.getWord('city')}}:</label>
       <select formControlName="country" >
-        <option value="" selected >Seleccionar city</option>
+        <option value="" selected >Seleccionar ciudad</option>
         <option *ngFor="let city of cities" value="{{city.id}}">{{city.country}}</option>
       </select>
       <app-validator [control]="form.get('country')" />

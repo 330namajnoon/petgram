@@ -11,9 +11,9 @@ import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
 })
 export class RegisterService extends AppServiceEx {
   private newUser!: IUser;
-  private image!: File;
+  private imagePet!: File;
   private scrollPromise: boolean = false;
-  private languageSelected:string = "";
+  private languageSelected: string = "";
   constructor(private http: HttpClient, private router: Router, appService: AppService) {
     super(appService)
 
@@ -22,8 +22,8 @@ export class RegisterService extends AppServiceEx {
     this.newUser = user
   }
 
-  login(email: string, password: string):Promise<IHTTPResponse<IUser>> {
-    return new Promise((resolve)=> {
+  login(email: string, password: string): Promise<IHTTPResponse<IUser>> {
+    return new Promise((resolve) => {
       let loginData = {
         email,
         password
@@ -32,58 +32,58 @@ export class RegisterService extends AppServiceEx {
       this.http.post<IHTTPResponse<IUser>>(this.getURL() + "/login", loginData).subscribe((res) => {
         !res.error ? this.language.setLanguage(res.data.language) : null;
         resolve(res);
-    })
+      })
     })
   }
-  signup():Promise<IHTTPResponse<string>> {
-    return new Promise((resolve)=> {
+  signup(): Promise<IHTTPResponse<string>> {
+    return new Promise((resolve) => {
       const formData = new FormData();
-      formData.append("user",JSON.stringify(this.newUser));
-      formData.append("file",this.image);
-      this.http.post<IHTTPResponse<string>>(this.getURL() + "/signup",formData).subscribe((res) => {
+      formData.append("user", JSON.stringify(this.newUser));
+      formData.append("file", this.imagePet);
+      this.http.post<IHTTPResponse<string>>(this.getURL() + "/signup", formData).subscribe((res) => {
         resolve(res);
       })
     })
 
   }
-  getLanguage():string {
+  getLanguage(): string {
     return this.languageSelected || 'english';
   }
   getScrollPromise(): boolean {
     return this.scrollPromise;
   }
 
-  getLenguages():Promise<IHTTPResponse<string[]>> {
-    return new Promise((resolve)=> {
+  getLenguages(): Promise<IHTTPResponse<string[]>> {
+    return new Promise((resolve) => {
       this.http.get<IHTTPResponse<string[]>>(`${this.getURL()}/languages`).subscribe(res => {
         resolve(res)
       })
     })
   }
-  getCoutrys():Promise<IHTTPResponse<{id:number;country:string}[]>> {
-    return new Promise((resolve)=> {
-      this.http.post<IHTTPResponse<{id:number;country:string}[]>>(`${this.getURL()}/countrys`,{language:this.getLanguage()}).subscribe(res => {
+  getCoutrys(): Promise<IHTTPResponse<{ id: number; country: string }[]>> {
+    return new Promise((resolve) => {
+      this.http.post<IHTTPResponse<{ id: number; country: string }[]>>(`${this.getURL()}/countrys`, { language: this.getLanguage() }).subscribe(res => {
         resolve(res)
       })
     })
   }
 
-  getTypes():Promise<IHTTPResponse<{id:number;type:string}[]>> {
-    return new Promise((resolve)=> {
-      this.http.post<IHTTPResponse<{id:number;type:string}[]>>(`${this.getURL()}/types`,{language:this.getLanguage()}).subscribe(res => {
+  getTypes(): Promise<IHTTPResponse<{ id: number; type: string }[]>> {
+    return new Promise((resolve) => {
+      this.http.post<IHTTPResponse<{ id: number; type: string }[]>>(`${this.getURL()}/types`, { language: this.getLanguage() }).subscribe(res => {
         resolve(res)
       })
     })
   }
-  getRaces(id:number):Promise<IHTTPResponse<{id:number;race:string}[]>> {
-    return new Promise((resolve)=> {
-      this.http.post<IHTTPResponse<{id:number;race:string}[]>>(`${this.getURL()}/races`,{id,language:this.getLanguage()}).subscribe(res => {
+  getRaces(id: number): Promise<IHTTPResponse<{ id: number; race: string }[]>> {
+    return new Promise((resolve) => {
+      this.http.post<IHTTPResponse<{ id: number; race: string }[]>>(`${this.getURL()}/races`, { id, language: this.getLanguage() }).subscribe(res => {
         resolve(res)
       })
     })
   }
 
-  setLanguage(language:string) {
+  setLanguage(language: string) {
     this.languageSelected = language;
   }
   setScrollPromise(value: boolean): void {
@@ -92,10 +92,7 @@ export class RegisterService extends AppServiceEx {
   setNewDataPet(newPet: IPet): void {
     this.newUser.pets.push(newPet)
   }
-  setProfileImage(image: File): void {
-    this.image = image
-    console.log(this.image)
+  setPetImage(image: File): void {
+    this.imagePet = image
   }
-
-
 }

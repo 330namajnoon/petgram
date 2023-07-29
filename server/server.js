@@ -33,7 +33,7 @@ const { error } = require("console");
 
 
 
-const connectionData = 'mysql://0zjyrs87ymg2v10ni8nt:pscale_pw_IbK9UY7FTCHcbc2wKlTolb9IH4w4bGAwfZovjqo4jgO@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://r3j89mhm73dthegsy03v:pscale_pw_9Ikkrz2cneRrMBRAMZbsJjV0YeTFVvPMcjnkbIVp5ei@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 
@@ -367,20 +367,20 @@ app.post("/signup", mediyaUploader.single("file"), (req, res) => {
       connection.query("SELECT id FROM users", (err, resp2) => {
         if (!err) {
           const newId = myModules.createNewUnikID(resp2, 10);
-          const imageUrl = (image + `/${newId}.${req.file.originalname.split(".")[1]}`);
           const consult = `
           INSERT INTO users (id,email,name,lastName,birthDay,address,country,postalCode,phone,password,image,language)
           VALUES
-          ('${newId}','${email}','${name}','${lastName}','${birthDay}','${address}',${country},${postalCode},${phone},'${password}','${imageUrl}','${language}')
+          ('${newId}','${email}','${name}','${lastName}','${birthDay}','${address}',${country},${postalCode},${phone},'${password}','','${language}')
           `;
           connection.query(consult, (err, resp3) => {
             if (!err) {
               try {
-                fs.renameSync(`./mediya/${req.file.originalname}`, `./mediya/${newId}.${req.file.originalname.split(".")[1]}`);
                 connection.query("SELECT pet_id as id FROM pets", (err, resp4) => {
                   if (!err) {
                     const { name, birthDay, type, race, gender, description } = pets[0];
                     let newPetId = myModules.createNewUnikID(resp4, 10);
+                    const imagePetUrl = `${newPetId}.${req.file.originalname.split(".")[1]}`;
+                    fs.renameSync(`./mediya/${req.file.originalname}`, `./mediya/${imagePetUrl}`);
                     const consult = `
                       INSERT INTO pets (pet_id,user_id,name,birthDay,type,race,gender,description)
                       VALUES
@@ -749,7 +749,7 @@ app.post("/countrys", (req, res) => {
   const connection = mysql.createConnection(connectionData);
   connection.connect((err) => {
     if (!err) {
-      connection.query(`SELECT id,country FROM countrys WHERE language = '${req.body.language}'`, (err, resp) => {
+      connection.query(`SELECT id,country FROM countrys`, (err, resp) => {
         if (!err) {
           res.send({ data: resp });
           connection.end();
@@ -855,9 +855,9 @@ app.delete("/follow/delete", (req, res) => {
 })
 app.post("/add-pet", mediyaUploader.single("file"), (req, res) => {
   const connection = mysql.createConnection(connectionData);
-  fs.renameSync(`./mediya/${req.file.originalname}`, `./mediya/${req.body.user_id}.${req.file.originalname.split(".")[1]}`);
-  const { name, birthDay, type, race, gender, description } = req.body;
   const id = myModules.createNewUnikID([new Date().getTime()], 10);
+  fs.renameSync(`./mediya/${req.file.originalname}`, `./mediya/${id}.${req.file.originalname.split(".")[1]}`);
+  const { name, birthDay, type, race, gender, description } = req.body;
   const consult = `
     INSERT INTO pets (pet_id,user_id,name,birthDay,type,race,gender,description)
     VALUES
@@ -880,7 +880,6 @@ app.post("/add-pet", mediyaUploader.single("file"), (req, res) => {
 app.post("/update-pet", (req, res) => {
   const connection = mysql.createConnection(connectionData);
   const { name, birthDay, type, race, gender, description, pet_id } = req.body;
-  console.log(req.body);
   const consult = `
     update 
       pets 
@@ -930,4 +929,56 @@ app.delete("/delete-pet", (req, res) => {
       connection.end();
     }
   })
+})
+app.post("/update-user", (req, res) => {
+  const connection = mysql.createConnection(connectionData);
+  const { id, email, name, lastName, birthDay, address, country, postalCode } = req.body;
+  const consult = `
+    update 
+      users 
+    set 
+      name = '${name}',
+      lastName = '${lastName}',
+      birthDay = '${birthDay}',
+      address = '${address}',
+      country = '${country}',
+      postalCode = '${postalCode}',
+      email = '${email}'
+    where 
+      id = '${id}'
+  `;
+  connection.query(consult, (err, resp) => {
+    if (!err) {
+      res.send(resp);
+      connection.end();
+    } else {
+      console.log(err);
+      res.send({ error: "server_error" })
+      connection.end();
+    }
+  })
+})
+app.post("/update-image-user", mediyaUploader.single("file"), (req, res) => {
+  const connection = mysql.createConnection(connectionData);
+  const imageName = `${req.body.id}.${req.file.originalname.split(".")[1]}`;
+  fs.renameSync(`./mediya/${req.file.originalname}`, `./mediya/${imageName}`);
+  const consult = `
+      update 
+        users 
+      set 
+        image = 'http://localhost:4000/${imageName}'
+      where 
+        id = '${req.body.id}'
+  `;
+  connection.query(consult, (err, resp) => {
+    if (!err) {
+      res.send(resp);
+      connection.end();
+    } else {
+      console.log(err);
+      res.send({ error: "server_error" })
+      connection.end();
+    }
+  })
+
 })

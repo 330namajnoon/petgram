@@ -51,15 +51,20 @@ export class AppService {
   }
 
   async loadUser() {
-    if (localStorage.getItem("user")) {
-      const userData = JSON.parse(localStorage.getItem("user") || "") as { email: string, password: string };
-      this.http.post<IHTTPResponse<IUser>>(this.getURL() + "/login", userData).subscribe((res) => {
-        if (res.data) {
-          this.setUser(res.data);
-          localStorage.setItem("user", JSON.stringify({ email: res.data.email, password: res.data.password }));
-        }
-      })
-    }
+    return new Promise((resolve) => {
+      if (localStorage.getItem("user")) {
+        const userData = JSON.parse(localStorage.getItem("user") || "") as { email: string, password: string };
+        this.http.post<IHTTPResponse<IUser>>(this.getURL() + "/login", userData).subscribe((res) => {
+          if (res.data) {
+            this.setUser(res.data);
+            localStorage.setItem("user", JSON.stringify({ email: res.data.email, password: res.data.password }));
+          }
+          resolve(true);
+        })
+      } else {
+        resolve(false);
+      }
+    })
   }
 
   setUser(user: IUser): void {

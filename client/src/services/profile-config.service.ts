@@ -13,23 +13,24 @@ import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
   providedIn: 'root'
 })
 export class ProfileConfigService extends AppServiceEx {
- users: IUser[] = [];
- optionInputMethod:any;
-  constructor(private http: HttpClient,appS:AppService) {
+  users: IUser[] = [];
+  optionInputMethod: any;
+  constructor(private http: HttpClient, appS: AppService, private appService2: AppService) {
     super(appS);
   }
 
 
-  setOptionInputMethod(val:any) {
+  setOptionInputMethod(val: any) {
     this.optionInputMethod = val;
   }
 
-  updateImage(id:string,file:File):Promise<IHTTPResponse<string>> {
-    return new Promise((resolve)=> {
+  updateImage(id: string, file: File): Promise<IHTTPResponse<string>> {
+    return new Promise((resolve) => {
       const formData = new FormData();
-      formData.append("id",id);
-      formData.append("file",file);
-      this.http.post<IHTTPResponse<string>>(this.getURL()+"/imageUpdate",formData).subscribe(res => {
+      formData.append("id", id);
+      formData.append("file", file);
+      this.http.post<IHTTPResponse<string>>(this.getURL() + "/update-image-user", formData).subscribe(res => {
+        this.appService2.loadUser();
         resolve(res)
       })
     })
@@ -46,28 +47,28 @@ export class ProfileConfigService extends AppServiceEx {
     this.http.post(this.getURL(), user)
   }
 
-  getLanguage():string {
+  getLanguage(): string {
     return this.language.language;
   }
 
-  getCoutrys():Promise<IHTTPResponse<{id:number;country:string}[]>> {
-    return new Promise((resolve)=> {
-      this.http.post<IHTTPResponse<{id:number;country:string}[]>>(`${this.getURL()}/countrys`,{language:this.getLanguage() || this.getUser().language}).subscribe(res => {
+  getCoutrys(): Promise<IHTTPResponse<{ id: number; country: string }[]>> {
+    return new Promise((resolve) => {
+      this.http.post<IHTTPResponse<{ id: number; country: string }[]>>(`${this.getURL()}/countrys`, { language: this.getLanguage() || this.getUser().language }).subscribe(res => {
         resolve(res)
       })
     })
   }
 
-  getTypes():Promise<IHTTPResponse<{id:number;type:string}[]>> {
-    return new Promise((resolve)=> {
-      this.http.post<IHTTPResponse<{id:number;type:string}[]>>(`${this.getURL()}/types`,{language:this.getLanguage()}).subscribe(res => {
+  getTypes(): Promise<IHTTPResponse<{ id: number; type: string }[]>> {
+    return new Promise((resolve) => {
+      this.http.post<IHTTPResponse<{ id: number; type: string }[]>>(`${this.getURL()}/types`, { language: this.getLanguage() }).subscribe(res => {
         resolve(res)
       })
     })
   }
-  getRaces(id:number):Promise<IHTTPResponse<{id:number;race:string}[]>> {
-    return new Promise((resolve)=> {
-      this.http.post<IHTTPResponse<{id:number;race:string}[]>>(`${this.getURL()}/races`,{id,language:this.getLanguage()}).subscribe(res => {
+  getRaces(id: number): Promise<IHTTPResponse<{ id: number; race: string }[]>> {
+    return new Promise((resolve) => {
+      this.http.post<IHTTPResponse<{ id: number; race: string }[]>>(`${this.getURL()}/races`, { id, language: this.getLanguage() }).subscribe(res => {
         resolve(res)
       })
     })
