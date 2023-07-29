@@ -22,9 +22,9 @@
 
     <section class="user-data">
 
-      <h3 class="head-slide" (click)="toggleMenu()"> User Data <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 class="head-slide" (click)="toggleMenu('user-data')"> User Data <i class="fa-solid fa-user-pen"></i></h3>
 
-      <form [formGroup]="userForm" [ngClass]="{'menu-open': isMenuOpen}">
+      <form [formGroup]="userForm" [ngClass]="{'menu-open': menuOpen === 'user-data'}">
 
         <div class="input-pair">
           <label for="email">{{language.getWord('email')}}</label>
@@ -118,65 +118,54 @@
     <section class="user-data">
 
       <div class="section2-slide">
-        <h3 class="head-slide" (click)="toggleMenu2()"> Pet Data </h3>
-        <select (change)="getEachPet(selectOption)" [(ngModel)]="selectOption">
-          <option *ngFor="let pet of getUser().pets" value="{{pet.name}}">{{pet.name | uppercase}}</option>
-        </select>
+        <h3 class="head-slide" (click)="toggleMenu('pet-data')"> Pet Data </h3>
       </div>
 
+      <form [formGroup]="petForm" [ngClass]="{'menu-open': menuOpen === 'pet-data'}">
 
-
-      <form [formGroup]="petForm" [ngClass]="{'menu-open': isMenuPetOpen}">
-
-        <div class="input-pair">
-          <label for="name">{{language.getWord('name')}}</label>
-          <input (change)="updatePetData('name')" type="text" id="name" formControlName="name"
-            [placeholder]="selectedPet?.name"
-            [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }"
-            [disabled]="!userForm.get('email')?.touched">
-          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
-          edit
-        </span> -->
-        </div>
-
-        <div class="input-pair">
-          <label for="type"> {{language.getWord('type')}}:</label>
-          <select (change)="change_type($event)" (change)="updatePetData('type')" name="" id="">
-            <ng-template ngFor let-type [ngForOf]="types">
-              <option *ngIf="type.id == selectedPet?.type" selected [value]="type.id">{{type.type}}</option>
-            </ng-template>
-            <ng-template ngFor let-type [ngForOf]="types">
-              <option *ngIf="type.id !== selectedPet?.type" [value]="type.id">{{type.type}}</option>
-            </ng-template>
+        <div class="section2-slide">
+          <label for="name">Mascota</label>
+          <select (change)="getEachPet(selectOption)" [(ngModel)]="selectOption" [ngModelOptions]="{standalone: true}">
+            <option value="" selected>{{language.getWord('select')}}</option>
+            <option *ngFor="let pet of getUser().pets" value="{{pet.id}}">{{pet.name | uppercase}}</option>
           </select>
-
-
-          <!-- <input type="number" id="type" formControlName="type" [placeholder]="selectedPet?.type" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched"> -->
-          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
-          edit
-        </span> -->
-        </div>
-        <div class="input-pair">
-          <label for="type"> {{language.getWord('race')}}</label>
-          <select [ngClass]="{ 'text-style': !editMode, 'input-style': editMode }" name="" id="race"
-            (change)="updatePetData('race')">
-            <ng-template ngFor let-race [ngForOf]="races">
-              <option *ngIf="race.id == selectedPet?.race" selected [value]="race.id">{{race.race}}</option>
-            </ng-template>
-            <ng-template ngFor let-race [ngForOf]="races">
-              <option *ngIf="race.id !== selectedPet?.race" [value]="race.id">{{race.race}}</option>
-            </ng-template>
-          </select>
-
-
-          <!-- <input type="number" id="type" formControlName="type" [placeholder]="selectedPet?.type" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched"> -->
-
-          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
-          edit
-        </span> -->
         </div>
 
-        <!-- <div class="input-pair">
+        <ng-container *ngIf="selectOption">
+
+          <div class="input-pair">
+            <label for="name">{{language.getWord('name')}}</label>
+            <input type="text" id="name" formControlName="name" [placeholder]="selectedPet?.name"
+              [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }"
+              [disabled]="!userForm.get('email')?.touched">
+            <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          edit
+        </span> -->
+          </div>
+          <div class="input-pair">
+            <label for="date">{{language.getWord('birthDay')}}</label>
+            <input class="input" formControlName="birthDay" placeholder="{{language.getWord('birthDay')}}"
+              type="date" />
+          </div>
+
+
+          <div class="input-pair">
+            <label> {{language.getWord('type')}}</label>
+            <select (change)="downloadRaces($event)" formControlName="type">
+              <option value="" selected>{{language.getWord('select')}}</option>
+              <option *ngFor="let type of getTypes()" value="{{type.id}}">{{type.type}}</option>
+            </select>
+          </div>
+
+          <div class="input-pair">
+            <label for="race"> Race:</label>
+            <select formControlName="race">
+              <option value="" selected>{{language.getWord('select')}}</option>
+              <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
+            </select>
+          </div>
+
+          <!-- <div class="input-pair">
         <label for="race"> {{language.getWord('race')}}</label>
         <input type="text" id="race" formControlName="name" [placeholder]="selectedPet?.race" [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }" [disabled]="!userForm.get('email')?.touched">
        <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
@@ -184,28 +173,29 @@
         </span>
       </div> -->
 
-        <div class="input-pair">
-          <label for="gender">{{language.getWord('gender')}}</label>
-          <select name="cars" id="cars" formControlName="gender">
-            <option value="" selected>{{language.getWord('select')}}</option>
-            <option value="M">{{language.getWord('male')}}</option>
-            <option value="F">{{language.getWord('female')}}</option>
-          </select>
-          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          <div class="input-pair">
+            <label for="gender">{{language.getWord('gender')}}</label>
+            <select formControlName="gender">
+              <option value="" selected>{{language.getWord('select')}}</option>
+              <option value="M">{{language.getWord('male')}}</option>
+              <option value="F">{{language.getWord('female')}}</option>
+            </select>
+            <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
           edit
         </span> -->
-        </div>
+          </div>
 
-        <div class="input-pair">
-          <label for="gender">Description:</label>
-          <input (change)="updatePetData('gender')" type="text" id="gender" formControlName="gender"
-            [placeholder]="selectedPet?.description">
-          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+          <div class="input-pair">
+            <label>Description:</label>
+            <input type="text" formControlName="description" [placeholder]="selectedPet?.description">
+            <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
           edit
         </span> -->
-        </div>
+          </div>
 
-        <input type="submit" value="Update pet" class="submit-btn">
+          <input type="button" value="Update pet" class="submit-btn" (click)="updatePet()">
+
+        </ng-container>
       </form>
 
     </section>
@@ -216,15 +206,30 @@
 
     <section class="user-data">
 
-      <h3 (click)='toggleMenu3()'> Add Pet <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 (click)="toggleMenu('add-pet')"> Add Pet <i class="fa-solid fa-user-pen"></i></h3>
 
-      <form [formGroup]="petForm" [ngClass]="{'menu-open': isMenuNewOpen}" onsubmit="addPet(event)">
+      <form [formGroup]="petForm" [ngClass]="{'menu-open': menuOpen === 'add-pet'}">
 
         <div class="input-pair">
           <label for="name"> Name:</label>
           <input type="text" id="name" formControlName="name" placeholder="new pet's name"
             [ngClass]="{ 'text-style': !userForm.get('email')?.touched, 'input-style': userForm.get('email')?.touched }"
             [disabled]="!userForm.get('email')?.touched">
+          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
+            edit
+          </span> -->
+        </div>
+        <div class="input-pair">
+          <label for="date">{{language.getWord('birthDay')}}</label>
+          <input class="input" formControlName="birthDay" placeholder="{{language.getWord('birthDay')}}" type="date" />
+        </div>
+
+        <div class="input-pair">
+          <label> {{language.getWord('type')}}</label>
+          <select (change)="downloadRaces($event)" formControlName="type">
+            <option value="" selected>{{language.getWord('select')}}</option>
+            <option *ngFor="let type of getTypes()" value="{{type.id}}">{{type.type}}</option>
+          </select>
           <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
             edit
           </span> -->
@@ -241,16 +246,6 @@
           </span> -->
         </div>
 
-        <div class="input-pair">
-          <label for="gender"> {{language.getWord('type')}}</label>
-          <select (change)="downloadRaces($event)" formControlName="type">
-            <option value="" selected>{{language.getWord('select')}}</option>
-            <option *ngFor="let type of getTypes()" value="{{type.id}}">{{type.type}}</option>
-          </select>
-          <!-- <span class="material-symbols-rounded" style="color: white;"  (click)="editInput(getUser().name)">
-            edit
-          </span> -->
-        </div>
         <div class="input-pair">
           <label for="birthday">{{language.getWord('gender')}}</label>
           <select name="cars" id="cars" formControlName="gender">
@@ -272,7 +267,14 @@
             edit
           </span> -->
         </div>
-        <input type="submit" value="Add pet" class="submit-btn">
+        <div>
+          <img (click)="image.click()" [ngStyle]="{img: formImagePet.value.fileSource}"
+            [ngClass]="imageSrc=='assets/images/profile.png'? 'img':'img2'" width="250" height="250" [src]="imageSrc" />
+          <input #image id="image_pet_file" hidden type="file" accept="image/png,image/jpeg"
+            (change)="onFileChange($event) ">
+        </div>
+
+        <input type="button" value="Add pet" class="submit-btn" (click)="addPet()">
       </form>
     </section>
 
@@ -281,12 +283,13 @@
     <!--------------------------------Delete Pet----------------------------------->
 
     <section class="user-data">
-      <h3 class="delete-pet-slide" (click)="toggleMenu4()"> Delete Pet<i class="fa-solid fa-user-pen"></i></h3>
-      <form [ngClass]="{'menu-open': isMenuDelOpen}">
+      <h3 class="delete-pet-slide" (click)="toggleMenu('delete-pet')"> Delete Pet<i class="fa-solid fa-user-pen"></i>
+      </h3>
+      <form [ngClass]="{'menu-open': menuOpen === 'delete-pet'}">
         <h3 style="color: #FBB033; padding:5px">Choose to delete</h3>
-        <ol *ngFor="let pet of getUser().pets, index as i" style="color: white; ">
-          <li><a (click)="pet_delete_routing($event)" [id]="pet.id"
-              style="color:white; font-size: 22px; text-decoration:none">{{pet.name}}</a></li>
+        <ol *ngFor="let pet of getUser().pets, index as i" style="color: white; margin-bottom: 25px">
+            <a class="delete-button" (click)="pet_delete_routing($event)" [id]="pet.id"
+              style="color:white; font-size: 22px; text-decoration:none">{{pet.name | titlecase}}</a>
         </ol>
 
       </form>

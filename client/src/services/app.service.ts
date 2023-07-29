@@ -4,11 +4,13 @@ import { httpClient } from "src/assets/ts/httpClient";
 import { IUser } from 'src/interfaces/IUser';
 import { Languages } from 'src/assets/js/Languages';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  private loadingDisplay:boolean = false;
+  private loadingDisplay: boolean = false;
   private user!: IUser;
   private URL: string = 'http://localhost:4000';
   // private URL: string = 'https://abc3-94-73-37-80.ngrok-free.app';
@@ -18,8 +20,8 @@ export class AppService {
     img: ["png", "jpg", "jpeg", "fig"],
     video: ["mkv", "mp4"]
   }
-  constructor(private router:Router) {
-    window.addEventListener("resize",()=> {
+  constructor(private http: HttpClient, private router: Router) {
+    window.addEventListener("resize", () => {
       router.navigate(["/petgram"]);
     })
   }
@@ -29,13 +31,13 @@ export class AppService {
     switch (tagName) {
       case "img":
         let ip = this.types.img.find(t => t == type)
-        if(!ip) {
+        if (!ip) {
           promise = false;
         }
         break;
       case "video":
         let vp = this.types.video.find(t => t == type)
-        if(!vp) {
+        if (!vp) {
           promise = false;
         }
         break;
@@ -44,12 +46,23 @@ export class AppService {
     return promise;
   }
 
-  setLoading(value:boolean):void {
+  setLoading(value: boolean): void {
     this.loadingDisplay = value;
   }
 
-  setUser(user: IUser): void {
+  async loadUser() {
+    if (localStorage.getItem("user")) {
+      const userData = JSON.parse(localStorage.getItem("user") || "") as { email: string, password: string };
+      this.http.post<IHTTPResponse<IUser>>(this.getURL() + "/login", userData).subscribe((res) => {
+        if (res.data) {
+          this.setUser(res.data);
+          localStorage.setItem("user", JSON.stringify({ email: res.data.email, password: res.data.password }));
+        }
+      })
+    }
+  }
 
+  setUser(user: IUser): void {
     this.user = user;
   }
   getUser(): IUser {
@@ -69,21 +82,21 @@ export class AppService {
     return this.URL;
   }
 
-  getLoading():boolean {
+  getLoading(): boolean {
     return this.loadingDisplay;
   }
 
-  createNewUnikID(data:any[],length:number):string {
-    let newID:string = "PG";
+  createNewUnikID(data: any[], length: number): string {
+    let newID: string = "PG";
     let cs = "ABCDEFGHIJKLNMOPQRSTUVWXYZabcdefghijklnmopqrstuvwxyz0123456789";
-    let t:boolean = true;
-    while(t) {
-      let id:string = newID;
-      for (let index = 0; index < length-2; index++) {
-        id += cs.charAt(Math.floor(Math.random()*cs.length));
+    let t: boolean = true;
+    while (t) {
+      let id: string = newID;
+      for (let index = 0; index < length - 2; index++) {
+        id += cs.charAt(Math.floor(Math.random() * cs.length));
       }
-      let f:any = data.find(d => d.id == id);
-      if(!f) {
+      let f: any = data.find(d => d.id == id);
+      if (!f) {
         newID = id;
         t = false;
       }

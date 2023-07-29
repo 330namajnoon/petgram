@@ -33,7 +33,7 @@ const { error } = require("console");
 
 
 
-const connectionData = 'mysql://kdh4tco374nipzzpimim:pscale_pw_K3pS6m5YWkkripiT6ryeItb7la0mi75g5AfveCpj2C7@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://0zjyrs87ymg2v10ni8nt:pscale_pw_IbK9UY7FTCHcbc2wKlTolb9IH4w4bGAwfZovjqo4jgO@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 
@@ -197,11 +197,11 @@ io.on("connect", (client) => {
         user_id = '${user_id}'; 
       `, (err, resp) => {
           if (!err) {
-            io.emit("accept",{ data: resp });
+            io.emit("accept", { data: resp });
             connection.end();
           } else {
             console.error(err)
-            io.emit("accept",{ error: "server_error" });
+            io.emit("accept", { error: "server_error" });
             connection.end();
           }
         })
@@ -837,6 +837,84 @@ app.delete("/follow/delete", (req, res) => {
       where 
         follower_id = '${req.body.follower_id}' AND
         user_id = '${req.body.user_id}'; 
+      `, (err, resp) => {
+        if (!err) {
+          res.send({ data: resp });
+          connection.end();
+        } else {
+          console.error(err)
+          res.send({ error: "server_error" });
+          connection.end();
+        }
+      })
+    } else {
+      res.send({ error: "server_error" });
+      connection.end();
+    }
+  })
+})
+app.post("/add-pet", mediyaUploader.single("file"), (req, res) => {
+  const connection = mysql.createConnection(connectionData);
+  fs.renameSync(`./mediya/${req.file.originalname}`, `./mediya/${req.body.user_id}.${req.file.originalname.split(".")[1]}`);
+  const { name, birthDay, type, race, gender, description } = req.body;
+  const id = myModules.createNewUnikID([new Date().getTime()], 10);
+  const consult = `
+    INSERT INTO pets (pet_id,user_id,name,birthDay,type,race,gender,description)
+    VALUES
+    ('${id}','${req.body.user_id}','${name}','${birthDay}',${type},${race},'${gender}','${description}')
+  `;
+  connection.query(consult, (err, resp) => {
+    if (!err) {
+      res.send(resp);
+      connection.end();
+    } else {
+      console.log(err);
+      res.send({ error: "server_error" })
+      connection.end();
+    }
+  })
+
+})
+
+
+app.post("/update-pet", (req, res) => {
+  const connection = mysql.createConnection(connectionData);
+  const { name, birthDay, type, race, gender, description, pet_id } = req.body;
+  console.log(req.body);
+  const consult = `
+    update 
+      pets 
+    set 
+      name = '${name}',
+      birthDay = '${birthDay}',
+      gender = '${gender}',
+      type = '${type}',
+      race = '${race}',
+      description = '${description}'
+    where 
+      pet_id = '${pet_id}';
+  `;
+  connection.query(consult, (err, resp) => {
+    if (!err) {
+      res.send(resp);
+      connection.end();
+    } else {
+      console.log(err);
+      res.send({ error: "server_error" })
+      connection.end();
+    }
+  })
+
+})
+app.delete("/delete-pet", (req, res) => {
+  const connection = mysql.createConnection(connectionData);
+  connection.connect((err) => {
+    if (!err) {
+      connection.query(`
+      delete from 
+        pets
+      where 
+        pet_id = '${req.body.pet_id}'; 
       `, (err, resp) => {
         if (!err) {
           res.send({ data: resp });
