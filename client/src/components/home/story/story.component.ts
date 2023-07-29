@@ -18,10 +18,10 @@ import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
   styleUrls: ['./story.component.scss']
 })
 export class StoryComponent extends AppServiceEx implements AfterViewInit, OnInit {
-  @ViewChild(VideoPlayerComponent)videoPlayerComponent!:VideoPlayerComponent;
-  @ViewChild('videoPlayer',{read:ElementRef})videoPlayer!:ElementRef;
+  @ViewChild(VideoPlayerComponent) videoPlayerComponent!: VideoPlayerComponent;
+  @ViewChild('videoPlayer', { read: ElementRef }) videoPlayer!: ElementRef;
   @ViewChild("container") container!: ElementRef;
-  constructor(private http: HttpClient, appService: AppService,public homeService: HomeService, private router: Router,private prS:ProfileViewService) {
+  constructor(private http: HttpClient, appService: AppService, public homeService: HomeService, private router: Router, private prS: ProfileViewService) {
     super(appService)
   }
   storysStyle = { height: `${window.innerHeight - (this.getDevice() == 'container_mobile' ? 55 : 80)}px` };
@@ -63,30 +63,37 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
 
   }
   like(): void {
-    if(!this.searchLikes())
-      this.socket.emit("like",this.story.id,this.getUser().id);
+    this.socket.emit(this.searchLikes() ? 'dislike' : 'like', this.story.id, this.getUser().id);
   }
   downloadStory(): void {
     let _this = this;
     if (!this.story) {
-
       this.http.post<IHTTPResponse<IStory>>(`${this.getURL()}/downloadStory`, this.data).subscribe(res => {
-        if(!res.error) {
+        if (!res.error) {
           let story: IStory = res.data;
           let m = this.typePromise("img", story.type) ? new Image() : document.createElement("video");
           m.src = story.url;
 
-          m.addEventListener("loadedmetadata",()=> {
+
+          this.socket.removeListener("comment" + this.story?.id);
+          this.socket.removeListener("view" + this.story?.id);
+          this.socket.removeListener("like" + this.story?.id);
+          this.socket.removeListener("dislike" + this.story?.id);
+          m.addEventListener("loadedmetadata", () => {
             _this.story = story;
             this.socket.on("comment" + _this.story?.id, (comment) => {
               _this.story.comments.push(comment);
             })
-            if(!this.searchViews())this.socket.emit("view",this.story.id,this.getUser().id);
+            if (!this.searchViews()) this.socket.emit("view", this.story.id, this.getUser().id);
             this.socket.on("view" + this.story?.id, (view) => {
               this.story?.views.push(view as IView);
             })
             this.socket.on("like" + this.story?.id, (like) => {
               this.story?.likes.push(like as ILike);
+            })
+            this.socket.on("dislike" + this.story?.id, (like: ILike) => {
+              this.story.likes = this.story?.likes
+                .filter(v => v.user_id !== like.user_id)
             })
           })
           m.addEventListener("load", () => {
@@ -96,16 +103,20 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
               console.log(comment);
               _this.story.comments.push(comment);
             })
-            if(!this.searchViews())this.socket.emit("view",this.story.id,this.getUser().id);
+            if (!this.searchViews()) this.socket.emit("view", this.story.id, this.getUser().id);
             this.socket.on("view" + this.story?.id, (view) => {
               this.story?.views.push(view as IView);
             })
             this.socket.on("like" + this.story?.id, (like) => {
               this.story?.likes.push(like as ILike);
             })
+            this.socket.on("dislike" + this.story?.id, (like: ILike) => {
+              this.story.likes = this.story?.likes
+                .filter(v => v.user_id !== like.user_id)
+            })
 
           })
-        }else {
+        } else {
 
         }
       })
@@ -125,12 +136,12 @@ export class StoryComponent extends AppServiceEx implements AfterViewInit, OnIni
 
 
   getProfileView(): void {
-    if(this.homeService.getVideoPlayerControl())
-    this.homeService.getVideoPlayerControl()();
+    if (this.homeService.getVideoPlayerControl())
+      this.homeService.getVideoPlayerControl()();
     let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
     url[0] = "/" + url[0];
     url.push("profile_view");
     this.prS.setProfileViewUrl([this.story?.user_id]);
-    this.router.navigate(url, { state: { user: this.story?.user_id ,onload:true} });
+    this.router.navigate(url, { state: { user: this.story?.user_id, onload: true } });
   }
 }

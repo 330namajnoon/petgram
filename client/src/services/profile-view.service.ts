@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileViewService extends AppServiceEx {
   private profileViewUrl:string[] = [];
-  private profileData!: IUserData;
+  private profileData: IUserData | undefined;
   private galleryMenuSelected: string = this.language.getWord('all_storys');
   private storys: IStory[] = [];
   constructor(private http: HttpClient, appService: AppService, private homeService: HomeService,private router:Router) {
@@ -29,6 +29,7 @@ export class ProfileViewService extends AppServiceEx {
   downloadProfileData(user: string):Promise<IHTTPResponse<IUserData>> {
     return new Promise((resolve)=> {
       const _this = this;
+      this.profileData = undefined
       if (user) {
         _this.http.post<IHTTPResponse<IUserData>>(this.getURL() + "/profileData", { user }).subscribe((resp) => {
           if(!resp.error) {
@@ -116,7 +117,7 @@ export class ProfileViewService extends AppServiceEx {
   }
 
   getProfileData(): IUserData {
-    return this.profileData;
+    return this.profileData!;
   }
 
   getGalleryMenuSelected(): string {

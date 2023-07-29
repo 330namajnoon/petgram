@@ -102,6 +102,10 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
 
     this.setLoading(false)
   }
+  logout(){
+    localStorage.clear();
+    this.router.navigate(["/login"])
+  }
 
 
   async get_ts(id: number | undefined) {

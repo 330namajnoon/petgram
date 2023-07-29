@@ -121,7 +121,7 @@
         background: white;
         border: 1px solid #ffffff;
         border-radius: 5px;
-        font-size: 10px;
+        font-size: 14px;
         color: black;
         padding: 6px;
 
@@ -373,3 +373,10 @@
 
 input
 {color: yellowgreen;}
+
+select{
+  max-width: 200px;
+  height: 30px;
+  border-radius: 5px;
+}
+

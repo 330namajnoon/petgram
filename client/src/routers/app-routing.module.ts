@@ -36,13 +36,14 @@ export class AppRoutingModule extends AppServiceEx {
           // url[0] = "/" + url[0];
           // url.push("profile_view");
           // this.router.navigate(url, { state: { user: 'A1b2C3d4E5' } });
+          // router.navigate(["/petgram"])
         }else {
           router.navigate([""])
         }
       }
       login()
     } else {
-      // this.router.navigateByUrl("/login")
+      this.router.navigateByUrl("/")
     }
   }
 
