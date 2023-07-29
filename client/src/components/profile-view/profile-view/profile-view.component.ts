@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { HomeService } from 'src/services/home.service';
 import { AppService } from 'src/services/app.service';
@@ -8,13 +8,14 @@ import { IStoryAdress } from 'src/interfaces/IStoryAdress';
 import { AppServiceEx } from 'src/extends/AppServiceEx';
 import { IFollower } from 'src/interfaces/IFollower';
 import { FriendsService } from 'src/services/friends.service';
+import { LocationStrategy } from '@angular/common';
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss']
 })
 export class ProfileViewComponent extends AppServiceEx implements OnInit {
-  loading: boolean = true;
+  private readonly locationStrategy = inject(LocationStrategy);
   constructor(
     private profileService: ProfileViewService,
     private acRoute: ActivatedRoute,
@@ -24,40 +25,25 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
     appService: AppService
   ) {
     super(appService)
-    router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        const _this = this;
-        async function render() {
-          let state = router.getCurrentNavigation()?.extras.state;
-          if (state) {
-            let data = state as { user: string; onload: boolean };
-            if (data.onload) {
-              _this.profileService.getProfileData()
-              _this.loading = false;
-              _this.setLoading(true);
-              console.log(data.user)
-              let res = await _this.profileService.downloadProfileData(data.user);
-              _this.setLoading(false);
-
-            }
-          }
-        }
-        render();
-      }
-    })
   }
 
 
 
-  ngOnInit(): void {
-    this.socket.on("accept",(resp)=> {
+  async ngOnInit() {
+    this.socket.on("accept", (resp) => {
       if (resp.error) {
         this.router.navigate(["/error"], { state: { error: resp.error } });
       } else {
-        let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);
+        let url: string[] = location.pathname.split("/").slice(1, location.pathname.split("/").length);
 
       }
     })
+    const state = this.locationStrategy.getState() as { user: string; onload: boolean };
+    if (state?.onload) {
+      this.setLoading(true);
+      await this.profileService.downloadProfileData(state.user);
+      this.setLoading(false);
+    }
   }
 
   getMyProfile(): boolean {
@@ -82,7 +68,7 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
   }
 
   pendingFollowersSearch(): boolean {
-    let follower: IFollower | undefined = this.profileService.getProfileData().pendingFollowers.find(f => f.id == this.getUser().id);
+    let follower: IFollower | undefined = this.profileService.getProfileData()?.pendingFollowers.find(f => f.id == this.getUser().id);
 
     if (follower) {
       return true;
@@ -92,7 +78,7 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
   }
 
   followersSearch(): boolean {
-    let follower: IFollower | undefined = this.profileService.getProfileData().followers.find(f => f.id == this.getUser().id);
+    let follower: IFollower | undefined = this.profileService.getProfileData()?.followers.find(f => f.id == this.getUser().id);
     if (follower) {
       return true;
     } else {
@@ -103,17 +89,15 @@ export class ProfileViewComponent extends AppServiceEx implements OnInit {
   follow(): void {
     let { image, name, lastName, id } = this.getUser();
     let follower: IFollower = {
-       image, id, name, lastName
+      image, id, name, lastName
     }
-    this.profileService.getProfileData().pendingFollowers.push(follower);
+    this.profileService.getProfileData()?.pendingFollowers.push(follower);
 
     this.friendsService.follow(this.getProfileData().id, this.getUser().id);
   }
-  unfollow(){
+  unfollow() {
     this.friendsService.delete(this.getProfileData().id, this.getUser().id);
-    this.profileService.getProfileData().followers = this.profileService.getProfileData().followers.filter(
-      user => user.id !== this.getUser().id
-    )
+    this.profileService.getProfileData().followers = this.profileService.getProfileData()?.followers.filter(user => user.id !== this.getUser().id) || []
   }
 
   back() {

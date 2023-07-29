@@ -33,7 +33,9 @@ const { error } = require("console");
 
 
 
-const connectionData = 'mysql://6wuh2pjz97nmgiq7uo5s:pscale_pw_gzjs5PDOa30GinDWgE0mN0IZ1evkGrn4uzpIOTz3wiU@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://kdh4tco374nipzzpimim:pscale_pw_K3pS6m5YWkkripiT6ryeItb7la0mi75g5AfveCpj2C7@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+
+
 
 
 server.listen(port, () => {
@@ -88,6 +90,26 @@ io.on("connect", (client) => {
           return;
         } else {
           io.emit(`like${story_id}`, { id: resp.insertId, user_id, story_id });
+        }
+      });
+    });
+  });
+
+  client.on("dislike", (story_id, user_id) => {
+    const connection = mysql.createConnection(connectionData);
+    connection.connect((err) => {
+      if (err) return;
+      const consult = `
+          DELETE
+          FROM likes
+          WHERE user_id ='${user_id}' and story_id = '${story_id}'
+        `;
+
+      connection.query(consult, (err, resp) => {
+        if (err) {
+          return;
+        } else {
+          io.emit(`dislike${story_id}`, { id: resp.insertId, user_id, story_id });
         }
       });
     });
