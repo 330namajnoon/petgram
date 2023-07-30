@@ -21,17 +21,6 @@ export class PetDataComponent extends AppServiceEx {
   private display:boolean = false;
   constructor(private router:Router,appService:AppService,private profileVS:ProfileViewService) {
     super(appService);
-
-  }
-
-  async getRace(race:number) {
-    this.setLoading(true);
-    let res = await this.profileVS.getRace(this.petData.race);
-    if(res.data) {
-      this.race = res.data;
-    }else {
-      this.router.navigate(["/error"],{state:{error:res.error}});
-    }
   }
 
   getDisplayClass():string {

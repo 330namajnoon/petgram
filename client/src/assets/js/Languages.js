@@ -216,6 +216,10 @@ export function Languages() {
     log_out:{
       english:"LogOut",
       español: "Cerrar sesion"
+    },
+    question:{
+      english:"You are about to remove pet",
+      español:"Estas por eliminar a la mascota"
     }
 
   }

@@ -5,6 +5,8 @@ export interface IPet {
   birthDay:string;
   type:number;
   race:number;
+  type_name?:string;
+  race_name?:string;
   gender:string;
   description:string;
 }
