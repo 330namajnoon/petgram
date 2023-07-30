@@ -3,11 +3,11 @@
 
     <div class="tr">
       <h1 class="td">Nombre: <h2>{{petData.name}}</h2></h1>
-      <h1 class="td">Tipo: <h2>{{petData.type}}</h2></h1>
+      <h1 class="td">Tipo: <h2>{{petData.type_name}}</h2></h1>
     </div>
     <div class="tr">
-      <h1 class="td">Fecha de nacimiento: <h2>{{petData.birthDay}}</h2></h1>
-      <h1 class="td">Raza: <h2>{{petData.race}}</h2></h1>
+      <h1 class="td">Fecha de nacimiento: <h2>{{petData.birthDay | date: 'MMM d, y'}}</h2></h1>
+      <h1 class="td">Raza: <h2>{{petData.race_name}}</h2></h1>
     </div>
     <div class="tr">
       <h1 class="td">Género: <h2>{{petData.gender}}</h2></h1>

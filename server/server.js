@@ -31,7 +31,7 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const { error } = require("console");
 
-const connectionData = 'mysql://fi68zrbrur3f6bzuv9iu:pscale_pw_vhQKyKCD5Au7DYg8apSZUcmIdRMLuF7ftQxRwa4FiQJ@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData = 'mysql://uri6id5grwqlqkypv1vd:pscale_pw_6bnp0VcbaIxdfnddsm2lCfBUuYriUzG611zyPqAOYfr@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 const con = mysql.createConnection(connectionData);
 con.connect((e) => {
   if (e && e.sqlMessage)
@@ -609,10 +609,14 @@ app.post("/profileData", multer().none(), (req, res) => {
       WHERE s.user_id = '${req.body.user}'
     `;
     const consult5 = `
-      SELECT p.pet_id as id,u.id as user_id,p.name,p.birthDay,p.type,p.race,p.gender,p.description
+      SELECT p.pet_id as id,u.id as user_id,p.name,p.birthDay,p.type,p.race,tp.type as type_name,rc.race as race_name,p.gender,p.description
       FROM pets p
       JOIN users u
       ON p.user_id = u.id
+      JOIN types tp
+      ON tp.id = p.type
+      JOIN races rc
+      ON rc.id = p.race
       WHERE p.user_id = '${req.body.user}'
     `;
     conneccion.query(consult, (err, resp1) => {
