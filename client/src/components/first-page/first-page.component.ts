@@ -45,6 +45,11 @@ export class FirstPageComponent extends AppServiceEx implements OnInit {
     return this.languages;
   }
 
+  chengeLanguage() {
+    let select = document.getElementById("language");
+    this.language.setLanguage((select as HTMLSelectElement).value);
+  }
+
   getSignupPage(): void {
     this.group.markAllAsTouched();
     if (this.group.valid) {

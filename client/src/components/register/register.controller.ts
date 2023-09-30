@@ -14,7 +14,7 @@ export class RegisterController {
     country: new FormControl('', Validators.required),
     postalCode: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl<number>(0,[Validators.pattern("^[679]{1}[0-9]{8}$")]),
+    phone: new FormControl<number|null>(null,[Validators.required,Validators.pattern(/^\d{9}$/)]),
     password: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
     confirmPassword: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
   });

@@ -1,11 +1,12 @@
-<div class="container">
-  <h3 class="title">{{language.getWord('select_profile_image')}}</h3>
+<div [ngClass]="getDevice()">
+  <h3 [style]="{color:getColors().c3}" class="title">{{language.getWord('select_profile_image')}}</h3>
 
   <img (click)="image.click()" [ngStyle]="{img: form.value.fileSource}" [ngClass]="imageSrc=='assets/images/profile.png'? 'img':'img2'" width="250" height="250" [src]="imageSrc" />
-  <input #image id="image_pet_file" hidden type="file" accept="image/png,image/jpeg" (change)="onFileChange($event) ">
+  <input  #image id="image_pet_file" hidden type="file" accept="image/png,image/jpeg" (change)="onFileChange($event) ">
+  <h3 *ngIf="error" [style]="{color:getColors().c3}" class="title">{{language.getWord("you_must_choose_a_profile_photo")}}</h3>
+  <div>
+    <button [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c3}" (click)="goNext()" class="next" class="position-button">{{language.getWord('lets_goo')}}</button>
+  </div>
 </div>
 
-<div>
-  <button  (click)="goNext()" class="next" class="position-button">{{language.getWord('lets_goo')}}</button>
-</div>
 

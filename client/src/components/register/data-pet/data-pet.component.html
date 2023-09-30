@@ -1,21 +1,21 @@
-<div class="container">
+<div [ngClass]="getDevice()">
+  <h3 class="title">{{language.getWord('petData')}}</h3>
   <div [formGroup]="form" class="form-container">
-    <h3 class="title">{{language.getWord('petData')}}</h3>
     <div>
-      <label class="label-input" for="text">{{language.getWord('name')}}:</label>
-      <input class="input" formControlName="name" placeholder="{{language.getWord('name')}}" type="text" />
+      <label [style]="{color:getColors().c4}" class="label-input" for="text">{{language.getWord('name')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" class="input" formControlName="name" placeholder="{{language.getWord('name')}}" type="text" />
       <app-validator [control]="form.get('name')" />
     </div>
     <div>
-      <label class="label-input" for="date">{{language.getWord('birthDay')}}</label>
-      <input class="input" formControlName="birthDay" placeholder="{{language.getWord('birthDay')}}" type="date" />
+      <label [style]="{color:getColors().c4}" class="label-input" for="date">{{language.getWord('birthDay')}}</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" class="input" formControlName="birthDay" placeholder="{{language.getWord('birthDay')}}" type="date" />
       <app-validator [control]="form.get('birthDay')" />
 
     </div>
 
     <div>
-      <label class="label-input" for="text">{{language.getWord('gender')}}:</label>
-      <select name="cars" id="cars" formControlName="gender">
+      <label [style]="{color:getColors().c4}" class="label-input" for="text">{{language.getWord('gender')}}:</label>
+      <select [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" name="cars" id="cars" formControlName="gender">
         <option value="" selected>{{language.getWord('select')}}</option>
         <option value="M">{{language.getWord('male')}}</option>
         <option value="F">{{language.getWord('female')}}</option>
@@ -24,42 +24,47 @@
     </div>
 
     <div>
-      <label class="label-input">{{language.getWord('type')}}:</label>
-      <select (change)="downloadRaces($event)" formControlName="type">
+      <label [style]="{color:getColors().c4}" class="label-input">{{language.getWord('type')}}:</label>
+      <select [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" (change)="downloadRaces($event)" formControlName="type">
         <option value="" selected>{{language.getWord('select')}}</option>
-        <option *ngFor="let type of getTypes()"  value="{{type.id}}">{{type.type}}</option>
+        <option *ngFor="let type of getTypes()" value="{{type.id}}">{{type.type}}</option>
 
       </select>
       <app-validator [control]="form.get('type')" />
 
     </div>
     <div>
-      <label class="label-input" for="text">{{language.getWord('race')}}:</label>
-      <select formControlName="race">
+      <label [style]="{color:getColors().c4}" class="label-input" for="text">{{language.getWord('race')}}:</label>
+      <select [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="race">
         <option value="" selected>{{language.getWord('select')}}</option>
         <option *ngFor="let race of getRaces()" [value]="race.id">{{ race.race }}</option>
       </select>
       <app-validator [control]="form.get('gender')" />
     </div>
     <div>
-      <label class="label-input" for="text">{{language.getWord('description')}}:</label>
-      <textarea formControlName="description" placeholder="{{language.getWord('description')}}" class="textarea" type="text" name="" id="" cols="30" rows="10"></textarea>
+      <label [style]="{color:getColors().c4}" class="label-input" for="text">{{language.getWord('description')}}:</label>
+      <textarea [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="description" placeholder="{{language.getWord('description')}}" class="textarea"
+        type="text" name="" id="" cols="30" rows="10"></textarea>
       <app-validator [control]="form.get('description')" />
 
     </div>
-    <div>
-      <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="privacyPolicy" />
-      <label class="check" for="vehicle1">
-        {{language.getWord('privacy_and_notification_settings')}}</label>
-    </div>
+    <div class="checkboxs">
+      <div class="checkbox">
+        <input (click)="checked(0)" [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" type="checkbox" id="vehicle1" name="vehicle1" formControlName="privacyPolicy" />
+        <span [style]="!checkboxs[0] ? {border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2} : {border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c3}" class="checkmark"></span>
+        <label [style]="{color:getColors().c4}" class="check" for="vehicle1">
+          {{language.getWord('privacy_and_notification_settings')}}</label>
+      </div>
 
-    <div>
-      <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="termsAndConditions" />
-      <label class="check" for="vehicle1">{{language.getWord('acceptance_of_terms_and_conditions')}}
-      </label>
+      <div class="checkbox">
+        <input (click)="checked(1)" [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" type="checkbox" id="vehicle2" name="vehicle2" formControlName="termsAndConditions" />
+        <span [style]="!checkboxs[1] ? {border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2} : {border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c3}" class="checkmark"></span>
+        <label [style]="{color:getColors().c4}" class="check" for="vehicle2">{{language.getWord('acceptance_of_terms_and_conditions')}}
+        </label>
+      </div>
     </div>
     <div>
-      <button class="siguiente" (click)="goNext()">{{language.getWord('next')}}</button>
+      <button [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c3}" class="siguiente" (click)="goNext()">{{language.getWord('next')}}</button>
     </div>
   </div>
 </div>

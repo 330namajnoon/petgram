@@ -17,7 +17,7 @@ export class DataPetComponent extends AppServiceEx implements OnInit{
   form: FormGroup = this.ctrl.formDataPet;
   types:{id:number;type:string}[] = [];
   races:{id:number;race:string}[] = [];
-
+  checkboxs:boolean[] = [false,false];
   constructor(private router: Router, private registerS: RegisterService,appS:AppService,private acRouter:ActivatedRoute) {
     super(appS);
   }
@@ -86,5 +86,9 @@ export class DataPetComponent extends AppServiceEx implements OnInit{
         this.router.navigate(["/error"], { state: { error: res.error } });
       }
     }
+  }
+
+  checked(n:number) {
+    this.checkboxs[n] ? this.checkboxs[n] = false : this.checkboxs[n] = true;
   }
 }

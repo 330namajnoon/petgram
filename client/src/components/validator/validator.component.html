@@ -1,4 +1,5 @@
 <div *ngIf="control && control.invalid && control.touched">
-  <p *ngIf="control.getError('required')">Campo requerido </p>
-  <p *ngIf="control.getError('email')">Introduzca un email válido</p>
+  <p [style]="{color:getColors().c1,background:getColors().c3+90}" *ngIf="control.getError('required')">{{language.getWord('required_field')}} </p>
+  <p [style]="{color:getColors().c1,background:getColors().c3+90}" *ngIf="control.getError('pattern')">{{language.getWord('required_field')}} </p>
+  <p [style]="{color:getColors().c1,background:getColors().c3+90}" *ngIf="control.getError('email')">{{language.getWord('enter_a_valid_email')}}</p>
 </div>

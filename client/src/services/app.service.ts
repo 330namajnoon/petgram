@@ -3,6 +3,7 @@ import { io } from 'socket.io-client';
 import { httpClient } from "src/assets/ts/httpClient";
 import { IUser } from 'src/interfaces/IUser';
 import { Languages } from 'src/assets/js/Languages';
+import { Colors } from 'src/assets/js/Colors';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { IHTTPResponse } from 'src/interfaces/IHTTPResponse';
@@ -16,11 +17,13 @@ export class AppService {
   // private URL: string = 'https://abc3-94-73-37-80.ngrok-free.app';
   socket = io(this.URL);
   language: Languages = new Languages();
+  colors: Colors = new Colors();
   types: { img: string[], video: string[] } = {
     img: ["png", "jpg", "jpeg", "fig"],
     video: ["mkv", "mp4"]
   }
   constructor(private http: HttpClient, private router: Router) {
+    this.colors.setColors(0);
     window.addEventListener("resize", () => {
       router.navigate(["/petgram"]);
     })

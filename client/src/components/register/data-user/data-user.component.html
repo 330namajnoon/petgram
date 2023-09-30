@@ -1,71 +1,60 @@
-<!-- <button routerLink="/signup/data-pet">Datos del usuario</button>
-<form [formGroup]="dataUser" (ngSubmit)="save()">
-  <div>
-    <label for="fullName">Nombre Completo:</label>
-    <input type="text" id="fullName" formControlName="fullName" />
-  </div>
-</form>
- -->
 
-
-<div class="container">
-  <div class="form-container" [formGroup]="form">
-    <h3 class="title">{{language.getWord('userData')}}</h3>
+<div [ngClass]="getDevice()">
+  <h3 [style]="{color:getColors().c3,background:getColors().c2}" class="title">{{language.getWord('userData')}}</h3>
+  <div [style]="{background:getColors().c1}" class="form-container" [formGroup]="form">
     <div>
-      <label for="name">{{language.getWord('name')}}:</label>
-      <input formControlName="name" placeholder="{{language.getWord('name')}}" type="text" />
+      <label [style]="{color:getColors().c4}" for="name">{{language.getWord('name')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="name" placeholder="{{language.getWord('name')}}" type="text" />
       <app-validator [control]="form.get('name')" />
     </div>
     <div>
-      <label for="lastName">{{language.getWord('lastName')}}:</label>
-      <input formControlName="lastName" placeholder="{{language.getWord('lastName')}}" type="lastName" />
+      <label [style]="{color:getColors().c4}" for="lastName">{{language.getWord('lastName')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="lastName" placeholder="{{language.getWord('lastName')}}" type="lastName" />
       <app-validator [control]="form.get('lastName')" />
     </div>
     <div>
-      <label class="label-input" for="date">{{language.getWord('birthDay')}}:</label>
-      <input class="input" formControlName="birthDay" type="date" />
+      <label [style]="{color:getColors().c4}" class="label-input" for="date">{{language.getWord('birthDay')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" class="input" formControlName="birthDay" type="date" />
       <app-validator [control]="form.get('birthDay')" />
     </div>
     <div>
-      <label for="name">{{language.getWord('address')}}:</label>
-      <input formControlName="address" placeholder="{{language.getWord('address')}}" type="text" />
+      <label [style]="{color:getColors().c4}" for="name">{{language.getWord('address')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="address" placeholder="{{language.getWord('address')}}" type="text" />
       <app-validator [control]="form.get('address')" />
     </div>
     <div>
-      <label for="country">{{language.getWord('city')}}:</label>
-      <select formControlName="country">
+      <label [style]="{color:getColors().c4}" for="country">{{language.getWord('city')}}:</label>
+      <select [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="country">
         <option value="" selected>{{language.getWord('select_city')}}</option>
         <option *ngFor="let city of cities" value="{{city.id}}">{{city.country}}</option>
       </select>
       <app-validator [control]="form.get('country')" />
     </div>
     <div>
-      <label for="name">{{language.getWord('postalCode')}}:</label>
-      <input formControlName="postalCode" placeholder="{{language.getWord('postalCode')}}" type="number" />
+      <label [style]="{color:getColors().c4}" for="name">{{language.getWord('postalCode')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="postalCode" placeholder="{{language.getWord('postalCode')}}" type="number" />
       <app-validator [control]="form.get('postalCode')" />
     </div>
     <div>
-      <label>{{language.getWord('email')}}:</label>
-      <input formControlName="email" autocomplete="off" name="nada" placeholder="{{language.getWord('email')}}"
+      <label [style]="{color:getColors().c4}">{{language.getWord('email')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="email" autocomplete="off" name="nada" placeholder="{{language.getWord('email')}}"
         type="email" />
       <app-validator [control]="form.get('email')" />
     </div>
     <div>
-      <label for="phone">{{language.getWord('phone')}}:</label>
-      <input formControlName="phone" type="number" placeholder="+34" />
+      <label [style]="{color:getColors().c4}" for="phone">{{language.getWord('phone')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="phone" type="number" placeholder="+34" />
       <app-validator [control]="form.get('phone')" />
     </div>
 
     <div>
-      <label for="password">{{language.getWord('password')}}:</label>
-      <input formControlName="password" autocomplete="off" name="nada" placeholder="{{language.getWord('password')}}" type="password" />
-    </div>
-    <div>
+      <label [style]="{color:getColors().c4}" for="password">{{language.getWord('password')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="password" autocomplete="off" name="nada" placeholder="{{language.getWord('password')}}" type="password" />
       <app-password-validator [control]="form.get('password')" />
     </div>
     <div>
-      <label for="confirmpassword">{{language.getWord('password_confirmation')}}:</label>
-      <input formControlName="confirmPassword" placeholder="{{language.getWord('password_confirmation')}}"
+      <label [style]="{color:getColors().c4}" for="confirmpassword">{{language.getWord('password_confirmation')}}:</label>
+      <input [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="confirmPassword" placeholder="{{language.getWord('password_confirmation')}}"
         type="password" />
       <app-password-validator [control]="form.get('confirmPassword')" />
     </div>

@@ -40,6 +40,7 @@
       justify-content: space-between;
       position: absolute;
       top: 0;
+
       .profile {
         padding: 10px;
         display: flex;
@@ -55,29 +56,41 @@
           border: solid 1px gold;
           border-radius: 40px;
         }
-        h6 {
-          color: gold;
+        div {
+          background-color: rgba(0, 0, 0, 0.11);
           display: flex;
           flex-direction: column;
-          align-items: center;
-          font-size:1rem;
-          margin-top: 30px;
-          font-weight: bold;
-          .like {
-            font-size: 12vw;
-            color: red;
-          }
-          .dislike {
-            font-size: 12vw;
-            color: white;
+          border-radius: 10vw;
+          justify-content: center;
+
+          height: 50vh;
+          padding: 4px;
+          h6 {
+            color: gold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size:15px;
+            font-weight: 800;
+            font-weight: bold;
+            .like {
+              font-size: 10vw;
+              color: red;
+            }
+            .dislike {
+              font-size: 10vw;
+              color: white;
+            }
           }
         }
       }
       .description {
         width: 100%;
-        height: 18%;
-        background-color: rgba(0, 0, 0, 0.263);
+        height: 25%;
+        box-shadow: -1px -1px 10px rgba(128, 128, 128, 0.39);
+        background-color: rgba(0, 0, 0, 0.185);
         padding: 10px;
+        border-radius: 20px 20px 0 0;
         box-sizing: border-box;
         color: white;
         overflow-y: auto;
@@ -188,7 +201,7 @@
 }
 
 .material-symbols-rounded {
-  font-size: 48px;
+  font-size: 35px;
 }
 
 

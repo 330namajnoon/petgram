@@ -1,6 +1,6 @@
 <a [ngClass]="getDevice()" *ngIf="getDevice() == 'container_mobile'; else pc" routerLink="{{url}}">
-  <div [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
-    <span (click)="setPage(name,url)" class="material-symbols-rounded">
+  <div [style]="getSelectVal() !== name ? styles.optionDAct.back : styles.optionAct.back" [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
+    <span [style]="getSelectVal() !== name ? styles.optionDAct.icon : styles.optionAct.icon" (click)="setPage(name,url)" class="material-symbols-rounded">
       {{name}}
     </span>
   </div>
@@ -8,7 +8,7 @@
 
 <ng-template #pc>
   <a [ngClass]="getDevice()" routerLink="{{url}}">
-    <div (click)="setPage(name,url)" [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
+    <div (click)="setPage(name,url)" [style]="getSelectVal() == name ? styles.optionDAct : styles.optionAct" [ngClass]="getSelectVal() == name ? 'container' : 'activeContainer'">
       {{url}}
     </div>
   </a>

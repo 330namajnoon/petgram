@@ -12,36 +12,44 @@
   justify-content: flex-end;
   .titulo {
     position: absolute;
-    padding: 29px;
+    padding: 15px;
     box-sizing: border-box;
     margin: 0;
     background-color: rgba(0, 0, 0, 0.338);
+    border-radius: 0 0 30px 30px;
     top: 0px;
     width: 100%;
     text-align: center;
     font-weight: 700;
-    font-size: 30px;
-    line-height: 120%;
+    font-size: 20px;
+    line-height: 200%;
     color: #fbb034;
   }
   button {
     margin: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     width: 210px;
     height: 40px;
-    background: #fbb034;
+    background: #fbaf34d3;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.6);
     border-radius: 8px;
+    border: solid .5px gray;
+    color: #464646;
+    font-weight: 800;
   }
   form {
     select {
+      border: solid .5px gray;
       padding: 10px;
       box-sizing: border-box;
       width: 210px;
       height: 40px;
-      background: #fbb034;
+      background: #fbaf34c2;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.6);
       border-radius: 8px;
+      color: rgb(66, 66, 66);
+      font-weight: 800;
+      outline: none;
     }
   }
 }

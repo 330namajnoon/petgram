@@ -31,7 +31,7 @@ require("dotenv").config();
 const mysql = require("mysql2");
 const { error } = require("console");
 
-const connectionData = 'mysql://b3orem8zrw7nspzm9ads:pscale_pw_vzmCuoAax39Y5YuXi5MbW2NOuzgRj78kEtY3q5HM7ae@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
+const connectionData ='mysql://362jyp5lahlx45c49v1w:pscale_pw_J6TbbG5s9EuGfnnjZvHhRspbtABBhZcV9PfoeZVaLGe@aws.connect.psdb.cloud/petgram?ssl={"rejectUnauthorized":true}'
 
 
 const con = mysql.createConnection(connectionData);

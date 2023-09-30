@@ -12,7 +12,7 @@ import { RegisterController } from '../register/register.controller';
 })
 export class LoginComponent extends AppServiceEx implements OnInit {
   ctrl = inject(RegisterController);
-
+  error:boolean = false;
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -42,7 +42,7 @@ export class LoginComponent extends AppServiceEx implements OnInit {
           localStorage.setItem("user",JSON.stringify({email:res.data.email,password:res.data.password}));
           this.router.navigate(["/petgram"]);
         }else {
-          ///// error;
+          this.error = true;
         }
       this.registerService.login(email, password);
     }else {

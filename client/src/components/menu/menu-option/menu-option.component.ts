@@ -10,6 +10,27 @@ import { MenuService } from 'src/services/menu.service';
 export class MenuOptionComponent extends AppServiceEx {
   @Input()name!:string;
   @Input()url!:string;
+  styles:any = {
+    menuContainer:{
+      color:this.getColors().c3
+    },
+    optionAct:{
+      back:{
+        background:this.getColors().c4
+      },
+      icon:{
+        color:this.getColors().c3
+      }
+    },
+    optionDAct:{
+      back:{
+        background:this.getColors().c3
+      },
+      icon:{
+        color:this.getColors().c2
+      }
+    }
+  }
   constructor(appService:AppService,public menuService:MenuService){
     super(appService);
   }

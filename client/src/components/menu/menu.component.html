@@ -1,4 +1,4 @@
-<div *ngIf="getDevice() == 'container_mobile'; else pc" [style]="containerStyle" [ngClass]="getDevice()">
+<div [style]="{background:getColors().c3}" *ngIf="getDevice() == 'container_mobile'; else pc" [style]="containerStyle" [ngClass]="getDevice()">
   <app-menu-option *ngFor="let option of menuService.options" [name]="option.name" [url]="option.url"/>
 </div>
 

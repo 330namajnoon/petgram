@@ -1,6 +1,47 @@
 export function Languages() {
   this.language = "español";
   this.languages = {
+
+    username_or_password_does_not_exist: {
+      english: "Username or password does not exist.",
+      español: "Usuario o contraseña no existe."
+    },
+    password_must_be_between_8_and_20_characters_using_letters_and_numbers: {
+      english: "Password must be between 8 and 20 characters, using letters and numbers.",
+      español: "Contraseña debe ser entre 8 y 20 caracteres utilizando letras, números."
+    },
+    password_required: {
+      english: "Password required",
+      español: "Contraseña obligatoria"
+    },
+    enter_a_valid_email: {
+      english: "Enter a valid email",
+      español: "Introduzca un email válido"
+    },
+    required_field: {
+      english: "Required field",
+      español: "Campo requerido"
+    },
+    continue: {
+      english: "Continue",
+      español: "Continuar"
+    },
+    enter_an_email_address: {
+      english: "Enter an email address:",
+      español: "Ingrese un correo electrónico:"
+    },
+    enter_the_password: {
+      english: "Enter the password:",
+      español: "Ingrese la contraseña:"
+    },
+    w_petgram: {
+      english: "WELLCOME TO PETGRAM",
+      español: "BIENVENIDOS A PETGRAM",
+    },
+    login: {
+      english: "LOGIN",
+      español: "INICIAR SESiON"
+    },
     home: {
       english: "home",
       español: "Inicio"

@@ -1,13 +1,11 @@
-@media (max-width: 500px) {
-
-}
+@media (max-width: 500px) {}
 
 
 .container_mobile {
 
   width: 100vw;
   height: 100px;
-  background-color: black;
+
 
   .head {
     width: 100%;
@@ -15,10 +13,13 @@
     background-color: #303030;
     display: flex;
     align-items: center;
+
+
     img {
-      width: 55px;
-      margin-left: 20px;
+      width: 57px;
+      margin-left: 5px;
     }
+
     h1 {
       font-weight: 700;
       font-size: large;
@@ -30,17 +31,20 @@
       margin-left: 20px;
     }
   }
+
   .storys {
     background-color: #ffdda6;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
-     letter-spacing: 1px;
+    letter-spacing: 1px;
+  }
+
+  .storys::-webkit-scrollbar {
+    width: 0px;
   }
 }
 
-@media (max-width: 500px) {
-
-}
+@media (max-width: 500px) {}
 
 
 .container_pc {
@@ -55,10 +59,12 @@
     background-color: #303030;
     display: flex;
     align-items: center;
+
     img {
       width: 50px;
       margin-left: 60px;
     }
+
     h1 {
       font-weight: 700;
       font-size: 20px;
@@ -70,10 +76,10 @@
       margin-left: 20px;
     }
   }
+
   .storys {
     background-color: #ffdda6;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
   }
 }
-

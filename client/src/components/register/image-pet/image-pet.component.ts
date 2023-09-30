@@ -15,6 +15,7 @@ export class ImagePetComponent extends AppServiceEx {
   ctrl = inject(RegisterController);
   form = this.ctrl.formImagePet;
   imageSrc: string = "assets/images/profile.png";
+  error:boolean = false;
 
   constructor(private router: Router,private registerS:RegisterService,appS:AppService) {
     super(appS);
@@ -58,7 +59,7 @@ export class ImagePetComponent extends AppServiceEx {
         this.router.navigateByUrl('/login');
       }
     } else {
-      alert(this.language.getWord("you_must_choose_a_profile_photo"));
+      this.error = true;
     }
   }
 }

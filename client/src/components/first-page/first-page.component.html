@@ -1,14 +1,14 @@
 <div [ngClass]="getDevice()">
   <!-- <app-validator [control]="group.get('language')" /> -->
-  <h3 class="titulo">Bienvenidos a PETGRAM</h3>
+  <h3 [style]="{color:getColors().c3,background:getColors().c2}" class="titulo">{{language.getWord('w_petgram')}}</h3>
   <form [formGroup]="group">
-    <select id="language" formControlName="language"  *ngIf="getLanguages()" name="{{language.getWord('language')}}" >
+    <select [style]="{color:getColors().c1,background:getColors().c3,border: 'solid .5px '+getColors().c2}" (ngModelChange)="chengeLanguage()" id="language" formControlName="language"  *ngIf="getLanguages()" name="{{language.getWord('language')}}" >
       <option value="">{{language.getWord('language')}}</option>
       <option *ngFor="let language of languages" value="{{language}}">{{language | titlecase}}</option>
     </select>
     <app-validator [control]="group.get('language')" />
   </form>
-  <button (click)="getSignupPage()" class="position-button">Continuar</button>
+  <button [style]="{color:getColors().c1,background:getColors().c3,border: 'solid .5px '+getColors().c2}"  (click)="getSignupPage()" class="position-button">{{language.getWord('continue')}}</button>
 </div>
 
 

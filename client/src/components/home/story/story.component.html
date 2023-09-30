@@ -5,23 +5,25 @@
     <app-video-player *ngIf="typePromise('video',story.type)" [src]="story.url" [type]="story.type" [style]="{width:'100vw',height:storysStyle.height}" #videoPlayer />
     <div class="details">
       <div class="profile">
-        <img #image (click)="getProfileView()" [src]="story.profileImage" alt="">
-        <h6>
-          <span (click)="homeService.getVideoPlayerControl()()" routerLink="comments/story{{id}}" class="material-symbols-rounded">chat</span>
-          {{story.comments.length}}
-        </h6>
-        <h6>
-          <span (click)="like()" [ngClass]="searchLikes() ? 'like' : 'dislike'"  class="material-symbols-rounded">favorite</span>
-          {{story.likes.length}}
-        </h6>
-        <h6>
-          <span  class="material-symbols-rounded">visibility</span>
-          {{story.views.length}}
-        </h6>
+        <img [style]="{border:'solid 1px '+getColors().c3}" #image (click)="getProfileView()" [src]="story.profileImage" alt="">
+        <div>
+          <h6 [style]="{color:getColors().c3}">
+            <span [style]="{color:getColors().c3}" (click)="homeService.getVideoPlayerControl()()" routerLink="comments/story{{id}}" class="material-symbols-rounded">chat</span>
+            {{story.comments.length}}
+          </h6>
+          <h6 [style]="{color:getColors().c3}">
+            <span  (click)="like()" [ngClass]="searchLikes() ? 'like' : 'dislike'"  class="material-symbols-rounded">favorite</span>
+            {{story.likes.length}}
+          </h6>
+          <h6 [style]="{color:getColors().c3}">
+            <span [style]="{color:getColors().c3}" class="material-symbols-rounded">visibility</span>
+            {{story.views.length}}
+          </h6>
+        </div>
       </div>
       <div class="description">
-        <h1>{{story.fullName}}</h1>
-        <h3>{{story.description}}</h3>
+        <h1  [style]="{color:getColors().c4}">{{story.fullName}}</h1>
+        <h3  [style]="{color:getColors().c4}">{{story.description}}</h3>
       </div>
     </div>
   </div>
