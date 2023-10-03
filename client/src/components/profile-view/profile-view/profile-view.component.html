@@ -4,7 +4,7 @@
     <div *ngIf="getMyProfile()" class="head_friends">
       <span (click)="back()" class="material-symbols-rounded">arrow_circle_left</span>
       <div class="head">
-        <img [src]="getProfileData().image" alt="">
+        <img [src]="getURL()+'/'+getProfileData().image" alt="">
         <h1>{{getProfileData().fullName}}</h1>
         <input (click)="follow()" *ngIf="!pendingFollowersSearch() && !followersSearch() " class="follow" type="button"
           value="{{language.getWord('follow')}}">

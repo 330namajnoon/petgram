@@ -4,9 +4,9 @@ $h:100vh;
   position: fixed;
   z-index: 20;
   color: goldenrod;
-  font-size: 25px;
-  left: calc($w - 40px);
-  top: calc($h - 90px);
+  font-size: 40px;
+  left: calc($w - 70px);
+  top: calc($h - 130px);
 }
 input {
   display: none;

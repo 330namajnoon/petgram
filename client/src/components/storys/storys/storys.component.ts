@@ -70,6 +70,7 @@ export class StorysComponent extends AppServiceEx {
     if(res.error) {
 
     }else {
+      this.fileSelected = true;
       this.storyS.get("setStorySaveDisplay")(false);
       this.getUser().storys.unshift({pet_id:res.data.pet,story_id:res.data.id});
       let url:string[] = location.pathname.split("/").slice(1,location.pathname.split("/").length);

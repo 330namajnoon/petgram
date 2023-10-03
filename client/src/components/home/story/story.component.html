@@ -5,7 +5,7 @@
     <app-video-player *ngIf="typePromise('video',story.type)" [src]="story.url" [type]="story.type" [style]="{width:'100vw',height:storysStyle.height}" #videoPlayer />
     <div class="details">
       <div class="profile">
-        <img [style]="{border:'solid 1px '+getColors().c3}" #image (click)="getProfileView()" [src]="story.profileImage" alt="">
+        <img [style]="{border:'solid 1px '+getColors().c3}" #image (click)="getProfileView()" [src]="getURL()+'/'+story.profileImage" alt="">
         <div>
           <h6 [style]="{color:getColors().c3}">
             <span [style]="{color:getColors().c3}" (click)="homeService.getVideoPlayerControl()()" routerLink="comments/story{{id}}" class="material-symbols-rounded">chat</span>

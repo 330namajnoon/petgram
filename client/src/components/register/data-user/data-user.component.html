@@ -25,7 +25,7 @@
     <div>
       <label [style]="{color:getColors().c4}" for="country">{{language.getWord('city')}}:</label>
       <select [style]="{border:'solid 1px '+getColors().c4,color:getColors().c4,background:getColors().c2}" formControlName="country">
-        <option value="" selected>{{language.getWord('select_city')}}</option>
+        <option value="0" selected>{{language.getWord('select_city')}}</option>
         <option *ngFor="let city of cities" value="{{city.id}}">{{city.country}}</option>
       </select>
       <app-validator [control]="form.get('country')" />

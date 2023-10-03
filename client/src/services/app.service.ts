@@ -24,9 +24,9 @@ export class AppService {
   }
   constructor(private http: HttpClient, private router: Router) {
     this.colors.setColors(0);
-    window.addEventListener("resize", () => {
-      router.navigate(["/petgram"]);
-    })
+    // window.addEventListener("resize", () => {
+    //   router.navigate(["/petgram"]);
+    // })
   }
 
   typePromise(tagName: string = "img" || "video", type: string): boolean {

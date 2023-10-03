@@ -7,25 +7,25 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class RegisterController {
 
   formDataUser: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    birthDay: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    postalCode: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl<number|null>(null,[Validators.required,Validators.pattern(/^\d{9}$/)]),
-    password: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
+    name: new FormControl('Carmen', Validators.required),
+    lastName: new FormControl('Fernandez', Validators.required),
+    birthDay: new FormControl('1990-12-06', Validators.required),
+    address: new FormControl('Corazon de maria, 18', Validators.required),
+    country: new FormControl('1', Validators.required),
+    postalCode: new FormControl('28038', Validators.required),
+    email: new FormControl('carmen@gmail.com', [Validators.required, Validators.email]),
+    phone: new FormControl<number|null>(643862337,[Validators.required,Validators.pattern(/^\d{9}$/)]),
+    password: new FormControl('carmen1234', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
+    confirmPassword: new FormControl('carmen1234', [Validators.required, Validators.pattern('^[A-Za-z0-9$%&/()]{8,20}$')]),
   });
 
   formDataPet: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
-    birthDay: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
-    race: new FormControl('', Validators.required),
-    description: new FormControl(''),
+    name: new FormControl('Emma', Validators.required),
+    birthDay: new FormControl('2020-15-12', Validators.required),
+    gender: new FormControl('F', Validators.required),
+    type: new FormControl('1', Validators.required),
+    race: new FormControl('1', Validators.required),
+    description: new FormControl('Mi gatita tranquila'),
     privacyPolicy: new FormControl(false, Validators.required),
     termsAndConditions: new FormControl(false, Validators.required),
   });

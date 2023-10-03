@@ -11,8 +11,10 @@
     border-radius: 5px;
     display: flex;
     align-items: center;
-    background-color: rgb(100, 100, 100);
+    background-color: #FBB033;
     box-shadow: 1px 1px 10px rgb(45, 45, 45);
+    padding: 20px;
+    box-sizing: border-box;
     h1 {
       font-size: 20px;
       margin-left: 10px;
@@ -35,28 +37,27 @@
     display: flex;
     flex-direction: column;
 
-
-    .tr {
-      width: 100%;
+    h1 {
+      all: unset;
+      font-size: 15px;
       display: flex;
       align-items: center;
-      .td {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      color: gray;
+      padding: 5px;
+      border-bottom: solid 1px gray;
+      h2 {
         padding: 0;
         margin: 0;
-        width: 50%;
+        margin-left: 5px;
+        color: grey;
         font-size: 15px;
-        color: rgb(92, 92, 92);
-        display: flex;
-        align-items: center;
-        margin-left: 20px;
-        h2 {
-          margin-left: 10px;
-          font-size: 15px;
-          color: antiquewhite;
-        }
       }
     }
   }
+
   .petData.open {
     height: auto;
     visibility: visible;

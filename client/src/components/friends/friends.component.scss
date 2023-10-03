@@ -1,9 +1,16 @@
 .container {
-  margin-top: 2rem;
   width: 100%;
   height: 100vh;
   overflow: scroll;
+  margin-top: 20px;
 }
+
+.mat-mdc-tab-labels {
+  margin: 0;
+  padding: 0;
+}
+
+
 
 ::ng-deep {
   .mdc-tab__text-label {
@@ -13,8 +20,8 @@
 
   .mdc-tab-indicator--active {
     background-color: #FBB034;
-    border-radius: 1rem;
-    margin: 15px;
+    border-radius: 5px 5px 0 0;
+
   }
 
   .mdc-tab-indicator .mdc-tab-indicator__content {
@@ -23,9 +30,7 @@
   }
 
   .mdc-tab {
-    margin-bottom: 16px !important;
-    padding-left: -12px !important;
-    padding-right: -20 !important;
+
   }
   .mat-mdc-tab.mdc-tab {
     height: 40px !important
@@ -49,24 +54,69 @@ color: #FBB034;
 }
 
 .content-follows {
+  width: 100vw;
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: white;
   overflow-y: auto;
+  border: 0;
+  box-sizing: border-box;
+  h1 {
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.342);
+    font-weight: 800;
+    color: rgb(56, 56, 56);
+    font-size: 15px;
+    overflow-x: auto;
+    display: flex;
+    flex: .35;
+  }
 
-  img {
-    width: 40px;
-    height: 40px;
+  .animate {
+    animation: desplazamiento 10s linear infinite;
+  }
+
+  @keyframes desplazamiento {
+    0% {
+      transform: translateX(50%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  div {
+    position: relative;
+    width: 50px;
+    height: 50px;
     border-radius: 40px;
-    margin-right: 1rem;
+    margin: 10px;
+    object-fit: cover;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.534);
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 40vw;
+      position: absolute;
+      z-index: 10;
+
+      border: solid 1px white;
+      object-fit: cover;
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.534);
+    }
   }
 }
 
 button.float-right {
   float: right;
   background-color: #FBB034;
+  border: solid 1px rgb(88, 88, 88);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.342);
   font-size: 14px;
+  color: rgb(66, 66, 66);
+}
+
+.float-right {
+  color: rgb(66, 66, 66);
+
 }
 
 .div-container-button {
@@ -75,6 +125,11 @@ button.float-right {
 }
 
 .button-pending-follower {
+  background-color: #FBB034;
+  border: solid 1px rgb(88, 88, 88);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.342);
+  font-size: 14px;
+  color: rgb(66, 66, 66);
   background-color: #FBB034 !important;
   border-radius: 1rem;
   font-size: 14px;
@@ -94,3 +149,27 @@ width: 25%;
 
 
 }
+
+
+.mat-mdc-table {
+  background-color: #FBB034;
+
+  width: 100vw;
+}
+.mat-mdc-tab::-webkit-scrollbar {
+  width: 0;
+}
+
+.mdc-data-table__table {
+
+  width: 100vw;
+}
+
+.cdk-table {
+  padding: 5px;
+  margin: 0;
+  width: 100vw;
+}
+
+
+

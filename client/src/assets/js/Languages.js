@@ -166,6 +166,22 @@ export function Languages() {
       english: "User Data",
       español: "Datos de usuario"
     },
+    mail: {
+      english:"Mail",
+      español:"Hembra",
+    },
+    female: {
+      english: "Female",
+      español: "Macho",
+    },
+    accept:{
+      english:"Accept",
+      español:"Aceptar",
+    },
+    delete: {
+      english:"Delete",
+      español:"Eliminar"
+    },
     petData: {
       english: "Pet Data",
       español: "Datos de mascotas"
@@ -193,6 +209,14 @@ export function Languages() {
     select: {
       english: "Select",
       español: "Seleccionar"
+    },
+    select_pet: {
+      english: "Select a pet",
+      español: "Elegir una mascota"
+    },
+    saved: {
+      english: "SAVED!!",
+      español: "SE HA GUARDADO!!",
     },
     lets_goo: {
       english: "Lets go",

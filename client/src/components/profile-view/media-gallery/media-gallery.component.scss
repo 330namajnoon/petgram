@@ -2,10 +2,10 @@
 
   .button_selected {
     font-size: 20px;
-    color: #D1D1D1;
+    color: #fbb034;
     padding: 8px 10px;
     background: #4f4f4f;
-    border-bottom: 1px solid #fbb034;
+
     border-radius: 5px 5px 0px 0px;
     border: 0;
     margin: 0px 5px;
@@ -21,6 +21,7 @@
     transition: all .5s;
   }
   .gallery_selected {
+    border-top: solid 2px #fbb034;
     left: 0;
     width: 100%;
     display: flex;
@@ -30,6 +31,7 @@
     background: #343434;
     visibility: visible;
     padding-bottom: 20px;
+
     .petData {
       width: 100%;
     }

@@ -1,26 +1,17 @@
 <div [ngClass]="getDevice()">
-  <div *ngIf="getGalleryMenuSelected()" class="petData {{getDisplayClass()}}">
-
-    <div class="tr">
-      <h1 class="td">Nombre: <h2>{{petData.name}}</h2></h1>
-      <h1 class="td">Tipo: <h2>{{petData.type_name}}</h2></h1>
-    </div>
-    <div class="tr">
-      <h1 class="td">Fecha de nacimiento: <h2>{{petData.birthDay | date: 'MMM d, y'}}</h2></h1>
-      <h1 class="td">Raza: <h2>{{petData.race_name}}</h2></h1>
-    </div>
-    <div class="tr">
-      <h1 class="td">Género: <h2>{{petData.gender}}</h2></h1>
-    </div>
-    <div class="tr">
-      <h1 class="td">Descripción: <h2>{{petData.description}}</h2></h1>
-    </div>
+  <div [style]="{background:getColors().c3}" *ngIf="getGalleryMenuSelected()" class="petData {{getDisplayClass()}}">
+    <h1 [style]="{color:getColors().c1}" class="td">{{language.getWord('name')}}: <h2  [style]="{color:getColors().c2}">{{petData.name}}</h2></h1>
+    <h1 [style]="{color:getColors().c1}" class="td">{{language.getWord('type')}}: <h2  [style]="{color:getColors().c2}">{{petData.type_name}}</h2></h1>
+    <h1 [style]="{color:getColors().c1}" class="td">{{language.getWord('birthDay')}}: <h2  [style]="{color:getColors().c2}">{{petData.birthDay | date: 'MMM d, y'}}</h2></h1>
+    <h1 [style]="{color:getColors().c1}" class="td">{{language.getWord('race')}}: <h2  [style]="{color:getColors().c2}">{{petData.race_name}}</h2></h1>
+    <h1 [style]="{color:getColors().c1}" class="td">{{language.getWord('gender')}}: <h2  [style]="{color:getColors().c2}">{{petData.gender == 'M' ? language.getWord('female') : language.getWord('mail')}}</h2></h1>
+    <h1 [style]="{color:getColors().c1}" class="td">{{language.getWord('description')}}: <h2  [style]="{color:getColors().c2}">{{petData.description}}</h2></h1>
   </div>
   <div (click)="setDisplay()" class="open_close">
     <span class="material-symbols-rounded">{{getDisplayClass() == 'close' ? 'top_panel_open' :
       'bottom_panel_open'}}</span>
     <h1>
-      Datos de mascota
+      {{language.getWord('petData')}}
     </h1>
   </div>
 </div>

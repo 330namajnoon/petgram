@@ -18,6 +18,14 @@ export class FriendsComponent extends AppServiceEx implements OnInit {
 
   constructor(appS: AppService, public friendsService: FriendsService, private router: Router) {
     super(appS)
+
+    // setInterval(()=> {
+    //   document.querySelectorAll("#username").forEach(el => {
+    //     if(el.getBoundingClientRect().width > 100) {
+    //       el.classList.add("animate");
+    //     }
+    //   })
+    // },1000)
     /*
     console.log("friends c")
     for (let index = 0; index < 40; index++) {

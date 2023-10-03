@@ -6,19 +6,22 @@
     <video *ngIf="typePromise('video',story.type)" [src]="story.url"></video>
     <div class="details">
       <div class="profile">
-        <img #image (click)="getProfileView()" [src]="story.profileImage" alt="">
-        <h6>
-          <span (click)="openCommends()" class="material-symbols-rounded">chat</span>
-          {{story.comments.length}}
-        </h6>
-        <h6>
-          <span (click)="like()" [ngClass]="searchLikes() ? 'like' : 'dislike'"  class="material-symbols-rounded">favorite</span>
-          {{story.likes.length}}
-        </h6>
-        <h6>
-          <span  class="material-symbols-rounded">visibility</span>
-          {{story.views.length}}
-        </h6>
+        <img #image (click)="getProfileView()" [src]="getURL()+'/'+story.profileImage" alt="">
+        <div>
+          <h6>
+            <span (click)="openCommends()" class="material-symbols-rounded">chat</span>
+            {{story.comments.length}}
+          </h6>
+          <h6>
+            <span (click)="like()" [ngClass]="searchLikes() ? 'like' : 'dislike'"  class="material-symbols-rounded">favorite</span>
+            {{story.likes.length}}
+          </h6>
+          <h6>
+            <span  class="material-symbols-rounded">visibility</span>
+            {{story.views.length}}
+          </h6>
+
+        </div>
       </div>
       <div class="description">
         <h1>{{story.fullName}}</h1>

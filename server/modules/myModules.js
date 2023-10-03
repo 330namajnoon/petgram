@@ -16,4 +16,19 @@ function createNewUnikID(data, length) {
     return newID;
 }
 
+function crateNewStoryID(length = 10,nl = 4) {
+    let n = length;
+    let len = 0;
+    while(length >= 1) {
+       length /= 10;
+       len++;
+    }
+    let res = "";
+    for (let i = 0; i < nl - len; i++) {
+      res += "0";
+    }
+    res += n;
+    return (res);
+}
+exports.crateNewStoryID = crateNewStoryID;
 exports.createNewUnikID = createNewUnikID;

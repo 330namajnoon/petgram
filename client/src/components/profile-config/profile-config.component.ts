@@ -32,7 +32,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
   selectOption: string = "Choose pet"
   selectValue: string = "";
   menuOpen: 'user-data' | 'pet-data' | 'add-pet' | 'delete-pet' | '' = '';
-  imageSrc: string = "assets/images/profile.png";
+  imageSrc!: string;
   imageFile!: File;
   userData!: IUser;
   petsData: IPet[] = [];
@@ -335,7 +335,7 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
     let gender = this.petForm.get("gender")?.value;
     let description = this.petForm.get("description")?.value;
 
-    if (birthDay && name && type && race && gender && user_id && this.formImagePet.valid) {
+    if (birthDay && name && type && race && gender && user_id) {
       const formData = new FormData();
       formData.append("user_id", user_id);
       formData.append("name", name);
@@ -344,14 +344,10 @@ export class ProfileConfigComponent extends AppServiceEx implements OnInit {
       formData.append("race", race);
       formData.append("gender", gender);
       formData.append("description", description);
-      formData.append("file", this.imageFile);
 
       this.http.post<IHTTPResponse<any>>(this.getURL() + "/add-pet", formData).subscribe((res) => {
         alert('REGISTRO OK');
         this.petForm.reset();
-        this.formImagePet.reset();
-        this.imageSrc = "assets/images/profile.png";
-
         this.appService2.loadUser();
       });
     } else {

@@ -39,8 +39,8 @@ export class UploadImgComponent extends AppServiceEx {
     let reader = new FileReader();
     this.file = file;
     reader.addEventListener("load", () => {
-      let url: any = reader.result ? reader.result : "";
-      this.getUser().image = url as string;
+      this.imageSrc = reader.result as string;
+      //this.getUser().image = reader.result as string;
     })
     reader.readAsDataURL(file); // read the image
 
@@ -53,7 +53,8 @@ export class UploadImgComponent extends AppServiceEx {
       let res = await this.proConfigService.updateImage(this.getUser().id, this.file);
       if (!res.error) {
         this.setLoading(false);
-        this.router.navigate(["/petgram", "settings"]);
+        window.location.reload();
+        alert(this.language.getWord("saved"));
       } else {
         this.router.navigate(["/petgram", "error"], { state: { error: res.error } });
       }
@@ -70,6 +71,9 @@ export class UploadImgComponent extends AppServiceEx {
     this.isEdit = !this.isEdit;
   }
 
+  getImage() {
+    document.getElementById("avatar")?.click();
+  }
 
 
 

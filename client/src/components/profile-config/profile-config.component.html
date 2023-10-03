@@ -1,17 +1,12 @@
-<div *ngIf="getUser()" [ngClass]="getDevice()">
+<div [style]="{background:getColors().c1}" *ngIf="getUser()" [ngClass]="getDevice()">
 
-  <header>
 
-    <div class="img-container">
-      <div class="i-container">
-        <a routerLink="upload-img"> <img [src]="getUser().image" alt=""> </a>
-
-      </div>
-    </div>
-
-    <h4>{{getUser().name}} {{getUser().lastName}}</h4>
-
-  </header>
+  <div [style]="{background:getColors().c3}" class="header">
+    <a routerLink="upload-img">
+      <img [style]="{border:'solid 2px '+getColors().c3}" [src]="getURL()+'/'+getUser().image" alt="">
+    </a>
+    <h4 [style]="{color:getColors().c4}">{{getUser().name}} {{getUser().lastName}}</h4>
+  </div>
 
 
   <main>
@@ -22,7 +17,8 @@
 
     <section class="user-data">
 
-      <h3 class="head-slide" (click)="toggleMenu('user-data')">{{language.getWord('userData')}} <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 class="head-slide" (click)="toggleMenu('user-data')">{{language.getWord('userData')}} <i
+          class="fa-solid fa-user-pen"></i></h3>
 
       <form [formGroup]="userForm" [ngClass]="{'menu-open': menuOpen === 'user-data'}">
 
@@ -92,9 +88,9 @@
       <form [formGroup]="petForm" [ngClass]="{'menu-open': menuOpen === 'pet-data'}">
 
         <div class="section2-slide">
-          <label for="name">Mascota</label>
+
           <select (change)="getEachPet(selectOption)" [(ngModel)]="selectOption" [ngModelOptions]="{standalone: true}">
-            <option value="" selected>{{language.getWord('select')}}</option>
+            <option value="" selected>{{language.getWord('select_pet')}}</option>
             <option *ngFor="let pet of getUser().pets" value="{{pet.id}}">{{pet.name | uppercase}}</option>
           </select>
         </div>
@@ -161,7 +157,7 @@
         </span> -->
           </div>
 
-          <input type="button" value="{{language.getWord('update_pet')}}"class="submit-btn" (click)="updatePet()">
+          <input type="button" value="{{language.getWord('update_pet')}}" class="submit-btn" (click)="updatePet()">
 
         </ng-container>
       </form>
@@ -173,8 +169,9 @@
     <!-----------------------------------Add PET----------------------------------->
 
     <section class="user-data">
-
-      <h3 (click)="toggleMenu('add-pet')"> {{language.getWord('add_pet')}} <i class="fa-solid fa-user-pen"></i></h3>
+      <div class="section2-slide">
+        <h3 (click)="toggleMenu('add-pet')"> {{language.getWord('add_pet')}}</h3>
+      </div>
 
       <form [formGroup]="petForm" [ngClass]="{'menu-open': menuOpen === 'add-pet'}">
 
@@ -235,12 +232,12 @@
             edit
           </span> -->
         </div>
-        <div>
+        <!-- <div>
           <img (click)="image.click()" [ngStyle]="{img: formImagePet.value.fileSource}"
             [ngClass]="imageSrc=='assets/images/profile.png'? 'img':'img2'" width="250" height="250" [src]="imageSrc" />
           <input #image id="image_pet_file" hidden type="file" accept="image/png,image/jpeg"
             (change)="onFileChange($event) ">
-        </div>
+        </div> -->
 
         <input type="button" value="{{language.getWord('add_pet')}}" class="submit-btn" (click)="addPet()">
       </form>
@@ -251,7 +248,8 @@
     <!--------------------------------Delete Pet----------------------------------->
 
     <section class="user-data">
-      <h3 class="delete-pet-slide" (click)="toggleMenu('delete-pet')">{{language.getWord('delete_pet')}}<i class="fa-solid fa-user-pen"></i>
+      <h3 class="delete-pet-slide" (click)="toggleMenu('delete-pet')">{{language.getWord('delete_pet')}}<i
+          class="fa-solid fa-user-pen"></i>
       </h3>
       <form [ngClass]="{'menu-open': menuOpen === 'delete-pet'}">
         <h3 style="color: #FBB033; padding:5px">{{language.getWord('choose_delete')}}</h3>
@@ -265,7 +263,8 @@
 
     <section class="user-data">
 
-      <h3 class="head-slide" (click)="logout()">{{language.getWord('log_out')}} <i class="fa-solid fa-user-pen"></i></h3>
+      <h3 class="head-slide" (click)="logout()">{{language.getWord('log_out')}} <i class="fa-solid fa-user-pen"></i>
+      </h3>
     </section>
   </main>
 </div>

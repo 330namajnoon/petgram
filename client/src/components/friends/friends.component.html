@@ -5,20 +5,24 @@
       <mat-tab label="{{language.getWord('followers')}}">
 
         <section class="example-container mat-elevation-z8" tabindex="0">
-          <table class="table" mat-table [dataSource]="friendsService.dsFollowers">
+          <table   class="table" mat-table [dataSource]="friendsService.dsFollowers">
 
-            <ng-container matColumnDef="follower" sticky>
+            <ng-container  matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
-                <div class="content-follows">
-                  <img loading="lazy" [src]="element.image" (click)="goProfile(element)">
-                  {{element.name}} {{element.lastName}}
+                <div  class="content-follows">
+                  <div>
+                    <img loading="lazy" [src]="getURL()+'/'+element.image" (click)="goProfile(element)">
+                  </div>
+                  <h1 id="username">
+                    {{element.name}} {{element.lastName}}
+                  </h1>
                 </div>
               </td>
             </ng-container>
 
             <ng-container matColumnDef="action" stickyEnd>
               <td mat-cell *matCellDef="let element">
-                <button mat-stroked-button class="float-right" (click)="deleteFollower(element)">Eliminar</button>
+                <button mat-stroked-button class="float-right" (click)="deleteFollower(element)">{{language.getWord('delete')}}</button>
               </td>
             </ng-container>
 
@@ -30,13 +34,17 @@
 
       <mat-tab label="{{language.getWord('pendingFollowers')}}">
         <section class="example-container mat-elevation-z8" tabindex="0">
-          <table class="table" mat-table [dataSource]="friendsService.dsPendingFollowers">
+          <table  class="table" mat-table [dataSource]="friendsService.dsPendingFollowers">
 
             <ng-container matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
                 <div class="content-follows">
-                  <img loading="lazy" [src]="element.image" (click)="goProfile(element)">
-                  {{element.name}} {{element.lastName}}
+                  <div>
+                    <img loading="lazy" [src]="getURL()+'/'+element.image" (click)="goProfile(element)">
+                  </div>
+                  <h1 id="username">
+                    {{element.name}} {{element.lastName}}
+                  </h1>
                 </div>
               </td>
             </ng-container>
@@ -45,10 +53,10 @@
               <td mat-cell *matCellDef="let element">
 
                 <div class="div-container-button">
-                  <button mat-stroked-button class="button-pending-follower"
-                    (click)="acceptFollower(element)">Aceptar</button>
-                  <button mat-stroked-button class="button-pending-follower"
-                    (click)="deleteFollower(element)">Eliminar</button>
+                  <button [style]="{background:getColors().c3}" mat-stroked-button class="button-pending-follower"
+                    (click)="acceptFollower(element)">{{language.getWord('accept')}}</button>
+                  <button [style]="{background:getColors().c3}" mat-stroked-button class="button-pending-follower"
+                    (click)="deleteFollower(element)">{{language.getWord('delete')}}</button>
                 </div>
 
               </td>
@@ -66,8 +74,12 @@
             <ng-container matColumnDef="follower" sticky>
               <td mat-cell *matCellDef="let element">
                 <div class="content-follows">
-                  <img loading="lazy" [src]="element.image" (click)="goProfile(element)">
-                  {{element.name}} {{element.lastName}}
+                  <div>
+                    <img loading="lazy" [src]="getURL()+'/'+element.image" (click)="goProfile(element)">
+                  </div>
+                  <h1 id="username">
+                    {{element.name}} {{element.lastName}}
+                  </h1>
                 </div>
               </td>
             </ng-container>
@@ -77,7 +89,7 @@
 
                 <div class="div-container-button">
                   <button mat-stroked-button class="button-pending-follower"
-                    (click)="deleteFollowing(element)">Eliminar</button>
+                    (click)="deleteFollowing(element)">{{language.getWord('delete')}}</button>
                 </div>
 
               </td>

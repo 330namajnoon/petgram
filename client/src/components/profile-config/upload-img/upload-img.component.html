@@ -1,15 +1,18 @@
 <div [ngClass]="getDevice()">
 
   <div class="head">
-    <span class="material-symbols-rounded back-arrow" [routerLink]="['/petgram','settings']">
+    <span  class="material-symbols-rounded back-arrow" [routerLink]="['/petgram','settings']">
       arrow_back
+    </span>
+    <span (click)="getImage()" class="material-symbols-rounded back-arrow">
+      edit
     </span>
   </div>
 
   <input class="file" id="avatar" type="file" (change)="uploadFile($event)" accept="image/*">
 
-  <label class="img_container" for="avatar">
-    <img *ngIf="getUser()" src="{{getUser().image}}" alt="{{getUser().name}}">
+  <label class="img_container" >
+    <img *ngIf="getUser()" src="{{imageSrc ? imageSrc : getURL()+'/'+getUser().image}}" alt="{{getUser().name}}">
   </label>
 
 

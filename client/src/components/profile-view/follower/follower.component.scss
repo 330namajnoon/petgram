@@ -4,7 +4,7 @@
   justify-content: center;
   background: #FBB034;
   box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,14 +15,16 @@
   img {
     width: 60px;
     height:60px;
-    border-radius: 20px;
+    border-radius: 50px;
+    border: solid 1px white;
     object-fit: cover;
     min-height: 60px;
     min-width: 60px;
   }
   h1 {
-    font-size: 15px;
-    color: black;
+    font-size: 10px;
+    font-weight: 800;
+    color: rgb(36, 36, 36);
     margin: 2px;
   }
 }

@@ -19,6 +19,9 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    position: absolute;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.329);
 
     span {
       color: white;
@@ -33,11 +36,9 @@
   justify-content: center;
 
   img {
-    width: 55vw;
-    height: 55vw;
+    width: 100vw;
+    height: 100vh;
     object-fit: cover;
-    border-radius: 40vw;
-    box-shadow: 0 0 10px 7px gold;
   }
  }
 
@@ -46,14 +47,16 @@
   }
 
   .save-btn {
-    width: 70vw;
+    width: 50vw;
     border-radius: 10px;
     border: solid 1px white;
-    padding: 20px;
-    font-size: 20px;
-    background: rgb(222, 194, 40);
+    padding: 10px;
+    font-size: 15px;
+    background: #FBB033;
     color: rgb(255, 255, 255);
     margin-bottom: 60px;
+    position: absolute;
+    top: 90vh;
   }
 
 }

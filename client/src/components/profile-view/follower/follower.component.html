@@ -1,4 +1,4 @@
 <div (click)="getProfile()" [ngClass]="device">
-  <img [src]="Image" alt="">
+  <img [src]="getURL()+'/'+Image" alt="">
   <h1>{{fullName}}</h1>
 </div>
